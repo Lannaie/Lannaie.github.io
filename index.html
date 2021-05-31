@@ -431,6 +431,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/31/spark-%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/31/spark-%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-title-link" itemprop="url">spark - 面试题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-31 21:05:11 / 修改时间：22:28:30" itemprop="dateCreated datePublished" datetime="2021-05-31T21:05:11+08:00">2021-05-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spark/" itemprop="url" rel="index"><span itemprop="name">spark</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-spark是什么"><a href="#1-spark是什么" class="headerlink" title="1. spark是什么"></a>1. spark是什么</h3><p>首先，spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。</p>
+<h3 id="2-spark的hadoop的对比"><a href="#2-spark的hadoop的对比" class="headerlink" title="2. spark的hadoop的对比"></a>2. spark的hadoop的对比</h3><p><strong>MapReduce框架局限性：</strong></p>
+<p>1）仅支持Map和Reduce两种操作；</p>
+<p>2）处理效率低效；</p>
+<p>Map中间结果写磁盘，Reduce写HDFS，多个MR之间通过HDFS交换数据;，任务调度和启动开销大，无法充分利用内存，Map端和Reduce端均需要排序；</p>
+<p>3）不适合迭代计算(如机器学习、图计算等)，交互式处理（数据挖掘)）和流式处理(点击日志分析）。</p>
+<p><strong>Spark相比的优势：</strong></p>
+<p>高效（比MapReduce快）：</p>
+<p>1）内存计算引擎，提供Cache机制来支持需要反复迭代计算或者多次数据共享，减少数据读取的IO开销；</p>
+<p>2）DAG引擎，减少多次计算之间中间结果写到HDFS的开销；</p>
+<p>3）使用多线程池模型来减少task启动开稍，shuffle过程中避免 不必要的sort操作以及减少磁盘IO操作；</p>
+<p>易用：</p>
+<p>1）提供了丰富的API，支持Java，Scala，Python和R四种语言；</p>
+<p>2）代码量比MapReduce少；</p>
+<p>3）与Hadoop集成 读写HDFS/Hbase 与YARN集成。</p>
+<p>spark和hadoop的根本差异是多个作业之间的数据通信问题：即spark多个作业之间的数据通信是基于内存的，而hadoop基于磁盘。</p>
+<p>经过上述比较，在绝大多数的数据计算场景下，spark比hadoop更具有优势，但是spark是基于内存的，在实际的生产环境中，由于内存的限制，可能会因为内存资源不够而导致job运行失败，此时，hadoop的mapreduce就是一个更好的选择，所以spark并不能完全替代hadoop。</p>
+<h3 id="3-spark核心模块简介"><a href="#3-spark核心模块简介" class="headerlink" title="3. spark核心模块简介"></a>3. spark核心模块简介</h3><p>即spark sql、spark streaming、spark mllib、spark graphx和spark core。</p>
+<p>其中，位于最底层的是spark core，它是整个spark框架的核心，其余的功能模块都是基于core来实现和完善的。</p>
+<p>spark sql：用于操作结构化数据的功能模块，通过spark sql，用户可以使用sql或apache hive版本的sql语言来查询数据；</p>
+<p>spark streaming：用于对流式数据进行处理的功能模块，提供了丰富的处理数据流的API；</p>
+<p>spark mllib：是spark提供的一个机器学习算法库，不仅提供了模型评估、数据导入等额外的功能，还提供了一些更底层的机器学习原语；</p>
+<p>spark graphx：是面向图计算提供的框架和算法库。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/30/%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -637,20 +727,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
