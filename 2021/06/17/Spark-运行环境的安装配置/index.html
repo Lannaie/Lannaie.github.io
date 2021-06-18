@@ -20,30 +20,33 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="每天都要做个人啊">
-<meta property="og:type" content="website">
-<meta property="og:title" content="往南">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="一. 解压缩文件在官网下载 spark-3.1.2-bin-hadoop3.2.tgz 文件并上传到Linux，然后解压缩到指定位置，重命名为 spark-local。 12tar -zxvf spark-3.1.2-bin-hadoop3.2.tgz -C &#x2F;opt&#x2F;pkgmv spark-3.1.2-bin-hadoop3.2 spark-local  local环境 进入目录 cd &#x2F;opt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark - 运行环境的安装配置">
+<meta property="og:url" content="http://example.com/2021/06/17/Spark-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="往南">
-<meta property="og:description" content="每天都要做个人啊">
+<meta property="og:description" content="一. 解压缩文件在官网下载 spark-3.1.2-bin-hadoop3.2.tgz 文件并上传到Linux，然后解压缩到指定位置，重命名为 spark-local。 12tar -zxvf spark-3.1.2-bin-hadoop3.2.tgz -C &#x2F;opt&#x2F;pkgmv spark-3.1.2-bin-hadoop3.2 spark-local  local环境 进入目录 cd &#x2F;opt">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-17T06:42:00.000Z">
+<meta property="article:modified_time" content="2021-06-18T16:49:02.997Z">
 <meta property="article:author" content="Bonnie">
+<meta property="article:tag" content="spark">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2021/06/17/Spark-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>往南</title>
+  <title>Spark - 运行环境的安装配置 | 往南</title>
   
 
 
@@ -161,66 +164,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/18/gihub-%E4%B8%8A%E4%BC%A0%E5%92%8C%E6%8B%89%E5%8F%96%E9%A1%B9%E7%9B%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/18/gihub-%E4%B8%8A%E4%BC%A0%E5%92%8C%E6%8B%89%E5%8F%96%E9%A1%B9%E7%9B%AE/" class="post-title-link" itemprop="url">gihub - 上传和拉取项目</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-18 15:33:18" itemprop="dateCreated datePublished" datetime="2021-06-18T15:33:18+08:00">2021-06-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -236,10 +183,9 @@
       <meta itemprop="name" content="往南">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/17/Spark-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Spark - 运行环境的安装配置</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Spark - 运行环境的安装配置
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -278,7 +224,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一-解压缩文件"><a href="#一-解压缩文件" class="headerlink" title="一. 解压缩文件"></a>一. 解压缩文件</h2><p>在官网下载 <a target="_blank" rel="noopener" href="https://www.apache.org/dyn/closer.lua/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz">spark-3.1.2-bin-hadoop3.2.tgz</a> 文件并上传到Linux，然后解压缩到指定位置，重命名为 <code>spark-local</code>。</p>
+        <h2 id="一-解压缩文件"><a href="#一-解压缩文件" class="headerlink" title="一. 解压缩文件"></a>一. 解压缩文件</h2><p>在官网下载 <a target="_blank" rel="noopener" href="https://www.apache.org/dyn/closer.lua/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz">spark-3.1.2-bin-hadoop3.2.tgz</a> 文件并上传到Linux，然后解压缩到指定位置，重命名为 <code>spark-local</code>。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf spark-3.1.2-bin-hadoop3.2.tgz -C /opt/pkg</span><br><span class="line">mv spark-3.1.2-bin-hadoop3.2 spark-local</span><br></pre></td></tr></table></figure>
 
 <h3 id="local环境"><a href="#local环境" class="headerlink" title="local环境"></a>local环境</h3><ol>
@@ -368,777 +314,47 @@
 </li>
 </ol>
 
-      
     </div>
 
     
     
     
+	  
+	
+	 <div>
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	 </div>
+    
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/spark/" rel="tag"># spark</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">动态规划算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-16 10:04:50" itemprop="dateCreated datePublished" datetime="2021-06-16T10:04:50+08:00">2021-06-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-17 16:40:00" itemprop="dateModified" datetime="2021-06-17T16:40:00+08:00">2021-06-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义：是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。</p>
-<p>​        按照定义，动态规划是将一个大问题拆分为多个小问题来解决。但是最终决定这个问题是否能用动态规划解决的因素是这些小问题是否能被重复调用。</p>
-<p>​        如果能被重复利用，我们需要找出其中的状态转移方程，也就是找到相邻的两个结果之间的转换方程。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/15/LeetCode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/15/LeetCode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">LeetCode - 1.两数之和</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-15 20:52:28" itemprop="dateCreated datePublished" datetime="2021-06-15T20:52:28+08:00">2021-06-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-17 16:39:19" itemprop="dateModified" datetime="2021-06-17T16:39:19+08:00">2021-06-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">https://leetcode-cn.com/problems/two-sum/</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/06/15/LeetCode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/" rel="prev" title="动态规划算法">
+      <i class="fa fa-chevron-left"></i> 动态规划算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/18/gihub-%E4%B8%8A%E4%BC%A0%E5%92%8C%E6%8B%89%E5%8F%96%E9%A1%B9%E7%9B%AE/" rel="next" title="gihub - 上传和拉取项目">
+      gihub - 上传和拉取项目 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/06/spark-%E5%AE%89%E8%A3%85%20&%20%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8wordcount/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/06/spark-%E5%AE%89%E8%A3%85%20&%20%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8wordcount/" class="post-title-link" itemprop="url">spark - 安装 & 简单使用wordcount</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-06 13:56:56" itemprop="dateCreated datePublished" datetime="2021-06-06T13:56:56+08:00">2021-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-17 14:41:04" itemprop="dateModified" datetime="2021-06-17T14:41:04+08:00">2021-06-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%9B%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">创建</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="IDEA创建spark项目"><a href="#IDEA创建spark项目" class="headerlink" title="IDEA创建spark项目"></a>IDEA创建spark项目</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/06/06/spark-%E5%AE%89%E8%A3%85%20&%20%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8wordcount/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/03/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/03/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">排序算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-03 14:56:19" itemprop="dateCreated datePublished" datetime="2021-06-03T14:56:19+08:00">2021-06-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-17 16:40:12" itemprop="dateModified" datetime="2021-06-17T16:40:12+08:00">2021-06-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>排序算法分为比较类排序和非比较类排序，其中：</p>
-<p>比较类排序有 冒泡排序、快速排序、插入排序、希尔排序、选择排序、堆排序、归并排序；</p>
-<p>非比较类排序有 计数排序、桶排序、基数排序。</p>
-<p>算法复杂度如下：</p>
-<table>
-<thead>
-<tr>
-<th align="center">比较类排序</th>
-<th align="center">时间复杂度</th>
-<th align="center">空间复杂度</th>
-<th align="center">稳定性</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">插入排序</td>
-<td align="center">O(n2)</td>
-<td align="center">O(1)</td>
-<td align="center">稳定</td>
-</tr>
-<tr>
-<td align="center">希尔排序</td>
-<td align="center">O(n1.3)</td>
-<td align="center">O(1)</td>
-<td align="center">不稳定</td>
-</tr>
-<tr>
-<td align="center">选择排序</td>
-<td align="center">O(n2)</td>
-<td align="center">O(1)</td>
-<td align="center">不稳定</td>
-</tr>
-<tr>
-<td align="center">堆排序</td>
-<td align="center">O(nlog2n)</td>
-<td align="center">O(1)</td>
-<td align="center">不稳定</td>
-</tr>
-<tr>
-<td align="center">冒泡排序</td>
-<td align="center">O(n2)</td>
-<td align="center">O(1)</td>
-<td align="center">稳定</td>
-</tr>
-<tr>
-<td align="center">快速排序</td>
-<td align="center">O(nlog2n)</td>
-<td align="center">O(nlog2n)</td>
-<td align="center">不稳定</td>
-</tr>
-<tr>
-<td align="center">归并排序</td>
-<td align="center">O(nlog2n)</td>
-<td align="center">O(n)</td>
-<td align="center">稳定</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="center">非比较类排序</th>
-<th align="center">时间复杂度</th>
-<th align="center">空间复杂度</th>
-<th align="center">稳定性</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">计数排序</td>
-<td align="center">O(n+k)</td>
-<td align="center">O(n+k)</td>
-<td align="center">稳定</td>
-</tr>
-<tr>
-<td align="center">桶排序</td>
-<td align="center">O(n+k)</td>
-<td align="center">O(n+k)</td>
-<td align="center">稳定</td>
-</tr>
-<tr>
-<td align="center">基数排序</td>
-<td align="center">O(n*k)</td>
-<td align="center">O(n+k)</td>
-<td align="center">稳定</td>
-</tr>
-</tbody></table>
-<p><strong>下列排序例子均是对[2,1,4,3,7,5]的排序</strong></p>
-<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>最基本的排序算法。</p>
-<ol>
-<li>比较相邻元素，如果两个元素之间不满足指定要求（比如降序或升序），则进行交换；</li>
-<li>每次比较循环都是从第一个元素开始（下标为0），直到所有元素都排序完毕。</li>
-</ol>
-<p>实例：</p>
-<blockquote>
-<p>按升序排列：</p>
-<p>第一次循环 - [2,1,4,3,7,5] </p>
-<p>2&gt;1 -&gt; 1,2 -&gt; [1,2,4,3,7,5]</p>
-<p>2&lt;4 ✔</p>
-<p>4&gt;3 -&gt; 3,4 -&gt; [1,2,3,4,7,5]</p>
-<p>4&lt;7 ✔</p>
-<p>7&gt;5 -&gt; 5,7 -&gt; [1,2,3,4,5,7]</p>
-<p>第二次循环：[1,2,3,4,5]    //7是上次循环后得到的最大值，不再参与循环</p>
-<p>1&lt;2 ✔</p>
-<p>2&lt;3 ✔</p>
-<p>3&lt;4 ✔</p>
-<p>4&lt;5 ✔</p>
-<p>…</p>
-</blockquote>
-<p>可以进行一个小优化：设置一个参数<code>flag=0</code>来判断该次循环是否存在交换，如果有，置<code>flag=1</code>，则继续进行循环；没有，则退出循环。</p>
-<p>具体代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// java</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># python</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/31/sqoop-%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/31/sqoop-%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">sqoop - 使用基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-31 22:56:30 / 修改时间：22:32:28" itemprop="dateCreated datePublished" datetime="2021-05-31T22:56:30+08:00">2021-05-31</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">大数据组件的应用</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/05/31/sqoop-%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/31/mysql-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/31/mysql-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" class="post-title-link" itemprop="url">mysql - 日志分析项目小记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-31 22:24:11 / 修改时间：22:31:34" itemprop="dateCreated datePublished" datetime="2021-05-31T22:24:11+08:00">2021-05-31</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">项目小记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="mysql执行本地sql文件"><a href="#mysql执行本地sql文件" class="headerlink" title="mysql执行本地sql文件"></a>mysql执行本地sql文件</h2><p>现在有一个<code>test.sql</code>文件，该文件需要导入到<code>mysql</code>的<code>test</code>数据库中：</p>
-<ol>
-<li><p>登录<code>mysql</code>，创建数据库：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -ppasswd</span><br><span class="line">create database test;</span><br></pre></td></tr></table></figure></li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/05/31/mysql-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/31/hive-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/31/hive-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" class="post-title-link" itemprop="url">hive - 日志分析项目小记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-31 21:12:10" itemprop="dateCreated datePublished" datetime="2021-05-31T21:12:10+08:00">2021-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-15 20:53:46" itemprop="dateModified" datetime="2021-06-15T20:53:46+08:00">2021-06-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">项目小记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="启动hive"><a href="#启动hive" class="headerlink" title="启动hive"></a>启动hive</h2><ol>
-<li><p>启动hadoop集群</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure></li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/05/31/hive-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/31/spark-%E9%9D%A2%E8%AF%95%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/31/spark-%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-title-link" itemprop="url">spark - 面试题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-31 21:05:11" itemprop="dateCreated datePublished" datetime="2021-05-31T21:05:11+08:00">2021-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-16 11:12:50" itemprop="dateModified" datetime="2021-06-16T11:12:50+08:00">2021-06-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-spark是什么"><a href="#1-spark是什么" class="headerlink" title="1. spark是什么"></a>1. spark是什么</h3><p>首先，spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/05/31/spark-%E9%9D%A2%E8%AF%95%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -1190,6 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">一. 解压缩文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#local%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">local环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#standalone%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">standalone环境</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
