@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="资源">
-<meta property="og:url" content="http://example.com/resources/index.html">
+  <meta name="description" content="1. 写含有sparksql语句的、带参的shell脚本123456# !&#x2F;bin&#x2F;bash# 此文件命名为show.shSQL&#x3D;&quot;show create table $0;&quot;spark-sql --num-executors 100 -e $SQL  2. 写循环数组、可以传参的shell脚本来运行上述脚本123456789101112# !&#x2F;bin&#x2F;bash# 此文件命名为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sparksql脚本的编写">
+<meta property="og:url" content="http://example.com/2021/07/05/sparksql%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BC%96%E5%86%99/index.html">
 <meta property="og:site_name" content="往南">
+<meta property="og:description" content="1. 写含有sparksql语句的、带参的shell脚本123456# !&#x2F;bin&#x2F;bash# 此文件命名为show.shSQL&#x3D;&quot;show create table $0;&quot;spark-sql --num-executors 100 -e $SQL  2. 写循环数组、可以传参的shell脚本来运行上述脚本123456789101112# !&#x2F;bin&#x2F;bash# 此文件命名为">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-30T06:50:10.000Z">
-<meta property="article:modified_time" content="2021-06-27T14:33:59.180Z">
+<meta property="article:published_time" content="2021-07-05T15:24:13.000Z">
+<meta property="article:modified_time" content="2021-07-05T15:35:21.885Z">
 <meta property="article:author" content="Bonnie">
+<meta property="article:tag" content="spark">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/resources/">
+<link rel="canonical" href="http://example.com/2021/07/05/sparksql%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BC%96%E5%86%99/">
 
 
 <script id="page-configurations">
@@ -38,13 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>资源 | 往南
-</title>
+  <title>sparksql脚本的编写 | 往南</title>
   
 
 
@@ -161,55 +163,111 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/05/sparksql%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BC%96%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sparksql脚本的编写
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">资源
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2021-07-05 23:24:13 / 修改时间：23:35:21" itemprop="dateCreated datePublished" datetime="2021-07-05T23:24:13+08:00">2021-07-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%94%BB%E7%82%BC/" itemprop="url" rel="index"><span itemprop="name">锻炼</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-写含有sparksql语句的、带参的shell脚本"><a href="#1-写含有sparksql语句的、带参的shell脚本" class="headerlink" title="1. 写含有sparksql语句的、带参的shell脚本"></a>1. 写含有sparksql语句的、带参的shell脚本</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !/bin/bash</span></span><br><span class="line"><span class="comment"># 此文件命名为show.sh</span></span><br><span class="line">SQL=<span class="string">&quot;</span></span><br><span class="line"><span class="string">show create table <span class="variable">$0</span>;</span></span><br><span class="line"><span class="string">&quot;</span></span><br><span class="line">spark-sql --num-executors 100 -e <span class="variable">$SQL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-写循环数组、可以传参的shell脚本来运行上述脚本"><a href="#2-写循环数组、可以传参的shell脚本来运行上述脚本" class="headerlink" title="2. 写循环数组、可以传参的shell脚本来运行上述脚本"></a>2. 写循环数组、可以传参的shell脚本来运行上述脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> !/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此文件命名为run.sh</span></span><br><span class="line">tables=(&quot;a&quot; &quot;b&quot; &quot;c&quot;)</span><br><span class="line">for t in $&#123;tables[@]&#125;    # 循环</span><br><span class="line">do</span><br><span class="line">    sh show.sh $t    # 传参</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述循环还有一种写法</span></span><br><span class="line">for((i=1;i&lt;=$&#123;#tables&#125;;i++));</span><br><span class="line">do</span><br><span class="line">    sh show.sh $&#123;tables[$i]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p><strong>上述需要注意的点：</strong></p>
+<ol>
+<li>变量的使用需要<code>$</code>；</li>
+<li>数组的每个元素之间没有逗号；</li>
+<li><code>=</code>两边不能有空格。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+	  
+	
+	 <div>
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	 </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spark/" rel="tag"># spark</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/04/LeetCode-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" rel="prev" title="LeetCode - NC78 反转链表">
+      <i class="fa fa-chevron-left"></i> LeetCode - NC78 反转链表
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <br>
-
-<div class="pdfobject-container" data-target="http://lannaie.top/resources/Flume%201.9%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf" data-height="500px"></div>
-
-<div class="pdfobject-container" data-target="http://lannaie.top/resources/Flume.pdf" data-height="500px"></div>
-
-<div class="pdfobject-container" data-target="http://lannaie.top/resources/SQOOP%20%E7%AE%80%E4%BB%8B-%E5%AD%A6%E7%94%9F%E6%8C%87%E5%8D%97.pdf" data-height="500px"></div>
-
-<div class="pdfobject-container" data-target="http://lannaie.top/resources/Sqoop用户指南（v1.4.7）.pdf" data-height="500px"></div>
-
-<div class="pdfobject-container" data-target="http://lannaie.top/resources/Flume简介-学生指南.pdf" data-height="500px"></div>
-
-<br>
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -260,6 +318,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%99%E5%90%AB%E6%9C%89sparksql%E8%AF%AD%E5%8F%A5%E7%9A%84%E3%80%81%E5%B8%A6%E5%8F%82%E7%9A%84shell%E8%84%9A%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">1. 写含有sparksql语句的、带参的shell脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%99%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E3%80%81%E5%8F%AF%E4%BB%A5%E4%BC%A0%E5%8F%82%E7%9A%84shell%E8%84%9A%E6%9C%AC%E6%9D%A5%E8%BF%90%E8%A1%8C%E4%B8%8A%E8%BF%B0%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">2. 写循环数组、可以传参的shell脚本来运行上述脚本</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
