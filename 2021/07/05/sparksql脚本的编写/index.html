@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. 写含有sparksql语句的、带参的shell脚本123456# !&#x2F;bin&#x2F;bash# 此文件命名为show.shSQL&#x3D;&quot;show create table $0;&quot;spark-sql --num-executors 100 -e $SQL  2. 写循环数组、可以传参的shell脚本来运行上述脚本123456789101112# !&#x2F;bin&#x2F;bash# 此文件命名为">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-05T15:24:13.000Z">
-<meta property="article:modified_time" content="2021-07-06T06:18:24.100Z">
+<meta property="article:modified_time" content="2021-07-06T08:40:26.270Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="spark">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-06 14:18:24" itemprop="dateModified" datetime="2021-07-06T14:18:24+08:00">2021-07-06</time>
+                <time title="修改时间：2021-07-06 16:40:26" itemprop="dateModified" datetime="2021-07-06T16:40:26+08:00">2021-07-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,12 +228,24 @@
 
 <h3 id="2-写循环数组、可以传参的shell脚本来运行上述脚本"><a href="#2-写循环数组、可以传参的shell脚本来运行上述脚本" class="headerlink" title="2. 写循环数组、可以传参的shell脚本来运行上述脚本"></a>2. 写循环数组、可以传参的shell脚本来运行上述脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> !/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此文件命名为run.sh</span></span><br><span class="line">tables=(&quot;a&quot; &quot;b&quot; &quot;c&quot;)</span><br><span class="line">for t in $&#123;tables[@]&#125;    # 循环</span><br><span class="line">do</span><br><span class="line">    sh show.sh $t    # 传参</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述循环还有一种写法</span></span><br><span class="line">for((i=1;i&lt;=$&#123;#tables&#125;;i++));</span><br><span class="line">do</span><br><span class="line">    sh show.sh $&#123;tables[$i]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
+<h3 id="3-控制并任务的数量"><a href="#3-控制并任务的数量" class="headerlink" title="3. 控制并任务的数量"></a>3. 控制并任务的数量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">while [ `ps -ef |grep show.sh |grep -v grep|wc -l` -gt 2 ]</span><br><span class="line">do...done</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>ps -ef</code>查询进程的任务数；</p>
+<p>​           <code>|</code>管道，前面命令的输出是后面命令的输入；</p>
+<p>​           <code>grep bash_file_name</code> 指定进程；</p>
+<p>​           <code>grep -v grep</code>去除grep本身；</p>
+<p>​           <code>wc -l</code>计算数量。</p>
+<p><strong>这个控制并行，当并行任务数大于等于2的时候，执行某一个操作以暂停其他线程的运行。如果让脚本的线程一个一个运行，即不使用&amp;操作，就可以不用（最好别用，容易崩）</strong></p>
+<h3 id="4-如果报错，怎么查"><a href="#4-如果报错，怎么查" class="headerlink" title="4. 如果报错，怎么查"></a>4. 如果报错，怎么查</h3><ol>
+<li>首先查看进程的ID：<code>ps -ef | grep show.sh </code>；</li>
+<li>杀死该进程：将上述得到的<code>sh...</code>的进程ID，即</li>
+</ol>
 <p><strong>上述需要注意的点：</strong></p>
 <ol>
 <li>变量的使用需要<code>$</code>；</li>
 <li>数组的每个元素之间没有逗号；</li>
 <li><code>=</code>两边不能有空格；</li>
-<li>最重要的点：一定要仔细检查循环，查看循环本身是不是死循环，还有循环体中调用的脚本要确定是否正确，如果误写了自己，也会导致死循环！！！死循环很可能会导致系统崩盘！！！&lt;血的教训！！！&gt;</li>
+<li>最重要的点：一定要仔细检查循环，查看循环本身是不是死循环，还有循环体中调用的脚本要确定是否正确，如果误写了自己，也会导致死循环！！！死循环很可能会导致系统崩盘！！！&lt; 血的教训！！！ &gt;</li>
 </ol>
 
     </div>
@@ -328,7 +340,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%99%E5%90%AB%E6%9C%89sparksql%E8%AF%AD%E5%8F%A5%E7%9A%84%E3%80%81%E5%B8%A6%E5%8F%82%E7%9A%84shell%E8%84%9A%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">1. 写含有sparksql语句的、带参的shell脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%99%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E3%80%81%E5%8F%AF%E4%BB%A5%E4%BC%A0%E5%8F%82%E7%9A%84shell%E8%84%9A%E6%9C%AC%E6%9D%A5%E8%BF%90%E8%A1%8C%E4%B8%8A%E8%BF%B0%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">2. 写循环数组、可以传参的shell脚本来运行上述脚本</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%99%E5%90%AB%E6%9C%89sparksql%E8%AF%AD%E5%8F%A5%E7%9A%84%E3%80%81%E5%B8%A6%E5%8F%82%E7%9A%84shell%E8%84%9A%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">1. 写含有sparksql语句的、带参的shell脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%99%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E3%80%81%E5%8F%AF%E4%BB%A5%E4%BC%A0%E5%8F%82%E7%9A%84shell%E8%84%9A%E6%9C%AC%E6%9D%A5%E8%BF%90%E8%A1%8C%E4%B8%8A%E8%BF%B0%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">2. 写循环数组、可以传参的shell脚本来运行上述脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8E%A7%E5%88%B6%E5%B9%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%95%B0%E9%87%8F"><span class="nav-number">3.</span> <span class="nav-text">3. 控制并任务的数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%A6%82%E6%9E%9C%E6%8A%A5%E9%94%99%EF%BC%8C%E6%80%8E%E4%B9%88%E6%9F%A5"><span class="nav-number">4.</span> <span class="nav-text">4. 如果报错，怎么查</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -344,7 +356,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -357,7 +369,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

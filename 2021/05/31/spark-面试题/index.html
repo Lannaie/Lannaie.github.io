@@ -27,13 +27,11 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="1. spark是什么首先，spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20210705231645192.png">
 <meta property="article:published_time" content="2021-05-31T13:05:11.000Z">
-<meta property="article:modified_time" content="2021-07-05T15:17:05.691Z">
+<meta property="article:modified_time" content="2021-07-06T16:15:55.187Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="spark">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20210705231645192.png">
 
 <link rel="canonical" href="http://example.com/2021/05/31/spark-%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
@@ -203,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-05 23:17:05" itemprop="dateModified" datetime="2021-07-05T23:17:05+08:00">2021-07-05</time>
+                <time title="修改时间：2021-07-07 00:15:55" itemprop="dateModified" datetime="2021-07-07T00:15:55+08:00">2021-07-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,8 +251,28 @@
 <p>spark streaming：用于对流式数据进行处理的功能模块，提供了丰富的处理数据流的API；</p>
 <p>spark mllib：是spark提供的一个机器学习算法库，不仅提供了模型评估、数据导入等额外的功能，还提供了一些更底层的机器学习原语；</p>
 <p>spark graphx：是面向图计算提供的框架和算法库。</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20210705231645192.png" alt="image-20210705231645192"></p>
-<h3 id="4-RDD、DataFrame和DataSet的区别和联系"><a href="#4-RDD、DataFrame和DataSet的区别和联系" class="headerlink" title="4. RDD、DataFrame和DataSet的区别和联系"></a>4. RDD、DataFrame和DataSet的区别和联系</h3>
+<h3 id="4-RDD、DataFrame和DataSet的区别和联系"><a href="#4-RDD、DataFrame和DataSet的区别和联系" class="headerlink" title="4. RDD、DataFrame和DataSet的区别和联系"></a>4. RDD、DataFrame和DataSet的区别和联系</h3><h4 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h4><p>1、RDD、DataFrame、Dataset全都是spark平台下的分布式弹性数据集，为处理超大型数据提供便利；</p>
+<p>2、三者都有惰性机制，在进行创建、转换，如map方法时，不会立即执行，只有在遇到Action如foreach时，三者才会开始遍历运算，极端情况下，如果代码里面有创建、转换，但是后面没有在Action中使用对应的结果，在执行时会被直接跳过；</p>
+<p>3、三者都会根据spark的内存情况自动缓存运算，这样即使数据量很大，也不用担心会内存溢出；</p>
+<p>4、三者都有partition的概念；</p>
+<p>5、三者有许多共同的函数，如filter，排序等；</p>
+<p>6、在对DataFrame和Dataset进行操作许多操作都需要import s[ark.implicits._进行支持；</p>
+<p>7、DataFrame和Dataset均可使用模式匹配获取各个字段的值和类型；</p>
+<h4 id="区别https-www-cnblogs-com-starwater-p-6841807-html"><a href="#区别https-www-cnblogs-com-starwater-p-6841807-html" class="headerlink" title="区别https://www.cnblogs.com/starwater/p/6841807.html"></a>区别<a target="_blank" rel="noopener" href="https://www.cnblogs.com/starwater/p/6841807.html">https://www.cnblogs.com/starwater/p/6841807.html</a></h4><ol>
+<li><p>RDD</p>
+<p>1、RDD一般和spark mlib同时使用；</p>
+<p>2、RDD不支持sparksql操作；</p>
+</li>
+<li><p>DataFrame</p>
+<p>1、与RDD和Dataset不同，DataFrame每一行的类型固定为Row，只有通过解析才能获取各个字段的值；</p>
+<p>2、DataFrame与Dataset一般与spark ml同时使用；</p>
+<p>3、DataFrame与Dataset均支持sparksql的操作，比如select，groupby之类，还能注册临时表/视窗，进行sql语句操作；</p>
+<p>4、DataFrame与Dataset支持一些特别方便的保存方式，比如保存成csv，可以带上表头，这样每一列的字段名一目了然；</p>
+</li>
+<li><p>DataSet</p>
+</li>
+</ol>
+
     </div>
 
     
@@ -347,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spark%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">1. spark是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spark%E7%9A%84hadoop%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">2. spark的hadoop的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-spark%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">3. spark核心模块简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RDD%E3%80%81DataFrame%E5%92%8CDataSet%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. RDD、DataFrame和DataSet的区别和联系</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spark%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">1. spark是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spark%E7%9A%84hadoop%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">2. spark的hadoop的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-spark%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">3. spark核心模块简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RDD%E3%80%81DataFrame%E5%92%8CDataSet%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. RDD、DataFrame和DataSet的区别和联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E7%B3%BB"><span class="nav-number">4.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%ABhttps-www-cnblogs-com-starwater-p-6841807-html"><span class="nav-number">4.2.</span> <span class="nav-text">区别https:&#x2F;&#x2F;www.cnblogs.com&#x2F;starwater&#x2F;p&#x2F;6841807.html</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -363,7 +381,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -376,7 +394,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
