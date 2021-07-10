@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1. spark是什么spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。">
+  <meta name="description" content="1. spark是什么spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。 基于内存：并不是说spark是内存计算，因为它的shuffle过程也是需要硬盘落地的，它的特点是多个任务之间的数据通信是通过内存进行的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spark - 面试题">
 <meta property="og:url" content="http://example.com/2021/05/31/spark-%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="往南">
-<meta property="og:description" content="1. spark是什么spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。">
+<meta property="og:description" content="1. spark是什么spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。 基于内存：并不是说spark是内存计算，因为它的shuffle过程也是需要硬盘落地的，它的特点是多个任务之间的数据通信是通过内存进行的。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-31T13:05:11.000Z">
-<meta property="article:modified_time" content="2021-07-07T15:29:30.490Z">
+<meta property="article:modified_time" content="2021-07-10T17:28:31.426Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="spark">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-07 23:29:30" itemprop="dateModified" datetime="2021-07-07T23:29:30+08:00">2021-07-07</time>
+                <time title="修改时间：2021-07-11 01:28:31" itemprop="dateModified" datetime="2021-07-11T01:28:31+08:00">2021-07-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,6 +225,7 @@
 
       
         <h3 id="1-spark是什么"><a href="#1-spark是什么" class="headerlink" title="1. spark是什么"></a>1. spark是什么</h3><p>spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。</p>
+<p>基于内存：并不是说spark是内存计算，因为它的shuffle过程也是需要硬盘落地的，它的特点是多个任务之间的数据通信是通过内存进行的。</p>
 <span id="more"></span>
 
 
@@ -234,17 +235,10 @@
 <p>2）处理效率低效；</p>
 <p>Map中间结果写磁盘，Reduce写HDFS，多个MR之间通过HDFS交换数据;，任务调度和启动开销大，无法充分利用内存，Map端和Reduce端均需要排序；</p>
 <p>3）不适合迭代计算(如机器学习、图计算等)，交互式处理（数据挖掘)）和流式处理(点击日志分析）。</p>
-<p><strong>Spark相比的优势：</strong></p>
-<p>高效（比MapReduce快）：</p>
-<p>1）内存计算引擎，提供Cache机制来支持需要反复迭代计算或者多次数据共享，减少数据读取的IO开销；</p>
-<p>2）DAG引擎，减少多次计算之间中间结果写到HDFS的开销；</p>
-<p>3）使用多线程池模型来减少task启动开稍，shuffle过程中避免 不必要的sort操作以及减少磁盘IO操作；</p>
-<p>易用：</p>
-<p>1）提供了丰富的API，支持Java，Scala，Python和R四种语言；</p>
-<p>2）代码量比MapReduce少；</p>
-<p>3）与Hadoop集成 读写HDFS/Hbase 与YARN集成。</p>
-<p>spark和hadoop的根本差异是多个作业之间的数据通信问题：即spark多个作业之间的数据通信是基于内存的，而hadoop基于磁盘。</p>
-<p>经过上述比较，在绝大多数的数据计算场景下，spark比hadoop更具有优势，但是spark是基于内存的，在实际的生产环境中，由于内存的限制，可能会因为内存资源不够而导致job运行失败，此时，hadoop的mapreduce就是一个更好的选择，所以spark并不能完全替代hadoop。</p>
+<p><strong>Spark相比的优势：</strong><br>1.高性能：Spark采用内存计算引擎，允许用户将数据放到内存中以加快数据读取；同时，Spark提供了更加通用的DAG计算引擎，使得数据可通过本地磁盘或内存流向不同的计算单元。</p>
+<p>2.简单易用：Spark提供了丰富的高层次API，包括sortByKey、groupByKey等操作，并且提供了四种编程语言API：Scala、Python、Java和R，从代码量看，Spark比MapReduce少2~5倍。</p>
+<p>3.与Hadoop完好集成：Spark作为新型框架，可以部署在YARN集群上，读取和存储HDFS/HBase中的数据。</p>
+<p>经过上述比较可知，在绝大多数的数据计算场景下，spark比hadoop更具有优势，但是spark是基于内存的，在实际的生产环境中，由于内存的限制，可能会因为内存资源不够而导致job运行失败，此时，hadoop的mapreduce就是一个更好的选择，所以spark并不能完全替代hadoop。</p>
 <h3 id="3-spark核心模块简介"><a href="#3-spark核心模块简介" class="headerlink" title="3. spark核心模块简介"></a>3. spark核心模块简介</h3><p>即spark sql、spark streaming、spark mllib、spark graphx和spark core。</p>
 <p>其中，位于最底层的是spark core，它是整个spark框架的核心，其余的功能模块都是基于core来实现和完善的。</p>
 <p>spark sql：用于操作结构化数据的功能模块，通过spark sql，用户可以使用sql或apache hive版本的sql语言来查询数据；</p>
@@ -252,7 +246,7 @@
 <p>spark mllib：是spark提供的一个机器学习算法库，不仅提供了模型评估、数据导入等额外的功能，还提供了一些更底层的机器学习原语；</p>
 <p>spark graphx：是面向图计算提供的框架和算法库。</p>
 <h3 id="4-RDD、DataFrame和DataSet的区别和联系"><a href="#4-RDD、DataFrame和DataSet的区别和联系" class="headerlink" title="4. RDD、DataFrame和DataSet的区别和联系"></a>4. RDD、DataFrame和DataSet的区别和联系</h3><h4 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h4><p>1、RDD、DataFrame、Dataset全都是spark平台下的分布式弹性数据集，为处理超大型数据提供便利；</p>
-<p>2、三者都有惰性机制，在进行创建、转换，如map方法时，不会立即执行，只有在遇到Action如foreach、count、collect等时，三者才会开始遍历运算，极端情况下，如果代码里面有创建、转换，但是后面没有Action操作，在执行时会被直接跳过；</p>
+<p>2、三者都有惰性机制，在进行创建、转换，如map方法时，不会立即执行，只有在遇到Action如foreach、count、collect等时，三者才会开始运算，极端情况下，如果代码里面有创建、转换，但是后面没有Action操作，在执行时会被直接跳过；    </p>
 <p>3、三者都会根据spark的内存情况自动缓存运算，这样即使数据量很大，也不用担心会内存溢出；</p>
 <p>4、三者都有partition的概念；</p>
 <p>5、三者有许多共同的函数，如filter，排序等；</p>
@@ -278,7 +272,21 @@
 </ol>
 <h3 id="5-SparkSession和SparkContext的区别和联系"><a href="#5-SparkSession和SparkContext的区别和联系" class="headerlink" title="5. SparkSession和SparkContext的区别和联系"></a>5. SparkSession和SparkContext的区别和联系</h3><p>SparkSession实质上是SparkContext和HiveContext的组合，所以在SparkContext和HiveContext上可用的API在SparkSession上同样可用。</p>
 <p>SparkSession的内部封装了SparkContext，所以它的计算实际上是由SparkContext完成的。即需要SpakSQL活Hive时使用SparkSession，否则用SparkContext就行。</p>
-<h3 id="6-DataSet、DataFrame常见的Action操作有哪些"><a href="#6-DataSet、DataFrame常见的Action操作有哪些" class="headerlink" title="6. DataSet、DataFrame常见的Action操作有哪些"></a>6. DataSet、DataFrame常见的Action操作有哪些</h3><h3 id="7-DataSet、DataFrame常见的Transformation"><a href="#7-DataSet、DataFrame常见的Transformation" class="headerlink" title="7. DataSet、DataFrame常见的Transformation"></a>7. DataSet、DataFrame常见的Transformation</h3><h3 id="8-简述row、schema"><a href="#8-简述row、schema" class="headerlink" title="8. 简述row、schema"></a>8. 简述row、schema</h3><h3 id="9-SQL语句的执行过程"><a href="#9-SQL语句的执行过程" class="headerlink" title="9. SQL语句的执行过程"></a>9. SQL语句的执行过程</h3><h3 id="10-SparkSQL中join的实现方式"><a href="#10-SparkSQL中join的实现方式" class="headerlink" title="10. SparkSQL中join的实现方式"></a>10. SparkSQL中join的实现方式</h3>
+<h3 id="6-DataSet、DataFrame常见的Action操作有哪些"><a href="#6-DataSet、DataFrame常见的Action操作有哪些" class="headerlink" title="6. DataSet、DataFrame常见的Action操作有哪些"></a>6. DataSet、DataFrame常见的Action操作有哪些</h3><blockquote>
+<p>Action:</p>
+<p>show(n) - 显示n条记录，n省略时显示全部；</p>
+<p>collect - 获取所有数据并返回Array结构；</p>
+<p>collectAsList - 获取所有数据并返回list结构；</p>
+<p>first - 获取第一行数据；</p>
+<p>head - 获取第一行数据 - head(n:int) - 获取前n行数据；</p>
+<p>take(n:int) - 获取前n行数据；</p>
+<p>takeAsList(n:int) - 获取前n行数据并以list形式展示；</p>
+<p>printSchema - 输出数据结构信息；</p>
+<p>explain - 将物理计划打印到控制台以进行调试；</p>
+<p>count - 统计个数；</p>
+<p>reduce - 对数据进行规约操作。</p>
+</blockquote>
+<h3 id="7-DataSet、DataFrame常见的Transformation"><a href="#7-DataSet、DataFrame常见的Transformation" class="headerlink" title="7. DataSet、DataFrame常见的Transformation"></a>7. DataSet、DataFrame常见的Transformation</h3><h3 id="8-简述row、schema"><a href="#8-简述row、schema" class="headerlink" title="8. 简述row、schema"></a>8. 简述row、schema</h3><h3 id="9-SQL语句的执行过程"><a href="#9-SQL语句的执行过程" class="headerlink" title="9. SQL语句的执行过程"></a>9. SQL语句的执行过程</h3><h3 id="10-SparkSQL中join的实现方式"><a href="#10-SparkSQL中join的实现方式" class="headerlink" title="10. SparkSQL中join的实现方式"></a>10. SparkSQL中join的实现方式</h3>
     </div>
 
     
@@ -387,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
