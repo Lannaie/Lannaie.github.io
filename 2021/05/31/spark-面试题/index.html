@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. spark是什么spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。 基于内存：并不是说spark是内存计算，因为它的shuffle过程也是需要硬盘落地的，它的特点是多个任务之间的数据通信是通过内存进行的。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-31T13:05:11.000Z">
-<meta property="article:modified_time" content="2021-07-10T17:28:31.426Z">
+<meta property="article:modified_time" content="2021-07-12T15:33:28.944Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="spark">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-11 01:28:31" itemprop="dateModified" datetime="2021-07-11T01:28:31+08:00">2021-07-11</time>
+                <time title="修改时间：2021-07-12 23:33:28" itemprop="dateModified" datetime="2021-07-12T23:33:28+08:00">2021-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,8 +272,7 @@
 </ol>
 <h3 id="5-SparkSession和SparkContext的区别和联系"><a href="#5-SparkSession和SparkContext的区别和联系" class="headerlink" title="5. SparkSession和SparkContext的区别和联系"></a>5. SparkSession和SparkContext的区别和联系</h3><p>SparkSession实质上是SparkContext和HiveContext的组合，所以在SparkContext和HiveContext上可用的API在SparkSession上同样可用。</p>
 <p>SparkSession的内部封装了SparkContext，所以它的计算实际上是由SparkContext完成的。即需要SpakSQL活Hive时使用SparkSession，否则用SparkContext就行。</p>
-<h3 id="6-DataSet、DataFrame常见的Action操作有哪些"><a href="#6-DataSet、DataFrame常见的Action操作有哪些" class="headerlink" title="6. DataSet、DataFrame常见的Action操作有哪些"></a>6. DataSet、DataFrame常见的Action操作有哪些</h3><blockquote>
-<p>Action:</p>
+<h3 id="6-DataSet、DataFrame常见的Action行动算子"><a href="#6-DataSet、DataFrame常见的Action行动算子" class="headerlink" title="6. DataSet、DataFrame常见的Action行动算子"></a>6. DataSet、DataFrame常见的Action行动算子</h3><blockquote>
 <p>show(n) - 显示n条记录，n省略时显示全部；</p>
 <p>collect - 获取所有数据并返回Array结构；</p>
 <p>collectAsList - 获取所有数据并返回list结构；</p>
@@ -286,7 +285,30 @@
 <p>count - 统计个数；</p>
 <p>reduce - 对数据进行规约操作。</p>
 </blockquote>
-<h3 id="7-DataSet、DataFrame常见的Transformation"><a href="#7-DataSet、DataFrame常见的Transformation" class="headerlink" title="7. DataSet、DataFrame常见的Transformation"></a>7. DataSet、DataFrame常见的Transformation</h3><h3 id="8-简述row、schema"><a href="#8-简述row、schema" class="headerlink" title="8. 简述row、schema"></a>8. 简述row、schema</h3><h3 id="9-SQL语句的执行过程"><a href="#9-SQL语句的执行过程" class="headerlink" title="9. SQL语句的执行过程"></a>9. SQL语句的执行过程</h3><h3 id="10-SparkSQL中join的实现方式"><a href="#10-SparkSQL中join的实现方式" class="headerlink" title="10. SparkSQL中join的实现方式"></a>10. SparkSQL中join的实现方式</h3>
+<h3 id="7-DataSet、DataFrame常见的Transformation转换算子"><a href="#7-DataSet、DataFrame常见的Transformation转换算子" class="headerlink" title="7. DataSet、DataFrame常见的Transformation转换算子"></a>7. DataSet、DataFrame常见的Transformation转换算子</h3><blockquote>
+<p>map - 分析表中的数据；</p>
+<p>flatMap - 在map的基础上将String扁平化为字符数组；</p>
+<p>filter - 过滤；</p>
+<p>select和selectExpr - 查询，select写查询语句，selectExpr写要查询的字段；</p>
+<p>drop - 将表从内存删除；</p>
+<p>withColumn - 用于向DataFrame添加列、更新现有列的值、转换列的数据类型以及从现有列派生新列；</p>
+<p>join - 连接；</p>
+<p>where - 指定条件；</p>
+<p>groupBy - 分组；</p>
+<p>agg - 对整个数据集聚合；</p>
+<p>orderBy - 先将数据按照指定字段分区，在进行分区内排序；</p>
+<p>sortBy - 分区内排序；</p>
+<p>union、intersect、except - 并、交、差。</p>
+</blockquote>
+<h3 id="8-Spark有哪几种部署模式，每种模式有哪些特点"><a href="#8-Spark有哪几种部署模式，每种模式有哪些特点" class="headerlink" title="8. Spark有哪几种部署模式，每种模式有哪些特点"></a>8. Spark有哪几种部署模式，每种模式有哪些特点</h3><ol>
+<li>本地模式：该模式被称为local[N]模式，是利用本地的多个线程来模拟spark的分布式计算，便于调试；它有以下分类：local - 只运行一个线程；local[K] - 运行K个executor；local[*] - 运行和cpu数目相同的executor。</li>
+<li>standalone模式：是Spark自身的一个调度系统。 对集群性能要求非常高；分布式部署集群，自带完整的服务，其中资源管理和任务监控都由spark自己监控，该模式是其他模式的基础。</li>
+<li>spark on yarn模式：分布式部署集群，资源和任务监控交给yarn管理，它是粗粒度资源分配方式，包含cluster和client运行模式：cluster 适合生产，driver运行在集群子节点，具有容错功能；client 适合调试，dirver运行在客户端。</li>
+<li>spark on mesos模式：官方推荐这种模式（当然，原因之一是血缘关系）。正是由于Spark开发之初就考虑到支持Mesos，因此，目前而言，Spark运行在Mesos上会比运行在YARN上更加灵活，更加自然。用户可选择两种调度模式之一运行自己的应用程序：<br>  ①粗粒度模式（Coarse-grained Mode）：每个应用程序的运行环境由一个Dirver和若干个Executor组成，其中，每个Executor占用若干资源，内部可运行多个Task（对应多少个“slot”）。应用程序的各个任务正式运行之前，需要将运行环境中的资源全部申请好，且运行过程中要一直占用这些资源，即使不用，最后程序运行结束后，回收这些资源。<br>  ② 细粒度模式（Fine-grained Mode）：鉴于粗粒度模式会造成大量资源浪费，Spark On Mesos还提供了另外一种调度模式：细粒度模式，这种模式类似于现在的云计算，思想是按需分配。</li>
+</ol>
+<p><strong>Spark 客户端直接连接 Mesos；不需要额外构建 Spark 集群。国内应用比较少，更多的是运用 yarn 调度。</strong></p>
+<h3 id="9-Spark的常用端口号"><a href="#9-Spark的常用端口号" class="headerlink" title="9. Spark的常用端口号"></a>9. Spark的常用端口号</h3><p>（1）4040：spark shell任务端口；<br>（2）7077：内部通讯端口，类似于hadoop的8020；<br>（3）8080：查看任务执行情况的端口号，类似hadoop的8088；<br>（4）18080：历史服务器，类似于hadoop的19888。</p>
+
     </div>
 
     
@@ -379,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spark%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">1. spark是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spark%E7%9A%84hadoop%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">2. spark的hadoop的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-spark%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">3. spark核心模块简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RDD%E3%80%81DataFrame%E5%92%8CDataSet%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. RDD、DataFrame和DataSet的区别和联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E7%B3%BB"><span class="nav-number">4.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">4.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-SparkSession%E5%92%8CSparkContext%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">5. SparkSession和SparkContext的区别和联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Action%E6%93%8D%E4%BD%9C%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="nav-number">6.</span> <span class="nav-text">6. DataSet、DataFrame常见的Action操作有哪些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Transformation"><span class="nav-number">7.</span> <span class="nav-text">7. DataSet、DataFrame常见的Transformation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E7%AE%80%E8%BF%B0row%E3%80%81schema"><span class="nav-number">8.</span> <span class="nav-text">8. 简述row、schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-SQL%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">9. SQL语句的执行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-SparkSQL%E4%B8%ADjoin%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">10.</span> <span class="nav-text">10. SparkSQL中join的实现方式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spark%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">1. spark是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spark%E7%9A%84hadoop%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">2. spark的hadoop的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-spark%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">3. spark核心模块简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RDD%E3%80%81DataFrame%E5%92%8CDataSet%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. RDD、DataFrame和DataSet的区别和联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E7%B3%BB"><span class="nav-number">4.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">4.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-SparkSession%E5%92%8CSparkContext%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">5. SparkSession和SparkContext的区别和联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Action%E8%A1%8C%E5%8A%A8%E7%AE%97%E5%AD%90"><span class="nav-number">6.</span> <span class="nav-text">6. DataSet、DataFrame常见的Action行动算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Transformation%E8%BD%AC%E6%8D%A2%E7%AE%97%E5%AD%90"><span class="nav-number">7.</span> <span class="nav-text">7. DataSet、DataFrame常见的Transformation转换算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Spark%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%AF%8F%E7%A7%8D%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E7%82%B9"><span class="nav-number">8.</span> <span class="nav-text">8. Spark有哪几种部署模式，每种模式有哪些特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Spark%E7%9A%84%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">9.</span> <span class="nav-text">9. Spark的常用端口号</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -395,14 +417,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
