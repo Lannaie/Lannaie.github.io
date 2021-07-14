@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. spark是什么spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。 基于内存：并不是说spark是内存计算，因为它的shuffle过程也是需要硬盘落地的，它的特点是多个任务之间的数据通信是通过内存进行的。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-31T13:05:11.000Z">
-<meta property="article:modified_time" content="2021-07-12T15:33:28.944Z">
+<meta property="article:modified_time" content="2021-07-13T15:49:52.980Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="spark">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-12 23:33:28" itemprop="dateModified" datetime="2021-07-12T23:33:28+08:00">2021-07-12</time>
+                <time title="修改时间：2021-07-13 23:49:52" itemprop="dateModified" datetime="2021-07-13T23:49:52+08:00">2021-07-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -308,6 +308,31 @@
 </ol>
 <p><strong>Spark 客户端直接连接 Mesos；不需要额外构建 Spark 集群。国内应用比较少，更多的是运用 yarn 调度。</strong></p>
 <h3 id="9-Spark的常用端口号"><a href="#9-Spark的常用端口号" class="headerlink" title="9. Spark的常用端口号"></a>9. Spark的常用端口号</h3><p>（1）4040：spark shell任务端口；<br>（2）7077：内部通讯端口，类似于hadoop的8020；<br>（3）8080：查看任务执行情况的端口号，类似hadoop的8088；<br>（4）18080：历史服务器，类似于hadoop的19888。</p>
+<h3 id="10-SparkSQL中的三种join操作"><a href="#10-SparkSQL中的三种join操作" class="headerlink" title="10. SparkSQL中的三种join操作"></a>10. SparkSQL中的三种join操作</h3><p>用于小表join大表的 <code>broadcast join</code> 和 <code>shuffle join</code>，以及用于将两个大表连接的 <code>sort merge join</code>。</p>
+<ol>
+<li>broadcast join：将小表的数据通过广播的数据，分发到各个excutor中，即每个excutor都存储小表的全部数据，然后将大表分区，每个分区都和本地的广播变量进行join操作，这种方式会消耗空间，但会缩短shuffle的时间；</li>
+<li>shuffle join：broadcast join适用于比较小的表，这个小的程度由spark.sql.broadcastTreshold参数来设置，默认是10M。对于表较大的小表，可以对两个表进行shuffle操作，将相同key的数据分到同一个分区，在分区之间进行join操作，这就相当于是将两张表分成若干份，小份和小份之间进行join，充分利用集群资源；</li>
+<li>sort merge join：<code>broadcast join</code> 和 <code>shuffle join</code> 都是采用hash join，即将小表的数据完全加载到内存，然后通过hashcode取join key相等的方式进行连接，如果两个表都是大表就不适用了。此时就需要用到 <code>sort merge join</code>。它将两张表依照join key进行分区，然后对分区中的数据进行排序，排序后在对相应分区的数据遍历，碰到key相同就输出，这种方式大大提高了大数据量下sql join的稳定性。</li>
+</ol>
+<h3 id="11-Spark任务的提交流程-有时间再看看这个"><a href="#11-Spark任务的提交流程-有时间再看看这个" class="headerlink" title="11. Spark任务的提交流程**有时间再看看这个"></a>11. Spark任务的提交流程**有时间再看看这个</h3><p>spark的任务，在生产环境中一般会在yarn上运行，具体流程如下：</p>
+<ol>
+<li>用户通过client将任务提交到RM；</li>
+<li>RM会启动一个AM；</li>
+<li>AM会在内部启动一个driver线程，并向RM申请资源；</li>
+<li>RM会返回一个资源可用列表；</li>
+<li>Driver会在内部初始化SC、进行任务的划分和调度；</li>
+<li>AM通过NM启动Container，并在Container内部启动一个ExcutorBanked进程；</li>
+<li>Excutor反向注册给Driver；</li>
+<li>Excutor启动任务。</li>
+</ol>
+<h3 id="12-如何划分Spark的stage"><a href="#12-如何划分Spark的stage" class="headerlink" title="12. 如何划分Spark的stage"></a>12. 如何划分Spark的stage</h3><p>有两个点，概念和划分的思路。</p>
+<ol>
+<li>窄依赖是父RDD的一个分区最多只能被子RDD的一个分区依赖，常见的有map、flatmap、filter等；</li>
+<li>宽依赖是父RDD的一个分区可以由子RDD的多个分区所依赖，常见的有groupbykey、sortbykey、reducebykey等；</li>
+<li>shuffle的概念是，在spark中，每个任务对应一个分区，通常不会跨区域操作数据，但遇到宽依赖的操作，spark必须从多个分区中读取数据，并查找所有键对应的值，最终汇总在一起以计算每个键最终的结果；</li>
+<li>stage划分的思路：stage是以result和shuffle两种类型来划分task的，对于窄依赖，由于分区依赖关系的确定性，partition转换处理可以在同一个线程完成，这成为resulttask；对于宽依赖，需要等待父RDD的shuffle处理完成，在下一个stage才能开始接下来的计算，这成为shuffletask。</li>
+<li>因此，stage的划分原则为：从后往前推RDD算子，如果遇到宽依赖就断开，划分为一个stage；如果是窄依赖，就将该RDD加入当前的stage中。</li>
+</ol>
 
     </div>
 
@@ -401,7 +426,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spark%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">1. spark是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spark%E7%9A%84hadoop%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">2. spark的hadoop的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-spark%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">3. spark核心模块简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RDD%E3%80%81DataFrame%E5%92%8CDataSet%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. RDD、DataFrame和DataSet的区别和联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E7%B3%BB"><span class="nav-number">4.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">4.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-SparkSession%E5%92%8CSparkContext%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">5. SparkSession和SparkContext的区别和联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Action%E8%A1%8C%E5%8A%A8%E7%AE%97%E5%AD%90"><span class="nav-number">6.</span> <span class="nav-text">6. DataSet、DataFrame常见的Action行动算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Transformation%E8%BD%AC%E6%8D%A2%E7%AE%97%E5%AD%90"><span class="nav-number">7.</span> <span class="nav-text">7. DataSet、DataFrame常见的Transformation转换算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Spark%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%AF%8F%E7%A7%8D%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E7%82%B9"><span class="nav-number">8.</span> <span class="nav-text">8. Spark有哪几种部署模式，每种模式有哪些特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Spark%E7%9A%84%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">9.</span> <span class="nav-text">9. Spark的常用端口号</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spark%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">1. spark是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spark%E7%9A%84hadoop%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">2. spark的hadoop的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-spark%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">3. spark核心模块简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RDD%E3%80%81DataFrame%E5%92%8CDataSet%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. RDD、DataFrame和DataSet的区别和联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E7%B3%BB"><span class="nav-number">4.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">4.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-SparkSession%E5%92%8CSparkContext%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">5. SparkSession和SparkContext的区别和联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Action%E8%A1%8C%E5%8A%A8%E7%AE%97%E5%AD%90"><span class="nav-number">6.</span> <span class="nav-text">6. DataSet、DataFrame常见的Action行动算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-DataSet%E3%80%81DataFrame%E5%B8%B8%E8%A7%81%E7%9A%84Transformation%E8%BD%AC%E6%8D%A2%E7%AE%97%E5%AD%90"><span class="nav-number">7.</span> <span class="nav-text">7. DataSet、DataFrame常见的Transformation转换算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Spark%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%AF%8F%E7%A7%8D%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E7%82%B9"><span class="nav-number">8.</span> <span class="nav-text">8. Spark有哪几种部署模式，每种模式有哪些特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Spark%E7%9A%84%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">9.</span> <span class="nav-text">9. Spark的常用端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-SparkSQL%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8Djoin%E6%93%8D%E4%BD%9C"><span class="nav-number">10.</span> <span class="nav-text">10. SparkSQL中的三种join操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Spark%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B-%E6%9C%89%E6%97%B6%E9%97%B4%E5%86%8D%E7%9C%8B%E7%9C%8B%E8%BF%99%E4%B8%AA"><span class="nav-number">11.</span> <span class="nav-text">11. Spark任务的提交流程**有时间再看看这个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%A6%82%E4%BD%95%E5%88%92%E5%88%86Spark%E7%9A%84stage"><span class="nav-number">12.</span> <span class="nav-text">12. 如何划分Spark的stage</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -417,7 +442,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
