@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. hive的实现逻辑：为什么小表延迟比较高？因为hive是基于hadoop实现的，其计算会经过mapreduce。MapReduce是批处理、高延迟的，无论文件大小都会经过mapreduce。所以Hive的优势在于批处理大数据，而不是小文件。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-21T14:24:14.000Z">
-<meta property="article:modified_time" content="2021-07-24T14:29:06.367Z">
+<meta property="article:modified_time" content="2021-07-24T16:15:17.169Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="hive">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-24 22:29:06" itemprop="dateModified" datetime="2021-07-24T22:29:06+08:00">2021-07-24</time>
+                <time title="修改时间：2021-07-25 00:15:17" itemprop="dateModified" datetime="2021-07-25T00:15:17+08:00">2021-07-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,8 +278,18 @@
 </ol>
 <h3 id="7-数据库与数据仓库"><a href="#7-数据库与数据仓库" class="headerlink" title="7. 数据库与数据仓库"></a>7. 数据库与数据仓库</h3><p>当今的数据处理大致可以分成两大类：联机事务处理OLTP（on-line transaction processing）、联机分析处理OLAP（On-Line Analytical Processing）。<br>       基本日常的事务处理，比如数据库记录的增删查改，通常被称为OLTP（On-Line Transaction Processing，联机事务处理），OLTP是数据库的主要应用。<br>       OLAP（On-Line Analytical Processing，联机分析处理）支持复杂的分析操作，侧重提供决策支持，并且提供直观易懂的分析结果，目标是探索并挖掘数据价值，作为企业高层进行决策的参考，OLAP是数据仓库的主要应用。</p>
 <p>OLTP的特点一般有：</p>
-<p>实时性要求高。<br>数据量不是很大，生产库上的数据量一般不会太大，而且会及时做相应的数据处理与转移。<br>OLTP是对确定性的数据进行存取。<br>高并发，并且要求满足ACID原则。比如两人同时操作一个银行卡账户，比如大型的购物网站秒杀活动时上万的QPS请求。<br>OLAP的特点一般有：</p>
-<p>实时性要求不是很高，比如最常见的应用就是天级更新数据，然后出对应的数据报表。<br>数据量大，因为OLAP支持的是动态查询，所以用户也许要通过将很多数据的统计后才能得到想要知道的信息，例如时间序列分析等等，所以处理的数据量很大。<br>OLAP系统的重点是通过数据提供决策支持。</p>
+<ol>
+<li>实时性要求高。</li>
+<li>数据量不是很大，生产库上的数据量一般不会太大，而且会及时做相应的数据处理与转移。</li>
+<li>OLTP是对确定性的数据进行存取。</li>
+<li>高并发，并且要求满足ACID原则。比如两人同时操作一个银行卡账户，比如大型的购物网站秒杀活动时上万的QPS请求。</li>
+</ol>
+<p>OLAP的特点一般有：</p>
+<ol>
+<li>实时性要求不是很高，比如最常见的应用就是天级更新数据，然后出对应的数据报表。</li>
+<li>数据量大，因为OLAP支持的是动态查询，所以用户也许要通过将很多数据进行统计后才能得到想要知道的信息，例如时间序列分析等等，所以处理的数据量很大。</li>
+<li>OLAP系统的重点是通过数据提供决策支持。</li>
+</ol>
 <h3 id="8-窗口函数"><a href="#8-窗口函数" class="headerlink" title="8. 窗口函数"></a>8. 窗口函数</h3><h4 id="1）窗口函数和普通聚合函数的区别"><a href="#1）窗口函数和普通聚合函数的区别" class="headerlink" title="1）窗口函数和普通聚合函数的区别"></a>1）窗口函数和普通聚合函数的区别</h4><p>（1）聚合函数是将多条记录合并为一条；窗口函数是每条记录都会执行，原来有几条记录最终执行完还是几条；<br>（2）聚合函数也可以用于窗口函数：窗口函数在逻辑上的执行顺序是在FROM、JOIN、WHERE、GROUP BY 、HAVING 之后，在ORDER BY、LIMIT、SELECT DISTINCT之前。它执行之前GROUP BY的聚合过程已经完成了，所以不会再产生数据聚合。</p>
 <h4 id="2）常用窗口函数"><a href="#2）常用窗口函数" class="headerlink" title="2）常用窗口函数"></a>2）常用窗口函数</h4><ol>
 <li>over：指定分析函数工作的数据窗口大小，这个大小可能会随着行的变化而变化；</li>
@@ -483,7 +493,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
