@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hive - 报错">
+<meta property="og:url" content="http://example.com/2021/08/06/hive-%E6%8A%A5%E9%94%99/index.html">
+<meta property="og:site_name" content="往南">
+<meta property="og:description" content="hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-06T06:42:05.000Z">
+<meta property="article:modified_time" content="2021-08-06T07:06:10.501Z">
+<meta property="article:author" content="Bonnie">
+<meta property="article:tag" content="hive">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/08/06/hive-%E6%8A%A5%E9%94%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>hive - 报错 | 往南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">往南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/06/hive-%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hive - 报错
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-06 14:42:05 / 修改时间：15:06:10" itemprop="dateCreated datePublished" datetime="2021-08-06T14:42:05+08:00">2021-08-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%A5%E9%94%99/" itemprop="url" rel="index"><span itemprop="name">报错</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="hive-ql-io-orc-OrcSerde-OrcSerdeRow-cannot-be-cast-to-org-apache-hadoop-io-BytesWritable"><a href="#hive-ql-io-orc-OrcSerde-OrcSerdeRow-cannot-be-cast-to-org-apache-hadoop-io-BytesWritable" class="headerlink" title="hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable"></a>hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable</h3><span id="more"></span>
+
+<p>具体报错内容如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&quot;area_flag&quot;:&quot;3&quot;,&quot;kpi_value&quot;:<span class="number">72980.5886</span>&#125;</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.mr.ExecMapper.map(ExecMapper.java:<span class="number">179</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:<span class="number">54</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:<span class="number">459</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.mapred.MapTask.run(MapTask.java:<span class="number">343</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.mapred.YarnChild$<span class="number">2.</span>run(YarnChild.java:<span class="number">164</span>)</span><br><span class="line">        <span class="keyword">at</span> java.security.AccessController.doPrivileged(Native <span class="keyword">Method</span>)</span><br><span class="line">        <span class="keyword">at</span> javax.security.auth.Subject.doAs(Subject.java:<span class="number">415</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:<span class="number">1917</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:<span class="number">158</span>)</span><br><span class="line">Caused <span class="keyword">by</span>: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing <span class="type">row</span> &#123;&quot;kpi_code&quot;:&quot;FFJFCW121&quot;,&quot;area_code&quot;:&quot;811&quot;,&quot;area_name&quot;:&quot;北京&quot;,&quot;area_flag&quot;:&quot;3&quot;,&quot;kpi_value&quot;:<span class="number">72980.5886</span>&#125;</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:<span class="number">507</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.mr.ExecMapper.map(ExecMapper.java:<span class="number">170</span>)</span><br><span class="line">        ... <span class="number">8</span> more</span><br><span class="line">Caused <span class="keyword">by</span>: org.apache.hadoop.hive.ql.metadata.HiveException: Unexpected exception: Unexpected exception: org.apache.hadoop.hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast <span class="keyword">to</span> org.apache.hadoop.io.BytesWritable</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.MapJoinOperator.processOp(MapJoinOperator.java:<span class="number">318</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:<span class="number">815</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.TableScanOperator.processOp(TableScanOperator.java:<span class="number">98</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.MapOperator$MapOpCtx.forward(MapOperator.java:<span class="number">157</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:<span class="number">497</span>)</span><br><span class="line">        ... <span class="number">9</span> more</span><br><span class="line">Caused <span class="keyword">by</span>: org.apache.hadoop.hive.ql.metadata.HiveException: Unexpected exception: org.apache.hadoop.hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast <span class="keyword">to</span> org.apache.hadoop.io.BytesWritable</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.MapJoinOperator.processOp(MapJoinOperator.java:<span class="number">318</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:<span class="number">815</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.internalForward(CommonJoinOperator.java:<span class="number">638</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.genAllOneUniqueJoinObject(CommonJoinOperator.java:<span class="number">670</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.checkAndGenObject(CommonJoinOperator.java:<span class="number">748</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.MapJoinOperator.processOp(MapJoinOperator.java:<span class="number">306</span>)</span><br><span class="line">        ... <span class="number">13</span> more</span><br><span class="line">Caused <span class="keyword">by</span>: java.lang.ClassCastException: org.apache.hadoop.hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast <span class="keyword">to</span> org.apache.hadoop.io.BytesWritable</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat$<span class="number">1.</span>write(HiveIgnoreKeyTextOutputFormat.java:<span class="number">91</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.FileSinkOperator.processOp(FileSinkOperator.java:<span class="number">717</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:<span class="number">815</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.SelectOperator.processOp(SelectOperator.java:<span class="number">84</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:<span class="number">815</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.internalForward(CommonJoinOperator.java:<span class="number">638</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.createForwardJoinObject(CommonJoinOperator.java:<span class="number">433</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.genObject(CommonJoinOperator.java:<span class="number">525</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.genObject(CommonJoinOperator.java:<span class="number">522</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.genObject(CommonJoinOperator.java:<span class="number">522</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.genJoinObject(CommonJoinOperator.java:<span class="number">451</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.CommonJoinOperator.checkAndGenObject(CommonJoinOperator.java:<span class="number">752</span>)</span><br><span class="line">        <span class="keyword">at</span> org.apache.hadoop.hive.ql.exec.MapJoinOperator.processOp(MapJoinOperator.java:<span class="number">306</span>)</span><br><span class="line">        ... <span class="number">18</span> more</span><br></pre></td></tr></table></figure>
+
+
+
+<p>解决：</p>
+<ol>
+<li><p>查看表结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">desc</span> formatted table_name;</span><br><span class="line">...                 </span><br><span class="line"># Storage Information            </span><br><span class="line">SerDe Library:          org.apache.hadoop.hive.ql.io.orc.OrcSerde        </span><br><span class="line">InputFormat:            org.apache.hadoop.mapred.TextInputFormat         </span><br><span class="line">OutputFormat:           org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 <code>SerDe Library</code> 的格式为 <code>OrcSerde</code> 。</p>
+<p>有两种可能性：</p>
+<p>（1）可能是复制其他表的结构创建该表，没有复制完，有部分配置不对，这时候需要对比两个表的结构分析；</p>
+<p>（2）创建表结构指定的格式不对。</p>
+</li>
+<li><p>查看表结构</p>
+<p>如果是复制表结构创建的表，可以使用如下命令比对两个表创建时候的结构：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> table_name;</span><br></pre></td></tr></table></figure>
+
+<p>本次错误是因为没有复制完，漏掉了如下设置：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ROW</span> FORMAT SERDE </span><br><span class="line">  <span class="string">&#x27;org.apache.hadoop.hive.ql.io.orc.OrcSerde&#x27;</span> </span><br><span class="line"><span class="keyword">WITH</span> SERDEPROPERTIES ( </span><br><span class="line">  <span class="string">&#x27;field.delim&#x27;</span><span class="operator">=</span><span class="string">&#x27;\u0005&#x27;</span>, </span><br><span class="line">  <span class="string">&#x27;serialization.format&#x27;</span><span class="operator">=</span><span class="string">&#x27;\u0005&#x27;</span>) </span><br><span class="line">STORED <span class="keyword">AS</span> INPUTFORMAT </span><br><span class="line">  <span class="string">&#x27;org.apache.hadoop.hive.ql.io.orc.OrcInputFormat&#x27;</span> </span><br><span class="line">OUTPUTFORMAT </span><br><span class="line">  <span class="string">&#x27;org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat&#x27;</span></span><br><span class="line">LOCATION</span><br><span class="line">  <span class="string">&#x27;hdfs://ns/domain/ns/sc_share/dm_db/tmp_td_month&#x27;</span></span><br><span class="line">TBLPROPERTIES (</span><br><span class="line">  <span class="string">&#x27;orcfile.compress&#x27;</span><span class="operator">=</span><span class="string">&#x27;Snappy&#x27;</span>, </span><br><span class="line">  <span class="string">&#x27;transient_lastDdlTime&#x27;</span><span class="operator">=</span><span class="string">&#x27;1587809055&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>解决方式：</p>
+<p>将当前出错的表删掉：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">table</span> table_name;</span><br></pre></td></tr></table></figure>
+
+<p>然后将原表的结构复制，可能需要修改存储位置<code>LOCATION</code> ；</p>
+<p>最后使用该创建语句再次创建表，成功解决。</p>
+</li>
+<li><p>修改表的格式</p>
+<p>本内容摘自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wawa8899/article/details/81674817">Hive表的file_format参数</a></p>
+<p>有如下这些格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">file_format:</span><br><span class="line">  : SEQUENCEFILE</span><br><span class="line">  <span class="operator">|</span> TEXTFILE    <span class="comment">-- (Default, depending on hive.default.fileformat configuration)  # 默认存储文本格式，不能区分数据类型</span></span><br><span class="line">  <span class="operator">|</span> RCFILE      <span class="comment">-- (<span class="doctag">Note:</span> Available in Hive 0.6.0 and later)</span></span><br><span class="line">  <span class="operator">|</span> ORC         <span class="comment">-- (<span class="doctag">Note:</span> Available in Hive 0.11.0 and later)</span></span><br><span class="line">  <span class="operator">|</span> PARQUET     <span class="comment">-- (<span class="doctag">Note:</span> Available in Hive 0.13.0 and later)</span></span><br><span class="line">  <span class="operator">|</span> AVRO        <span class="comment">-- (<span class="doctag">Note:</span> Available in Hive 0.14.0 and later)</span></span><br><span class="line">  <span class="operator">|</span> JSONFILE    <span class="comment">-- (<span class="doctag">Note:</span> Available in Hive 4.0.0 and later)</span></span><br><span class="line">  <span class="operator">|</span> INPUTFORMAT input_format_classname OUTPUTFORMAT output_format_classname</span><br></pre></td></tr></table></figure>
+
+<p>TEXTFILE：文本格式，为hive默认的存储格式，这种格式不能区分数据类型（Int类型的数据也只能当作文本来处理）。TEXTFILE在使用时只需要指定两个东西：列与列之间的分隔符；行与行之间的分隔符。<br>SEQUENCEFILE：二进制的，它存在一些问题，这种存储格式存储的数据size比原始数据还要大，现在基本不用。<br>RCFILE：它是一个混合的行列编成的，它保证所有行的一个列都在一个节点（block）之上，缺点是row group太小（4M）了，实际的好处只是空间节省只提升了大约10%，工作中不会大面积使用，所以现在基本也不使用了。<br>ORC：优化过后的RC（行列存储），它提供了更高效的存储方式。一个strip（250M）包含了索引文件，索引范围1~10W。查询时只会查询index范围内的strip，提高查询效率。默认每10000行为一个单位。orc默认采用zlib压缩方式。详见官网说明。<br>PARQUET：源于dremel（三秒钟完成一个T的数据处理），效率很高。<br>AVRO：不常用。<br>JSONFILE：不常用。</p>
+<p>可以使用如下命令修改表的格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">set</span> fileformat file_format;</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下用来转换为 <code>ORC</code> 格式。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+	  
+	
+	 <div>
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	 </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hive/" rel="tag"># hive</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/03/hadoop-%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="prev" title="hadoop - 面试题">
+      <i class="fa fa-chevron-left"></i> hadoop - 面试题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hive-ql-io-orc-OrcSerde-OrcSerdeRow-cannot-be-cast-to-org-apache-hadoop-io-BytesWritable"><span class="nav-number">1.</span> <span class="nav-text">hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bonnie"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Bonnie</p>
+  <div class="site-description" itemprop="description">每天都要做个人啊</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-05 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bonnie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
