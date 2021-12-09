@@ -195,6 +195,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/09/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/09/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/" class="post-title-link" itemprop="url">矩阵快速幂</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-09 21:06:19 / 修改时间：21:56:10" itemprop="dateCreated datePublished" datetime="2021-12-09T21:06:19+08:00">2021-12-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-引入整数快速幂"><a href="#一-引入整数快速幂" class="headerlink" title="一. 引入整数快速幂"></a>一. 引入整数快速幂</h2><p>比如计算 **X <sup>19</sup>**。</p>
+<p>可以使用二进制运算：<code>19 = 1 0 0 1 1</code> ，可以得出：<strong>X <sup>19</sup> = X <sup>16 + 2 + 1</sup> = X <sup>16</sup> * X <sup>2</sup> * X <sup>1</sup></strong> 。</p>
+<p>这种计算方法可以减少循环的次数。</p>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">QuickPow</span><span class="params">( <span class="keyword">int</span> x, <span class="keyword">int</span> N )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = x;</span><br><span class="line">    <span class="keyword">while</span>( N &gt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>( (N &amp; <span class="number">1</span>) == <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            res = res * x;</span><br><span class="line">        &#125;</span><br><span class="line">        x *= x;</span><br><span class="line">        N &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>和上面的思想是一样的，只是整数的次幂变成了矩阵的次幂。</p>
+<p>回顾一下矩阵乘法的思想：</p>
+<p><img src="LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.assets/1149206-20170603085219993-768167045.png" alt="矩阵乘法"></p>
+<p>下面使用具体的情景。</p>
+<h3 id="具体实例分析-斐波那契数列"><a href="#具体实例分析-斐波那契数列" class="headerlink" title="具体实例分析 - 斐波那契数列"></a>具体实例分析 - 斐波那契数列</h3><p>已知递推序列：<code>F(n) = F(n-1) + F(n-2)</code> ，可以知道 <code>F(n-1) = F(n-1)</code> ，或者可以换算成：</p>
+<p><code>F(n) = 1 * F(n-1) + 1 * F(n-2)</code> ，</p>
+<p><code>F(n-1) = 1 * F(n-1) + 0 * F(n-2)</code> ，</p>
+<p>则可以逆推出矩阵序列：<br>$$<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>=<br>\left(<br>\matrix{<br>  1 &amp; 1\<br>  1 &amp; 0<br>}<br>\right)<br>*<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>$$<br>根据上述矩阵公式，得到斐波那契数列的一般式：<br>$$<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>=<br>\left(<br>\matrix{<br>1 &amp; 1\<br>1 &amp; 0<br>}<br>\right) ^ {n-1}<br>*<br>\left(<br>\matrix{<br>F(1) = 1\<br>F(0) = 0<br>}<br>\right)<br>$$<br>得到具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] mat = &#123;&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] res = &#123;&#123;<span class="number">1</span>&#125;,&#123;<span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">        n -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( n != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( (n &amp; <span class="number">1</span>) == <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                matrixSquare(mat, res);</span><br><span class="line">            &#125;</span><br><span class="line">            matrixSquare(mat, mat);</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">matrixSquare</span><span class="params">(<span class="keyword">int</span>[][] mat1, <span class="keyword">int</span>[][] mat2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = mat2.length, m = mat2[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] new_mat = <span class="keyword">new</span> <span class="keyword">int</span>[n][m];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span>( <span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; ++k )</span><br><span class="line">                &#123;</span><br><span class="line">                    new_mat[i][j] += mat1[i][k] * mat2[k][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                mat2[i][j] = new_mat[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cmmdc/p/6936196.html">矩阵快速幂基础讲解</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/LeetCode-JZ51-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -459,7 +549,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-01 23:53:32" itemprop="dateModified" datetime="2021-12-01T23:53:32+08:00">2021-12-01</time>
+                <time title="修改时间：2021-12-05 23:37:08" itemprop="dateModified" datetime="2021-12-05T23:37:08+08:00">2021-12-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -911,81 +1001,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/06/hive-%E6%8A%A5%E9%94%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/06/hive-%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">hive - 报错</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-08-06 14:42:05 / 修改时间：15:06:10" itemprop="dateCreated datePublished" datetime="2021-08-06T14:42:05+08:00">2021-08-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%A5%E9%94%99/" itemprop="url" rel="index"><span itemprop="name">报错</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="hive-ql-io-orc-OrcSerde-OrcSerdeRow-cannot-be-cast-to-org-apache-hadoop-io-BytesWritable"><a href="#hive-ql-io-orc-OrcSerde-OrcSerdeRow-cannot-be-cast-to-org-apache-hadoop-io-BytesWritable" class="headerlink" title="hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable"></a>hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/08/06/hive-%E6%8A%A5%E9%94%99/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1057,7 +1072,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1070,7 +1085,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
