@@ -257,19 +257,11 @@
 <p>更新：</p>
 <p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/859f28f43496404886a77600ea68ef59?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/859f28f43496404886a77600ea68ef59?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>删除语法：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name [<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
-
 <p>更新语法：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UPDATE table_name <span class="keyword">SET</span> field1<span class="operator">=</span><span class="keyword">new</span><span class="operator">-</span>value1, field2<span class="operator">=</span><span class="keyword">new</span><span class="operator">-</span>value2</span><br><span class="line">[<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> titles_test</span><br><span class="line"><span class="keyword">where</span> id <span class="keyword">not</span> <span class="keyword">IN</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">select</span> <span class="built_in">min</span>(id)</span><br><span class="line">        <span class="keyword">from</span> titles_test</span><br><span class="line">        <span class="keyword">group</span> <span class="keyword">by</span> emp_no</span><br><span class="line">    )A1</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">--更新</span></span><br><span class="line">UPDATE titles_test</span><br><span class="line">   <span class="keyword">SET</span> to_date<span class="operator">=</span><span class="keyword">NULL</span></span><br><span class="line">       ,from_date<span class="operator">=</span><span class="string">&#x27;2001-01-01&#x27;</span></span><br><span class="line"> <span class="keyword">WHERE</span> to_date <span class="operator">=</span> <span class="string">&#x27;9999-01-01&#x27;</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-
 <p>这里有一个犯过的错误：</p>
 <p><strong>group by前面的select语句中要用聚合函数！！！不然是没有作用的。</strong></p>
 

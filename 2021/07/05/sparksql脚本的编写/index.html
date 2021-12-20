@@ -253,13 +253,9 @@
 
       
         <h3 id="1-写含有sparksql语句的、带参的shell脚本"><a href="#1-写含有sparksql语句的、带参的shell脚本" class="headerlink" title="1. 写含有sparksql语句的、带参的shell脚本"></a>1. 写含有sparksql语句的、带参的shell脚本</h3><span id="more"></span>
-
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !/bin/bash</span></span><br><span class="line"><span class="comment"># 此文件命名为show.sh</span></span><br><span class="line">SQL=<span class="string">&quot;</span></span><br><span class="line"><span class="string">show create table <span class="variable">$0</span>;</span></span><br><span class="line"><span class="string">&quot;</span></span><br><span class="line">spark-sql --num-executors 100 -e <span class="variable">$SQL</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="2-写循环数组、可以传参的shell脚本来运行上述脚本"><a href="#2-写循环数组、可以传参的shell脚本来运行上述脚本" class="headerlink" title="2. 写循环数组、可以传参的shell脚本来运行上述脚本"></a>2. 写循环数组、可以传参的shell脚本来运行上述脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> !/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此文件命名为run.sh</span></span><br><span class="line">tables=(&quot;a&quot; &quot;b&quot; &quot;c&quot;)</span><br><span class="line">for t in $&#123;tables[@]&#125;    # 循环</span><br><span class="line">do</span><br><span class="line">    sh show.sh $t    # 传参</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述循环还有一种写法</span></span><br><span class="line">for((i=1;i&lt;=$&#123;#tables&#125;;i++));</span><br><span class="line">do</span><br><span class="line">    sh show.sh $&#123;tables[$i]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
 <h3 id="3-控制并任务的数量"><a href="#3-控制并任务的数量" class="headerlink" title="3. 控制并任务的数量"></a>3. 控制并任务的数量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">while [ `ps -ef |grep show.sh |grep -v grep|wc -l` -gt 2 ]</span><br><span class="line">do...done</span><br></pre></td></tr></table></figure>
-
 <p>其中，<code>ps -ef</code>查询进程的任务数；</p>
 <p>​           <code>|</code>管道，前面命令的输出是后面命令的输入；</p>
 <p>​           <code>grep bash_file_name</code> 指定进程；</p>
@@ -267,7 +263,7 @@
 <p>​           <code>wc -l</code>计算数量。</p>
 <p><strong>这个控制并行，当并行任务数大于等于2的时候，执行某一个操作以暂停其他线程的运行。如果让脚本的线程一个一个运行，即不使用&amp;操作，就可以不用（最好别用，容易崩）</strong></p>
 <h3 id="4-如果报错，怎么查"><a href="#4-如果报错，怎么查" class="headerlink" title="4. 如果报错，怎么查"></a>4. 如果报错，怎么查</h3><ol>
-<li>首先查看进程的ID：<code>ps -ef | grep show.sh </code>；</li>
+<li>首先查看进程的ID：<code>ps -ef | grep show.sh</code>；</li>
 <li>杀死该进程：将上述得到的<code>sh...</code>的进程ID，即</li>
 </ol>
 <p><strong>上述需要注意的点：</strong></p>

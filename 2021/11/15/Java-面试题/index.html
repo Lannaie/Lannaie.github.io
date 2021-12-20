@@ -254,7 +254,6 @@
       
         <h2 id="1-Java语言的特点"><a href="#1-Java语言的特点" class="headerlink" title="1. Java语言的特点"></a>1. Java语言的特点</h2><p>Java语言有十大特点：</p>
 <span id="more"></span>
-
 <ol>
 <li>简单性：Java继承c++语言的优点，去掉指针运算、头文件等比较复杂的部分，使用起来更加方便；</li>
 <li>面向对象：即面向数据；</li>
@@ -274,13 +273,13 @@
 <p>编译：程序运行前，使用编译器将代码完全翻译为机器码；</p>
 <p>解释：程序运行时，使用解释器逐行翻译代码，并运行。</p>
 <ol>
-<li><u><em>源代码 – [编译] –&gt; 机器码 – [运行] –&gt; 计算机</em></u></li>
+<li><u><em>源代码 — [编译] —&gt; 机器码 — [运行] —&gt; 计算机</em></u></li>
 </ol>
 <blockquote>
 <p>这种方式的优点是程序运行的效率会很高；问题在于，不同架构的计算机的机器码是不一样的，这种情况下，源代码的可移植性不高。如果要在多种计算机下运行，就需要编译多次，甚至还需要改部分源代码，</p>
 </blockquote>
-<ol start="2">
-<li><u><em>源代码 – [运行] –&gt; 计算机 – [解释] –&gt; 机器码</em></u>  注：解释的过程是在计算机中进行 <em><u>源代码 – [解释] –&gt; 机器码</u></em> 的过程。</li>
+<ol>
+<li><u><em>源代码 — [运行] —&gt; 计算机 — [解释] —&gt; 机器码</em></u>  注：解释的过程是在计算机中进行 <em><u>源代码 — [解释] —&gt; 机器码</u></em> 的过程。</li>
 </ol>
 <blockquote>
 <p>在计算机运行的情况下，解释一行，执行一行。这种方式相较于上面的方式会慢一些，但是可以提高源代码的可移植性。因为不同计算机的解释器会有不同的版本，只需要写一份源代码，在计算机运行时会解释成相对应的机器码。</p>
@@ -291,11 +290,11 @@
 <p>先编译：程序运行前，使用编译器将代码完全翻译为字节码；</p>
 <p>后解释：程序运行时，使用解释器将字节码逐行翻译成机器码，并运行。</p>
 <p>下面逐步理解：</p>
-<p><em><u> 1. 源代码 – [编译] –&gt; 字节码 – [运行] –&gt; 计算机</u></em></p>
+<p><em><u> 1. 源代码 — [编译] —&gt; 字节码 — [运行] —&gt; 计算机</u></em></p>
 <blockquote>
 <p>字节码和机器码比较接近，也是二进制文件，所以如果在计算机上将字节码解释成机器码会比较快；之后我们将字节码提交给计算机运行；</p>
 </blockquote>
-<p><em><u>2. [计算机中] –&gt; 字节码 –[解释] –&gt; 机器码</u></em></p>
+<p><em><u>2. [计算机中] —&gt; 字节码 —[解释] —&gt; 机器码</u></em></p>
 <blockquote>
 <p>在计算机中，使用解释器将字节码翻译成机器码就会比较快。</p>
 </blockquote>
@@ -355,9 +354,9 @@
 </ol>
 <p>（1）基本数据类型有8个：int、short、double、float、byte、char、long、boolean；</p>
 <p>（2）引用类型比如 String、Integer等。</p>
-<ol start="2">
+<ol>
 <li><p>自动装箱和拆箱：</p>
-<p>​        自动装箱和拆箱是基本类型和包装器类型之间的转换，比如是 <code>int</code> 和 <code>Integer</code> 之间的转换，自动装箱将 <code>int</code> 转换为 <code>Integer </code>，拆箱反之。</p>
+<p>​        自动装箱和拆箱是基本类型和包装器类型之间的转换，比如是 <code>int</code> 和 <code>Integer</code> 之间的转换，自动装箱将 <code>int</code> 转换为 <code>Integer</code>，拆箱反之。</p>
 <p>​        装箱和拆箱的实现过程是：装箱通过调用包装器的 <code>valueOf</code> 方法实现，拆箱通过调用包装器的 <code>xxxValue</code> 实现，如 <code>intValue</code> 。</p>
 </li>
 <li><p>引申问题①：<strong>Integer i = new Integer(10)</strong> 和 <strong>Integer i = 10</strong> 的区别</p>
@@ -366,7 +365,6 @@
 </li>
 <li><p>引申问题②：下面程序的输出结果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Integer i1 = <span class="number">100</span>;</span><br><span class="line">    Integer i2 = <span class="number">100</span>;</span><br><span class="line">    Integer i3 = <span class="number">200</span>;</span><br><span class="line">    Integer i4 = <span class="number">200</span>;</span><br><span class="line">   </span><br><span class="line">    System.out.println(i1 == i2);</span><br><span class="line">    System.out.println(i3 == i4);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>答：</p>
 <blockquote>
 <p>true</p>
@@ -374,7 +372,6 @@
 </blockquote>
 <p><strong>因为Integer的范围是：-128 ~ 127</strong> 。Integer、Short、Byte、Character、Long这几个类的 <code>valueOf</code> 是类似的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Double i1 = <span class="number">100.0</span>;</span><br><span class="line">    Double i2 = <span class="number">100.0</span>;</span><br><span class="line">    Double i3 = <span class="number">200.0</span>;</span><br><span class="line">    Double i4 = <span class="number">200.0</span>;</span><br><span class="line">   </span><br><span class="line">    System.out.println(i1 == i2);</span><br><span class="line">    System.out.println(i3 == i4);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>答：</p>
 <blockquote>
 <p>false</p>
@@ -382,14 +379,12 @@
 </blockquote>
 <p><strong>因为在某个范围整形是有限的，而浮点数不是</strong> 。Double、Float的 <code>valueOf</code> 是类似的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Boolean i1 = <span class="keyword">false</span>;</span><br><span class="line">    Boolean i2 = <span class="keyword">false</span>;</span><br><span class="line">    Boolean i3 = <span class="keyword">true</span>;</span><br><span class="line">    Boolean i4 = <span class="keyword">true</span>;</span><br><span class="line">   </span><br><span class="line">    System.out.println(i1 == i2);</span><br><span class="line">    System.out.println(i3 == i4);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>答：</p>
 <blockquote>
 <p>true</p>
 <p>true</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Integer a = <span class="number">1</span>;</span><br><span class="line">    Integer b = <span class="number">2</span>;</span><br><span class="line">    Integer c = <span class="number">3</span>;</span><br><span class="line">    Long g = <span class="number">3L</span>;</span><br><span class="line">    Long h = <span class="number">2L</span>;</span><br><span class="line">   </span><br><span class="line">    System.out.println(c==(a+b)); <span class="comment">//1</span></span><br><span class="line">    System.out.println(c.equals(a+b)); <span class="comment">//2</span></span><br><span class="line">    System.out.println(g==(a+b)); <span class="comment">//3</span></span><br><span class="line">    System.out.println(g.equals(a+b)); <span class="comment">//4</span></span><br><span class="line">    System.out.println(g.equals(a+h)); <span class="comment">//5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>答：</p>
 <blockquote>
 <p>true<br>true<br>true<br>false<br>true</p>
@@ -460,7 +455,6 @@
 </li>
 <li><p>提高代码的复用率，外部调用方便；</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.yonyong.reflection.testdemo;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Fruit</span> </span>&#123; <span class="comment">//水果接口</span></span><br><span class="line">　 <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>; <span class="comment">//吃水果</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Apple</span> <span class="keyword">implements</span> <span class="title">Fruit</span></span>&#123; <span class="comment">//定义苹果</span></span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">　　　　System.out.println(<span class="string">&quot;**吃苹果。&quot;</span>);</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Orange</span> <span class="keyword">implements</span> <span class="title">Fruit</span></span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">　　　　System.out.println(<span class="string">&quot;**吃橘子。&quot;</span>);</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Fruit <span class="title">getInstance</span><span class="params">(String className)</span></span>&#123;</span><br><span class="line">　　　　Fruit fruit = <span class="keyword">null</span> ;</span><br><span class="line">　　　　<span class="keyword">try</span>&#123;</span><br><span class="line">　　　　　　fruit = (Fruit) Class.forName(className).newInstance() ;</span><br><span class="line">　　　　&#125;<span class="keyword">catch</span>(Exception e )&#123;</span><br><span class="line">　　　　　　e.printStackTrace() ;</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　　　<span class="keyword">return</span> fruit ;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryDemo</span></span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">　　<span class="comment">//通过工厂类取得接口实例，传入完整的包.类名称</span></span><br><span class="line">　　　　Fruit f = Factory.getInstance(<span class="string">&quot;cn.yonyong.reflection.testdemo.Apple&quot;</span>) ;</span><br><span class="line">　　　　<span class="keyword">if</span>(f!=<span class="keyword">null</span>)&#123; <span class="comment">//判断是否取得接口实例</span></span><br><span class="line">　　　　　　f.eat() ;</span><br><span class="line">　　　&#125;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>如果要添加一个西瓜类，就只需要在 <code>FactoryDemo</code> 中的 <code>getInstance</code> 反射对应的名称即可。</p>
 </li>
 <li><p>对于任意一个类，都能知道它的所有属性和方法，对于任意一个对象，都能调用它的所有方法。</p>
@@ -489,7 +483,10 @@
 </li>
 <li><p><strong>ParNew</strong>：是Serial的多线程版本，使用复制算法，是Server场景下的默认新生代收集器，除了性能原因外，主要是因为除了Serial，只有ParNew能与CMS配合使用；</p>
 </li>
-<li><p><strong>Parallel Scavenge</strong>：它的诸多特性与ParNew非常相似，不同的地方在于，它的目标是实现可控制的吞吐量。这里的吞吐量指的是处理器用于运行用户代码的时间与处理器总消耗时间的比值，而处理器总消耗时间是处理器处理用户代码的时间和用于处理垃圾回收的时间之和。<br>$$<br>吞吐量 =<br>\frac{处理器运行用户代码的时间}{处理器运行用户代码的时间 + 运行垃圾收集的时间}<br>$$<br>​        高吞吐量可以最高效率的利用处理器资源，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的分析任务。Parallel Scavenge提供了两个参数用于精确控制吞吐量：MaxGCPauseMillis用于控制最大垃圾收集停顿时间、GCTimeRatio用于直接设置吞吐量大小。这里关于MaxGCPauseMillis参数有一个误区，并不是这个参数设置是值越小，就会使得垃圾收集的速度更快，垃圾收集的停顿时间是以吞吐量和新生代空间为代价换取的，系统将新生代空间调小了，垃圾收集的频率也就变高了。</p>
+<li><p><strong>Parallel Scavenge</strong>：它的诸多特性与ParNew非常相似，不同的地方在于，它的目标是实现可控制的吞吐量。这里的吞吐量指的是处理器用于运行用户代码的时间与处理器总消耗时间的比值，而处理器总消耗时间是处理器处理用户代码的时间和用于处理垃圾回收的时间之和。</p>
+<script type="math/tex; mode=display">
+吞吐量 = 
+\frac{处理器运行用户代码的时间}{处理器运行用户代码的时间 + 运行垃圾收集的时间}</script><p>​        高吞吐量可以最高效率的利用处理器资源，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的分析任务。Parallel Scavenge提供了两个参数用于精确控制吞吐量：MaxGCPauseMillis用于控制最大垃圾收集停顿时间、GCTimeRatio用于直接设置吞吐量大小。这里关于MaxGCPauseMillis参数有一个误区，并不是这个参数设置是值越小，就会使得垃圾收集的速度更快，垃圾收集的停顿时间是以吞吐量和新生代空间为代价换取的，系统将新生代空间调小了，垃圾收集的频率也就变高了。</p>
 <p>​        Parallel Scavenge还有一个参数是区别于ParNew的重要特性：UseAdeptiveSizePolicy，启动这个参数，虚拟机就可以动态调整相关参数以提供最合适或最大的吞吐量，这种方式被称为自动调节策略，开启这个开关后，只需要设置上述两个参数之一来设置一个优化目标即可。</p>
 </li>
 <li><p><strong>Serial Old</strong>：Serial Old是Serial收集器的老年代版本，也是单线程收集器，使用标记-整理算法。主要意义也是提供client模式下的虚拟机使用，在server模式下，也有两种用法：可以跟Parallel Scavenge搭配使用，不过它本身就有一个PS MarkSweep收集器供老年代使用，与Serial Old的实现几乎一样；也可以作为CMS收集器失败时的后备预案，在并发收集发生故障时使用。</p>
@@ -515,22 +512,22 @@
 <p>1）CMS收集器对CPU资源非常敏感,在并发阶段虽然不会导致用户线程停顿，但是会因为占用了一部分CPU资源，如果在CPU资源不足的情况下应用会有明显的卡顿。</p>
 <p>2）无法处理浮动垃圾：在执行‘并发清理’步骤时，用户线程也会同时产生一部分可回收对象，但是这部分可回收对象只能在下次执行清理时才会被回收。如果在清理过程中预留给用户线程的内存不足就会出现‘Concurrent Mode Failure’,一旦出现此错误时便会切换到SerialOld收集方式。<br>3）使用标记清除算法会导致每次垃圾回收后产生大量空间碎片，这给大对象的分配带来很大的问题，往往会出现老年代还有很多剩余空间，但就是不能找到足够的连续空间来存储连续对象。</p>
 </li>
-<li><p> <strong>G1</strong>：主要面向服务端应用，取代了Parallel Scavenge + Parallel Old组合，称为服务端模式下的默认垃圾收集器。</p>
+<li><p><strong>G1</strong>：主要面向服务端应用，取代了Parallel Scavenge + Parallel Old组合，称为服务端模式下的默认垃圾收集器。</p>
+<p>​        G1的内存结构基于堆内存布局，虽然G1仍然遵循分代收集的理论，但内部不再坚持固定大小和数量的区域划分，而是把连续的Java内存空间划分为多个大小相等的独立区域，以下简称region，每个region都可以是新生代的E区、S区和O区，收集器对不同类型的region采用不同的方式处理，这样无论是新创建的对象还是已经存活一段时间、熬过多次收集的就对象都能取得很好的收集效果。</p>
+<p>​        G1还专门划分一个特殊的humongous（H）区域来存储大对象，只要超过一个region容量一半以上的对象就被判定为大对象，对于超过整个region容量的大对象，使用连续的H区来存储。H区是O区的一种。</p>
+<p>​        G1中的新生代和老年代都是一系列不需要连续的动态集合，它将region作为单次回收的最小单元，这样可以有计划的避免在整个Java堆中进行全区域的垃圾收集。更具体的思路就是让G1跟踪每个region离垃圾堆积的“价值”大小，价值即回收获得的空间大小以及回收所需时间的经验值，然后在后台维护一张优先级列表，每次根据用户设定允许的停顿时间，有限处理回收价值最大的region，这也是G1名字的由来。这种使用region划分内存空间，以及具有优先级的区域回收方式，保证了G1在有限的时间内获取尽可能高的手机效率。</p>
+<p>​        G1收集器的运作过程大致分为以下四个步骤：</p>
+<p>1）初始标记：标记GC Roots能直接关联到的对象，并修改tams指针的值，让下一阶段用户线程并发运行时，能正确的在可用的region中分配对象；</p>
+<p>2）并发标记：从GC Roots开始对堆内对象进行可达性分析，递归扫描整个堆内的对象，找出回收对象，这个阶段耗时较长，但可与应用程序并发运行。扫描完成后，需要重新处理satb记录下在并发时有引用引用变动的对象；</p>
+<p>3）最终标记：用于处理并发阶段结束后遗留的少量satb记录；</p>
+<p>4）筛选回收：负责更新Region的统计数据，对各个Region的回 收价值和成本进行排序，根据用户所期望的停顿时间来制定回收计划，可以自由选择任意多个Region 构成回收集，然后把决定回收的那一部分Region的存活对象复制到空的Region中，再清理掉整个旧 Region的全部空间。这里的操作涉及存活对象的移动，是必须暂停用户线程，由多条收集器线程并行完成的。</p>
+<p>​        上述过程的描述可用看出，G1收集器除了并发标记外，都需要stop the world，即它并非单纯追求低延迟，它的目标是在延迟可控的范围内保持尽可能高的吞吐量。上述过程所提及的satb算法是原始快照算法，G1收集器是通过这个算法实现的，此外，G1为每一个Region设 计了两个名为TAMS（Top at Mark Start）的指针，把Region中的一部分空间划分出来用于并发回收过 程中的新对象分配，并发回收时新分配的对象地址都必须要在这两个指针位置以上。G1收集器默认在 这个地址以上的对象是被隐式标记过的，即默认它们是存活的，不纳入回收范围。</p>
+<p>​        G1和CMS之间的比较如下：</p>
+<p>1）与CMS的标记清除算法不同，G1使用标记整理算法，但从局部的两个region上看又是基于复制算法实现的，这两种算法都让G1在运行期间不会产生空间碎片，垃圾收集后能提供规整的可用内存，这种特性有利于程序的长时间运行，不会因为大对象无法得到分配而提前进行下一次垃圾收集。</p>
+<p>2）从内存占用上，G1和CMS都使用卡表来处理跨代指针（卡表就是记忆集的一种具体实现，它定义了记忆集的记录精度、与堆内存的映射关系等。 关于卡表与记忆集的关系），但G1的卡表更复杂，且每个region都有一份，这导致G1的记忆集可能会占整个堆容量的20%甚至更多空间；而CMS的卡表只有一份，且只需要处理老年代到新生代的引用，反过来不需要，由于新生代具有朝生夕死的不稳定性，引用变化频繁，能省下这个区域的维护开销是划算的。</p>
+<p>3）相比起CMS的增量更新算法，原始快照算法能减少并发标记和重新标记阶段的消耗，避免CMS那样在最终标记阶段停顿时间过长的缺点， 但是在用户程序运行过程中确实会产生由跟踪引用变化带来的额外负担。</p>
 </li>
 </ol>
-<p>   ​        G1的内存结构基于堆内存布局，虽然G1仍然遵循分代收集的理论，但内部不再坚持固定大小和数量的区域划分，而是把连续的Java内存空间划分为多个大小相等的独立区域，以下简称region，每个region都可以是新生代的E区、S区和O区，收集器对不同类型的region采用不同的方式处理，这样无论是新创建的对象还是已经存活一段时间、熬过多次收集的就对象都能取得很好的收集效果。</p>
-<p>   ​        G1还专门划分一个特殊的humongous（H）区域来存储大对象，只要超过一个region容量一半以上的对象就被判定为大对象，对于超过整个region容量的大对象，使用连续的H区来存储。H区是O区的一种。</p>
-<p>   ​        G1中的新生代和老年代都是一系列不需要连续的动态集合，它将region作为单次回收的最小单元，这样可以有计划的避免在整个Java堆中进行全区域的垃圾收集。更具体的思路就是让G1跟踪每个region离垃圾堆积的“价值”大小，价值即回收获得的空间大小以及回收所需时间的经验值，然后在后台维护一张优先级列表，每次根据用户设定允许的停顿时间，有限处理回收价值最大的region，这也是G1名字的由来。这种使用region划分内存空间，以及具有优先级的区域回收方式，保证了G1在有限的时间内获取尽可能高的手机效率。</p>
-<p>   ​        G1收集器的运作过程大致分为以下四个步骤：</p>
-<p>   1）初始标记：标记GC Roots能直接关联到的对象，并修改tams指针的值，让下一阶段用户线程并发运行时，能正确的在可用的region中分配对象；</p>
-<p>   2）并发标记：从GC Roots开始对堆内对象进行可达性分析，递归扫描整个堆内的对象，找出回收对象，这个阶段耗时较长，但可与应用程序并发运行。扫描完成后，需要重新处理satb记录下在并发时有引用引用变动的对象；</p>
-<p>   3）最终标记：用于处理并发阶段结束后遗留的少量satb记录；</p>
-<p>   4）筛选回收：负责更新Region的统计数据，对各个Region的回 收价值和成本进行排序，根据用户所期望的停顿时间来制定回收计划，可以自由选择任意多个Region 构成回收集，然后把决定回收的那一部分Region的存活对象复制到空的Region中，再清理掉整个旧 Region的全部空间。这里的操作涉及存活对象的移动，是必须暂停用户线程，由多条收集器线程并行完成的。</p>
-<p>   ​        上述过程的描述可用看出，G1收集器除了并发标记外，都需要stop the world，即它并非单纯追求低延迟，它的目标是在延迟可控的范围内保持尽可能高的吞吐量。上述过程所提及的satb算法是原始快照算法，G1收集器是通过这个算法实现的，此外，G1为每一个Region设 计了两个名为TAMS（Top at Mark Start）的指针，把Region中的一部分空间划分出来用于并发回收过 程中的新对象分配，并发回收时新分配的对象地址都必须要在这两个指针位置以上。G1收集器默认在 这个地址以上的对象是被隐式标记过的，即默认它们是存活的，不纳入回收范围。</p>
-<p>   ​        G1和CMS之间的比较如下：</p>
-<p>   1）与CMS的标记清除算法不同，G1使用标记整理算法，但从局部的两个region上看又是基于复制算法实现的，这两种算法都让G1在运行期间不会产生空间碎片，垃圾收集后能提供规整的可用内存，这种特性有利于程序的长时间运行，不会因为大对象无法得到分配而提前进行下一次垃圾收集。</p>
-<p>   2）从内存占用上，G1和CMS都使用卡表来处理跨代指针（卡表就是记忆集的一种具体实现，它定义了记忆集的记录精度、与堆内存的映射关系等。 关于卡表与记忆集的关系），但G1的卡表更复杂，且每个region都有一份，这导致G1的记忆集可能会占整个堆容量的20%甚至更多空间；而CMS的卡表只有一份，且只需要处理老年代到新生代的引用，反过来不需要，由于新生代具有朝生夕死的不稳定性，引用变化频繁，能省下这个区域的维护开销是划算的。</p>
-<p>   3）相比起CMS的增量更新算法，原始快照算法能减少并发标记和重新标记阶段的消耗，避免CMS那样在最终标记阶段停顿时间过长的缺点， 但是在用户程序运行过程中确实会产生由跟踪引用变化带来的额外负担。</p>
 <h2 id="30-引用计数法和可达性分析算法"><a href="#30-引用计数法和可达性分析算法" class="headerlink" title="30. 引用计数法和可达性分析算法"></a>30. 引用计数法和可达性分析算法</h2><h2 id="31-进程和线程的区别和联系"><a href="#31-进程和线程的区别和联系" class="headerlink" title="31. 进程和线程的区别和联系"></a>31. 进程和线程的区别和联系</h2><ol>
 <li>进程是对运行时程序的封装，是系统进行资源调度和分配的的基本单位，实现了操作系统的并发；</li>
 <li>线程是进程的子任务，是CPU调度和分派的基本单位，用于保证程序的 实时性，实现进程内部的并发；</li>

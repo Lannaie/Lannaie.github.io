@@ -254,14 +254,9 @@
       
         <h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> table_name</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> column_name column_type [<span class="keyword">not</span> <span class="keyword">NULL</span>]</span><br><span class="line">[<span class="keyword">DEFAULT</span> default_context]</span><br><span class="line">[  after column_name]</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-
 <p>其中，<code>after</code> 用来指定在某个列后面添加新列，<code>default</code> 指定默认值。</p>
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> actor</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> create_date datetime <span class="keyword">not</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="string">&#x27;2020-10-01 00:00:00&#x27;</span></span><br><span class="line">  after last_update</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 

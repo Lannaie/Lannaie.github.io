@@ -253,12 +253,8 @@
 
       
         <h3 id="1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’"><a href="#1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’" class="headerlink" title="1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’"></a>1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’</h3><span id="more"></span>
-
-
-
 <p>报错语句：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(salary) <span class="keyword">as</span> avg_salary</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"> <span class="keyword">where</span> salary </span><br><span class="line"><span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(salary)</span><br><span class="line">       ,<span class="built_in">max</span>(salary) </span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <p>解决：</p>
 <p><code>in</code> 关键字只能对应一列数据。</p>
 <h3 id="2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns"><a href="#2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns" class="headerlink" title="2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns."></a>2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns.</h3><p>。。。仔细看 <code>values</code> 里面的内容，应该有多了。</p>

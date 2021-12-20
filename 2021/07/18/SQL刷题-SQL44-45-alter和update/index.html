@@ -257,39 +257,24 @@
 <p>alter：</p>
 <p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/5277d7f92aa746ab8aa42886e5d570d4?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/5277d7f92aa746ab8aa42886e5d570d4?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>update和alter的<strong>区别</strong>：</p>
 <p>alter 是DDL语句，是修改数据库中对象（表，数据库，视图。。）的语句；update是DML语句，是修改表中数据的语句。</p>
 <p>alter中：</p>
 <p>（1）添加列：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line">        <span class="keyword">ADD</span> column_name column_type</span><br><span class="line">           [, column_name colum_type ...];</span><br></pre></td></tr></table></figure>
-
 <p>（2）删除列：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line">       <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> column_name;</span><br></pre></td></tr></table></figure>
-
 <p>（3）改变数据类型：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line">MODIFY <span class="keyword">COLUMN</span> column_name column_type;</span><br></pre></td></tr></table></figure>
-
 <p>（4）修改表名：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> old_name</span><br><span class="line">  RENAME <span class="keyword">TO</span> new_name;</span><br></pre></td></tr></table></figure>
-
-
-
 <p>update中：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE table_name </span><br><span class="line">   <span class="keyword">SET</span> field1<span class="operator">=</span><span class="keyword">new</span><span class="operator">-</span>value1, field2<span class="operator">=</span><span class="keyword">new</span><span class="operator">-</span>value2</span><br><span class="line">[<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
-
 <p>特殊的，题中出现替代值,这就用到了 <code>replace函数</code>：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replace(<span class="keyword">column</span>, old_value, new_value)</span><br></pre></td></tr></table></figure>
-
 <p>出现在 <code>update</code> 也是一样：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">set</span> column_name <span class="operator">=</span> replace(column_name, <span class="keyword">old</span>, <span class="keyword">new</span>)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- sql44</span></span><br><span class="line"> UPDATE titles_test </span><br><span class="line">    <span class="keyword">SET</span> emp_no <span class="operator">=</span> REPLACE(emp_no, <span class="number">10001</span>, <span class="number">10005</span>)</span><br><span class="line">  <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">5</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--sql45</span></span><br><span class="line"> <span class="keyword">alter</span> </span><br><span class="line"> <span class="keyword">table</span> titles_test </span><br><span class="line">rename </span><br><span class="line">    <span class="keyword">to</span> titles_2017</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
