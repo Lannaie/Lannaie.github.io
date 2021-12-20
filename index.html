@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-14 00:00:50" itemprop="dateModified" datetime="2021-12-14T00:00:50+08:00">2021-12-14</time>
+                <time title="修改时间：2021-12-20 21:50:46" itemprop="dateModified" datetime="2021-12-20T21:50:46+08:00">2021-12-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,15 +250,14 @@
 
       
           <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-sum-circular-subarray/">https://leetcode-cn.com/problems/maximum-sum-circular-subarray/</a></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>对于环形数组，一般解的思路是将数组分成三个部分：[max1,min,max2]。有以下的推导关系：</p>
-<blockquote>
-<p>max(前缀数组 + 后缀数组)<br>= max(数组总和 - 中间数组)<br>= 数组总和 + max(- 中间数组)<br>= 数组总和 - min(中间数组)</p>
-</blockquote>
-<p>上述的 <code>min(中间数组)</code> 即取数组的最小值。</p>
-<p>具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubarraySumCircular</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxsum = nums[<span class="number">0</span>], curmax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minsum = nums[<span class="number">0</span>], curmin = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> num : nums )</span><br><span class="line">        &#123;</span><br><span class="line">            curmax = Math.max(curmax + num, num);</span><br><span class="line">            maxsum = Math.max(curmax, maxsum);</span><br><span class="line">            curmin = Math.min(curmin + num, num);</span><br><span class="line">            minsum = Math.min(curmin, minsum);</span><br><span class="line">            tot += num;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxsum &gt; <span class="number">0</span> ? Math.max(maxsum, tot - minsum) : maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/13/LeetCode-918-%E7%8E%AF%E5%BD%A2%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -300,10 +299,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-09 21:06:19 / 修改时间：21:56:10" itemprop="dateCreated datePublished" datetime="2021-12-09T21:06:19+08:00">2021-12-09</time>
+              <time title="创建时间：2021-12-09 21:06:19" itemprop="dateCreated datePublished" datetime="2021-12-09T21:06:19+08:00">2021-12-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-20 21:52:56" itemprop="dateModified" datetime="2021-12-20T21:52:56+08:00">2021-12-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -325,30 +330,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一-引入整数快速幂"><a href="#一-引入整数快速幂" class="headerlink" title="一. 引入整数快速幂"></a>一. 引入整数快速幂</h2><p>比如计算 **X <sup>19</sup>**。</p>
-<p>可以使用二进制运算：<code>19 = 1 0 0 1 1</code> ，可以得出：<strong>X <sup>19</sup> = X <sup>16 + 2 + 1</sup> = X <sup>16</sup> * X <sup>2</sup> * X <sup>1</sup></strong> 。</p>
-<p>这种计算方法可以减少循环的次数。</p>
-<p>具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">QuickPow</span><span class="params">( <span class="keyword">int</span> x, <span class="keyword">int</span> N )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = x;</span><br><span class="line">    <span class="keyword">while</span>( N &gt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>( (N &amp; <span class="number">1</span>) == <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            res = res * x;</span><br><span class="line">        &#125;</span><br><span class="line">        x *= x;</span><br><span class="line">        N &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>和上面的思想是一样的，只是整数的次幂变成了矩阵的次幂。</p>
-<p>回顾一下矩阵乘法的思想：</p>
-<p><img src="LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.assets/1149206-20170603085219993-768167045.png" alt="矩阵乘法"></p>
-<p>下面使用具体的情景。</p>
-<h3 id="具体实例分析-斐波那契数列"><a href="#具体实例分析-斐波那契数列" class="headerlink" title="具体实例分析 - 斐波那契数列"></a>具体实例分析 - 斐波那契数列</h3><p>已知递推序列：<code>F(n) = F(n-1) + F(n-2)</code> ，可以知道 <code>F(n-1) = F(n-1)</code> ，或者可以换算成：</p>
-<p><code>F(n) = 1 * F(n-1) + 1 * F(n-2)</code> ，</p>
-<p><code>F(n-1) = 1 * F(n-1) + 0 * F(n-2)</code> ，</p>
-<p>则可以逆推出矩阵序列：<br>$$<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>=<br>\left(<br>\matrix{<br>  1 &amp; 1\<br>  1 &amp; 0<br>}<br>\right)<br>*<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>$$<br>根据上述矩阵公式，得到斐波那契数列的一般式：<br>$$<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>=<br>\left(<br>\matrix{<br>1 &amp; 1\<br>1 &amp; 0<br>}<br>\right) ^ {n-1}<br>*<br>\left(<br>\matrix{<br>F(1) = 1\<br>F(0) = 0<br>}<br>\right)<br>$$<br>得到具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] mat = &#123;&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] res = &#123;&#123;<span class="number">1</span>&#125;,&#123;<span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">        n -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( n != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( (n &amp; <span class="number">1</span>) == <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                matrixSquare(mat, res);</span><br><span class="line">            &#125;</span><br><span class="line">            matrixSquare(mat, mat);</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">matrixSquare</span><span class="params">(<span class="keyword">int</span>[][] mat1, <span class="keyword">int</span>[][] mat2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = mat2.length, m = mat2[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] new_mat = <span class="keyword">new</span> <span class="keyword">int</span>[n][m];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span>( <span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; ++k )</span><br><span class="line">                &#123;</span><br><span class="line">                    new_mat[i][j] += mat1[i][k] * mat2[k][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                mat2[i][j] = new_mat[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cmmdc/p/6936196.html">矩阵快速幂基础讲解</a></p>
-
+          <h2 id="一-引入整数快速幂"><a href="#一-引入整数快速幂" class="headerlink" title="一. 引入整数快速幂"></a>一. 引入整数快速幂</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/09/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -390,10 +380,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-01 21:51:52 / 修改时间：22:15:08" itemprop="dateCreated datePublished" datetime="2021-12-01T21:51:52+08:00">2021-12-01</time>
+              <time title="创建时间：2021-12-01 21:51:52" itemprop="dateCreated datePublished" datetime="2021-12-01T21:51:52+08:00">2021-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-20 21:53:41" itemprop="dateModified" datetime="2021-12-20T21:53:41+08:00">2021-12-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -416,22 +412,14 @@
 
       
           <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/96bd6684e04a44eb80e6a68efc0ec6c5?tpId=13&amp;tqId=23260&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking">https://www.nowcoder.com/practice/96bd6684e04a44eb80e6a68efc0ec6c5?tpId=13&amp;tqId=23260&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking</a></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-暴力解法"><a href="#1-暴力解法" class="headerlink" title="1. 暴力解法"></a>1. 暴力解法</h3><p>就是嵌套循环，遍历每个元素的时候，都嵌套一个往回循环到开头，然后计算逆序值。</p>
-<p>具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">InversePairs</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> P = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>( j &gt;= <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>( array[j] &gt; array[i] )</span><br><span class="line">                &#123;</span><br><span class="line">                    ++P;</span><br><span class="line">                &#125;</span><br><span class="line">                --j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>)(P % <span class="number">1000000007</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-归并排序"><a href="#2-归并排序" class="headerlink" title="2. 归并排序"></a>2. 归并排序</h3><p><strong>当提示 <code>空间复杂度 O(n)，时间复杂度 O(nlogn)</code> 就可以尝试思考是否可以套归并排序的解法了</strong>。</p>
-<ol>
-<li>已知归并排序分为两个部分，分治和合并，在分治阶段一般不会有什么其他操作，可以考虑在合并阶段对数据进行操作；</li>
-<li>因为是两个部分进行合并，首先可以知道的就是 <code>left</code> 的部分肯定在 <code>right</code> 前面，所以逆序的两个数字可以分别从两个部分选择来比较；</li>
-<li>如果确定了逆序的两个数字，可以知道 <code>left</code> 部分从当前元素 <code>i</code> 开始到该部分的结束 <code>mid</code> 对于 <code>right</code> 部分的当前元素 <code>j</code> 都是逆序的，因为此时的两个部分肯定分别是升序排序排列，都是从一个开始排起的。</li>
-</ol>
-<p>具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> P = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">InversePairs</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = array.length;</span><br><span class="line">        <span class="keyword">int</span>[] tmp = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        devide(array, <span class="number">0</span>, len - <span class="number">1</span>, tmp);</span><br><span class="line">        <span class="keyword">return</span> P;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">devide</span><span class="params">( <span class="keyword">int</span>[] arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span>[] tmp )</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( l &gt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">        devide(arr, l, mid, tmp);</span><br><span class="line">        devide(arr, mid + <span class="number">1</span>, r, tmp);</span><br><span class="line">        merge(arr, l, r, mid, tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">( <span class="keyword">int</span>[] arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> mid, <span class="keyword">int</span>[] tmp )</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( mid &gt; r || mid &lt; <span class="number">0</span> || l &gt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = l, j = mid + <span class="number">1</span>, t = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>( i &lt;= mid &amp;&amp; j &lt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( arr[i] &lt;= arr[j] )</span><br><span class="line">            &#123;</span><br><span class="line">                tmp[t++] = arr[i++];</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                P += mid + <span class="number">1</span> - i;</span><br><span class="line">                P %= <span class="number">1000000007</span>;</span><br><span class="line">                tmp[t++] = arr[j++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( i &lt;= mid )</span><br><span class="line">        &#123;</span><br><span class="line">            tmp[t++] = arr[i++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( j &lt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            tmp[t++] = arr[j++];</span><br><span class="line">        &#125;</span><br><span class="line">        t = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>( l &lt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            arr[l++] = tmp[t++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/01/LeetCode-JZ51-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -940,7 +928,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-26 11:52:58" itemprop="dateModified" datetime="2021-08-26T11:52:58+08:00">2021-08-26</time>
+                <time title="修改时间：2021-12-20 21:55:32" itemprop="dateModified" datetime="2021-12-20T21:55:32+08:00">2021-12-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -965,29 +953,14 @@
       
           <h3 id="Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans"><a href="#Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans" class="headerlink" title="Error in query: Detected cartesian product for INNER join between logical plans"></a>Error in query: Detected cartesian product for INNER join between logical plans</h3><p>默认sparksql版本2.x不支持笛卡尔积操作，需要手动开启支持权限：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> spark.sql.crossJoin.enabled<span class="operator">=</span><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33"><a href="#Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33" class="headerlink" title="Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at :0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33"></a>Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at <unknown>:0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33</h3><p>不知道具体什么原因（热烈欢迎大佬教我如何深入查找具体原因），只能通过代码大致判断可能数据量太大造成内存溢出。</p>
-<p>解决方法：</p>
-<p>使用 <code>mapjoin </code> 将小表放到内存，减少reduce端的压力。</p>
-<ol>
-<li><p>设置参数：<code>set hive.ignore.mapjoin.hint=true;</code></p>
-<p>true 注释方式不生效，false 注释方式生效 - 用于强行指定需要加入内存走mapjoin的表。</p>
-</li>
-<li><p>将小表进行 <code>mapjoin</code> 操作。</p>
-<p>具体代码为 <code>/*+ mapjoin(table_name)*/</code></p>
-</li>
-</ol>
-<p>具体代码：</p>
-<p>前：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
-
-<p>其中 <code>table_b</code> 为小表。</p>
-<p>后：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(table_b)*/</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/13/spark-%E6%8A%A5%E9%94%99/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
