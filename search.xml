@@ -230,45 +230,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - NC102 在二叉树中找到两个节点的最近公共祖先</title>
-    <url>/2021/07/10/LeetCode-NC102-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%BE%E5%88%B0%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>可以有两种思路：</p>
-<h3 id="1-从局部看：看两个值和公共节点的关系"><a href="#1-从局部看：看两个值和公共节点的关系" class="headerlink" title="1. 从局部看：看两个值和公共节点的关系"></a>1. 从局部看：看两个值和公共节点的关系</h3><p>有三种关系：</p>
-<ol>
-<li>o1和o2在公共节点的两边；</li>
-<li>o1是公共节点；</li>
-<li>o2是公共节点。</li>
-</ol>
-<p>对于第一个关系，就说明该节点的左右子节点都不可能为<code>NULL</code>，则可以得到下述：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root.left != <span class="keyword">null</span> &amp;&amp; root.right!=<span class="keyword">null</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于第二和三的关系，假设当前节点就是公共节点，可以返回该节点。然后由上面一个节点判断此时本节点是公共节点还是一个节点的长辈节点：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为了防止有节点只有左节点和右节点中的一个：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br></pre></td></tr></table></figure>
-<p>总体代码如下：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">CommonAncestor</span><span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode left = CommonAncestor(root.left, o1, o2);</span><br><span class="line">        TreeNode right = CommonAncestor(root.right, o1, o2);</span><br><span class="line">        <span class="keyword">if</span>( left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">CommonAncestor</span>(<span class="params">root, o1, o2</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> root.val <span class="keyword">in</span> [o1, o2]:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            left = CommonAncestor(root.left, o1, o2)</span><br><span class="line">            right = CommonAncestor(root.right, o1, o2)</span><br><span class="line">            <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            <span class="keyword">return</span> left <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> right</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val</span><br></pre></td></tr></table></figure>
-<h3 id="2-从整体看：看每个值之间的区别"><a href="#2-从整体看：看每个值之间的区别" class="headerlink" title="2. 从整体看：看每个值之间的区别"></a>2. 从整体看：看每个值之间的区别</h3><p>可以记录从顶点到每个值的路径，然后比较两个路径是从哪个顶点开始聚合或分道扬镳的，该节点就算最近公共节点。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; s1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; s2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        getPath(root, o1, s1);</span><br><span class="line">        getPath(root, o2, s2);</span><br><span class="line">        <span class="keyword">int</span> res = root.val;</span><br><span class="line">        <span class="keyword">while</span>( !(s1.isEmpty() || s2.isEmpty()) )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> f1 = s1.pop(), f2 = s2.pop();</span><br><span class="line">            System.out.println(f1+<span class="string">&quot; &quot;</span>+f2);</span><br><span class="line">            <span class="keyword">if</span>( f1 != f2 )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            res = f1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">getPath</span><span class="params">(TreeNode root, <span class="keyword">int</span> o, Stack&lt;Integer&gt; stack)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( root.val == o || getPath(root.left, o, stack) || getPath(root.right, o, stack) )</span><br><span class="line">        &#123;</span><br><span class="line">            stack.push(root.val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>选择元素不相等时退出是因为<code>getPath</code>函数是从下往上<code>push</code>元素的。</p>
-<p>python：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">getPath</span>(<span class="params">root, o, s</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> root.val == o <span class="keyword">or</span> getPath(root.left, o, s) <span class="keyword">or</span> getPath(root.right, o, s):</span><br><span class="line">                s.append(root.val)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s1, s2 = [], []</span><br><span class="line">        res = root.val</span><br><span class="line">        getPath(root, o1, s1)</span><br><span class="line">        getPath(root, o2, s2)</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s1) != <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(s2) != <span class="number">0</span>:</span><br><span class="line">            f1, f2 = s1.pop(), s2.pop()</span><br><span class="line">            <span class="keyword">if</span> f1 != f2:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            res = f1</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>java, python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - NC137 表达式求值</title>
     <url>/2021/07/22/LeetCode-NC137-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/c215ba61c8b1443b996351df929dc4d4?tpId=188&amp;&amp;tqId=38548&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/c215ba61c8b1443b996351df929dc4d4?tpId=188&amp;&amp;tqId=38548&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
@@ -355,6 +316,23 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>LeetCode - NC19 子数组的最大累加和问题</title>
+    <url>/2021/07/15/LeetCode-NC19-%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%AF%E5%8A%A0%E5%92%8C%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>我之前一直想的方法：获取每个子数组的最大连续累加和。</p>
+<p>但是这种方法并不适用于这里，因为这种方式求的是并不能连续的最大和。</p>
+<p>正确的方法：将之前累加的值永远与当前的值进行比较，将比当前值小的累加抛弃，最小的和是0，即所有值都不取。</p>
+<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * max sum of the subarray</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr int整型一维数组 the array</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxsumofSubarray</span> <span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = Math.max(<span class="number">0</span>, arr[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            arr[i] = Math.max(arr[i], arr[i-<span class="number">1</span>]+arr[i]);</span><br><span class="line">            max = Math.max(max, arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode - NC156 数组中只出现一次的数（其它数出现k次）</title>
     <url>/2021/07/29/LeetCode-NC156-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%EF%BC%88%E5%85%B6%E5%AE%83%E6%95%B0%E5%87%BA%E7%8E%B0k%E6%AC%A1%EF%BC%89/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/5d3d74c3bf7f4e368e03096bb8857871?tpId=188&amp;&amp;tqId=38592&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/5d3d74c3bf7f4e368e03096bb8857871?tpId=188&amp;&amp;tqId=38592&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
@@ -384,20 +362,42 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - NC19 子数组的最大累加和问题</title>
-    <url>/2021/07/15/LeetCode-NC19-%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%AF%E5%8A%A0%E5%92%8C%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+    <title>LeetCode - NC102 在二叉树中找到两个节点的最近公共祖先</title>
+    <url>/2021/07/10/LeetCode-NC102-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%BE%E5%88%B0%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
 <span id="more"></span>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>我之前一直想的方法：获取每个子数组的最大连续累加和。</p>
-<p>但是这种方法并不适用于这里，因为这种方式求的是并不能连续的最大和。</p>
-<p>正确的方法：将之前累加的值永远与当前的值进行比较，将比当前值小的累加抛弃，最小的和是0，即所有值都不取。</p>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * max sum of the subarray</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr int整型一维数组 the array</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxsumofSubarray</span> <span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = Math.max(<span class="number">0</span>, arr[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            arr[i] = Math.max(arr[i], arr[i-<span class="number">1</span>]+arr[i]);</span><br><span class="line">            max = Math.max(max, arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>可以有两种思路：</p>
+<h3 id="1-从局部看：看两个值和公共节点的关系"><a href="#1-从局部看：看两个值和公共节点的关系" class="headerlink" title="1. 从局部看：看两个值和公共节点的关系"></a>1. 从局部看：看两个值和公共节点的关系</h3><p>有三种关系：</p>
+<ol>
+<li>o1和o2在公共节点的两边；</li>
+<li>o1是公共节点；</li>
+<li>o2是公共节点。</li>
+</ol>
+<p>对于第一个关系，就说明该节点的左右子节点都不可能为<code>NULL</code>，则可以得到下述：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root.left != <span class="keyword">null</span> &amp;&amp; root.right!=<span class="keyword">null</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于第二和三的关系，假设当前节点就是公共节点，可以返回该节点。然后由上面一个节点判断此时本节点是公共节点还是一个节点的长辈节点：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了防止有节点只有左节点和右节点中的一个：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br></pre></td></tr></table></figure>
+<p>总体代码如下：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">CommonAncestor</span><span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode left = CommonAncestor(root.left, o1, o2);</span><br><span class="line">        TreeNode right = CommonAncestor(root.right, o1, o2);</span><br><span class="line">        <span class="keyword">if</span>( left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">CommonAncestor</span>(<span class="params">root, o1, o2</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> root.val <span class="keyword">in</span> [o1, o2]:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            left = CommonAncestor(root.left, o1, o2)</span><br><span class="line">            right = CommonAncestor(root.right, o1, o2)</span><br><span class="line">            <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            <span class="keyword">return</span> left <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> right</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val</span><br></pre></td></tr></table></figure>
+<h3 id="2-从整体看：看每个值之间的区别"><a href="#2-从整体看：看每个值之间的区别" class="headerlink" title="2. 从整体看：看每个值之间的区别"></a>2. 从整体看：看每个值之间的区别</h3><p>可以记录从顶点到每个值的路径，然后比较两个路径是从哪个顶点开始聚合或分道扬镳的，该节点就算最近公共节点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; s1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; s2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        getPath(root, o1, s1);</span><br><span class="line">        getPath(root, o2, s2);</span><br><span class="line">        <span class="keyword">int</span> res = root.val;</span><br><span class="line">        <span class="keyword">while</span>( !(s1.isEmpty() || s2.isEmpty()) )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> f1 = s1.pop(), f2 = s2.pop();</span><br><span class="line">            System.out.println(f1+<span class="string">&quot; &quot;</span>+f2);</span><br><span class="line">            <span class="keyword">if</span>( f1 != f2 )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            res = f1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">getPath</span><span class="params">(TreeNode root, <span class="keyword">int</span> o, Stack&lt;Integer&gt; stack)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( root.val == o || getPath(root.left, o, stack) || getPath(root.right, o, stack) )</span><br><span class="line">        &#123;</span><br><span class="line">            stack.push(root.val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>选择元素不相等时退出是因为<code>getPath</code>函数是从下往上<code>push</code>元素的。</p>
+<p>python：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">getPath</span>(<span class="params">root, o, s</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> root.val == o <span class="keyword">or</span> getPath(root.left, o, s) <span class="keyword">or</span> getPath(root.right, o, s):</span><br><span class="line">                s.append(root.val)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s1, s2 = [], []</span><br><span class="line">        res = root.val</span><br><span class="line">        getPath(root, o1, s1)</span><br><span class="line">        getPath(root, o2, s2)</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s1) != <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(s2) != <span class="number">0</span>:</span><br><span class="line">            f1, f2 = s1.pop(), s2.pop()</span><br><span class="line">            <span class="keyword">if</span> f1 != f2:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            res = f1</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>刷题</category>
       </categories>
       <tags>
-        <tag>java</tag>
+        <tag>java, python</tag>
       </tags>
   </entry>
   <entry>
@@ -503,26 +503,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - NC68 跳台阶</title>
-    <url>/2021/07/09/LeetCode-NC68-%E8%B7%B3%E5%8F%B0%E9%98%B6/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>在中间的某个台阶<code>f[n]</code>，走到这个台阶有两种可能，走一步或走两步，得到公式：<code>f[n] = f[n-1] + f[n-2]</code>，根据常识可以知道，<code>n为1或0时</code>，即<code>f[1] = f[0] = 1</code>，默认排除n小于0的可能性，可以计算结果。</p>
-<h3 id="1-递归"><a href="#1-递归" class="headerlink" title="1. 递归"></a>1. 递归</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target &lt;= <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jumpFloor(target-<span class="number">1</span>) + jumpFloor(target-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>该方法在python中运算时间过长。</p>
-<h3 id="2-动态规划"><a href="#2-动态规划" class="headerlink" title="2. 动态规划"></a>2. 动态规划</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[target + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=target; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i] = dp[i-<span class="number">1</span>] + dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对上述代码进行改动，简化了数组的使用。python：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">jumpFloor</span>(<span class="params">self, number</span>):</span></span><br><span class="line">        a, b, c = <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, number+<span class="number">1</span>):</span><br><span class="line">            c = a + b</span><br><span class="line">            a = b</span><br><span class="line">            b = c</span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>爬楼梯</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - NC45 实现二叉树先序，中序和后序遍历</title>
     <url>/2021/07/14/LeetCode-NC45-%E5%AE%9E%E7%8E%B0%E4%BA%8C%E5%8F%89%E6%A0%91%E5%85%88%E5%BA%8F%EF%BC%8C%E4%B8%AD%E5%BA%8F%E5%92%8C%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/a9fec6c46a684ad5a3abd4e365a9d362?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/a9fec6c46a684ad5a3abd4e365a9d362?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
@@ -554,6 +534,43 @@ F(0) = 0
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - NC68 跳台阶</title>
+    <url>/2021/07/09/LeetCode-NC68-%E8%B7%B3%E5%8F%B0%E9%98%B6/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>在中间的某个台阶<code>f[n]</code>，走到这个台阶有两种可能，走一步或走两步，得到公式：<code>f[n] = f[n-1] + f[n-2]</code>，根据常识可以知道，<code>n为1或0时</code>，即<code>f[1] = f[0] = 1</code>，默认排除n小于0的可能性，可以计算结果。</p>
+<h3 id="1-递归"><a href="#1-递归" class="headerlink" title="1. 递归"></a>1. 递归</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target &lt;= <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jumpFloor(target-<span class="number">1</span>) + jumpFloor(target-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法在python中运算时间过长。</p>
+<h3 id="2-动态规划"><a href="#2-动态规划" class="headerlink" title="2. 动态规划"></a>2. 动态规划</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[target + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=target; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i] = dp[i-<span class="number">1</span>] + dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对上述代码进行改动，简化了数组的使用。python：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">jumpFloor</span>(<span class="params">self, number</span>):</span></span><br><span class="line">        a, b, c = <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, number+<span class="number">1</span>):</span><br><span class="line">            c = a + b</span><br><span class="line">            a = b</span><br><span class="line">            b = c</span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>爬楼梯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - NC76 用两个栈实现队列</title>
+    <url>/2021/07/07/LeetCode-NC76-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj">https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-两个栈分别在push和pop之前都会循环"><a href="#1-两个栈分别在push和pop之前都会循环" class="headerlink" title="1. 两个栈分别在push和pop之前都会循环"></a>1. 两个栈分别在push和pop之前都会循环</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack1.push(stack2.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack2.push(stack1.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-对上面代码的一点点优化，将两个循环转变为一个循环"><a href="#2-对上面代码的一点点优化，将两个循环转变为一个循环" class="headerlink" title="2. 对上面代码的一点点优化，将两个循环转变为一个循环"></a>2. 对上面代码的一点点优化，将两个循环转变为一个循环</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>java, python</tag>
       </tags>
   </entry>
   <entry>
@@ -590,20 +607,20 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - NC76 用两个栈实现队列</title>
-    <url>/2021/07/07/LeetCode-NC76-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj">https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-两个栈分别在push和pop之前都会循环"><a href="#1-两个栈分别在push和pop之前都会循环" class="headerlink" title="1. 两个栈分别在push和pop之前都会循环"></a>1. 两个栈分别在push和pop之前都会循环</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack1.push(stack2.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack2.push(stack1.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-对上面代码的一点点优化，将两个循环转变为一个循环"><a href="#2-对上面代码的一点点优化，将两个循环转变为一个循环" class="headerlink" title="2. 对上面代码的一点点优化，将两个循环转变为一个循环"></a>2. 对上面代码的一点点优化，将两个循环转变为一个循环</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>SQL - 报错</title>
+    <url>/2021/07/29/SQL-%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<h3 id="1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’"><a href="#1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’" class="headerlink" title="1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’"></a>1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’</h3><span id="more"></span>
+<p>报错语句：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(salary) <span class="keyword">as</span> avg_salary</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"> <span class="keyword">where</span> salary </span><br><span class="line"><span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(salary)</span><br><span class="line">       ,<span class="built_in">max</span>(salary) </span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>解决：</p>
+<p><code>in</code> 关键字只能对应一列数据。</p>
+<h3 id="2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns"><a href="#2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns" class="headerlink" title="2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns."></a>2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns.</h3><p>。。。仔细看 <code>values</code> 里面的内容，应该有多了。</p>
 ]]></content>
       <categories>
-        <category>刷题</category>
+        <category>报错</category>
       </categories>
       <tags>
-        <tag>java, python</tag>
+        <tag>sql</tag>
       </tags>
   </entry>
   <entry>
@@ -617,26 +634,6 @@ F(0) = 0
 <p>原因：group by后显示的就会是每个分组的第一条数据；之后进行order by就是对每个分组的第一条数据进行排序，即组间排序，并没有意义。</p>
 <p>分析：有一种方法是可以先order by limit再进行group by，但是这种方法不够灵活有效；还有一种方法就算下述，先获取每个分组的目标元素的最大值和目标分组的字段，然后联表获取所有所需字段和目标分组字段，将两个部分进行连接就可以了。</p>
 <h3 id="2-具体题解"><a href="#2-具体题解" class="headerlink" title="2. 具体题解"></a>2. 具体题解</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> B1.dept_no</span><br><span class="line">      ,B2.emp_no</span><br><span class="line">      ,B1.maxSalary</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, <span class="built_in">max</span>(A2.salary) <span class="keyword">as</span> maxSalary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">      <span class="keyword">group</span> <span class="keyword">by</span> A1.dept_no</span><br><span class="line">) B1</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, A1.emp_no, A2.salary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">) B2</span><br><span class="line">     <span class="keyword">on</span> B1.dept_no <span class="operator">=</span> B2.dept_no</span><br><span class="line">     <span class="keyword">and</span> B1.maxSalary <span class="operator">=</span> B2.salary</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> B1.dept_no</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL15 查找employees表emp_no与last_name的员工信息</title>
-    <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98-SQL15-%E6%9F%A5%E6%89%BEemployees%E8%A1%A8emp-no%E4%B8%8Elast-name%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>不相等的三种表达：<code>!=、&lt;&gt;、is not</code>；</p>
-<p>求余：<code>%、MOD</code>；</p>
-<p>判断是否为奇数：<code>val%2 = 1、val&amp;1</code>；</p>
-<p>判断是否为偶数：<code>val = (val &gt;&gt; 1 &lt;&lt; 1)</code> - 即先右移一位再左移一位，如果是奇数，二进制最后一位一定是1，右移一位后再左移一位最后一个二进制数会补0而不是1，此时如果是奇数会与原值不等，如果是偶数会相等；</p>
-<p>除法计算：默认 - <code>/</code>、取指定小数位 - <code>convert(val1 / val2, decimal(10, 2))</code> - 取两位小数，为0取整不保留小数、直接取整 - <code>val1 DIV val2</code>；</p>
-<p><strong>计算还是推荐使用位运算的</strong>。</p>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">%</span> <span class="number">2</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--或者</span></span><br><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">&amp;</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -704,17 +701,20 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>SQL - 报错</title>
-    <url>/2021/07/29/SQL-%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<h3 id="1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’"><a href="#1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’" class="headerlink" title="1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’"></a>1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’</h3><span id="more"></span>
-<p>报错语句：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(salary) <span class="keyword">as</span> avg_salary</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"> <span class="keyword">where</span> salary </span><br><span class="line"><span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(salary)</span><br><span class="line">       ,<span class="built_in">max</span>(salary) </span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>解决：</p>
-<p><code>in</code> 关键字只能对应一列数据。</p>
-<h3 id="2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns"><a href="#2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns" class="headerlink" title="2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns."></a>2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns.</h3><p>。。。仔细看 <code>values</code> 里面的内容，应该有多了。</p>
+    <title>SQL刷题 - SQL15 查找employees表emp_no与last_name的员工信息</title>
+    <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98-SQL15-%E6%9F%A5%E6%89%BEemployees%E8%A1%A8emp-no%E4%B8%8Elast-name%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>不相等的三种表达：<code>!=、&lt;&gt;、is not</code>；</p>
+<p>求余：<code>%、MOD</code>；</p>
+<p>判断是否为奇数：<code>val%2 = 1、val&amp;1</code>；</p>
+<p>判断是否为偶数：<code>val = (val &gt;&gt; 1 &lt;&lt; 1)</code> - 即先右移一位再左移一位，如果是奇数，二进制最后一位一定是1，右移一位后再左移一位最后一个二进制数会补0而不是1，此时如果是奇数会与原值不等，如果是偶数会相等；</p>
+<p>除法计算：默认 - <code>/</code>、取指定小数位 - <code>convert(val1 / val2, decimal(10, 2))</code> - 取两位小数，为0取整不保留小数、直接取整 - <code>val1 DIV val2</code>；</p>
+<p><strong>计算还是推荐使用位运算的</strong>。</p>
+<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">%</span> <span class="number">2</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--或者</span></span><br><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">&amp;</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>报错</category>
+        <category>刷题</category>
       </categories>
       <tags>
         <tag>sql</tag>
@@ -772,22 +772,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>SQL刷题 - SQL40 在指定列后添加新列</title>
-    <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL40-%E5%9C%A8%E6%8C%87%E5%AE%9A%E5%88%97%E5%90%8E%E6%B7%BB%E5%8A%A0%E6%96%B0%E5%88%97/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> table_name</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> column_name column_type [<span class="keyword">not</span> <span class="keyword">NULL</span>]</span><br><span class="line">[<span class="keyword">DEFAULT</span> default_context]</span><br><span class="line">[  after column_name]</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-<p>其中，<code>after</code> 用来指定在某个列后面添加新列，<code>default</code> 指定默认值。</p>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> actor</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> create_date datetime <span class="keyword">not</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="string">&#x27;2020-10-01 00:00:00&#x27;</span></span><br><span class="line">  after last_update</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL刷题 - SQL38 针对actor表创建视图actor_name_view</title>
     <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL38-%E9%92%88%E5%AF%B9actor%E8%A1%A8%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BEactor-name-view/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
@@ -801,6 +785,22 @@ F(0) = 0
 <p>撤销视图：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DROP VIEW view_name</span><br></pre></td></tr></table></figure>
 <h3 id="2-具体解决代码"><a href="#2-具体解决代码" class="headerlink" title="2. 具体解决代码"></a>2. 具体解决代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> actor_name_view <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">select</span> first_name <span class="keyword">as</span> first_name_v</span><br><span class="line">       ,last_name <span class="keyword">as</span> last_name_v</span><br><span class="line">  <span class="keyword">from</span> actor;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL刷题 - SQL40 在指定列后添加新列</title>
+    <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL40-%E5%9C%A8%E6%8C%87%E5%AE%9A%E5%88%97%E5%90%8E%E6%B7%BB%E5%8A%A0%E6%96%B0%E5%88%97/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> table_name</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> column_name column_type [<span class="keyword">not</span> <span class="keyword">NULL</span>]</span><br><span class="line">[<span class="keyword">DEFAULT</span> default_context]</span><br><span class="line">[  after column_name]</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>after</code> 用来指定在某个列后面添加新列，<code>default</code> 指定默认值。</p>
+<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> actor</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> create_date datetime <span class="keyword">not</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="string">&#x27;2020-10-01 00:00:00&#x27;</span></span><br><span class="line">  after last_update</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -971,69 +971,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>Spark - SparkSQL</title>
-    <url>/2021/06/24/Spark-SparkSQL/</url>
-    <content><![CDATA[<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>SparkSQL是Spark用于结构化数据处理的Spark模块。</p>
-<span id="more"></span>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><h4 id="1-易整合"><a href="#1-易整合" class="headerlink" title="1. 易整合"></a>1. 易整合</h4><p>无缝地整合了SQL查询和Spark编程。</p>
-<h4 id="2-统一的数据访问"><a href="#2-统一的数据访问" class="headerlink" title="2. 统一的数据访问"></a>2. 统一的数据访问</h4><p>使用相同的方式连接不同的数据源。比如数据库，HBase、Hive、MySQL等都可以使用相同的方式进行连接，即具有了通用性，只需要修改一些参数就可以从不同的数据源中获取数据，非常方便。</p>
-<h4 id="3-兼容hive"><a href="#3-兼容hive" class="headerlink" title="3. 兼容hive"></a>3. 兼容hive</h4><p>在已有的仓库上直接运行SQL或HiveQL。</p>
-<h4 id="4-标准数据连接"><a href="#4-标准数据连接" class="headerlink" title="4. 标准数据连接"></a>4. 标准数据连接</h4><p>通过JDBC或ODBC来连接。</p>
-<h3 id="DataFrame是什么？与RDD的区别"><a href="#DataFrame是什么？与RDD的区别" class="headerlink" title="DataFrame是什么？与RDD的区别"></a>DataFrame是什么？与RDD的区别</h3><p>​        在Spark中，DataFrame是一种以RDD为基础的分布式数据集，类似于传统数据库中的二维表格。</p>
-<p>​        DataFrame与RDD的主要区别在于，前者带有schema元数据信息，即DataFrame锁表示的</p>
-<h2 id="核心编程"><a href="#核心编程" class="headerlink" title="核心编程"></a>核心编程</h2><h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><p>文件可以读取的格式如下：</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">csv   format   jdbc   json   load   option   options   orc   parquet   schema   table   text   textFile</span><br></pre></td></tr></table></figure>
-<ol>
-<li>读取类型的例子：</li>
-</ol>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; spark.read.json(<span class="string">&quot;input/user.json&quot;</span>)</span><br><span class="line">res1: org.apache.spark.sql.<span class="type">DataFrame</span> = [age: string, username: string]</span><br></pre></td></tr></table></figure>
-<ol>
-<li>读取实际内容的例子：</li>
-</ol>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> df = spark.read.json(<span class="string">&quot;input/user.json&quot;</span>)</span><br><span class="line">df: org.apache.spark.sql.<span class="type">DataFrame</span> = [age: string, username: string]</span><br><span class="line"></span><br><span class="line">scala&gt; df.show()</span><br><span class="line">+---+--------+</span><br><span class="line">|age|username|</span><br><span class="line">+---+--------+</span><br><span class="line">| <span class="number">30</span>|zhangsan|</span><br><span class="line">| <span class="number">20</span>|    lisi|</span><br><span class="line">| <span class="number">40</span>|  wangwu|</span><br><span class="line">+---+--------+</span><br></pre></td></tr></table></figure>
-<ol>
-<li>按照条件读取指定内容的例子：</li>
-</ol>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.createTempView(<span class="string">&quot;user&quot;</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; spark.sql(<span class="string">&quot;select username from user&quot;</span>).show</span><br><span class="line">+--------+</span><br><span class="line">|username|</span><br><span class="line">+--------+</span><br><span class="line">|zhangsan|</span><br><span class="line">|    lisi|</span><br><span class="line">|  wangwu|</span><br><span class="line">+--------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scala&gt; spark.sql(<span class="string">&quot;select avg(age) from user&quot;</span>).show</span><br><span class="line">+------------------------+</span><br><span class="line">|avg(<span class="type">CAST</span>(age <span class="type">AS</span> <span class="type">DOUBLE</span>))|</span><br><span class="line">+------------------------+</span><br><span class="line">|                    <span class="number">30.0</span>|</span><br><span class="line">+------------------------+</span><br></pre></td></tr></table></figure>
-<p>此处<code>createTempView</code>是创建一次临时表，如果多次创建，可能会报错，使用<code>createOrReplaceTempView</code>可以避免这种错误。</p>
-<p><strong>其中，需要知道<code>view</code>即视图，是将查询结果集转换成为一个特定的视图结构，只可以查，不可以改；与表table不同，表可以改。</strong></p>
-<p>注意：普通临时表是Session范围内的，如果在创建一个Session，该Session中的使用不会在新创建的Session中留下痕迹。如果想应用范围内有效，可以使用全局临时表。使用全局临时表需要全路径访问，如<code>global_temp.user</code></p>
-<ol>
-<li>全局临时表</li>
-</ol>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.createOrReplaceGlobalTempView(<span class="string">&quot;emp&quot;</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; spark.newSession.sql(<span class="string">&quot;select * from global_temp.emp&quot;</span>)</span><br><span class="line">res10: org.apache.spark.sql.<span class="type">DataFrame</span> = [age: string, username: string]</span><br><span class="line"></span><br><span class="line">scala&gt; spark.newSession.sql(<span class="string">&quot;select * from global_temp.emp&quot;</span>).show</span><br><span class="line">+---+--------+</span><br><span class="line">|age|username|</span><br><span class="line">+---+--------+</span><br><span class="line">| <span class="number">30</span>|zhangsan|</span><br><span class="line">| <span class="number">20</span>|    lisi|</span><br><span class="line">| <span class="number">40</span>|  wangwu|</span><br><span class="line">+---+--------+</span><br></pre></td></tr></table></figure>
-<p><code>newSession</code>是重新启动一个Session测试是否多个节点都可以进行测试。</p>
-<h3 id="DSL的简单使用"><a href="#DSL的简单使用" class="headerlink" title="DSL的简单使用"></a>DSL的简单使用</h3><p>是DataFrame提供的，用来管理结构化的数据。使用这个语言不需要去创建视图等，因为它本身九江DataFrame当成数据源。可以在Scala、Java、Python、R中使用DSL。</p>
-<h4 id="1-基本例子："><a href="#1-基本例子：" class="headerlink" title="1. 基本例子："></a>1. 基本例子：</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.printSchema</span><br><span class="line">root</span><br><span class="line"> |-- age: string (nullable = <span class="literal">true</span>)</span><br><span class="line"> |-- username: string (nullable = <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scala&gt; df.select(<span class="string">&quot;age&quot;</span>).show</span><br><span class="line">+---+</span><br><span class="line">|age|</span><br><span class="line">+---+</span><br><span class="line">| <span class="number">30</span>|</span><br><span class="line">| <span class="number">20</span>|</span><br><span class="line">| <span class="number">40</span>|</span><br><span class="line">+---+</span><br></pre></td></tr></table></figure>
-<h4 id="2-查看”username”数据和”age-1”数据"><a href="#2-查看”username”数据和”age-1”数据" class="headerlink" title="2. 查看”username”数据和”age+1”数据"></a>2. 查看”username”数据和”age+1”数据</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.select($<span class="string">&quot;age&quot;</span> + <span class="number">1</span>).show</span><br><span class="line">+---------+</span><br><span class="line">|(age + <span class="number">1</span>)|</span><br><span class="line">+---------+</span><br><span class="line">|     <span class="number">31.0</span>|</span><br><span class="line">|     <span class="number">21.0</span>|</span><br><span class="line">|     <span class="number">41.0</span>|</span><br><span class="line">+---------+</span><br></pre></td></tr></table></figure>
-<p>使用<code>$</code>符号表示引用这个变量，如果不使用，就表示简单的字符串相加；</p>
-<p>spark提供另一种更简便的方式：</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.select(<span class="symbol">&#x27;age</span> + <span class="number">1</span>).show</span><br><span class="line">+---------+</span><br><span class="line">|(age + <span class="number">1</span>)|</span><br><span class="line">+---------+</span><br><span class="line">|     <span class="number">31.0</span>|</span><br><span class="line">|     <span class="number">21.0</span>|</span><br><span class="line">|     <span class="number">41.0</span>|</span><br><span class="line">+---------+</span><br></pre></td></tr></table></figure>
-<p>其中，<code>$</code>和<code>&#39;</code>只能修饰一个列，有多个列，就有多个符号。</p>
-<h4 id="3-查看age大于30的数据"><a href="#3-查看age大于30的数据" class="headerlink" title="3. 查看age大于30的数据"></a>3. 查看<code>age</code>大于30的数据</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.select(<span class="symbol">&#x27;age</span> &gt; <span class="number">30</span>).show</span><br><span class="line">+----------+</span><br><span class="line">|(age &gt; <span class="number">30</span>)|</span><br><span class="line">+----------+</span><br><span class="line">|     <span class="literal">false</span>|</span><br><span class="line">|     <span class="literal">false</span>|</span><br><span class="line">|      <span class="literal">true</span>|</span><br><span class="line">+----------+</span><br></pre></td></tr></table></figure>
-<h4 id="4-查看age大于30的数据-过滤"><a href="#4-查看age大于30的数据-过滤" class="headerlink" title="4. 查看age大于30的数据 - 过滤"></a>4. 查看<code>age</code>大于<code>30</code>的数据 - 过滤</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.filter($<span class="string">&quot;age&quot;</span> &gt; <span class="number">30</span>).show</span><br><span class="line">+---+--------+</span><br><span class="line">|age|username|</span><br><span class="line">+---+--------+</span><br><span class="line">| <span class="number">40</span>|  wangwu|</span><br><span class="line">+---+--------+</span><br></pre></td></tr></table></figure>
-<h4 id="5-按照age分组，查看数组条数-分组"><a href="#5-按照age分组，查看数组条数-分组" class="headerlink" title="5. 按照age分组，查看数组条数 - 分组"></a>5. 按照<code>age</code>分组，查看数组条数 - 分组</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.groupBy(<span class="string">&quot;age&quot;</span>).count.show</span><br><span class="line">+---+-----+</span><br><span class="line">|age|count|</span><br><span class="line">+---+-----+</span><br><span class="line">| <span class="number">30</span>|    <span class="number">1</span>|</span><br><span class="line">| <span class="number">40</span>|    <span class="number">1</span>|</span><br><span class="line">| <span class="number">20</span>|    <span class="number">1</span>|</span><br><span class="line">+---+-----+</span><br></pre></td></tr></table></figure>
-<h3 id="RDD和DataFrame的转换"><a href="#RDD和DataFrame的转换" class="headerlink" title="RDD和DataFrame的转换"></a>RDD和DataFrame的转换</h3><p>RDD转DataFrame：</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> rdd = sc.makeRDD(<span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Int</span>] = <span class="type">ParallelCollectionRDD</span>[<span class="number">15</span>] at makeRDD at &lt;console&gt;:<span class="number">24</span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> df = rdd.toDF(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">df: org.apache.spark.sql.<span class="type">DataFrame</span> = [id: int]</span><br><span class="line"></span><br><span class="line">scala&gt; df.show</span><br><span class="line">+---+</span><br><span class="line">| id|</span><br><span class="line">+---+</span><br><span class="line">|  <span class="number">1</span>|</span><br><span class="line">|  <span class="number">2</span>|</span><br><span class="line">|  <span class="number">3</span>|</span><br><span class="line">|  <span class="number">4</span>|</span><br><span class="line">+---+</span><br></pre></td></tr></table></figure>
-<p>DataFrame转RDD：</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.rdd</span><br><span class="line">res4: org.apache.spark.rdd.<span class="type">RDD</span>[org.apache.spark.sql.<span class="type">Row</span>] = <span class="type">MapPartitionsRDD</span>[<span class="number">23</span>] at rdd at &lt;console&gt;:<span class="number">26</span></span><br></pre></td></tr></table></figure>
-<h3 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h3><p>dataSet是具有强类型的数据集合，需要提供对应的类型信息。</p>
-<p>DataSet相比于DataFrame、RDD，后二者没有数据类型的概念，而前者有，即前者是包含了DataFrame的结构和RDD的数据。</p>
-<h4 id="1-样例类创建DataSet"><a href="#1-样例类创建DataSet" class="headerlink" title="1. 样例类创建DataSet"></a>1. 样例类创建DataSet</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span>(<span class="params">name:<span class="type">String</span>, age: <span class="type">Long</span></span>)</span></span><br><span class="line">defined <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> list = <span class="type">List</span>(<span class="type">Person</span>(<span class="string">&quot;zhangsan&quot;</span>, <span class="number">30</span>), <span class="type">Person</span>(<span class="string">&quot;lisi&quot;</span>, <span class="number">40</span>))</span><br><span class="line">list: <span class="type">List</span>[<span class="type">Person</span>] = <span class="type">List</span>(<span class="type">Person</span>(zhangsan,<span class="number">30</span>), <span class="type">Person</span>(lisi,<span class="number">40</span>))</span><br><span class="line"></span><br><span class="line">scala&gt; list.toDS</span><br><span class="line">res5: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> ds = list.toDS</span><br><span class="line">ds: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; ds.show</span><br><span class="line">+--------+---+</span><br><span class="line">|    name|age|</span><br><span class="line">+--------+---+</span><br><span class="line">|zhangsan| <span class="number">30</span>|</span><br><span class="line">|    lisi| <span class="number">40</span>|</span><br><span class="line">+--------+---+</span><br></pre></td></tr></table></figure>
-<h4 id="2-和DataFrame的转换"><a href="#2-和DataFrame的转换" class="headerlink" title="2. 和DataFrame的转换"></a>2. 和DataFrame的转换</h4><p>DataFrame转换为DataSet：</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> ds = df.as[<span class="type">Person</span>]</span><br></pre></td></tr></table></figure>
-<p>DataSet转换为DataFrame：</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> df = ds.toDF</span><br></pre></td></tr></table></figure>
-<h3 id="RDD和DataSet的转换"><a href="#RDD和DataSet的转换" class="headerlink" title="RDD和DataSet的转换"></a>RDD和DataSet的转换</h3><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> rdd = sc.makeRDD(<span class="type">List</span>(<span class="type">Person</span>(<span class="string">&quot;zhangsan&quot;</span>, <span class="number">30</span>), <span class="type">Person</span>(<span class="string">&quot;lisi&quot;</span>, <span class="number">40</span>)))</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Person</span>] = <span class="type">ParallelCollectionRDD</span>[<span class="number">29</span>] at makeRDD at &lt;console&gt;:<span class="number">26</span></span><br><span class="line"></span><br><span class="line">scala&gt; rdd.toDS</span><br><span class="line">res11: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> ds = rdd.toDS</span><br><span class="line">ds: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> rdd = ds.rdd</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Person</span>] = <span class="type">MapPartitionsRDD</span>[<span class="number">32</span>] at rdd at &lt;console&gt;:<span class="number">25</span></span><br></pre></td></tr></table></figure>
-<h4 id=""><a href="#" class="headerlink" title=" "></a> </h4><h3 id="RDD、DataFrame、DataSet的联系"><a href="#RDD、DataFrame、DataSet的联系" class="headerlink" title="RDD、DataFrame、DataSet的联系"></a>RDD、DataFrame、DataSet的联系</h3>]]></content>
-      <categories>
-        <category>大数据组件的应用</category>
-      </categories>
-      <tags>
-        <tag>spark</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spark - 运行环境的安装配置</title>
     <url>/2021/06/17/Spark-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="一-解压缩文件"><a href="#一-解压缩文件" class="headerlink" title="一. 解压缩文件"></a>一. 解压缩文件</h2><p>在官网下载 <a href="https://www.apache.org/dyn/closer.lua/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz">spark-3.1.2-bin-hadoop3.2.tgz</a> 文件并上传到Linux，然后解压缩到指定位置，重命名为 <code>spark-local</code>。</p>
@@ -1121,6 +1058,69 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>Spark - SparkSQL</title>
+    <url>/2021/06/24/Spark-SparkSQL/</url>
+    <content><![CDATA[<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>SparkSQL是Spark用于结构化数据处理的Spark模块。</p>
+<span id="more"></span>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><h4 id="1-易整合"><a href="#1-易整合" class="headerlink" title="1. 易整合"></a>1. 易整合</h4><p>无缝地整合了SQL查询和Spark编程。</p>
+<h4 id="2-统一的数据访问"><a href="#2-统一的数据访问" class="headerlink" title="2. 统一的数据访问"></a>2. 统一的数据访问</h4><p>使用相同的方式连接不同的数据源。比如数据库，HBase、Hive、MySQL等都可以使用相同的方式进行连接，即具有了通用性，只需要修改一些参数就可以从不同的数据源中获取数据，非常方便。</p>
+<h4 id="3-兼容hive"><a href="#3-兼容hive" class="headerlink" title="3. 兼容hive"></a>3. 兼容hive</h4><p>在已有的仓库上直接运行SQL或HiveQL。</p>
+<h4 id="4-标准数据连接"><a href="#4-标准数据连接" class="headerlink" title="4. 标准数据连接"></a>4. 标准数据连接</h4><p>通过JDBC或ODBC来连接。</p>
+<h3 id="DataFrame是什么？与RDD的区别"><a href="#DataFrame是什么？与RDD的区别" class="headerlink" title="DataFrame是什么？与RDD的区别"></a>DataFrame是什么？与RDD的区别</h3><p>​        在Spark中，DataFrame是一种以RDD为基础的分布式数据集，类似于传统数据库中的二维表格。</p>
+<p>​        DataFrame与RDD的主要区别在于，前者带有schema元数据信息，即DataFrame锁表示的</p>
+<h2 id="核心编程"><a href="#核心编程" class="headerlink" title="核心编程"></a>核心编程</h2><h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><p>文件可以读取的格式如下：</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">csv   format   jdbc   json   load   option   options   orc   parquet   schema   table   text   textFile</span><br></pre></td></tr></table></figure>
+<ol>
+<li>读取类型的例子：</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; spark.read.json(<span class="string">&quot;input/user.json&quot;</span>)</span><br><span class="line">res1: org.apache.spark.sql.<span class="type">DataFrame</span> = [age: string, username: string]</span><br></pre></td></tr></table></figure>
+<ol>
+<li>读取实际内容的例子：</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> df = spark.read.json(<span class="string">&quot;input/user.json&quot;</span>)</span><br><span class="line">df: org.apache.spark.sql.<span class="type">DataFrame</span> = [age: string, username: string]</span><br><span class="line"></span><br><span class="line">scala&gt; df.show()</span><br><span class="line">+---+--------+</span><br><span class="line">|age|username|</span><br><span class="line">+---+--------+</span><br><span class="line">| <span class="number">30</span>|zhangsan|</span><br><span class="line">| <span class="number">20</span>|    lisi|</span><br><span class="line">| <span class="number">40</span>|  wangwu|</span><br><span class="line">+---+--------+</span><br></pre></td></tr></table></figure>
+<ol>
+<li>按照条件读取指定内容的例子：</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.createTempView(<span class="string">&quot;user&quot;</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; spark.sql(<span class="string">&quot;select username from user&quot;</span>).show</span><br><span class="line">+--------+</span><br><span class="line">|username|</span><br><span class="line">+--------+</span><br><span class="line">|zhangsan|</span><br><span class="line">|    lisi|</span><br><span class="line">|  wangwu|</span><br><span class="line">+--------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scala&gt; spark.sql(<span class="string">&quot;select avg(age) from user&quot;</span>).show</span><br><span class="line">+------------------------+</span><br><span class="line">|avg(<span class="type">CAST</span>(age <span class="type">AS</span> <span class="type">DOUBLE</span>))|</span><br><span class="line">+------------------------+</span><br><span class="line">|                    <span class="number">30.0</span>|</span><br><span class="line">+------------------------+</span><br></pre></td></tr></table></figure>
+<p>此处<code>createTempView</code>是创建一次临时表，如果多次创建，可能会报错，使用<code>createOrReplaceTempView</code>可以避免这种错误。</p>
+<p><strong>其中，需要知道<code>view</code>即视图，是将查询结果集转换成为一个特定的视图结构，只可以查，不可以改；与表table不同，表可以改。</strong></p>
+<p>注意：普通临时表是Session范围内的，如果在创建一个Session，该Session中的使用不会在新创建的Session中留下痕迹。如果想应用范围内有效，可以使用全局临时表。使用全局临时表需要全路径访问，如<code>global_temp.user</code></p>
+<ol>
+<li>全局临时表</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.createOrReplaceGlobalTempView(<span class="string">&quot;emp&quot;</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; spark.newSession.sql(<span class="string">&quot;select * from global_temp.emp&quot;</span>)</span><br><span class="line">res10: org.apache.spark.sql.<span class="type">DataFrame</span> = [age: string, username: string]</span><br><span class="line"></span><br><span class="line">scala&gt; spark.newSession.sql(<span class="string">&quot;select * from global_temp.emp&quot;</span>).show</span><br><span class="line">+---+--------+</span><br><span class="line">|age|username|</span><br><span class="line">+---+--------+</span><br><span class="line">| <span class="number">30</span>|zhangsan|</span><br><span class="line">| <span class="number">20</span>|    lisi|</span><br><span class="line">| <span class="number">40</span>|  wangwu|</span><br><span class="line">+---+--------+</span><br></pre></td></tr></table></figure>
+<p><code>newSession</code>是重新启动一个Session测试是否多个节点都可以进行测试。</p>
+<h3 id="DSL的简单使用"><a href="#DSL的简单使用" class="headerlink" title="DSL的简单使用"></a>DSL的简单使用</h3><p>是DataFrame提供的，用来管理结构化的数据。使用这个语言不需要去创建视图等，因为它本身九江DataFrame当成数据源。可以在Scala、Java、Python、R中使用DSL。</p>
+<h4 id="1-基本例子："><a href="#1-基本例子：" class="headerlink" title="1. 基本例子："></a>1. 基本例子：</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.printSchema</span><br><span class="line">root</span><br><span class="line"> |-- age: string (nullable = <span class="literal">true</span>)</span><br><span class="line"> |-- username: string (nullable = <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scala&gt; df.select(<span class="string">&quot;age&quot;</span>).show</span><br><span class="line">+---+</span><br><span class="line">|age|</span><br><span class="line">+---+</span><br><span class="line">| <span class="number">30</span>|</span><br><span class="line">| <span class="number">20</span>|</span><br><span class="line">| <span class="number">40</span>|</span><br><span class="line">+---+</span><br></pre></td></tr></table></figure>
+<h4 id="2-查看”username”数据和”age-1”数据"><a href="#2-查看”username”数据和”age-1”数据" class="headerlink" title="2. 查看”username”数据和”age+1”数据"></a>2. 查看”username”数据和”age+1”数据</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.select($<span class="string">&quot;age&quot;</span> + <span class="number">1</span>).show</span><br><span class="line">+---------+</span><br><span class="line">|(age + <span class="number">1</span>)|</span><br><span class="line">+---------+</span><br><span class="line">|     <span class="number">31.0</span>|</span><br><span class="line">|     <span class="number">21.0</span>|</span><br><span class="line">|     <span class="number">41.0</span>|</span><br><span class="line">+---------+</span><br></pre></td></tr></table></figure>
+<p>使用<code>$</code>符号表示引用这个变量，如果不使用，就表示简单的字符串相加；</p>
+<p>spark提供另一种更简便的方式：</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.select(<span class="symbol">&#x27;age</span> + <span class="number">1</span>).show</span><br><span class="line">+---------+</span><br><span class="line">|(age + <span class="number">1</span>)|</span><br><span class="line">+---------+</span><br><span class="line">|     <span class="number">31.0</span>|</span><br><span class="line">|     <span class="number">21.0</span>|</span><br><span class="line">|     <span class="number">41.0</span>|</span><br><span class="line">+---------+</span><br></pre></td></tr></table></figure>
+<p>其中，<code>$</code>和<code>&#39;</code>只能修饰一个列，有多个列，就有多个符号。</p>
+<h4 id="3-查看age大于30的数据"><a href="#3-查看age大于30的数据" class="headerlink" title="3. 查看age大于30的数据"></a>3. 查看<code>age</code>大于30的数据</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.select(<span class="symbol">&#x27;age</span> &gt; <span class="number">30</span>).show</span><br><span class="line">+----------+</span><br><span class="line">|(age &gt; <span class="number">30</span>)|</span><br><span class="line">+----------+</span><br><span class="line">|     <span class="literal">false</span>|</span><br><span class="line">|     <span class="literal">false</span>|</span><br><span class="line">|      <span class="literal">true</span>|</span><br><span class="line">+----------+</span><br></pre></td></tr></table></figure>
+<h4 id="4-查看age大于30的数据-过滤"><a href="#4-查看age大于30的数据-过滤" class="headerlink" title="4. 查看age大于30的数据 - 过滤"></a>4. 查看<code>age</code>大于<code>30</code>的数据 - 过滤</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.filter($<span class="string">&quot;age&quot;</span> &gt; <span class="number">30</span>).show</span><br><span class="line">+---+--------+</span><br><span class="line">|age|username|</span><br><span class="line">+---+--------+</span><br><span class="line">| <span class="number">40</span>|  wangwu|</span><br><span class="line">+---+--------+</span><br></pre></td></tr></table></figure>
+<h4 id="5-按照age分组，查看数组条数-分组"><a href="#5-按照age分组，查看数组条数-分组" class="headerlink" title="5. 按照age分组，查看数组条数 - 分组"></a>5. 按照<code>age</code>分组，查看数组条数 - 分组</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.groupBy(<span class="string">&quot;age&quot;</span>).count.show</span><br><span class="line">+---+-----+</span><br><span class="line">|age|count|</span><br><span class="line">+---+-----+</span><br><span class="line">| <span class="number">30</span>|    <span class="number">1</span>|</span><br><span class="line">| <span class="number">40</span>|    <span class="number">1</span>|</span><br><span class="line">| <span class="number">20</span>|    <span class="number">1</span>|</span><br><span class="line">+---+-----+</span><br></pre></td></tr></table></figure>
+<h3 id="RDD和DataFrame的转换"><a href="#RDD和DataFrame的转换" class="headerlink" title="RDD和DataFrame的转换"></a>RDD和DataFrame的转换</h3><p>RDD转DataFrame：</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> rdd = sc.makeRDD(<span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Int</span>] = <span class="type">ParallelCollectionRDD</span>[<span class="number">15</span>] at makeRDD at &lt;console&gt;:<span class="number">24</span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> df = rdd.toDF(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">df: org.apache.spark.sql.<span class="type">DataFrame</span> = [id: int]</span><br><span class="line"></span><br><span class="line">scala&gt; df.show</span><br><span class="line">+---+</span><br><span class="line">| id|</span><br><span class="line">+---+</span><br><span class="line">|  <span class="number">1</span>|</span><br><span class="line">|  <span class="number">2</span>|</span><br><span class="line">|  <span class="number">3</span>|</span><br><span class="line">|  <span class="number">4</span>|</span><br><span class="line">+---+</span><br></pre></td></tr></table></figure>
+<p>DataFrame转RDD：</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; df.rdd</span><br><span class="line">res4: org.apache.spark.rdd.<span class="type">RDD</span>[org.apache.spark.sql.<span class="type">Row</span>] = <span class="type">MapPartitionsRDD</span>[<span class="number">23</span>] at rdd at &lt;console&gt;:<span class="number">26</span></span><br></pre></td></tr></table></figure>
+<h3 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h3><p>dataSet是具有强类型的数据集合，需要提供对应的类型信息。</p>
+<p>DataSet相比于DataFrame、RDD，后二者没有数据类型的概念，而前者有，即前者是包含了DataFrame的结构和RDD的数据。</p>
+<h4 id="1-样例类创建DataSet"><a href="#1-样例类创建DataSet" class="headerlink" title="1. 样例类创建DataSet"></a>1. 样例类创建DataSet</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span>(<span class="params">name:<span class="type">String</span>, age: <span class="type">Long</span></span>)</span></span><br><span class="line">defined <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> list = <span class="type">List</span>(<span class="type">Person</span>(<span class="string">&quot;zhangsan&quot;</span>, <span class="number">30</span>), <span class="type">Person</span>(<span class="string">&quot;lisi&quot;</span>, <span class="number">40</span>))</span><br><span class="line">list: <span class="type">List</span>[<span class="type">Person</span>] = <span class="type">List</span>(<span class="type">Person</span>(zhangsan,<span class="number">30</span>), <span class="type">Person</span>(lisi,<span class="number">40</span>))</span><br><span class="line"></span><br><span class="line">scala&gt; list.toDS</span><br><span class="line">res5: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> ds = list.toDS</span><br><span class="line">ds: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; ds.show</span><br><span class="line">+--------+---+</span><br><span class="line">|    name|age|</span><br><span class="line">+--------+---+</span><br><span class="line">|zhangsan| <span class="number">30</span>|</span><br><span class="line">|    lisi| <span class="number">40</span>|</span><br><span class="line">+--------+---+</span><br></pre></td></tr></table></figure>
+<h4 id="2-和DataFrame的转换"><a href="#2-和DataFrame的转换" class="headerlink" title="2. 和DataFrame的转换"></a>2. 和DataFrame的转换</h4><p>DataFrame转换为DataSet：</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> ds = df.as[<span class="type">Person</span>]</span><br></pre></td></tr></table></figure>
+<p>DataSet转换为DataFrame：</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> df = ds.toDF</span><br></pre></td></tr></table></figure>
+<h3 id="RDD和DataSet的转换"><a href="#RDD和DataSet的转换" class="headerlink" title="RDD和DataSet的转换"></a>RDD和DataSet的转换</h3><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> rdd = sc.makeRDD(<span class="type">List</span>(<span class="type">Person</span>(<span class="string">&quot;zhangsan&quot;</span>, <span class="number">30</span>), <span class="type">Person</span>(<span class="string">&quot;lisi&quot;</span>, <span class="number">40</span>)))</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Person</span>] = <span class="type">ParallelCollectionRDD</span>[<span class="number">29</span>] at makeRDD at &lt;console&gt;:<span class="number">26</span></span><br><span class="line"></span><br><span class="line">scala&gt; rdd.toDS</span><br><span class="line">res11: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> ds = rdd.toDS</span><br><span class="line">ds: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> rdd = ds.rdd</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Person</span>] = <span class="type">MapPartitionsRDD</span>[<span class="number">32</span>] at rdd at &lt;console&gt;:<span class="number">25</span></span><br></pre></td></tr></table></figure>
+<h4 id=""><a href="#" class="headerlink" title=" "></a> </h4><h3 id="RDD、DataFrame、DataSet的联系"><a href="#RDD、DataFrame、DataSet的联系" class="headerlink" title="RDD、DataFrame、DataSet的联系"></a>RDD、DataFrame、DataSet的联系</h3>]]></content>
+      <categories>
+        <category>大数据组件的应用</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2021/05/30/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -1134,6 +1134,48 @@ F(0) = 0
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>hive - 日志分析项目小记</title>
+    <url>/2021/05/31/hive-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="启动hive"><a href="#启动hive" class="headerlink" title="启动hive"></a>启动hive</h2><ol>
+<li><p>启动hadoop集群</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<span id="more"></span>
+<ol>
+<li><p>启动zookeeper集群</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zkServer.sh start zoo1.cfg</span><br><span class="line">zkServer.sh start zoo2.cfg</span><br><span class="line">zkServer.sh start zoo3.cfg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动hive</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive-services.sh start</span><br><span class="line">hive</span><br></pre></td></tr></table></figure>
+<p>有时候会遇到下述错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.SafeModeException): Cannot create directory /tmp/hive/hadoop/3a6e8cb6-9e44-45ce-8fc4-8d79f816f720. Name node is in safe mode.</span><br><span class="line">The reported blocks 609 needs additional 3 blocks to reach the threshold 0.9990 of total blocks 613.</span><br><span class="line">The minimum number of live datanodes is not required. Safe mode will be turned off automatically once the thresholds have been reached. NamenodeHostName:hadoop002</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.newSafemodeException(FSNamesystem.java:1498)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSNamesystem.java:1485)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.mkdirs(FSNamesystem.java:3191)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.mkdirs(NameNodeRpcServer.java:1157)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>解决：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<blockquote>
+<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
+<p>—hive-database ：指定将表放到某个数据库</p>
+</blockquote>
+<h2 id="报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification"><a href="#报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification" class="headerlink" title="报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification"></a>报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification</h2><p>我是因为下面这句报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">on tmp.id=t.course_id and t.type_name=”选修课”</span><br></pre></td></tr></table></figure>
+<p>报错点：<code>&quot;&quot;</code>是中文的，我一开始直接在word文档中复制粘贴，但是就算是英文格式，在命令行也是中文的。</p>
+<p>解决方法：</p>
+<p>在命令行中敲出引号，在文档中进行修改，再将整个语句粘贴到命令行运行。</p>
+<p>在创建表的时候，如果定义的字段名称是关键字，也会报这个错。</p>
+]]></content>
+      <categories>
+        <category>项目小记</category>
+      </categories>
+      <tags>
+        <tag>Hive</tag>
+      </tags>
   </entry>
   <entry>
     <title>hive - 报错</title>
@@ -1177,48 +1219,6 @@ F(0) = 0
       </categories>
       <tags>
         <tag>hive</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hive - 日志分析项目小记</title>
-    <url>/2021/05/31/hive-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="启动hive"><a href="#启动hive" class="headerlink" title="启动hive"></a>启动hive</h2><ol>
-<li><p>启动hadoop集群</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<span id="more"></span>
-<ol>
-<li><p>启动zookeeper集群</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zkServer.sh start zoo1.cfg</span><br><span class="line">zkServer.sh start zoo2.cfg</span><br><span class="line">zkServer.sh start zoo3.cfg</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动hive</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive-services.sh start</span><br><span class="line">hive</span><br></pre></td></tr></table></figure>
-<p>有时候会遇到下述错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.SafeModeException): Cannot create directory /tmp/hive/hadoop/3a6e8cb6-9e44-45ce-8fc4-8d79f816f720. Name node is in safe mode.</span><br><span class="line">The reported blocks 609 needs additional 3 blocks to reach the threshold 0.9990 of total blocks 613.</span><br><span class="line">The minimum number of live datanodes is not required. Safe mode will be turned off automatically once the thresholds have been reached. NamenodeHostName:hadoop002</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.newSafemodeException(FSNamesystem.java:1498)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSNamesystem.java:1485)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.mkdirs(FSNamesystem.java:3191)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.mkdirs(NameNodeRpcServer.java:1157)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>解决：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
-<p>其中：</p>
-<blockquote>
-<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
-<p>—hive-database ：指定将表放到某个数据库</p>
-</blockquote>
-<h2 id="报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification"><a href="#报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification" class="headerlink" title="报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification"></a>报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification</h2><p>我是因为下面这句报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">on tmp.id=t.course_id and t.type_name=”选修课”</span><br></pre></td></tr></table></figure>
-<p>报错点：<code>&quot;&quot;</code>是中文的，我一开始直接在word文档中复制粘贴，但是就算是英文格式，在命令行也是中文的。</p>
-<p>解决方法：</p>
-<p>在命令行中敲出引号，在文档中进行修改，再将整个语句粘贴到命令行运行。</p>
-<p>在创建表的时候，如果定义的字段名称是关键字，也会报这个错。</p>
-]]></content>
-      <categories>
-        <category>项目小记</category>
-      </categories>
-      <tags>
-        <tag>Hive</tag>
       </tags>
   </entry>
   <entry>
@@ -1298,6 +1298,37 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>spark - 报错</title>
+    <url>/2021/08/13/spark-%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<h3 id="Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans"><a href="#Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans" class="headerlink" title="Error in query: Detected cartesian product for INNER join between logical plans"></a>Error in query: Detected cartesian product for INNER join between logical plans</h3><p>默认sparksql版本2.x不支持笛卡尔积操作，需要手动开启支持权限：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> spark.sql.crossJoin.enabled<span class="operator">=</span><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33"><a href="#Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33" class="headerlink" title="Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at :0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33"></a>Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at <unknown>:0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33</h3><p>不知道具体什么原因（热烈欢迎大佬教我如何深入查找具体原因），只能通过代码大致判断可能数据量太大造成内存溢出。</p>
+<p>解决方法：</p>
+<p>使用 <code>mapjoin</code> 将小表放到内存，减少reduce端的压力。</p>
+<ol>
+<li><p>设置参数：<code>set hive.ignore.mapjoin.hint=true;</code></p>
+<p>true 注释方式不生效，false 注释方式生效 - 用于强行指定需要加入内存走mapjoin的表。</p>
+</li>
+<li><p>将小表进行 <code>mapjoin</code> 操作。</p>
+<p>具体代码为 <code>/*+ mapjoin(table_name)*/</code></p>
+</li>
+</ol>
+<p>具体代码：</p>
+<p>前：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>table_b</code> 为小表。</p>
+<p>后：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(table_b)*/</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>报错</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>spark - 安装 &amp; 简单使用wordcount</title>
     <url>/2021/06/06/spark-%E5%AE%89%E8%A3%85%20&amp;%20%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8wordcount/</url>
     <content><![CDATA[<h3 id="IDEA创建spark项目"><a href="#IDEA创建spark项目" class="headerlink" title="IDEA创建spark项目"></a>IDEA创建spark项目</h3><span id="more"></span>
@@ -1374,6 +1405,37 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>sqoop - 使用基础</title>
+    <url>/2021/05/31/sqoop-%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>其中：</p>
+<blockquote>
+<p>—hive-import ：将表导入到hive中，如果不设置，使用hive的默认界定符，即^A or \001；</p>
+<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
+<p>—hive-database ：指定将表放到某个数据库；</p>
+<p>—connect、—username、—password ：这些不需要说，肯定知道；</p>
+<p>—delete-target-dir ：删除指定目录；</p>
+</blockquote>
+<p>还有一些其他常用的命令：</p>
+<blockquote>
+<p>—target-dir ：将数据导入指定目录；</p>
+<p>—where ：指定条件导入；</p>
+<p>—fields-terminated-by ：指定分隔符；</p>
+<p>-m ：即—num-mappers，指定map的个数，默认是4个。</p>
+</blockquote>
+<h4 id="split-by和-m的联系"><a href="#split-by和-m的联系" class="headerlink" title="split-by和-m的联系"></a>split-by和-m的联系</h4><p>sqoop从大多数数据库中并行导入数据。</p>
+<p>在执行并行导入的时候，需要一个可用来划分工作负载的标准。</p>
+]]></content>
+      <categories>
+        <category>大数据组件的应用</category>
+      </categories>
+      <tags>
+        <tag>sqoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>sparksql脚本的编写</title>
     <url>/2021/07/05/sparksql%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BC%96%E5%86%99/</url>
     <content><![CDATA[<h3 id="1-写含有sparksql语句的、带参的shell脚本"><a href="#1-写含有sparksql语句的、带参的shell脚本" class="headerlink" title="1. 写含有sparksql语句的、带参的shell脚本"></a>1. 写含有sparksql语句的、带参的shell脚本</h3><span id="more"></span>
@@ -1403,68 +1465,6 @@ F(0) = 0
       </categories>
       <tags>
         <tag>spark</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>spark - 报错</title>
-    <url>/2021/08/13/spark-%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<h3 id="Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans"><a href="#Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans" class="headerlink" title="Error in query: Detected cartesian product for INNER join between logical plans"></a>Error in query: Detected cartesian product for INNER join between logical plans</h3><p>默认sparksql版本2.x不支持笛卡尔积操作，需要手动开启支持权限：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> spark.sql.crossJoin.enabled<span class="operator">=</span><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h3 id="Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33"><a href="#Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33" class="headerlink" title="Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at :0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33"></a>Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at <unknown>:0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33</h3><p>不知道具体什么原因（热烈欢迎大佬教我如何深入查找具体原因），只能通过代码大致判断可能数据量太大造成内存溢出。</p>
-<p>解决方法：</p>
-<p>使用 <code>mapjoin</code> 将小表放到内存，减少reduce端的压力。</p>
-<ol>
-<li><p>设置参数：<code>set hive.ignore.mapjoin.hint=true;</code></p>
-<p>true 注释方式不生效，false 注释方式生效 - 用于强行指定需要加入内存走mapjoin的表。</p>
-</li>
-<li><p>将小表进行 <code>mapjoin</code> 操作。</p>
-<p>具体代码为 <code>/*+ mapjoin(table_name)*/</code></p>
-</li>
-</ol>
-<p>具体代码：</p>
-<p>前：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
-<p>其中 <code>table_b</code> 为小表。</p>
-<p>后：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(table_b)*/</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>报错</category>
-      </categories>
-      <tags>
-        <tag>spark</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>sqoop - 使用基础</title>
-    <url>/2021/05/31/sqoop-%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>其中：</p>
-<blockquote>
-<p>—hive-import ：将表导入到hive中，如果不设置，使用hive的默认界定符，即^A or \001；</p>
-<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
-<p>—hive-database ：指定将表放到某个数据库；</p>
-<p>—connect、—username、—password ：这些不需要说，肯定知道；</p>
-<p>—delete-target-dir ：删除指定目录；</p>
-</blockquote>
-<p>还有一些其他常用的命令：</p>
-<blockquote>
-<p>—target-dir ：将数据导入指定目录；</p>
-<p>—where ：指定条件导入；</p>
-<p>—fields-terminated-by ：指定分隔符；</p>
-<p>-m ：即—num-mappers，指定map的个数，默认是4个。</p>
-</blockquote>
-<h4 id="split-by和-m的联系"><a href="#split-by和-m的联系" class="headerlink" title="split-by和-m的联系"></a>split-by和-m的联系</h4><p>sqoop从大多数数据库中并行导入数据。</p>
-<p>在执行并行导入的时候，需要一个可用来划分工作负载的标准。</p>
-]]></content>
-      <categories>
-        <category>大数据组件的应用</category>
-      </categories>
-      <tags>
-        <tag>sqoop</tag>
       </tags>
   </entry>
   <entry>
@@ -1581,6 +1581,24 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>建立第一个独立博客</title>
+    <url>/2021/05/30/%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>前人栽树，后人乘凉~</p>
+<p>具体见<a href="https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg">https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg</a></p>
+<span id="more"></span>
+<p>此处记录日常生成并上传文件的方式。</p>
+<h3 id="生成文件"><a href="#生成文件" class="headerlink" title="生成文件"></a>生成文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &quot;文章标题&quot;</span><br></pre></td></tr></table></figure>
+<p>文章标题可以不用双引号括住。</p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>堆排序算法</title>
     <url>/2021/07/13/%E5%A0%86%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>简单来说就是完全二叉树，大顶堆的每个父节点会大于等于它的子节点；小顶堆的每个父节点会小于等于它的子节点。</p>
@@ -1622,24 +1640,6 @@ F(0) = 0
       </categories>
       <tags>
         <tag>堆排序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>建立第一个独立博客</title>
-    <url>/2021/05/30/%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>前人栽树，后人乘凉~</p>
-<p>具体见<a href="https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg">https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg</a></p>
-<span id="more"></span>
-<p>此处记录日常生成并上传文件的方式。</p>
-<h3 id="生成文件"><a href="#生成文件" class="headerlink" title="生成文件"></a>生成文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &quot;文章标题&quot;</span><br></pre></td></tr></table></figure>
-<p>文章标题可以不用双引号括住。</p>
-<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
       </tags>
   </entry>
   <entry>
