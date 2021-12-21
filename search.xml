@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Flume &amp; Sqoop资源</title>
-    <url>/2021/06/26/Flume-Sqoop%E8%B5%84%E6%BA%90/</url>
-    <content><![CDATA[<p><a href="http://lannaie.top/resources/Flume.pdf">Flume.pdf</a></p>
-<p><a href="http://lannaie.top/resources/Flume%201.9%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf">Flume 1.9用户手册.pdf</a></p>
-<p><a href="http://lannaie.top/resources/Flume题库.pdf">Flume题库.pdf</a></p>
-<p><a href="http://lannaie.top/resources/Sqoop用户指南（v1.4.7）.pdf">Sqoop用户指南（v1.4.7）.pdf</a></p>
-<p><a href="http://lannaie.top/resources/SQOOP%20%E7%AE%80%E4%BB%8B-%E5%AD%A6%E7%94%9F%E6%8C%87%E5%8D%97.pdf">SQOOP%简介-学生指南.pdf</a></p>
-<p><a href="http://lannaie.top/2021/06/27/Sqoop50%E9%A2%98/">sqoop50题</a></p>
-<p><a href="http://lannaie.top/resources/Flume简介-学生指南.pdf">Flume 简介-学生指南.pdf</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>20210721 - sum函数由于优先级计算错误 项目小记</title>
     <url>/2021/07/21/20210721-sum%E5%87%BD%E6%95%B0%E7%94%B1%E4%BA%8E%E4%BC%98%E5%85%88%E7%BA%A7%E8%AE%A1%E7%AE%97%E9%94%99%E8%AF%AF-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="摘自"><a href="#摘自" class="headerlink" title="摘自"></a>摘自</h2><p><a href="https://blog.csdn.net/a158123/article/details/91051636">传送门</a></p>
@@ -52,6 +40,18 @@
       <tags>
         <tag>sql</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Flume &amp; Sqoop资源</title>
+    <url>/2021/06/26/Flume-Sqoop%E8%B5%84%E6%BA%90/</url>
+    <content><![CDATA[<p><a href="http://lannaie.top/resources/Flume.pdf">Flume.pdf</a></p>
+<p><a href="http://lannaie.top/resources/Flume%201.9%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf">Flume 1.9用户手册.pdf</a></p>
+<p><a href="http://lannaie.top/resources/Flume题库.pdf">Flume题库.pdf</a></p>
+<p><a href="http://lannaie.top/resources/Sqoop用户指南（v1.4.7）.pdf">Sqoop用户指南（v1.4.7）.pdf</a></p>
+<p><a href="http://lannaie.top/resources/SQOOP%20%E7%AE%80%E4%BB%8B-%E5%AD%A6%E7%94%9F%E6%8C%87%E5%8D%97.pdf">SQOOP%简介-学生指南.pdf</a></p>
+<p><a href="http://lannaie.top/2021/06/27/Sqoop50%E9%A2%98/">sqoop50题</a></p>
+<p><a href="http://lannaie.top/resources/Flume简介-学生指南.pdf">Flume 简介-学生指南.pdf</a></p>
+]]></content>
   </entry>
   <entry>
     <title>LeetCode-121-买卖股票的最佳时机</title>
@@ -503,6 +503,26 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>LeetCode - NC68 跳台阶</title>
+    <url>/2021/07/09/LeetCode-NC68-%E8%B7%B3%E5%8F%B0%E9%98%B6/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>在中间的某个台阶<code>f[n]</code>，走到这个台阶有两种可能，走一步或走两步，得到公式：<code>f[n] = f[n-1] + f[n-2]</code>，根据常识可以知道，<code>n为1或0时</code>，即<code>f[1] = f[0] = 1</code>，默认排除n小于0的可能性，可以计算结果。</p>
+<h3 id="1-递归"><a href="#1-递归" class="headerlink" title="1. 递归"></a>1. 递归</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target &lt;= <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jumpFloor(target-<span class="number">1</span>) + jumpFloor(target-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法在python中运算时间过长。</p>
+<h3 id="2-动态规划"><a href="#2-动态规划" class="headerlink" title="2. 动态规划"></a>2. 动态规划</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[target + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=target; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i] = dp[i-<span class="number">1</span>] + dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对上述代码进行改动，简化了数组的使用。python：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">jumpFloor</span>(<span class="params">self, number</span>):</span></span><br><span class="line">        a, b, c = <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, number+<span class="number">1</span>):</span><br><span class="line">            c = a + b</span><br><span class="line">            a = b</span><br><span class="line">            b = c</span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>爬楼梯</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode - NC45 实现二叉树先序，中序和后序遍历</title>
     <url>/2021/07/14/LeetCode-NC45-%E5%AE%9E%E7%8E%B0%E4%BA%8C%E5%8F%89%E6%A0%91%E5%85%88%E5%BA%8F%EF%BC%8C%E4%B8%AD%E5%BA%8F%E5%92%8C%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/a9fec6c46a684ad5a3abd4e365a9d362?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/a9fec6c46a684ad5a3abd4e365a9d362?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
@@ -534,43 +554,6 @@ F(0) = 0
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode - NC68 跳台阶</title>
-    <url>/2021/07/09/LeetCode-NC68-%E8%B7%B3%E5%8F%B0%E9%98%B6/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=188&amp;&amp;tqId=38622&amp;rp=1&amp;ru=/ta/job-code-high-week&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>在中间的某个台阶<code>f[n]</code>，走到这个台阶有两种可能，走一步或走两步，得到公式：<code>f[n] = f[n-1] + f[n-2]</code>，根据常识可以知道，<code>n为1或0时</code>，即<code>f[1] = f[0] = 1</code>，默认排除n小于0的可能性，可以计算结果。</p>
-<h3 id="1-递归"><a href="#1-递归" class="headerlink" title="1. 递归"></a>1. 递归</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target &lt;= <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jumpFloor(target-<span class="number">1</span>) + jumpFloor(target-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>该方法在python中运算时间过长。</p>
-<h3 id="2-动态规划"><a href="#2-动态规划" class="headerlink" title="2. 动态规划"></a>2. 动态规划</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[target + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=target; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i] = dp[i-<span class="number">1</span>] + dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对上述代码进行改动，简化了数组的使用。python：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">jumpFloor</span>(<span class="params">self, number</span>):</span></span><br><span class="line">        a, b, c = <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, number+<span class="number">1</span>):</span><br><span class="line">            c = a + b</span><br><span class="line">            a = b</span><br><span class="line">            b = c</span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>爬楼梯</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode - NC76 用两个栈实现队列</title>
-    <url>/2021/07/07/LeetCode-NC76-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj">https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-两个栈分别在push和pop之前都会循环"><a href="#1-两个栈分别在push和pop之前都会循环" class="headerlink" title="1. 两个栈分别在push和pop之前都会循环"></a>1. 两个栈分别在push和pop之前都会循环</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack1.push(stack2.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack2.push(stack1.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-对上面代码的一点点优化，将两个循环转变为一个循环"><a href="#2-对上面代码的一点点优化，将两个循环转变为一个循环" class="headerlink" title="2. 对上面代码的一点点优化，将两个循环转变为一个循环"></a>2. 对上面代码的一点点优化，将两个循环转变为一个循环</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>java, python</tag>
       </tags>
   </entry>
   <entry>
@@ -607,20 +590,20 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>SQL - 报错</title>
-    <url>/2021/07/29/SQL-%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<h3 id="1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’"><a href="#1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’" class="headerlink" title="1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’"></a>1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’</h3><span id="more"></span>
-<p>报错语句：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(salary) <span class="keyword">as</span> avg_salary</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"> <span class="keyword">where</span> salary </span><br><span class="line"><span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(salary)</span><br><span class="line">       ,<span class="built_in">max</span>(salary) </span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>解决：</p>
-<p><code>in</code> 关键字只能对应一列数据。</p>
-<h3 id="2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns"><a href="#2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns" class="headerlink" title="2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns."></a>2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns.</h3><p>。。。仔细看 <code>values</code> 里面的内容，应该有多了。</p>
+    <title>LeetCode - NC76 用两个栈实现队列</title>
+    <url>/2021/07/07/LeetCode-NC76-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj">https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-两个栈分别在push和pop之前都会循环"><a href="#1-两个栈分别在push和pop之前都会循环" class="headerlink" title="1. 两个栈分别在push和pop之前都会循环"></a>1. 两个栈分别在push和pop之前都会循环</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack1.push(stack2.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack2.push(stack1.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-对上面代码的一点点优化，将两个循环转变为一个循环"><a href="#2-对上面代码的一点点优化，将两个循环转变为一个循环" class="headerlink" title="2. 对上面代码的一点点优化，将两个循环转变为一个循环"></a>2. 对上面代码的一点点优化，将两个循环转变为一个循环</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>报错</category>
+        <category>刷题</category>
       </categories>
       <tags>
-        <tag>sql</tag>
+        <tag>java, python</tag>
       </tags>
   </entry>
   <entry>
@@ -654,27 +637,6 @@ F(0) = 0
 <p>除法计算：默认 - <code>/</code>、取指定小数位 - <code>convert(val1 / val2, decimal(10, 2))</code> - 取两位小数，为0取整不保留小数、直接取整 - <code>val1 DIV val2</code>；</p>
 <p><strong>计算还是推荐使用位运算的</strong>。</p>
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">%</span> <span class="number">2</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--或者</span></span><br><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">&amp;</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL35 批量插入数据，不使用replace操作</title>
-    <url>/2021/07/14/SQL%E5%88%B7%E9%A2%98-SQL35-%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%8D%E4%BD%BF%E7%94%A8replace%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p><strong>主要是insert ignore 和 replace into 的区别：</strong></p>
-<p>使用 <code>ignore</code> 关键字。</p>
-<p><code>insert ignore</code>  - 如果数据库中不存在这条数据就插入，存在就跳过。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">insert</span> </span><br><span class="line">ignore </span><br><span class="line">  <span class="keyword">into</span> actor </span><br><span class="line"><span class="keyword">values</span>(<span class="number">3</span>, <span class="string">&#x27;ED&#x27;</span>, <span class="string">&#x27;CHASE&#x27;</span>, <span class="string">&#x27;2006-02-15 12:34:33&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p>使用 <code>replace</code> 关键字。</p>
-<p><code>replace into</code> - 如果存在 <code>primary key</code> 或 <code>unique</code> 相同的记录，先删除原有记录，再添加此新记录。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">replace </span><br><span class="line">   <span class="keyword">into</span> actor</span><br><span class="line"> <span class="keyword">select</span> <span class="number">3</span></span><br><span class="line">        ,<span class="string">&#x27;ED&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;CHASE&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;2006-02-15 12:34:33&#x27;</span></span><br><span class="line">   <span class="keyword">from</span> actor</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-<p><strong>ignore 和 replace 是mysql8之后有的内容。</strong></p>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -733,6 +695,44 @@ F(0) = 0
 <p>2</p>
 </blockquote>
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> emp_no</span><br><span class="line">       ,salary</span><br><span class="line">       ,<span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) <span class="keyword">as</span> t_rank</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t_rank <span class="keyword">asc</span>, emp_no <span class="keyword">asc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL - 报错</title>
+    <url>/2021/07/29/SQL-%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<h3 id="1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’"><a href="#1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’" class="headerlink" title="1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’"></a>1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’</h3><span id="more"></span>
+<p>报错语句：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(salary) <span class="keyword">as</span> avg_salary</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"> <span class="keyword">where</span> salary </span><br><span class="line"><span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(salary)</span><br><span class="line">       ,<span class="built_in">max</span>(salary) </span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>解决：</p>
+<p><code>in</code> 关键字只能对应一列数据。</p>
+<h3 id="2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns"><a href="#2-FAILED-SemanticException-Error-10044-Line-1-12-Cannot-insert-into-target-table-because-column-number-types-are-different-‘’813’’-Table-insclause-0-has-7-columns-but-query-has-8-columns" class="headerlink" title="2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns."></a>2. FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns.</h3><p>。。。仔细看 <code>values</code> 里面的内容，应该有多了。</p>
+]]></content>
+      <categories>
+        <category>报错</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL刷题 - SQL35 批量插入数据，不使用replace操作</title>
+    <url>/2021/07/14/SQL%E5%88%B7%E9%A2%98-SQL35-%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%8D%E4%BD%BF%E7%94%A8replace%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p><strong>主要是insert ignore 和 replace into 的区别：</strong></p>
+<p>使用 <code>ignore</code> 关键字。</p>
+<p><code>insert ignore</code>  - 如果数据库中不存在这条数据就插入，存在就跳过。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">insert</span> </span><br><span class="line">ignore </span><br><span class="line">  <span class="keyword">into</span> actor </span><br><span class="line"><span class="keyword">values</span>(<span class="number">3</span>, <span class="string">&#x27;ED&#x27;</span>, <span class="string">&#x27;CHASE&#x27;</span>, <span class="string">&#x27;2006-02-15 12:34:33&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>使用 <code>replace</code> 关键字。</p>
+<p><code>replace into</code> - 如果存在 <code>primary key</code> 或 <code>unique</code> 相同的记录，先删除原有记录，再添加此新记录。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">replace </span><br><span class="line">   <span class="keyword">into</span> actor</span><br><span class="line"> <span class="keyword">select</span> <span class="number">3</span></span><br><span class="line">        ,<span class="string">&#x27;ED&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;CHASE&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;2006-02-15 12:34:33&#x27;</span></span><br><span class="line">   <span class="keyword">from</span> actor</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p><strong>ignore 和 replace 是mysql8之后有的内容。</strong></p>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -810,6 +810,22 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>SQL刷题 - SQL39 强制使用索引</title>
+    <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL39-%E5%BC%BA%E5%88%B6%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/f9fa9dc1a1fc4130b08e26c22c7a1e5f?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/f9fa9dc1a1fc4130b08e26c22c7a1e5f?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>强制使用索引：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> TABLE1 FORCE INDEX (索引名或<span class="keyword">PRIMARY</span>) ;</span><br></pre></td></tr></table></figure>
+<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> salaries FORCE INDEX (idx_emp_no) <span class="keyword">where</span> emp_no <span class="operator">=</span> <span class="number">10005</span>;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL刷题 - SQL41 构造一个触发器</title>
     <url>/2021/07/16/SQL%E5%88%B7%E9%A2%98-SQL41-%E6%9E%84%E9%80%A0%E4%B8%80%E4%B8%AA%E8%A7%A6%E5%8F%91%E5%99%A8/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking">https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking</a></p>
@@ -831,22 +847,6 @@ F(0) = 0
 </blockquote>
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">      <span class="keyword">create</span> </span><br><span class="line">     <span class="keyword">trigger</span> audit_log</span><br><span class="line">       after </span><br><span class="line">      <span class="keyword">insert</span> </span><br><span class="line">          <span class="keyword">on</span> employees_test</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="type">row</span></span><br><span class="line">       <span class="keyword">begin</span></span><br><span class="line">             <span class="keyword">insert</span> <span class="keyword">into</span> audit <span class="keyword">values</span>(new.ID, new.NAME);</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 <h3 id="3-摘自"><a href="#3-摘自" class="headerlink" title="3. 摘自"></a>3. 摘自</h3><p><a href="https://blog.csdn.net/haut_ykc/article/details/110226668">SQL编程：构造触发器</a></p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL39 强制使用索引</title>
-    <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL39-%E5%BC%BA%E5%88%B6%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/f9fa9dc1a1fc4130b08e26c22c7a1e5f?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/f9fa9dc1a1fc4130b08e26c22c7a1e5f?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>强制使用索引：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> TABLE1 FORCE INDEX (索引名或<span class="keyword">PRIMARY</span>) ;</span><br></pre></td></tr></table></figure>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> salaries FORCE INDEX (idx_emp_no) <span class="keyword">where</span> emp_no <span class="operator">=</span> <span class="number">10005</span>;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -1121,6 +1121,21 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2021/05/30/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>hive - 报错</title>
     <url>/2021/08/06/hive-%E6%8A%A5%E9%94%99/</url>
     <content><![CDATA[<h3 id="hive-ql-io-orc-OrcSerde-OrcSerdeRow-cannot-be-cast-to-org-apache-hadoop-io-BytesWritable"><a href="#hive-ql-io-orc-OrcSerde-OrcSerdeRow-cannot-be-cast-to-org-apache-hadoop-io-BytesWritable" class="headerlink" title="hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable"></a>hive.ql.io.orc.OrcSerde$OrcSerdeRow cannot be cast to org.apache.hadoop.io.BytesWritable</h3><span id="more"></span>
@@ -1163,21 +1178,6 @@ F(0) = 0
       <tags>
         <tag>hive</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/05/30/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>hive - 日志分析项目小记</title>
@@ -1374,37 +1374,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>spark - 报错</title>
-    <url>/2021/08/13/spark-%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<h3 id="Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans"><a href="#Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans" class="headerlink" title="Error in query: Detected cartesian product for INNER join between logical plans"></a>Error in query: Detected cartesian product for INNER join between logical plans</h3><p>默认sparksql版本2.x不支持笛卡尔积操作，需要手动开启支持权限：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> spark.sql.crossJoin.enabled<span class="operator">=</span><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h3 id="Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33"><a href="#Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33" class="headerlink" title="Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at :0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33"></a>Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at <unknown>:0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33</h3><p>不知道具体什么原因（热烈欢迎大佬教我如何深入查找具体原因），只能通过代码大致判断可能数据量太大造成内存溢出。</p>
-<p>解决方法：</p>
-<p>使用 <code>mapjoin</code> 将小表放到内存，减少reduce端的压力。</p>
-<ol>
-<li><p>设置参数：<code>set hive.ignore.mapjoin.hint=true;</code></p>
-<p>true 注释方式不生效，false 注释方式生效 - 用于强行指定需要加入内存走mapjoin的表。</p>
-</li>
-<li><p>将小表进行 <code>mapjoin</code> 操作。</p>
-<p>具体代码为 <code>/*+ mapjoin(table_name)*/</code></p>
-</li>
-</ol>
-<p>具体代码：</p>
-<p>前：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
-<p>其中 <code>table_b</code> 为小表。</p>
-<p>后：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(table_b)*/</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>报错</category>
-      </categories>
-      <tags>
-        <tag>spark</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>sparksql脚本的编写</title>
     <url>/2021/07/05/sparksql%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BC%96%E5%86%99/</url>
     <content><![CDATA[<h3 id="1-写含有sparksql语句的、带参的shell脚本"><a href="#1-写含有sparksql语句的、带参的shell脚本" class="headerlink" title="1. 写含有sparksql语句的、带参的shell脚本"></a>1. 写含有sparksql语句的、带参的shell脚本</h3><span id="more"></span>
@@ -1431,6 +1400,37 @@ F(0) = 0
 ]]></content>
       <categories>
         <category>项目小记</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>spark - 报错</title>
+    <url>/2021/08/13/spark-%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<h3 id="Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans"><a href="#Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans" class="headerlink" title="Error in query: Detected cartesian product for INNER join between logical plans"></a>Error in query: Detected cartesian product for INNER join between logical plans</h3><p>默认sparksql版本2.x不支持笛卡尔积操作，需要手动开启支持权限：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> spark.sql.crossJoin.enabled<span class="operator">=</span><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33"><a href="#Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33" class="headerlink" title="Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at :0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33"></a>Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at <unknown>:0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33</h3><p>不知道具体什么原因（热烈欢迎大佬教我如何深入查找具体原因），只能通过代码大致判断可能数据量太大造成内存溢出。</p>
+<p>解决方法：</p>
+<p>使用 <code>mapjoin</code> 将小表放到内存，减少reduce端的压力。</p>
+<ol>
+<li><p>设置参数：<code>set hive.ignore.mapjoin.hint=true;</code></p>
+<p>true 注释方式不生效，false 注释方式生效 - 用于强行指定需要加入内存走mapjoin的表。</p>
+</li>
+<li><p>将小表进行 <code>mapjoin</code> 操作。</p>
+<p>具体代码为 <code>/*+ mapjoin(table_name)*/</code></p>
+</li>
+</ol>
+<p>具体代码：</p>
+<p>前：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>table_b</code> 为小表。</p>
+<p>后：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(table_b)*/</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>报错</category>
       </categories>
       <tags>
         <tag>spark</tag>
@@ -1468,28 +1468,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>双指针</title>
-    <url>/2021/10/20/%E5%8F%8C%E6%8C%87%E9%92%88/</url>
-    <content><![CDATA[<h2 id="双指针介绍"><a href="#双指针介绍" class="headerlink" title="双指针介绍"></a>双指针介绍</h2><p><strong>双指针</strong>，指的是在遍历对象的过程中，不是普通的使用单个指针进行访问，而是使用两个相同方向（<em>快慢指针</em>）或者相反方向（<em>对撞指针</em>）的指针进行扫描，从而达到相应的目的。</p>
-<span id="more"></span>
-<h3 id="对撞指针"><a href="#对撞指针" class="headerlink" title="对撞指针"></a>对撞指针</h3><p>设计 <code>left</code> 和 <code>right</code> 两个指针，从两头开始向中间开始遍历，比如 <strong>快速排序</strong> ，使用到了对撞指针。</p>
-<p>简易代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>( left &lt; right )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>( nums[left] &lt;= nums[right] )</span><br><span class="line">    &#123;</span><br><span class="line">        left ++;</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        right --;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h3><p>设计 <code>fast</code> 和 <code>slow</code> 两个指针，从同一侧开始遍历，二者以不同策略移动，通常来说，慢指针一次走一步，快指针一次走多步。</p>
-<p>经典问题为：是否存在环问题。</p>
-<p>思路为：在慢指针遍历完之前，如果与快指针相遇，存在环，否则不存在。</p>
-<p>具体代码为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( head == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode slow = head, fast = head;</span><br><span class="line">        <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( slow != <span class="keyword">null</span> &amp;&amp; fast != slow )</span><br><span class="line">        &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> &amp;&amp; fast.next.next != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                fast = fast.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( slow == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a href="https://zhuanlan.zhihu.com/p/71643340">算法一招鲜——双指针问题</a></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>双指针</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>动态规划算法</title>
     <url>/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义：是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。</p>
@@ -1511,6 +1489,28 @@ F(0) = 0
       </categories>
       <tags>
         <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>双指针</title>
+    <url>/2021/10/20/%E5%8F%8C%E6%8C%87%E9%92%88/</url>
+    <content><![CDATA[<h2 id="双指针介绍"><a href="#双指针介绍" class="headerlink" title="双指针介绍"></a>双指针介绍</h2><p><strong>双指针</strong>，指的是在遍历对象的过程中，不是普通的使用单个指针进行访问，而是使用两个相同方向（<em>快慢指针</em>）或者相反方向（<em>对撞指针</em>）的指针进行扫描，从而达到相应的目的。</p>
+<span id="more"></span>
+<h3 id="对撞指针"><a href="#对撞指针" class="headerlink" title="对撞指针"></a>对撞指针</h3><p>设计 <code>left</code> 和 <code>right</code> 两个指针，从两头开始向中间开始遍历，比如 <strong>快速排序</strong> ，使用到了对撞指针。</p>
+<p>简易代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>( left &lt; right )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>( nums[left] &lt;= nums[right] )</span><br><span class="line">    &#123;</span><br><span class="line">        left ++;</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        right --;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h3><p>设计 <code>fast</code> 和 <code>slow</code> 两个指针，从同一侧开始遍历，二者以不同策略移动，通常来说，慢指针一次走一步，快指针一次走多步。</p>
+<p>经典问题为：是否存在环问题。</p>
+<p>思路为：在慢指针遍历完之前，如果与快指针相遇，存在环，否则不存在。</p>
+<p>具体代码为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( head == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode slow = head, fast = head;</span><br><span class="line">        <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( slow != <span class="keyword">null</span> &amp;&amp; fast != slow )</span><br><span class="line">        &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> &amp;&amp; fast.next.next != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                fast = fast.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( slow == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a href="https://zhuanlan.zhihu.com/p/71643340">算法一招鲜——双指针问题</a></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>
