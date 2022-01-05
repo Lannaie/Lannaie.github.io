@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. 阅读下面的程序：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔试刷题">
+<meta property="og:url" content="http://example.com/2021/12/24/%E7%AC%94%E8%AF%95%E5%88%B7%E9%A2%98/index.html">
+<meta property="og:site_name" content="往南">
+<meta property="og:description" content="1. 阅读下面的程序：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-24T07:46:49.000Z">
+<meta property="article:modified_time" content="2022-01-05T16:46:19.792Z">
+<meta property="article:author" content="Bonnie">
+<meta property="article:tag" content="笔试">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/12/24/%E7%AC%94%E8%AF%95%E5%88%B7%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>笔试刷题 | 往南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">往南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/24/%E7%AC%94%E8%AF%95%E5%88%B7%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          笔试刷题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-24 15:46:49" itemprop="dateCreated datePublished" datetime="2021-12-24T15:46:49+08:00">2021-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-06 00:46:19" itemprop="dateModified" datetime="2022-01-06T00:46:19+08:00">2022-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-阅读下面的程序："><a href="#1-阅读下面的程序：" class="headerlink" title="1. 阅读下面的程序："></a>1. 阅读下面的程序：</h3><span id="more"></span>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span> ; x &lt;=<span class="number">3</span> ; x++) &#123;</span><br><span class="line">         <span class="keyword">continue</span>;</span><br><span class="line">         System.out.print(x%<span class="number">2</span> + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下列选项，哪个是结果：</p>
+<p>A. 0 1 2 3</p>
+<p>B. 0 1 2 1</p>
+<p>C. 0 1 2</p>
+<p>D. 编译失败</p>
+<p><strong>结果：D</strong></p>
+<blockquote>
+<p>会报错：error: unreachable statement。</p>
+<p>原因一：</p>
+<p>下面的几种情况会出现 unreachable statement：<br>（1）在reutrn语句后写语句。<br>（2）在throw语句后写语句。<br>（3）break、continue语句之后定义语句。<br>（4）“\u10100”//合法，相当于‘\u1010’和字符串“0”。<br>（5）移位运算符可以用于long int char short byte。<br>（6）类的访问控制符可以是public或什么都不加。<br>（7）goto是保留字但不是关键字。then什么都不是。<br>（8）把超类的类型强制转换后赋给子类的对象时，编译无异常，但运行时会出现异常。</p>
+<p>原因二：</p>
+<p>不可达语句的造成是因为：在此语句前面有一个返回操作，或者其他操作导致不管什么条件都无法执行到这一句。<br>最重要的是：检查前面语句是否有返回，并查看是否因为自己的疏忽，即使没有语法等错误，导致的任何条件都会在此语句前面返回。因为自己的疏忽，好几次在if 或for条件句后面加了; 导致下面的return语句不会执行之后的任何语句，就会返回1；</p>
+</blockquote>
+<h3 id="2-下列关于冒泡排序的描述中，正确的是（-）-多选"><a href="#2-下列关于冒泡排序的描述中，正确的是（-）-多选" class="headerlink" title="2. 下列关于冒泡排序的描述中，正确的是（ ） - 多选"></a>2. 下列关于冒泡排序的描述中，正确的是（ ） - 多选</h3><p>A. 冒泡排序是不断的比较数组中相邻的两个元素</p>
+<p>B. 冒泡排序比较的总轮次是“数组长度-1”轮</p>
+<p>C. 冒泡排序中会涉及到元素位置的置换</p>
+<p>D. 其他说法均不正确</p>
+<p><strong>结果：ABC</strong></p>
+<blockquote>
+<p>注意B说的是 <code>总轮次</code>。</p>
+</blockquote>
+<h3 id="3-下列关于二维数组定义的选项中，错误的是（-）"><a href="#3-下列关于二维数组定义的选项中，错误的是（-）" class="headerlink" title="3. 下列关于二维数组定义的选项中，错误的是（ ）"></a>3. 下列关于二维数组定义的选项中，错误的是（ ）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A. int\[][] arr = new int\[3][4];</span><br><span class="line">B. int\[][] arr = new int\[3][];</span><br><span class="line">C. int\[][] arr = new int\[][4];</span><br><span class="line">D. int[][] arr = &#123;&#123;1,2&#125;,&#123;3,4,5&#125;,&#123;6&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>结果：C</strong></p>
+<blockquote>
+<p>可以省略列，不能省略行。</p>
+</blockquote>
+<h3 id="4-下列选项中，哪些可以作为方法重载的判断条件（-）-多选"><a href="#4-下列选项中，哪些可以作为方法重载的判断条件（-）-多选" class="headerlink" title="4. 下列选项中，哪些可以作为方法重载的判断条件（ ） - 多选"></a>4. 下列选项中，哪些可以作为方法重载的判断条件（ ） - 多选</h3><p>A. 方法名</p>
+<p>B. 方法的参数列表</p>
+<p>C. 方法的返回值</p>
+<p>D. 方法的修饰符</p>
+<p><strong>结果：AB</strong></p>
+<blockquote>
+<p>方法重载是可以定义多个方法名相同、参数列表不同的方法。</p>
+</blockquote>
+<h3 id="5-下列关于方法重载的说法中，正确的是（-）-多选"><a href="#5-下列关于方法重载的说法中，正确的是（-）-多选" class="headerlink" title="5. 下列关于方法重载的说法中，正确的是（ ） - 多选"></a>5. 下列关于方法重载的说法中，正确的是（ ） - 多选</h3><p>A. 方法名相同，参数的个数不同可以形成方法重载。</p>
+<p>B. 方法名相同，参数的类型不同可以形成方法重载。</p>
+<p>C. 方法名相同，参数的类型排列顺序不同可以形成方法重载。</p>
+<p>D. 方法名相同，返回值类型不同，可以形成方法重载。</p>
+<p><strong>结果：ABC</strong></p>
+<blockquote>
+<p>注意看C，是 <code>类型</code> 排列顺序不同。</p>
+</blockquote>
+<h3 id="6-请阅读下面的程序："><a href="#6-请阅读下面的程序：" class="headerlink" title="6. 请阅读下面的程序："></a>6. 请阅读下面的程序：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">int</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">float</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">float</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">double</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">long</span> b = <span class="number">20</span>;</span><br><span class="line">        sum(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下列选项中，哪一个是程序的正确运行结果（ ）</p>
+<p>A. int:30<br>B. float:30.0<br>C. double:30.0<br>D. int:30.0</p>
+<p><strong>结果：B</strong></p>
+<blockquote>
+<p>比long范围更大的是float</p>
+</blockquote>
+<h3 id="7-下面关于构造方法的描述中，正确的是（-）"><a href="#7-下面关于构造方法的描述中，正确的是（-）" class="headerlink" title="7. 下面关于构造方法的描述中，正确的是（ ）"></a>7. 下面关于构造方法的描述中，正确的是（ ）</h3><p>A. 构造方法在类定义的时候被调用<br>B. 构造方法在创建对象的时候被调用<br>C. 构造方法在调用对象的时候被调用<br>D. 构造方法在使用对象的时候被调用</p>
+<p><strong>结果：B</strong></p>
+<h3 id="8-下列关于this关键字的说法中，错误的是（-）"><a href="#8-下列关于this关键字的说法中，错误的是（-）" class="headerlink" title="8. 下列关于this关键字的说法中，错误的是（  ）"></a>8. 下列关于this关键字的说法中，错误的是（  ）</h3><p>A. this可以解决成员变量与局部变量重名的问题</p>
+<p>B. this出现在成员方法中，代表的是调用这个方法的对象</p>
+<p>C. this可以出现在任何方法中</p>
+<p>D. this相当于一个引用，可以通过它调用成员属性与方法</p>
+<p><strong>结果：C</strong></p>
+<blockquote>
+<p>this只能在类中的非静态方法中使用，静态方法和静态的代码块中绝对不能出现this。</p>
+</blockquote>
+<h3 id="9-以下代码执行后的结果是（-）"><a href="#9-以下代码执行后的结果是（-）" class="headerlink" title="9. 以下代码执行后的结果是（ ）"></a>9. 以下代码执行后的结果是（ ）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">        String name = “小芳”;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">            name = “小兰”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = “小翠”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Person p = <span class="keyword">new</span> Person(“小凤”);</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">    p.show();</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>A. 小兰小翠</p>
+<p>B.小凤小翠</p>
+<p>C. 小芳小翠</p>
+<p>D. 程序编译失败</p>
+<p><strong>结果：C</strong></p>
+<blockquote>
+<p>小凤用来告诉系统应该调用一个有参的构造方法，而不是起赋值作用，至于小兰的话，name前面没有this，故小兰只是个局部变量，出不去。</p>
+</blockquote>
+<h3 id="10-以下关于方法重写，说法错误的是（-）-多选"><a href="#10-以下关于方法重写，说法错误的是（-）-多选" class="headerlink" title="10. 以下关于方法重写，说法错误的是（ ） - 多选"></a>10. 以下关于方法重写，说法错误的是（ ） - 多选</h3><p>A. 方法重写时，子类的函数名与参数列表必须与父类的一致</p>
+<p>B. 方法重写时，子类的返回类型必须大于或者等于父类的返回类型</p>
+<p>C. 方法重写时，子类的访问修饰符必须大于或者等于父类的访问修饰符</p>
+<p>D. 方法重写与返回类型无关</p>
+<p><strong>结果：BD</strong></p>
+<blockquote>
+<p>重写的规范</p>
+<ol>
+<li><p>子类方法的名称、参数列表与父类相同;</p>
+</li>
+<li><p>子类方法的返回类型与父类相同或更小;</p>
+</li>
+<li><p>子类方法声明的异常与父类相同或更小;</p>
+</li>
+<li><p>子类方法的访问权限与父类相同或更大。</p>
+</li>
+</ol>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+	  
+	
+	 <div>
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	 </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AF%95/" rel="tag"># 笔试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="prev" title="计算机基础知识 - 面试题">
+      <i class="fa fa-chevron-left"></i> 计算机基础知识 - 面试题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/27/jsp%E5%BC%95%E7%94%A8%E5%A4%96%E9%83%A8css%E6%96%87%E4%BB%B6%E5%A4%B1%E6%95%88/" rel="next" title="jsp引用外部css文件失效">
+      jsp引用外部css文件失效 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%98%85%E8%AF%BB%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">1. 阅读下面的程序：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8B%E5%88%97%E5%85%B3%E4%BA%8E%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%B8%AD%EF%BC%8C%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF%EF%BC%88-%EF%BC%89-%E5%A4%9A%E9%80%89"><span class="nav-number">2.</span> <span class="nav-text">2. 下列关于冒泡排序的描述中，正确的是（ ） - 多选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%8B%E5%88%97%E5%85%B3%E4%BA%8E%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E5%AE%9A%E4%B9%89%E7%9A%84%E9%80%89%E9%A1%B9%E4%B8%AD%EF%BC%8C%E9%94%99%E8%AF%AF%E7%9A%84%E6%98%AF%EF%BC%88-%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3. 下列关于二维数组定义的选项中，错误的是（ ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%8B%E5%88%97%E9%80%89%E9%A1%B9%E4%B8%AD%EF%BC%8C%E5%93%AA%E4%BA%9B%E5%8F%AF%E4%BB%A5%E4%BD%9C%E4%B8%BA%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%E7%9A%84%E5%88%A4%E6%96%AD%E6%9D%A1%E4%BB%B6%EF%BC%88-%EF%BC%89-%E5%A4%9A%E9%80%89"><span class="nav-number">4.</span> <span class="nav-text">4. 下列选项中，哪些可以作为方法重载的判断条件（ ） - 多选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%B8%8B%E5%88%97%E5%85%B3%E4%BA%8E%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%E7%9A%84%E8%AF%B4%E6%B3%95%E4%B8%AD%EF%BC%8C%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF%EF%BC%88-%EF%BC%89-%E5%A4%9A%E9%80%89"><span class="nav-number">5.</span> <span class="nav-text">5. 下列关于方法重载的说法中，正确的是（ ） - 多选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%AF%B7%E9%98%85%E8%AF%BB%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">6. 请阅读下面的程序：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E4%B8%8B%E9%9D%A2%E5%85%B3%E4%BA%8E%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%B8%AD%EF%BC%8C%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF%EF%BC%88-%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">7. 下面关于构造方法的描述中，正确的是（ ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E4%B8%8B%E5%88%97%E5%85%B3%E4%BA%8Ethis%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E8%AF%B4%E6%B3%95%E4%B8%AD%EF%BC%8C%E9%94%99%E8%AF%AF%E7%9A%84%E6%98%AF%EF%BC%88-%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">8. 下列关于this关键字的说法中，错误的是（  ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E4%BB%A5%E4%B8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%EF%BC%88-%EF%BC%89"><span class="nav-number">9.</span> <span class="nav-text">9. 以下代码执行后的结果是（ ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%BB%A5%E4%B8%8B%E5%85%B3%E4%BA%8E%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8C%E8%AF%B4%E6%B3%95%E9%94%99%E8%AF%AF%E7%9A%84%E6%98%AF%EF%BC%88-%EF%BC%89-%E5%A4%9A%E9%80%89"><span class="nav-number">10.</span> <span class="nav-text">10. 以下关于方法重写，说法错误的是（ ） - 多选</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bonnie"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Bonnie</p>
+  <div class="site-description" itemprop="description">每天都要做个人啊</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-05 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bonnie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
