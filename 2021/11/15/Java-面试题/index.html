@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. Java语言的特点Java语言有十大特点：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-15T13:39:32.000Z">
-<meta property="article:modified_time" content="2022-01-10T13:31:36.004Z">
+<meta property="article:modified_time" content="2022-01-12T15:01:52.905Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-10 21:31:36" itemprop="dateModified" datetime="2022-01-10T21:31:36+08:00">2022-01-10</time>
+                <time title="修改时间：2022-01-12 23:01:52" itemprop="dateModified" datetime="2022-01-12T23:01:52+08:00">2022-01-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -693,7 +693,7 @@
 <p>（2）ConcurrentHashMap采用了更细粒度的锁来提高并发情况下的效率，ConcurrentHashMap将hash表默认分为16个桶，每个桶可以看作是一个hashtable，诸如get、put、remove等写操作只需要锁当前需要的桶，在理想状态下，原来同一时刻只能进入一个线程，现在能同时进入16个，并发性的提升显而易见；因为在读取的大多数情况不需要锁，所以读取操作几乎是完全的并发操作。</p>
 </li>
 </ol>
-<h2 id="20-ConcurrentHashMap底层原理"><a href="#20-ConcurrentHashMap底层原理" class="headerlink" title="20. ConcurrentHashMap底层原理"></a>20. ConcurrentHashMap底层原理</h2><p>​        首先了解为什么使用ConcurrentHashMap。在并发编程下使用HashMap可能导致死循环，而使用线程安全的HashTable效率又非常低下，于是引出了ConcurrentHashMap。HashTable效率低的原因很明显，因为HashTable使用Synchronized关键字，所以在并发时只能运行一个线程，而将其他线程阻塞等待；HashMap导致死循环的原因是put操作扩容，假设有两个线程A和B要同时进行put操作，因为已经到达阈值，所以需要扩容，先将第一个数组的链表头复制到新的hash表中，然后接着复制第一个数组的第二个node到旧链表头，本来因为第一个node是旧数组第一个元素的链表头，还指向旧数组的第二个node，但是，由于线程二扩容的原因，将当前旧链表头，即新链表头的下一个node，指向新链表头，因为采用头插法，由此，环形链表出现。</p>
+<h2 id="20-ConcurrentHashMap底层原理"><a href="#20-ConcurrentHashMap底层原理" class="headerlink" title="20. ConcurrentHashMap底层原理"></a>20. ConcurrentHashMap底层原理</h2><p>​        首先了解为什么使用ConcurrentHashMap。在并发编程下使用HashMap可能导致死循环，而使用线程安全的HashTable效率又非常低下，于是引出了ConcurrentHashMap。HashTable效率低的原因很明显，因为HashTable使用Synchronized关键字，所以在并发时只能运行一个线程，而将其他线程阻塞等待；HashMap导致死循环的原因是put操作扩容，假设有两个线程A和B要同时进行扩容，此时数组中下标为1对应的链表指向是 a - b - c，扩容需要将他们迁移到新数组下标为4的位置，这里假设abc钱以后也在同意下标，进行扩容操作有两个指针 e 和 next，A先执行，假设当 e = a，next = b 的时候cpu时间片用完，会暂停A的执行，由B开始执行，因为是头插法，插入的顺序是将e.next = newtable[4]，newtable[4] = e,e = next。B会将 abc 全都放到newtable[4]的空间中，然后时间片用完，A继续执行，在B线程将 b 指向 a，在这里又将 a 指向 b，此时就产生了死循环。</p>
 <p>​         而ConcurrentHashMap应用在多线程的优点在于它的数据结构。</p>
 <p>​        在JDK1.7底层采用：segment + HashEntry数组结构组成，实现的思路是先将数据分成一段一段地存 储，然后给每一段数据配一把锁，这样当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问，这就是锁分段技术。其中Segment继承了ReetrantLock可重入锁接口，所以自带了锁的功能，让每一个片段都有了锁；HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组。Segment的结构和HashMap类似，是一种数组和链表结构。一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得与它对应的Segment锁。</p>
 <p>​        JDK1.8底层与HashMap底层结构一致，将锁的粒度调整到每个数组元素加锁，并且定位节点的hash算法被简化，导致hash冲突加剧，因此在链表长度大于8时，会将链表转换为红黑树存储，这样一来，查询的时间复杂度就从O(n)转变为O(logn)。</p>
