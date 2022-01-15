@@ -291,45 +291,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - NC102 在二叉树中找到两个节点的最近公共祖先</title>
-    <url>/2021/07/10/LeetCode-NC102-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%BE%E5%88%B0%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>可以有两种思路：</p>
-<h3 id="1-从局部看：看两个值和公共节点的关系"><a href="#1-从局部看：看两个值和公共节点的关系" class="headerlink" title="1. 从局部看：看两个值和公共节点的关系"></a>1. 从局部看：看两个值和公共节点的关系</h3><p>有三种关系：</p>
-<ol>
-<li>o1和o2在公共节点的两边；</li>
-<li>o1是公共节点；</li>
-<li>o2是公共节点。</li>
-</ol>
-<p>对于第一个关系，就说明该节点的左右子节点都不可能为<code>NULL</code>，则可以得到下述：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root.left != <span class="keyword">null</span> &amp;&amp; root.right!=<span class="keyword">null</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于第二和三的关系，假设当前节点就是公共节点，可以返回该节点。然后由上面一个节点判断此时本节点是公共节点还是一个节点的长辈节点：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为了防止有节点只有左节点和右节点中的一个：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br></pre></td></tr></table></figure>
-<p>总体代码如下：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">CommonAncestor</span><span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode left = CommonAncestor(root.left, o1, o2);</span><br><span class="line">        TreeNode right = CommonAncestor(root.right, o1, o2);</span><br><span class="line">        <span class="keyword">if</span>( left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">CommonAncestor</span>(<span class="params">root, o1, o2</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> root.val <span class="keyword">in</span> [o1, o2]:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            left = CommonAncestor(root.left, o1, o2)</span><br><span class="line">            right = CommonAncestor(root.right, o1, o2)</span><br><span class="line">            <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            <span class="keyword">return</span> left <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> right</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val</span><br></pre></td></tr></table></figure>
-<h3 id="2-从整体看：看每个值之间的区别"><a href="#2-从整体看：看每个值之间的区别" class="headerlink" title="2. 从整体看：看每个值之间的区别"></a>2. 从整体看：看每个值之间的区别</h3><p>可以记录从顶点到每个值的路径，然后比较两个路径是从哪个顶点开始聚合或分道扬镳的，该节点就算最近公共节点。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; s1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; s2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        getPath(root, o1, s1);</span><br><span class="line">        getPath(root, o2, s2);</span><br><span class="line">        <span class="keyword">int</span> res = root.val;</span><br><span class="line">        <span class="keyword">while</span>( !(s1.isEmpty() || s2.isEmpty()) )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> f1 = s1.pop(), f2 = s2.pop();</span><br><span class="line">            System.out.println(f1+<span class="string">&quot; &quot;</span>+f2);</span><br><span class="line">            <span class="keyword">if</span>( f1 != f2 )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            res = f1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">getPath</span><span class="params">(TreeNode root, <span class="keyword">int</span> o, Stack&lt;Integer&gt; stack)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( root.val == o || getPath(root.left, o, stack) || getPath(root.right, o, stack) )</span><br><span class="line">        &#123;</span><br><span class="line">            stack.push(root.val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>选择元素不相等时退出是因为<code>getPath</code>函数是从下往上<code>push</code>元素的。</p>
-<p>python：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">getPath</span>(<span class="params">root, o, s</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> root.val == o <span class="keyword">or</span> getPath(root.left, o, s) <span class="keyword">or</span> getPath(root.right, o, s):</span><br><span class="line">                s.append(root.val)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s1, s2 = [], []</span><br><span class="line">        res = root.val</span><br><span class="line">        getPath(root, o1, s1)</span><br><span class="line">        getPath(root, o2, s2)</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s1) != <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(s2) != <span class="number">0</span>:</span><br><span class="line">            f1, f2 = s1.pop(), s2.pop()</span><br><span class="line">            <span class="keyword">if</span> f1 != f2:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            res = f1</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>java, python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - NC137 表达式求值</title>
     <url>/2021/07/22/LeetCode-NC137-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/c215ba61c8b1443b996351df929dc4d4?tpId=188&amp;&amp;tqId=38548&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/c215ba61c8b1443b996351df929dc4d4?tpId=188&amp;&amp;tqId=38548&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
@@ -407,6 +368,45 @@ F(0) = 0
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型ArrayList&lt;ArrayList&lt;&gt;&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; levelOrder (TreeNode root) &#123;</span><br><span class="line">        ArrayList&lt;TreeNode&gt; tmp = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        tmp.add(root);</span><br><span class="line">        <span class="keyword">return</span> getList(tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; getList(ArrayList&lt;TreeNode&gt; tmp)&#123;</span><br><span class="line">        <span class="keyword">if</span>( tmp.size() == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        ArrayList&lt;Integer&gt; r = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> size = tmp.size();</span><br><span class="line">        <span class="keyword">while</span>( size -- &gt; <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            TreeNode t = tmp.remove(<span class="number">0</span>);</span><br><span class="line">            r.add(t.val);</span><br><span class="line">            <span class="keyword">if</span>( t.left != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                tmp.add(t.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( t.right != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                tmp.add(t.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(r);</span><br><span class="line">        <span class="keyword">return</span> getList(tmp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>python：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @return int整型二维数组</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span>(<span class="params">self , root</span>):</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">getList</span>(<span class="params">tmp</span>):</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(tmp) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> res</span><br><span class="line">            r = []</span><br><span class="line">            size = <span class="built_in">len</span>(tmp)</span><br><span class="line">            <span class="keyword">while</span> size &gt; <span class="number">0</span>:</span><br><span class="line">                t = tmp.pop(<span class="number">0</span>)</span><br><span class="line">                r.append(t.val)</span><br><span class="line">                <span class="keyword">if</span> t.left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    tmp.append(t.left)</span><br><span class="line">                <span class="keyword">if</span> t.right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    tmp.append(t.right)</span><br><span class="line">                size -= <span class="number">1</span></span><br><span class="line">            res.append(r)</span><br><span class="line">            <span class="keyword">return</span> getList(tmp)</span><br><span class="line">        tmp = [root]</span><br><span class="line">        <span class="keyword">return</span> getList(tmp)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>java, python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - NC102 在二叉树中找到两个节点的最近公共祖先</title>
+    <url>/2021/07/10/LeetCode-NC102-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%BE%E5%88%B0%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>可以有两种思路：</p>
+<h3 id="1-从局部看：看两个值和公共节点的关系"><a href="#1-从局部看：看两个值和公共节点的关系" class="headerlink" title="1. 从局部看：看两个值和公共节点的关系"></a>1. 从局部看：看两个值和公共节点的关系</h3><p>有三种关系：</p>
+<ol>
+<li>o1和o2在公共节点的两边；</li>
+<li>o1是公共节点；</li>
+<li>o2是公共节点。</li>
+</ol>
+<p>对于第一个关系，就说明该节点的左右子节点都不可能为<code>NULL</code>，则可以得到下述：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root.left != <span class="keyword">null</span> &amp;&amp; root.right!=<span class="keyword">null</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于第二和三的关系，假设当前节点就是公共节点，可以返回该节点。然后由上面一个节点判断此时本节点是公共节点还是一个节点的长辈节点：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了防止有节点只有左节点和右节点中的一个：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br></pre></td></tr></table></figure>
+<p>总体代码如下：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">CommonAncestor</span><span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode left = CommonAncestor(root.left, o1, o2);</span><br><span class="line">        TreeNode right = CommonAncestor(root.right, o1, o2);</span><br><span class="line">        <span class="keyword">if</span>( left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">CommonAncestor</span>(<span class="params">root, o1, o2</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> root.val <span class="keyword">in</span> [o1, o2]:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            left = CommonAncestor(root.left, o1, o2)</span><br><span class="line">            right = CommonAncestor(root.right, o1, o2)</span><br><span class="line">            <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            <span class="keyword">return</span> left <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> right</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val</span><br></pre></td></tr></table></figure>
+<h3 id="2-从整体看：看每个值之间的区别"><a href="#2-从整体看：看每个值之间的区别" class="headerlink" title="2. 从整体看：看每个值之间的区别"></a>2. 从整体看：看每个值之间的区别</h3><p>可以记录从顶点到每个值的路径，然后比较两个路径是从哪个顶点开始聚合或分道扬镳的，该节点就算最近公共节点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; s1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; s2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        getPath(root, o1, s1);</span><br><span class="line">        getPath(root, o2, s2);</span><br><span class="line">        <span class="keyword">int</span> res = root.val;</span><br><span class="line">        <span class="keyword">while</span>( !(s1.isEmpty() || s2.isEmpty()) )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> f1 = s1.pop(), f2 = s2.pop();</span><br><span class="line">            System.out.println(f1+<span class="string">&quot; &quot;</span>+f2);</span><br><span class="line">            <span class="keyword">if</span>( f1 != f2 )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            res = f1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">getPath</span><span class="params">(TreeNode root, <span class="keyword">int</span> o, Stack&lt;Integer&gt; stack)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( root.val == o || getPath(root.left, o, stack) || getPath(root.right, o, stack) )</span><br><span class="line">        &#123;</span><br><span class="line">            stack.push(root.val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>选择元素不相等时退出是因为<code>getPath</code>函数是从下往上<code>push</code>元素的。</p>
+<p>python：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">getPath</span>(<span class="params">root, o, s</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> root.val == o <span class="keyword">or</span> getPath(root.left, o, s) <span class="keyword">or</span> getPath(root.right, o, s):</span><br><span class="line">                s.append(root.val)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s1, s2 = [], []</span><br><span class="line">        res = root.val</span><br><span class="line">        getPath(root, o1, s1)</span><br><span class="line">        getPath(root, o2, s2)</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s1) != <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(s2) != <span class="number">0</span>:</span><br><span class="line">            f1, f2 = s1.pop(), s2.pop()</span><br><span class="line">            <span class="keyword">if</span> f1 != f2:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            res = f1</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -518,25 +518,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - NC40 两个链表生成相加链表</title>
-    <url>/2021/07/24/LeetCode-NC40-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%94%9F%E6%88%90%E7%9B%B8%E5%8A%A0%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/c56f6c70fb3f4849bc56e33ff2a50b6b?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/c56f6c70fb3f4849bc56e33ff2a50b6b?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-思路"><a href="#1-思路" class="headerlink" title="1. 思路"></a>1. 思路</h3><p>一开始的思路是将链表转换为具体的值，计算后再转换为最终的链表，但是行不通，因为很有可能会溢出。所以应该要使用类似于数组的结构，可以使用栈Stack来灵活的存取链表的值；也可以更简单粗暴一点，反转链表进行操作。</p>
-<h3 id="2-使用栈解决"><a href="#2-使用栈解决" class="headerlink" title="2. 使用栈解决"></a>2. 使用栈解决</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val;</span></span><br><span class="line"><span class="comment"> *   ListNode next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head1 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head2 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> ListNode类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addInList</span> <span class="params">(ListNode head1, ListNode head2)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; h1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; h2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">        ListNode res = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>( head1 != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            h1.push(head1.val);</span><br><span class="line">            head1 = head1.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( head2 != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            h2.push(head2.val);</span><br><span class="line">            head2 = head2.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>( !h1.isEmpty() || !h2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( !h1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += h1.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( !h2.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += h2.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">            </span><br><span class="line">            sum = sum / <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( sum != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum);</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param head1 ListNode类 </span></span><br><span class="line"><span class="comment"># @param head2 ListNode类 </span></span><br><span class="line"><span class="comment"># @return ListNode类</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addInList</span>(<span class="params">self , head1 , head2 </span>):</span></span><br><span class="line">        h1, h2, res = [], [], <span class="literal">None</span></span><br><span class="line">        sum_ = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> head1:</span><br><span class="line">            h1.append(head1.val)</span><br><span class="line">            head1 = head1.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">while</span> head2:</span><br><span class="line">            h2.append(head2.val)</span><br><span class="line">            head2 = head2.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">while</span> h1 <span class="keyword">or</span> h2:</span><br><span class="line">            <span class="keyword">if</span> h1:</span><br><span class="line">                sum_ = sum_ + h1.pop(-<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> h2:</span><br><span class="line">                sum_ = sum_ + h2.pop(-<span class="number">1</span>)</span><br><span class="line">            tmp = ListNode(sum_ % <span class="number">10</span>)</span><br><span class="line">            tmp.<span class="built_in">next</span> = res</span><br><span class="line">            res = tmp</span><br><span class="line">            sum_ = sum_ // <span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> sum_ &gt; <span class="number">0</span>:</span><br><span class="line">            tmp = ListNode(sum_)</span><br><span class="line">            tmp.<span class="built_in">next</span> = res</span><br><span class="line">            res = tmp</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-<h3 id="2-反转链表"><a href="#2-反转链表" class="headerlink" title="2. 反转链表"></a>2. 反转链表</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val;</span></span><br><span class="line"><span class="comment"> *   ListNode next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head1 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head2 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> ListNode类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addInList</span> <span class="params">(ListNode head1, ListNode head2)</span> </span>&#123;</span><br><span class="line">        ListNode res = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        head1 = reverse(head1);</span><br><span class="line">        head2 = reverse(head2);</span><br><span class="line">        <span class="keyword">while</span>( head1 != <span class="keyword">null</span> || head2 != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( head1 != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += head1.val;</span><br><span class="line">                head1 = head1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( head2 != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += head2.val;</span><br><span class="line">                head2 = head2.next;</span><br><span class="line">            &#125;</span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">            sum /= <span class="number">10</span>;</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( sum != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum);</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverse</span><span class="params">(ListNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ListNode chan = root.next, pre = root;</span><br><span class="line">        <span class="keyword">while</span>( root != <span class="keyword">null</span> &amp;&amp; chan != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            root.next = chan.next;</span><br><span class="line">            chan.next = pre;</span><br><span class="line">            pre = chan;</span><br><span class="line">            <span class="keyword">if</span>( root != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                chan = root.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>java, python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - NC4 判断链表中是否有环</title>
     <url>/2021/07/06/LeetCode-NC4-%E5%88%A4%E6%96%AD%E9%93%BE%E8%A1%A8%E4%B8%AD%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/650474f313294468a4ded3ce0f7898b9?tpId=188&amp;&amp;tqId=38576&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/650474f313294468a4ded3ce0f7898b9?tpId=188&amp;&amp;tqId=38576&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
@@ -555,6 +536,25 @@ F(0) = 0
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( head == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( head != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( head.next != <span class="keyword">null</span> &amp;&amp; head == head.next )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ListNode t = head;</span><br><span class="line">            head = head.next;</span><br><span class="line">            t.next = t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>python：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasCycle</span>(<span class="params">self , head </span>):</span></span><br><span class="line">        <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> head.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> head == head.<span class="built_in">next</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            tmp = head</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line">            tmp.<span class="built_in">next</span> = tmp</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>java, python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - NC40 两个链表生成相加链表</title>
+    <url>/2021/07/24/LeetCode-NC40-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%94%9F%E6%88%90%E7%9B%B8%E5%8A%A0%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/c56f6c70fb3f4849bc56e33ff2a50b6b?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/c56f6c70fb3f4849bc56e33ff2a50b6b?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-思路"><a href="#1-思路" class="headerlink" title="1. 思路"></a>1. 思路</h3><p>一开始的思路是将链表转换为具体的值，计算后再转换为最终的链表，但是行不通，因为很有可能会溢出。所以应该要使用类似于数组的结构，可以使用栈Stack来灵活的存取链表的值；也可以更简单粗暴一点，反转链表进行操作。</p>
+<h3 id="2-使用栈解决"><a href="#2-使用栈解决" class="headerlink" title="2. 使用栈解决"></a>2. 使用栈解决</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val;</span></span><br><span class="line"><span class="comment"> *   ListNode next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head1 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head2 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> ListNode类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addInList</span> <span class="params">(ListNode head1, ListNode head2)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; h1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; h2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">        ListNode res = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>( head1 != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            h1.push(head1.val);</span><br><span class="line">            head1 = head1.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( head2 != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            h2.push(head2.val);</span><br><span class="line">            head2 = head2.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>( !h1.isEmpty() || !h2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( !h1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += h1.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( !h2.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += h2.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">            </span><br><span class="line">            sum = sum / <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( sum != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum);</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param head1 ListNode类 </span></span><br><span class="line"><span class="comment"># @param head2 ListNode类 </span></span><br><span class="line"><span class="comment"># @return ListNode类</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addInList</span>(<span class="params">self , head1 , head2 </span>):</span></span><br><span class="line">        h1, h2, res = [], [], <span class="literal">None</span></span><br><span class="line">        sum_ = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> head1:</span><br><span class="line">            h1.append(head1.val)</span><br><span class="line">            head1 = head1.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">while</span> head2:</span><br><span class="line">            h2.append(head2.val)</span><br><span class="line">            head2 = head2.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">while</span> h1 <span class="keyword">or</span> h2:</span><br><span class="line">            <span class="keyword">if</span> h1:</span><br><span class="line">                sum_ = sum_ + h1.pop(-<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> h2:</span><br><span class="line">                sum_ = sum_ + h2.pop(-<span class="number">1</span>)</span><br><span class="line">            tmp = ListNode(sum_ % <span class="number">10</span>)</span><br><span class="line">            tmp.<span class="built_in">next</span> = res</span><br><span class="line">            res = tmp</span><br><span class="line">            sum_ = sum_ // <span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> sum_ &gt; <span class="number">0</span>:</span><br><span class="line">            tmp = ListNode(sum_)</span><br><span class="line">            tmp.<span class="built_in">next</span> = res</span><br><span class="line">            res = tmp</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h3 id="2-反转链表"><a href="#2-反转链表" class="headerlink" title="2. 反转链表"></a>2. 反转链表</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val;</span></span><br><span class="line"><span class="comment"> *   ListNode next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head1 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head2 ListNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> ListNode类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addInList</span> <span class="params">(ListNode head1, ListNode head2)</span> </span>&#123;</span><br><span class="line">        ListNode res = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        head1 = reverse(head1);</span><br><span class="line">        head2 = reverse(head2);</span><br><span class="line">        <span class="keyword">while</span>( head1 != <span class="keyword">null</span> || head2 != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( head1 != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += head1.val;</span><br><span class="line">                head1 = head1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( head2 != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += head2.val;</span><br><span class="line">                head2 = head2.next;</span><br><span class="line">            &#125;</span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">            sum /= <span class="number">10</span>;</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( sum != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode tmp = <span class="keyword">new</span> ListNode(sum);</span><br><span class="line">            tmp.next = res;</span><br><span class="line">            res = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverse</span><span class="params">(ListNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ListNode chan = root.next, pre = root;</span><br><span class="line">        <span class="keyword">while</span>( root != <span class="keyword">null</span> &amp;&amp; chan != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            root.next = chan.next;</span><br><span class="line">            chan.next = pre;</span><br><span class="line">            pre = chan;</span><br><span class="line">            <span class="keyword">if</span>( root != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                chan = root.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -618,23 +618,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - NC76 用两个栈实现队列</title>
-    <url>/2021/07/07/LeetCode-NC76-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj">https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-两个栈分别在push和pop之前都会循环"><a href="#1-两个栈分别在push和pop之前都会循环" class="headerlink" title="1. 两个栈分别在push和pop之前都会循环"></a>1. 两个栈分别在push和pop之前都会循环</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack1.push(stack2.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack2.push(stack1.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-对上面代码的一点点优化，将两个循环转变为一个循环"><a href="#2-对上面代码的一点点优化，将两个循环转变为一个循环" class="headerlink" title="2. 对上面代码的一点点优化，将两个循环转变为一个循环"></a>2. 对上面代码的一点点优化，将两个循环转变为一个循环</h3><p>Java：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>java, python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - NC78 反转链表</title>
     <url>/2021/07/04/LeetCode-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=188&amp;&amp;tqId=38547&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=188&amp;&amp;tqId=38547&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
@@ -668,6 +651,23 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>LeetCode - NC76 用两个栈实现队列</title>
+    <url>/2021/07/07/LeetCode-NC76-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj">https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=188&amp;&amp;tqId=38552&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-rankingj</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-两个栈分别在push和pop之前都会循环"><a href="#1-两个栈分别在push和pop之前都会循环" class="headerlink" title="1. 两个栈分别在push和pop之前都会循环"></a>1. 两个栈分别在push和pop之前都会循环</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack1.push(stack2.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            stack2.push(stack1.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-对上面代码的一点点优化，将两个循环转变为一个循环"><a href="#2-对上面代码的一点点优化，将两个循环转变为一个循环" class="headerlink" title="2. 对上面代码的一点点优化，将两个循环转变为一个循环"></a>2. 对上面代码的一点点优化，将两个循环转变为一个循环</h3><p>Java：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( stack2.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>( !stack1.isEmpty() )</span><br><span class="line">            &#123;</span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>java, python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL - 报错</title>
     <url>/2021/07/29/SQL-%E6%8A%A5%E9%94%99/</url>
     <content><![CDATA[<h3 id="1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’"><a href="#1-SQL-ERROR-INFO-‘Operand-should-contain-1-column-s-’" class="headerlink" title="1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’"></a>1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’</h3><span id="more"></span>
@@ -685,6 +685,25 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>SQL刷题 - SQL12 获取每个部门中当前员工薪水最高的相关信息</title>
+    <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98-SQL12-%E8%8E%B7%E5%8F%96%E6%AF%8F%E4%B8%AA%E9%83%A8%E9%97%A8%E4%B8%AD%E5%BD%93%E5%89%8D%E5%91%98%E5%B7%A5%E8%96%AA%E6%B0%B4%E6%9C%80%E9%AB%98%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/4a052e3e1df5435880d4353eb18a91c6?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/4a052e3e1df5435880d4353eb18a91c6?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>要求获取每一个分组中的最大元素（也可以看作获取每个分组的第一个元素）。</p>
+<p>错误的思考：在同一个语句中group by+order by - </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 错误</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b</span><br></pre></td></tr></table></figure>
+<p>原因：group by后显示的就会是每个分组的第一条数据；之后进行order by就是对每个分组的第一条数据进行排序，即组间排序，并没有意义。</p>
+<p>分析：有一种方法是可以先order by limit再进行group by，但是这种方法不够灵活有效；还有一种方法就算下述，先获取每个分组的目标元素的最大值和目标分组的字段，然后联表获取所有所需字段和目标分组字段，将两个部分进行连接就可以了。</p>
+<h3 id="2-具体题解"><a href="#2-具体题解" class="headerlink" title="2. 具体题解"></a>2. 具体题解</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> B1.dept_no</span><br><span class="line">      ,B2.emp_no</span><br><span class="line">      ,B1.maxSalary</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, <span class="built_in">max</span>(A2.salary) <span class="keyword">as</span> maxSalary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">      <span class="keyword">group</span> <span class="keyword">by</span> A1.dept_no</span><br><span class="line">) B1</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, A1.emp_no, A2.salary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">) B2</span><br><span class="line">     <span class="keyword">on</span> B1.dept_no <span class="operator">=</span> B2.dept_no</span><br><span class="line">     <span class="keyword">and</span> B1.maxSalary <span class="operator">=</span> B2.salary</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> B1.dept_no</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL刷题 - SQL15 查找employees表emp_no与last_name的员工信息</title>
     <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98-SQL15-%E6%9F%A5%E6%89%BEemployees%E8%A1%A8emp-no%E4%B8%8Elast-name%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
@@ -696,25 +715,6 @@ F(0) = 0
 <p>除法计算：默认 - <code>/</code>、取指定小数位 - <code>convert(val1 / val2, decimal(10, 2))</code> - 取两位小数，为0取整不保留小数、直接取整 - <code>val1 DIV val2</code>；</p>
 <p><strong>计算还是推荐使用位运算的</strong>。</p>
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">%</span> <span class="number">2</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--或者</span></span><br><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">&amp;</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL12 获取每个部门中当前员工薪水最高的相关信息</title>
-    <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98-SQL12-%E8%8E%B7%E5%8F%96%E6%AF%8F%E4%B8%AA%E9%83%A8%E9%97%A8%E4%B8%AD%E5%BD%93%E5%89%8D%E5%91%98%E5%B7%A5%E8%96%AA%E6%B0%B4%E6%9C%80%E9%AB%98%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/4a052e3e1df5435880d4353eb18a91c6?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/4a052e3e1df5435880d4353eb18a91c6?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>要求获取每一个分组中的最大元素（也可以看作获取每个分组的第一个元素）。</p>
-<p>错误的思考：在同一个语句中group by+order by - </p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 错误</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b</span><br></pre></td></tr></table></figure>
-<p>原因：group by后显示的就会是每个分组的第一条数据；之后进行order by就是对每个分组的第一条数据进行排序，即组间排序，并没有意义。</p>
-<p>分析：有一种方法是可以先order by limit再进行group by，但是这种方法不够灵活有效；还有一种方法就算下述，先获取每个分组的目标元素的最大值和目标分组的字段，然后联表获取所有所需字段和目标分组字段，将两个部分进行连接就可以了。</p>
-<h3 id="2-具体题解"><a href="#2-具体题解" class="headerlink" title="2. 具体题解"></a>2. 具体题解</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> B1.dept_no</span><br><span class="line">      ,B2.emp_no</span><br><span class="line">      ,B1.maxSalary</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, <span class="built_in">max</span>(A2.salary) <span class="keyword">as</span> maxSalary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">      <span class="keyword">group</span> <span class="keyword">by</span> A1.dept_no</span><br><span class="line">) B1</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, A1.emp_no, A2.salary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">) B2</span><br><span class="line">     <span class="keyword">on</span> B1.dept_no <span class="operator">=</span> B2.dept_no</span><br><span class="line">     <span class="keyword">and</span> B1.maxSalary <span class="operator">=</span> B2.salary</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> B1.dept_no</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -878,36 +878,6 @@ F(0) = 0
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> table_name</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> column_name column_type [<span class="keyword">not</span> <span class="keyword">NULL</span>]</span><br><span class="line">[<span class="keyword">DEFAULT</span> default_context]</span><br><span class="line">[  after column_name]</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 <p>其中，<code>after</code> 用来指定在某个列后面添加新列，<code>default</code> 指定默认值。</p>
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> actor</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> create_date datetime <span class="keyword">not</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="string">&#x27;2020-10-01 00:00:00&#x27;</span></span><br><span class="line">  after last_update</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL41 构造一个触发器</title>
-    <url>/2021/07/16/SQL%E5%88%B7%E9%A2%98-SQL41-%E6%9E%84%E9%80%A0%E4%B8%80%E4%B8%AA%E8%A7%A6%E5%8F%91%E5%99%A8/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking">https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking</a></p>
-<span id="more"></span>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>Trigger创建的语句：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> trigger_name</span><br><span class="line">       trigger_time trigger_event </span><br><span class="line">    <span class="keyword">ON</span> tbl_name</span><br><span class="line">   <span class="keyword">FOR</span> </span><br><span class="line">  <span class="keyword">EACH</span> </span><br><span class="line">   <span class="type">ROW</span></span><br><span class="line">       trigger_stmt</span><br></pre></td></tr></table></figure>
-<p>其中：</p>
-<blockquote>
-<p><strong>参数解析</strong></p>
-<p>trigger_name：标识触发器名称，用户自行指定；<br>trigger_time：标识触发时机，取值为 BEFORE 或 AFTER；<br>trigger_event：标识触发事件，取值为 INSERT、UPDATE 或 DELETE；<br>tbl_name：标识建立触发器的表名，即在哪张表上建立触发器；<br>trigger_stmt：触发器程序体，可以是一句SQL语句，或者用 BEGIN 和 END 包含的多条语句，每条语句结束要分号结尾。</p>
-<p><strong>new 和 old</strong></p>
-<p>MySQL 中定义了 NEW 和 OLD，用来表示触发器的所在表中，触发了触发器的那一行数据。<br>具体地：</p>
-<ol>
-<li>在 INSERT 型触发器中，NEW 用来表示将要（BEFORE）或已经（AFTER）插入的新数据；</li>
-<li>在 UPDATE 型触发器中，OLD 用来表示将要或已经被修改的原数据，NEW 用来表示将要或已经修改为的新数据；</li>
-<li>在 DELETE 型触发器中，OLD 用来表示将要或已经被删除的原数据；</li>
-<li>使用方法： NEW.columnName （columnName 为相应数据表某一列名）</li>
-</ol>
-</blockquote>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">      <span class="keyword">create</span> </span><br><span class="line">     <span class="keyword">trigger</span> audit_log</span><br><span class="line">       after </span><br><span class="line">      <span class="keyword">insert</span> </span><br><span class="line">          <span class="keyword">on</span> employees_test</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="type">row</span></span><br><span class="line">       <span class="keyword">begin</span></span><br><span class="line">             <span class="keyword">insert</span> <span class="keyword">into</span> audit <span class="keyword">values</span>(new.ID, new.NAME);</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-<h3 id="3-摘自"><a href="#3-摘自" class="headerlink" title="3. 摘自"></a>3. 摘自</h3><p><a href="https://blog.csdn.net/haut_ykc/article/details/110226668">SQL编程：构造触发器</a></p>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -1182,6 +1152,50 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>SQL刷题 - SQL41 构造一个触发器</title>
+    <url>/2021/07/16/SQL%E5%88%B7%E9%A2%98-SQL41-%E6%9E%84%E9%80%A0%E4%B8%80%E4%B8%AA%E8%A7%A6%E5%8F%91%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking">https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking</a></p>
+<span id="more"></span>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>Trigger创建的语句：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> trigger_name</span><br><span class="line">       trigger_time trigger_event </span><br><span class="line">    <span class="keyword">ON</span> tbl_name</span><br><span class="line">   <span class="keyword">FOR</span> </span><br><span class="line">  <span class="keyword">EACH</span> </span><br><span class="line">   <span class="type">ROW</span></span><br><span class="line">       trigger_stmt</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<blockquote>
+<p><strong>参数解析</strong></p>
+<p>trigger_name：标识触发器名称，用户自行指定；<br>trigger_time：标识触发时机，取值为 BEFORE 或 AFTER；<br>trigger_event：标识触发事件，取值为 INSERT、UPDATE 或 DELETE；<br>tbl_name：标识建立触发器的表名，即在哪张表上建立触发器；<br>trigger_stmt：触发器程序体，可以是一句SQL语句，或者用 BEGIN 和 END 包含的多条语句，每条语句结束要分号结尾。</p>
+<p><strong>new 和 old</strong></p>
+<p>MySQL 中定义了 NEW 和 OLD，用来表示触发器的所在表中，触发了触发器的那一行数据。<br>具体地：</p>
+<ol>
+<li>在 INSERT 型触发器中，NEW 用来表示将要（BEFORE）或已经（AFTER）插入的新数据；</li>
+<li>在 UPDATE 型触发器中，OLD 用来表示将要或已经被修改的原数据，NEW 用来表示将要或已经修改为的新数据；</li>
+<li>在 DELETE 型触发器中，OLD 用来表示将要或已经被删除的原数据；</li>
+<li>使用方法： NEW.columnName （columnName 为相应数据表某一列名）</li>
+</ol>
+</blockquote>
+<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">      <span class="keyword">create</span> </span><br><span class="line">     <span class="keyword">trigger</span> audit_log</span><br><span class="line">       after </span><br><span class="line">      <span class="keyword">insert</span> </span><br><span class="line">          <span class="keyword">on</span> employees_test</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="type">row</span></span><br><span class="line">       <span class="keyword">begin</span></span><br><span class="line">             <span class="keyword">insert</span> <span class="keyword">into</span> audit <span class="keyword">values</span>(new.ID, new.NAME);</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h3 id="3-摘自"><a href="#3-摘自" class="headerlink" title="3. 摘自"></a>3. 摘自</h3><p><a href="https://blog.csdn.net/haut_ykc/article/details/110226668">SQL编程：构造触发器</a></p>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long for column &#39;picture&#39; at row 1</title>
+    <url>/2022/01/14/com-mysql-jdbc-MysqlDataTruncation-Data-truncation-Data-too-long-for-column-picture-at-row-1/</url>
+    <content><![CDATA[<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>表字段设置长度不够。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改表字段长度设置。</p>
+<p>本项目使用 <code>blob</code> 存储图片的二进制数报错，应改成 <code>longblob</code> 。</p>
+]]></content>
+      <categories>
+        <category>报错</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2021/05/30/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -1195,48 +1209,6 @@ F(0) = 0
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>hive - 日志分析项目小记</title>
-    <url>/2021/05/31/hive-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="启动hive"><a href="#启动hive" class="headerlink" title="启动hive"></a>启动hive</h2><ol>
-<li><p>启动hadoop集群</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<span id="more"></span>
-<ol>
-<li><p>启动zookeeper集群</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zkServer.sh start zoo1.cfg</span><br><span class="line">zkServer.sh start zoo2.cfg</span><br><span class="line">zkServer.sh start zoo3.cfg</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动hive</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive-services.sh start</span><br><span class="line">hive</span><br></pre></td></tr></table></figure>
-<p>有时候会遇到下述错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.SafeModeException): Cannot create directory /tmp/hive/hadoop/3a6e8cb6-9e44-45ce-8fc4-8d79f816f720. Name node is in safe mode.</span><br><span class="line">The reported blocks 609 needs additional 3 blocks to reach the threshold 0.9990 of total blocks 613.</span><br><span class="line">The minimum number of live datanodes is not required. Safe mode will be turned off automatically once the thresholds have been reached. NamenodeHostName:hadoop002</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.newSafemodeException(FSNamesystem.java:1498)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSNamesystem.java:1485)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.mkdirs(FSNamesystem.java:3191)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.mkdirs(NameNodeRpcServer.java:1157)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>解决：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
-<p>其中：</p>
-<blockquote>
-<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
-<p>—hive-database ：指定将表放到某个数据库</p>
-</blockquote>
-<h2 id="报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification"><a href="#报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification" class="headerlink" title="报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification"></a>报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification</h2><p>我是因为下面这句报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">on tmp.id=t.course_id and t.type_name=”选修课”</span><br></pre></td></tr></table></figure>
-<p>报错点：<code>&quot;&quot;</code>是中文的，我一开始直接在word文档中复制粘贴，但是就算是英文格式，在命令行也是中文的。</p>
-<p>解决方法：</p>
-<p>在命令行中敲出引号，在文档中进行修改，再将整个语句粘贴到命令行运行。</p>
-<p>在创建表的时候，如果定义的字段名称是关键字，也会报这个错。</p>
-]]></content>
-      <categories>
-        <category>项目小记</category>
-      </categories>
-      <tags>
-        <tag>Hive</tag>
-      </tags>
   </entry>
   <entry>
     <title>hive - 报错</title>
@@ -1283,22 +1255,74 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>jsp引用外部css文件失效</title>
-    <url>/2021/12/27/jsp%E5%BC%95%E7%94%A8%E5%A4%96%E9%83%A8css%E6%96%87%E4%BB%B6%E5%A4%B1%E6%95%88/</url>
-    <content><![CDATA[<h3 id="失效的内容"><a href="#失效的内容" class="headerlink" title="失效的内容"></a>失效的内容</h3><p>css：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.goodpage</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: white;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">2px</span> <span class="number">2px</span> <span class="number">3px</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>hive - 日志分析项目小记</title>
+    <url>/2021/05/31/hive-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="启动hive"><a href="#启动hive" class="headerlink" title="启动hive"></a>启动hive</h2><ol>
+<li><p>启动hadoop集群</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 <span id="more"></span>
-<p>jsp:</p>
-<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/style.css&quot;</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;goodpage&quot;</span>&gt;</span><br><span class="line">        asdf</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-<p>结果css样式没有起到作用，jsp的内容在左上角顶格出现。</p>
-<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>我的代码出现这个bug的原因：因为客户端缓存了修改之前的css文件，在下次再加载的时候，客户端不会加载之前缓存的同名文件。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改css文件的名称，或者给文件名称添加一个版本号，此处使用系统时间戳作为版本号：</p>
-<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/style.css?v=&lt;%= System.currentTimeMillis()%&gt;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>不用在实际文件中添加，这种 <code>?v | ?version</code> 只是给这个链接添加一个版本号的参数，目的是让客户端区分文件。</p>
+<ol>
+<li><p>启动zookeeper集群</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zkServer.sh start zoo1.cfg</span><br><span class="line">zkServer.sh start zoo2.cfg</span><br><span class="line">zkServer.sh start zoo3.cfg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动hive</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive-services.sh start</span><br><span class="line">hive</span><br></pre></td></tr></table></figure>
+<p>有时候会遇到下述错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.SafeModeException): Cannot create directory /tmp/hive/hadoop/3a6e8cb6-9e44-45ce-8fc4-8d79f816f720. Name node is in safe mode.</span><br><span class="line">The reported blocks 609 needs additional 3 blocks to reach the threshold 0.9990 of total blocks 613.</span><br><span class="line">The minimum number of live datanodes is not required. Safe mode will be turned off automatically once the thresholds have been reached. NamenodeHostName:hadoop002</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.newSafemodeException(FSNamesystem.java:1498)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSNamesystem.java:1485)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.mkdirs(FSNamesystem.java:3191)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.mkdirs(NameNodeRpcServer.java:1157)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>解决：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<blockquote>
+<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
+<p>—hive-database ：指定将表放到某个数据库</p>
+</blockquote>
+<h2 id="报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification"><a href="#报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification" class="headerlink" title="报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification"></a>报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification</h2><p>我是因为下面这句报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">on tmp.id=t.course_id and t.type_name=”选修课”</span><br></pre></td></tr></table></figure>
+<p>报错点：<code>&quot;&quot;</code>是中文的，我一开始直接在word文档中复制粘贴，但是就算是英文格式，在命令行也是中文的。</p>
+<p>解决方法：</p>
+<p>在命令行中敲出引号，在文档中进行修改，再将整个语句粘贴到命令行运行。</p>
+<p>在创建表的时候，如果定义的字段名称是关键字，也会报这个错。</p>
 ]]></content>
       <categories>
         <category>项目小记</category>
       </categories>
+      <tags>
+        <tag>Hive</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java - 内存模型的理解</title>
+    <url>/2021/07/13/java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h3 id="Java中的变量"><a href="#Java中的变量" class="headerlink" title="Java中的变量"></a>Java中的变量</h3><p>有三种：</p>
+<span id="more"></span>
+<p>成员变量（实例变量、属性）、本地变量（局部变量）、类变量（静态属性）。</p>
+<ol>
+<li>成员变量在类中定义，在类的内部的任何区域都可以访问的变量。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    String name,</span><br><span class="line">    <span class="keyword">int</span> age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>本地变量在方法中定义，在方法体的任何区域都可以访问的变量。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="keyword">int</span> age;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类变量是被<code>static</code>关键字修饰的属性，它的作用范围在定义之后，只能在类中修饰。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="keyword">int</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> sex;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="成员变量和类变量的区别"><a href="#成员变量和类变量的区别" class="headerlink" title="成员变量和类变量的区别"></a>成员变量和类变量的区别</h4><p>类变量的实质是全局变量，如果某个变量是被所有对象共享，那么这个变量可以被设置成类变量，用<code>static</code>修饰；没有被 <code>static</code> 修饰的变量属于对象的特殊描述。</p>
+<p>不同的对象的成员变量会被分配不同的内存空间，如果是类变量，那么所有对象的这个类变量会被分配到同一个内存，改变其中一个对象的类变量就会改变所有对象的这个类变量，即所有对象共享该变量。</p>
+<p><strong>对象是类的实例。</strong></p>
+<h3 id="摘自"><a href="#摘自" class="headerlink" title="摘自"></a>摘自</h3><p><a href="https://blog.csdn.net/smile_from_2015/article/details/50189797">Java中的变量</a></p>
+]]></content>
+      <categories>
+        <category>面试题</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
   </entry>
   <entry>
     <title>mysql - 日志分析项目小记</title>
@@ -1331,34 +1355,6 @@ F(0) = 0
       </categories>
       <tags>
         <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java - 内存模型的理解</title>
-    <url>/2021/07/13/java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h3 id="Java中的变量"><a href="#Java中的变量" class="headerlink" title="Java中的变量"></a>Java中的变量</h3><p>有三种：</p>
-<span id="more"></span>
-<p>成员变量（实例变量、属性）、本地变量（局部变量）、类变量（静态属性）。</p>
-<ol>
-<li>成员变量在类中定义，在类的内部的任何区域都可以访问的变量。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    String name,</span><br><span class="line">    <span class="keyword">int</span> age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>本地变量在方法中定义，在方法体的任何区域都可以访问的变量。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="keyword">int</span> age;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>类变量是被<code>static</code>关键字修饰的属性，它的作用范围在定义之后，只能在类中修饰。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="keyword">int</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> sex;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="成员变量和类变量的区别"><a href="#成员变量和类变量的区别" class="headerlink" title="成员变量和类变量的区别"></a>成员变量和类变量的区别</h4><p>类变量的实质是全局变量，如果某个变量是被所有对象共享，那么这个变量可以被设置成类变量，用<code>static</code>修饰；没有被 <code>static</code> 修饰的变量属于对象的特殊描述。</p>
-<p>不同的对象的成员变量会被分配不同的内存空间，如果是类变量，那么所有对象的这个类变量会被分配到同一个内存，改变其中一个对象的类变量就会改变所有对象的这个类变量，即所有对象共享该变量。</p>
-<p><strong>对象是类的实例。</strong></p>
-<h3 id="摘自"><a href="#摘自" class="headerlink" title="摘自"></a>摘自</h3><p><a href="https://blog.csdn.net/smile_from_2015/article/details/50189797">Java中的变量</a></p>
-]]></content>
-      <categories>
-        <category>面试题</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -1516,6 +1512,37 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>sqoop - 使用基础</title>
+    <url>/2021/05/31/sqoop-%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>其中：</p>
+<blockquote>
+<p>—hive-import ：将表导入到hive中，如果不设置，使用hive的默认界定符，即^A or \001；</p>
+<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
+<p>—hive-database ：指定将表放到某个数据库；</p>
+<p>—connect、—username、—password ：这些不需要说，肯定知道；</p>
+<p>—delete-target-dir ：删除指定目录；</p>
+</blockquote>
+<p>还有一些其他常用的命令：</p>
+<blockquote>
+<p>—target-dir ：将数据导入指定目录；</p>
+<p>—where ：指定条件导入；</p>
+<p>—fields-terminated-by ：指定分隔符；</p>
+<p>-m ：即—num-mappers，指定map的个数，默认是4个。</p>
+</blockquote>
+<h4 id="split-by和-m的联系"><a href="#split-by和-m的联系" class="headerlink" title="split-by和-m的联系"></a>split-by和-m的联系</h4><p>sqoop从大多数数据库中并行导入数据。</p>
+<p>在执行并行导入的时候，需要一个可用来划分工作负载的标准。</p>
+]]></content>
+      <categories>
+        <category>大数据组件的应用</category>
+      </categories>
+      <tags>
+        <tag>sqoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>动态规划算法</title>
     <url>/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义：是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。</p>
@@ -1559,37 +1586,6 @@ F(0) = 0
       </categories>
       <tags>
         <tag>双指针</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>sqoop - 使用基础</title>
-    <url>/2021/05/31/sqoop-%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>其中：</p>
-<blockquote>
-<p>—hive-import ：将表导入到hive中，如果不设置，使用hive的默认界定符，即^A or \001；</p>
-<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
-<p>—hive-database ：指定将表放到某个数据库；</p>
-<p>—connect、—username、—password ：这些不需要说，肯定知道；</p>
-<p>—delete-target-dir ：删除指定目录；</p>
-</blockquote>
-<p>还有一些其他常用的命令：</p>
-<blockquote>
-<p>—target-dir ：将数据导入指定目录；</p>
-<p>—where ：指定条件导入；</p>
-<p>—fields-terminated-by ：指定分隔符；</p>
-<p>-m ：即—num-mappers，指定map的个数，默认是4个。</p>
-</blockquote>
-<h4 id="split-by和-m的联系"><a href="#split-by和-m的联系" class="headerlink" title="split-by和-m的联系"></a>split-by和-m的联系</h4><p>sqoop从大多数数据库中并行导入数据。</p>
-<p>在执行并行导入的时候，需要一个可用来划分工作负载的标准。</p>
-]]></content>
-      <categories>
-        <category>大数据组件的应用</category>
-      </categories>
-      <tags>
-        <tag>sqoop</tag>
       </tags>
   </entry>
   <entry>
@@ -1704,6 +1700,24 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
+    <title>建立第一个独立博客</title>
+    <url>/2021/05/30/%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>前人栽树，后人乘凉~</p>
+<p>具体见<a href="https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg">https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg</a></p>
+<span id="more"></span>
+<p>此处记录日常生成并上传文件的方式。</p>
+<h3 id="生成文件"><a href="#生成文件" class="headerlink" title="生成文件"></a>生成文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &quot;文章标题&quot;</span><br></pre></td></tr></table></figure>
+<p>文章标题可以不用双引号括住。</p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>快速排序算法</title>
     <url>/2021/07/15/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h2><p>一般情况下，将第一个元素作为基准，设置两个指针 <code>i = 0, j = n - 1</code> ，先用 <code>j</code> 从后往前找第一个小于基准的值，赋给 <code>i</code> 所在位置；然后再用 <code>i</code> 从前往后找第一个大于基准的值，赋给 <code>j</code> 所在位置。最终 <code>i &gt;= j</code> 的时候退出循环，以 <code>i == j</code> 的这个位置为分割线，将数组划分为两个，分别继续进行排序。</p>
@@ -1722,21 +1736,102 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>建立第一个独立博客</title>
-    <url>/2021/05/30/%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>前人栽树，后人乘凉~</p>
-<p>具体见<a href="https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg">https://zhuanlan.zhihu.com/p/102592286?tdsourcetag=s_pctim_aiomsg</a></p>
-<span id="more"></span>
-<p>此处记录日常生成并上传文件的方式。</p>
-<h3 id="生成文件"><a href="#生成文件" class="headerlink" title="生成文件"></a>生成文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &quot;文章标题&quot;</span><br></pre></td></tr></table></figure>
-<p>文章标题可以不用双引号括住。</p>
-<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+    <title>笔试刷题</title>
+    <url>/2021/12/24/%E7%AC%94%E8%AF%95%E5%88%B7%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="1-阅读下面的程序："><a href="#1-阅读下面的程序：" class="headerlink" title="1. 阅读下面的程序："></a>1. 阅读下面的程序：</h3><span id="more"></span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span> ; x &lt;=<span class="number">3</span> ; x++) &#123;</span><br><span class="line">         <span class="keyword">continue</span>;</span><br><span class="line">         System.out.print(x%<span class="number">2</span> + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下列选项，哪个是结果：</p>
+<p>A. 0 1 2 3</p>
+<p>B. 0 1 2 1</p>
+<p>C. 0 1 2</p>
+<p>D. 编译失败</p>
+<p><strong>结果：D</strong></p>
+<blockquote>
+<p>会报错：error: unreachable statement。</p>
+<p>原因一：</p>
+<p>下面的几种情况会出现 unreachable statement：<br>（1）在reutrn语句后写语句。<br>（2）在throw语句后写语句。<br>（3）break、continue语句之后定义语句。<br>（4）“\u10100”//合法，相当于‘\u1010’和字符串“0”。<br>（5）移位运算符可以用于long int char short byte。<br>（6）类的访问控制符可以是public或什么都不加。<br>（7）goto是保留字但不是关键字。then什么都不是。<br>（8）把超类的类型强制转换后赋给子类的对象时，编译无异常，但运行时会出现异常。</p>
+<p>原因二：</p>
+<p>不可达语句的造成是因为：在此语句前面有一个返回操作，或者其他操作导致不管什么条件都无法执行到这一句。<br>最重要的是：检查前面语句是否有返回，并查看是否因为自己的疏忽，即使没有语法等错误，导致的任何条件都会在此语句前面返回。因为自己的疏忽，好几次在if 或for条件句后面加了; 导致下面的return语句不会执行之后的任何语句，就会返回1；</p>
+</blockquote>
+<h3 id="2-下列关于冒泡排序的描述中，正确的是（-）-多选"><a href="#2-下列关于冒泡排序的描述中，正确的是（-）-多选" class="headerlink" title="2. 下列关于冒泡排序的描述中，正确的是（ ） - 多选"></a>2. 下列关于冒泡排序的描述中，正确的是（ ） - 多选</h3><p>A. 冒泡排序是不断的比较数组中相邻的两个元素</p>
+<p>B. 冒泡排序比较的总轮次是“数组长度-1”轮</p>
+<p>C. 冒泡排序中会涉及到元素位置的置换</p>
+<p>D. 其他说法均不正确</p>
+<p><strong>结果：ABC</strong></p>
+<blockquote>
+<p>注意B说的是 <code>总轮次</code>。</p>
+</blockquote>
+<h3 id="3-下列关于二维数组定义的选项中，错误的是（-）"><a href="#3-下列关于二维数组定义的选项中，错误的是（-）" class="headerlink" title="3. 下列关于二维数组定义的选项中，错误的是（ ）"></a>3. 下列关于二维数组定义的选项中，错误的是（ ）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A. int\[][] arr = new int\[3][4];</span><br><span class="line">B. int\[][] arr = new int\[3][];</span><br><span class="line">C. int\[][] arr = new int\[][4];</span><br><span class="line">D. int[][] arr = &#123;&#123;1,2&#125;,&#123;3,4,5&#125;,&#123;6&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>结果：C</strong></p>
+<blockquote>
+<p>可以省略列，不能省略行。</p>
+</blockquote>
+<h3 id="4-下列选项中，哪些可以作为方法重载的判断条件（-）-多选"><a href="#4-下列选项中，哪些可以作为方法重载的判断条件（-）-多选" class="headerlink" title="4. 下列选项中，哪些可以作为方法重载的判断条件（ ） - 多选"></a>4. 下列选项中，哪些可以作为方法重载的判断条件（ ） - 多选</h3><p>A. 方法名</p>
+<p>B. 方法的参数列表</p>
+<p>C. 方法的返回值</p>
+<p>D. 方法的修饰符</p>
+<p><strong>结果：AB</strong></p>
+<blockquote>
+<p>方法重载是可以定义多个方法名相同、参数列表不同的方法。</p>
+</blockquote>
+<h3 id="5-下列关于方法重载的说法中，正确的是（-）-多选"><a href="#5-下列关于方法重载的说法中，正确的是（-）-多选" class="headerlink" title="5. 下列关于方法重载的说法中，正确的是（ ） - 多选"></a>5. 下列关于方法重载的说法中，正确的是（ ） - 多选</h3><p>A. 方法名相同，参数的个数不同可以形成方法重载。</p>
+<p>B. 方法名相同，参数的类型不同可以形成方法重载。</p>
+<p>C. 方法名相同，参数的类型排列顺序不同可以形成方法重载。</p>
+<p>D. 方法名相同，返回值类型不同，可以形成方法重载。</p>
+<p><strong>结果：ABC</strong></p>
+<blockquote>
+<p>注意看C，是 <code>类型</code> 排列顺序不同。</p>
+</blockquote>
+<h3 id="6-请阅读下面的程序："><a href="#6-请阅读下面的程序：" class="headerlink" title="6. 请阅读下面的程序："></a>6. 请阅读下面的程序：</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">int</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">float</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">float</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">double</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">long</span> b = <span class="number">20</span>;</span><br><span class="line">        sum(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下列选项中，哪一个是程序的正确运行结果（ ）</p>
+<p>A. int:30<br>B. float:30.0<br>C. double:30.0<br>D. int:30.0</p>
+<p><strong>结果：B</strong></p>
+<blockquote>
+<p>比long范围更大的是float</p>
+</blockquote>
+<h3 id="7-下面关于构造方法的描述中，正确的是（-）"><a href="#7-下面关于构造方法的描述中，正确的是（-）" class="headerlink" title="7. 下面关于构造方法的描述中，正确的是（ ）"></a>7. 下面关于构造方法的描述中，正确的是（ ）</h3><p>A. 构造方法在类定义的时候被调用<br>B. 构造方法在创建对象的时候被调用<br>C. 构造方法在调用对象的时候被调用<br>D. 构造方法在使用对象的时候被调用</p>
+<p><strong>结果：B</strong></p>
+<h3 id="8-下列关于this关键字的说法中，错误的是（-）"><a href="#8-下列关于this关键字的说法中，错误的是（-）" class="headerlink" title="8. 下列关于this关键字的说法中，错误的是（  ）"></a>8. 下列关于this关键字的说法中，错误的是（  ）</h3><p>A. this可以解决成员变量与局部变量重名的问题</p>
+<p>B. this出现在成员方法中，代表的是调用这个方法的对象</p>
+<p>C. this可以出现在任何方法中</p>
+<p>D. this相当于一个引用，可以通过它调用成员属性与方法</p>
+<p><strong>结果：C</strong></p>
+<blockquote>
+<p>this只能在类中的非静态方法中使用，静态方法和静态的代码块中绝对不能出现this。</p>
+</blockquote>
+<h3 id="9-以下代码执行后的结果是（-）"><a href="#9-以下代码执行后的结果是（-）" class="headerlink" title="9. 以下代码执行后的结果是（ ）"></a>9. 以下代码执行后的结果是（ ）</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">        String name = “小芳”;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">            name = “小兰”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = “小翠”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Person p = <span class="keyword">new</span> Person(“小凤”);</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">    p.show();</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>A. 小兰小翠</p>
+<p>B.小凤小翠</p>
+<p>C. 小芳小翠</p>
+<p>D. 程序编译失败</p>
+<p><strong>结果：C</strong></p>
+<blockquote>
+<p>小凤用来告诉系统应该调用一个有参的构造方法，而不是起赋值作用，至于小兰的话，name前面没有this，故小兰只是个局部变量，出不去。</p>
+</blockquote>
+<h3 id="10-以下关于方法重写，说法错误的是（-）-多选"><a href="#10-以下关于方法重写，说法错误的是（-）-多选" class="headerlink" title="10. 以下关于方法重写，说法错误的是（ ） - 多选"></a>10. 以下关于方法重写，说法错误的是（ ） - 多选</h3><p>A. 方法重写时，子类的函数名与参数列表必须与父类的一致</p>
+<p>B. 方法重写时，子类的返回类型必须大于或者等于父类的返回类型</p>
+<p>C. 方法重写时，子类的访问修饰符必须大于或者等于父类的访问修饰符</p>
+<p>D. 方法重写与返回类型无关</p>
+<p><strong>结果：BD</strong></p>
+<blockquote>
+<p>重写的规范</p>
+<ol>
+<li><p>子类方法的名称、参数列表与父类相同;</p>
+</li>
+<li><p>子类方法的返回类型与父类相同或更小;</p>
+</li>
+<li><p>子类方法声明的异常与父类相同或更小;</p>
+</li>
+<li><p>子类方法的访问权限与父类相同或更大。</p>
+</li>
+</ol>
+</blockquote>
 ]]></content>
       <categories>
-        <category>其他</category>
+        <category>面试题</category>
       </categories>
       <tags>
-        <tag>其他</tag>
+        <tag>笔试</tag>
       </tags>
   </entry>
   <entry>
@@ -1883,158 +1978,6 @@ F(0) = 0
       </tags>
   </entry>
   <entry>
-    <title>笔试刷题</title>
-    <url>/2021/12/24/%E7%AC%94%E8%AF%95%E5%88%B7%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="1-阅读下面的程序："><a href="#1-阅读下面的程序：" class="headerlink" title="1. 阅读下面的程序："></a>1. 阅读下面的程序：</h3><span id="more"></span>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span> ; x &lt;=<span class="number">3</span> ; x++) &#123;</span><br><span class="line">         <span class="keyword">continue</span>;</span><br><span class="line">         System.out.print(x%<span class="number">2</span> + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下列选项，哪个是结果：</p>
-<p>A. 0 1 2 3</p>
-<p>B. 0 1 2 1</p>
-<p>C. 0 1 2</p>
-<p>D. 编译失败</p>
-<p><strong>结果：D</strong></p>
-<blockquote>
-<p>会报错：error: unreachable statement。</p>
-<p>原因一：</p>
-<p>下面的几种情况会出现 unreachable statement：<br>（1）在reutrn语句后写语句。<br>（2）在throw语句后写语句。<br>（3）break、continue语句之后定义语句。<br>（4）“\u10100”//合法，相当于‘\u1010’和字符串“0”。<br>（5）移位运算符可以用于long int char short byte。<br>（6）类的访问控制符可以是public或什么都不加。<br>（7）goto是保留字但不是关键字。then什么都不是。<br>（8）把超类的类型强制转换后赋给子类的对象时，编译无异常，但运行时会出现异常。</p>
-<p>原因二：</p>
-<p>不可达语句的造成是因为：在此语句前面有一个返回操作，或者其他操作导致不管什么条件都无法执行到这一句。<br>最重要的是：检查前面语句是否有返回，并查看是否因为自己的疏忽，即使没有语法等错误，导致的任何条件都会在此语句前面返回。因为自己的疏忽，好几次在if 或for条件句后面加了; 导致下面的return语句不会执行之后的任何语句，就会返回1；</p>
-</blockquote>
-<h3 id="2-下列关于冒泡排序的描述中，正确的是（-）-多选"><a href="#2-下列关于冒泡排序的描述中，正确的是（-）-多选" class="headerlink" title="2. 下列关于冒泡排序的描述中，正确的是（ ） - 多选"></a>2. 下列关于冒泡排序的描述中，正确的是（ ） - 多选</h3><p>A. 冒泡排序是不断的比较数组中相邻的两个元素</p>
-<p>B. 冒泡排序比较的总轮次是“数组长度-1”轮</p>
-<p>C. 冒泡排序中会涉及到元素位置的置换</p>
-<p>D. 其他说法均不正确</p>
-<p><strong>结果：ABC</strong></p>
-<blockquote>
-<p>注意B说的是 <code>总轮次</code>。</p>
-</blockquote>
-<h3 id="3-下列关于二维数组定义的选项中，错误的是（-）"><a href="#3-下列关于二维数组定义的选项中，错误的是（-）" class="headerlink" title="3. 下列关于二维数组定义的选项中，错误的是（ ）"></a>3. 下列关于二维数组定义的选项中，错误的是（ ）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A. int\[][] arr = new int\[3][4];</span><br><span class="line">B. int\[][] arr = new int\[3][];</span><br><span class="line">C. int\[][] arr = new int\[][4];</span><br><span class="line">D. int[][] arr = &#123;&#123;1,2&#125;,&#123;3,4,5&#125;,&#123;6&#125;&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong>结果：C</strong></p>
-<blockquote>
-<p>可以省略列，不能省略行。</p>
-</blockquote>
-<h3 id="4-下列选项中，哪些可以作为方法重载的判断条件（-）-多选"><a href="#4-下列选项中，哪些可以作为方法重载的判断条件（-）-多选" class="headerlink" title="4. 下列选项中，哪些可以作为方法重载的判断条件（ ） - 多选"></a>4. 下列选项中，哪些可以作为方法重载的判断条件（ ） - 多选</h3><p>A. 方法名</p>
-<p>B. 方法的参数列表</p>
-<p>C. 方法的返回值</p>
-<p>D. 方法的修饰符</p>
-<p><strong>结果：AB</strong></p>
-<blockquote>
-<p>方法重载是可以定义多个方法名相同、参数列表不同的方法。</p>
-</blockquote>
-<h3 id="5-下列关于方法重载的说法中，正确的是（-）-多选"><a href="#5-下列关于方法重载的说法中，正确的是（-）-多选" class="headerlink" title="5. 下列关于方法重载的说法中，正确的是（ ） - 多选"></a>5. 下列关于方法重载的说法中，正确的是（ ） - 多选</h3><p>A. 方法名相同，参数的个数不同可以形成方法重载。</p>
-<p>B. 方法名相同，参数的类型不同可以形成方法重载。</p>
-<p>C. 方法名相同，参数的类型排列顺序不同可以形成方法重载。</p>
-<p>D. 方法名相同，返回值类型不同，可以形成方法重载。</p>
-<p><strong>结果：ABC</strong></p>
-<blockquote>
-<p>注意看C，是 <code>类型</code> 排列顺序不同。</p>
-</blockquote>
-<h3 id="6-请阅读下面的程序："><a href="#6-请阅读下面的程序：" class="headerlink" title="6. 请阅读下面的程序："></a>6. 请阅读下面的程序：</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">int</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">float</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">float</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">double</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">long</span> b = <span class="number">20</span>;</span><br><span class="line">        sum(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下列选项中，哪一个是程序的正确运行结果（ ）</p>
-<p>A. int:30<br>B. float:30.0<br>C. double:30.0<br>D. int:30.0</p>
-<p><strong>结果：B</strong></p>
-<blockquote>
-<p>比long范围更大的是float</p>
-</blockquote>
-<h3 id="7-下面关于构造方法的描述中，正确的是（-）"><a href="#7-下面关于构造方法的描述中，正确的是（-）" class="headerlink" title="7. 下面关于构造方法的描述中，正确的是（ ）"></a>7. 下面关于构造方法的描述中，正确的是（ ）</h3><p>A. 构造方法在类定义的时候被调用<br>B. 构造方法在创建对象的时候被调用<br>C. 构造方法在调用对象的时候被调用<br>D. 构造方法在使用对象的时候被调用</p>
-<p><strong>结果：B</strong></p>
-<h3 id="8-下列关于this关键字的说法中，错误的是（-）"><a href="#8-下列关于this关键字的说法中，错误的是（-）" class="headerlink" title="8. 下列关于this关键字的说法中，错误的是（  ）"></a>8. 下列关于this关键字的说法中，错误的是（  ）</h3><p>A. this可以解决成员变量与局部变量重名的问题</p>
-<p>B. this出现在成员方法中，代表的是调用这个方法的对象</p>
-<p>C. this可以出现在任何方法中</p>
-<p>D. this相当于一个引用，可以通过它调用成员属性与方法</p>
-<p><strong>结果：C</strong></p>
-<blockquote>
-<p>this只能在类中的非静态方法中使用，静态方法和静态的代码块中绝对不能出现this。</p>
-</blockquote>
-<h3 id="9-以下代码执行后的结果是（-）"><a href="#9-以下代码执行后的结果是（-）" class="headerlink" title="9. 以下代码执行后的结果是（ ）"></a>9. 以下代码执行后的结果是（ ）</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">        String name = “小芳”;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">            name = “小兰”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = “小翠”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Person p = <span class="keyword">new</span> Person(“小凤”);</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">    p.show();</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>A. 小兰小翠</p>
-<p>B.小凤小翠</p>
-<p>C. 小芳小翠</p>
-<p>D. 程序编译失败</p>
-<p><strong>结果：C</strong></p>
-<blockquote>
-<p>小凤用来告诉系统应该调用一个有参的构造方法，而不是起赋值作用，至于小兰的话，name前面没有this，故小兰只是个局部变量，出不去。</p>
-</blockquote>
-<h3 id="10-以下关于方法重写，说法错误的是（-）-多选"><a href="#10-以下关于方法重写，说法错误的是（-）-多选" class="headerlink" title="10. 以下关于方法重写，说法错误的是（ ） - 多选"></a>10. 以下关于方法重写，说法错误的是（ ） - 多选</h3><p>A. 方法重写时，子类的函数名与参数列表必须与父类的一致</p>
-<p>B. 方法重写时，子类的返回类型必须大于或者等于父类的返回类型</p>
-<p>C. 方法重写时，子类的访问修饰符必须大于或者等于父类的访问修饰符</p>
-<p>D. 方法重写与返回类型无关</p>
-<p><strong>结果：BD</strong></p>
-<blockquote>
-<p>重写的规范</p>
-<ol>
-<li><p>子类方法的名称、参数列表与父类相同;</p>
-</li>
-<li><p>子类方法的返回类型与父类相同或更小;</p>
-</li>
-<li><p>子类方法声明的异常与父类相同或更小;</p>
-</li>
-<li><p>子类方法的访问权限与父类相同或更大。</p>
-</li>
-</ol>
-</blockquote>
-]]></content>
-      <categories>
-        <category>面试题</category>
-      </categories>
-      <tags>
-        <tag>笔试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>购物车结算系统-JS篇-项目小记</title>
-    <url>/2022/01/07/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-JS%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<h3 id="document"><a href="#document" class="headerlink" title="document"></a>document</h3><blockquote>
-<p>借鉴：<a href="https://www.cnblogs.com/www1842564021/p/11830139.html">https://www.cnblogs.com/www1842564021/p/11830139.html</a></p>
-</blockquote>
-<ol>
-<li><strong>document.getElementById()：返回对拥有指定 id 的第一个对象的引用。</strong></li>
-<li><strong>document.getElementsByName()：返回带有指定名称的对象集合，也就是如果有多个相同name的元素，会返回数组。</strong></li>
-<li><strong>document.getElementsByTagName()：返回带有指定标签名的对象集合。</strong></li>
-<li><strong>document.getElementsByClassName()：返回对拥有指定 class 的对象集合。</strong></li>
-</ol>
-<span id="more"></span>
-<h3 id="value"><a href="#value" class="headerlink" title="value"></a>value</h3><p>设置或返回密码域的默认值。</p>
-<p>用法如：<code>document.getElementById(&quot;username&quot;).value</code>，返回结果为<strong>字符串</strong>。</p>
-<h3 id="location-href"><a href="#location-href" class="headerlink" title="location.href"></a>location.href</h3><blockquote>
-<p>借鉴：<a href="https://www.w3school.com.cn/js/js_window_location.asp">https://www.w3school.com.cn/js/js_window_location.asp</a></p>
-</blockquote>
-<p>一些类似的例子：</p>
-<ul>
-<li>window.location.href 返回当前页面的 href (URL)</li>
-<li>window.location.hostname 返回 web 主机的域名</li>
-<li>window.location.pathname 返回当前页面的路径或文件名</li>
-<li>window.location.protocol 返回使用的 web 协议（http: 或 https:）</li>
-<li>window.location.assign 加载新文档</li>
-</ul>
-<p>本项目将它与 \<form\> 表单的 <code>onsubmit</code> 方法连用，用于判断密码是否正确，如果正确跳转到指定的链接。</p>
-<p>如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">checkPassword</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(<span class="string">&quot;username&quot;</span>).value == <span class="string">&quot;&quot;</span>)</span><br><span class="line">      &#123;</span><br><span class="line">          alert(<span class="string">&quot;用户名为空。&quot;</span>)</span><br><span class="line">      &#125;<span class="keyword">else</span> </span><br><span class="line">&#123;</span><br><span class="line">	location.href=<span class="string">&#x27;basic_info.jsp&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="alert"><a href="#alert" class="headerlink" title="alert"></a>alert</h3><blockquote>
-<p>借鉴：<a href="https://www.w3school.com.cn/js/js_popup.asp">https://www.w3school.com.cn/js/js_popup.asp</a></p>
-</blockquote>
-<p>用于显示带有一条指定消息和一个 OK 按钮的警告框。</p>
-<p>用法：<code>window.alert(&quot;I am an alert box!!&quot;)</code>，前缀 <code>window.</code> 可以省略不写。</p>
-<p>类似的：</p>
-<p><strong>confirm(“sometext”)</strong></p>
-<p>确认框。如果用户单击“确定”，该框返回 true。如果用户单击“取消”，该框返回 false。</p>
-<p>如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> r = confirm(<span class="string">&quot;请按按钮&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (r == <span class="literal">true</span>) &#123;</span><br><span class="line">    x = <span class="string">&quot;您按了确认！&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    x = <span class="string">&quot;您按了取消！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>prompt(“sometext”,”defaultText”)</strong></p>
-<p>提示框。如果用户单击“确定”，该框返回输入值。如果用户单击“取消”，该框返回 NULL。</p>
-<p>如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = prompt(<span class="string">&quot;请输入您的姓名&quot;</span>, <span class="string">&quot;比尔盖茨&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (person != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML = <span class="string">&quot;你好 &quot;</span> + person + <span class="string">&quot;！今天过的怎么样？&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="for，if"><a href="#for，if" class="headerlink" title="for，if"></a>for，if</h3><p>和 java 一样。</p>
-<p>不同的是，0 和 1 可以作为 false 和 true 使用。</p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>购物车结算系统 - HTML篇 - 项目小记</title>
     <url>/2022/01/03/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-HTML%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
     <content><![CDATA[<h3 id="form"><a href="#form" class="headerlink" title="form"></a>form</h3><h4 id="action"><a href="#action" class="headerlink" title="action"></a>action</h4><p>使用：<code>action=&quot;[跳转页面名称].jsp&quot;</code></p>
@@ -2100,6 +2043,81 @@ F(0) = 0
       </categories>
       <tags>
         <tag>html</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>购物车结算系统-配置文件篇-项目小记</title>
+    <url>/2022/01/11/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<h3 id="编写Properties文件"><a href="#编写Properties文件" class="headerlink" title="编写Properties文件"></a>编写Properties文件</h3><ol>
+<li><p>文件名：<code>xxx.properties</code></p>
+</li>
+<li><p>内容格式：<code>key=value</code>，如 <code>driver=com.mysql.jdbc.Driver</code></p>
+<p>如果 key 是多个单词组成，需要使用空格，可以使用反斜杠(\)对空格进行转移。如 <code>main form firstName=Stone</code> 可以修改为 <code>main\ form\ firstName=Stone</code></p>
+</li>
+</ol>
+<span id="more"></span>
+<h3 id="获取Properties文件的内容"><a href="#获取Properties文件的内容" class="headerlink" title="获取Properties文件的内容"></a>获取Properties文件的内容</h3><p>参考如下代码使用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">      InputStream input;</span><br><span class="line">      String profile = <span class="string">&quot;jdbc.properties&quot;</span>;</span><br><span class="line">      <span class="comment">// 加载配置文件到输入流</span></span><br><span class="line">      input = DBUtil.class.getClassLoader().getResourceAsStream(profile);</span><br><span class="line">      <span class="comment">// 从输入流读取属性列表</span></span><br><span class="line">      pro.load(input);</span><br><span class="line">      <span class="comment">// 获取指定参数</span></span><br><span class="line">      String driver = pro.getProperty(<span class="string">&quot;driver&quot;</span>);</span><br><span class="line">      String url = pro.getProperty(<span class="string">&quot;url&quot;</span>);</span><br><span class="line">      String username = pro.getProperty(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">      String password = pro.getProperty(<span class="string">&quot;password&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>其中，需要将 <code>jdbc.properties</code> 文件放到 <code>resource</code> 目录下。</p>
+]]></content>
+      <categories>
+        <category>项目小记</category>
+      </categories>
+      <tags>
+        <tag>文件配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>购物车结算系统-JS篇-项目小记</title>
+    <url>/2022/01/07/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-JS%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<h3 id="document"><a href="#document" class="headerlink" title="document"></a>document</h3><blockquote>
+<p>借鉴：<a href="https://www.cnblogs.com/www1842564021/p/11830139.html">https://www.cnblogs.com/www1842564021/p/11830139.html</a></p>
+</blockquote>
+<ol>
+<li><strong>document.getElementById()：返回对拥有指定 id 的第一个对象的引用。</strong></li>
+<li><strong>document.getElementsByName()：返回带有指定名称的对象集合，也就是如果有多个相同name的元素，会返回数组。</strong></li>
+<li><strong>document.getElementsByTagName()：返回带有指定标签名的对象集合。</strong></li>
+<li><strong>document.getElementsByClassName()：返回对拥有指定 class 的对象集合。</strong></li>
+</ol>
+<span id="more"></span>
+<h3 id="value"><a href="#value" class="headerlink" title="value"></a>value</h3><p>设置或返回密码域的默认值。</p>
+<p>用法如：<code>document.getElementById(&quot;username&quot;).value</code>，返回结果为<strong>字符串</strong>。</p>
+<h3 id="location-href"><a href="#location-href" class="headerlink" title="location.href"></a>location.href</h3><blockquote>
+<p>借鉴：<a href="https://www.w3school.com.cn/js/js_window_location.asp">https://www.w3school.com.cn/js/js_window_location.asp</a></p>
+</blockquote>
+<p>一些类似的例子：</p>
+<ul>
+<li>window.location.href 返回当前页面的 href (URL)</li>
+<li>window.location.hostname 返回 web 主机的域名</li>
+<li>window.location.pathname 返回当前页面的路径或文件名</li>
+<li>window.location.protocol 返回使用的 web 协议（http: 或 https:）</li>
+<li>window.location.assign 加载新文档</li>
+</ul>
+<p>本项目将它与 \<form\> 表单的 <code>onsubmit</code> 方法连用，用于判断密码是否正确，如果正确跳转到指定的链接。</p>
+<p>如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">checkPassword</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(<span class="string">&quot;username&quot;</span>).value == <span class="string">&quot;&quot;</span>)</span><br><span class="line">      &#123;</span><br><span class="line">          alert(<span class="string">&quot;用户名为空。&quot;</span>)</span><br><span class="line">      &#125;<span class="keyword">else</span> </span><br><span class="line">&#123;</span><br><span class="line">	location.href=<span class="string">&#x27;basic_info.jsp&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="alert"><a href="#alert" class="headerlink" title="alert"></a>alert</h3><blockquote>
+<p>借鉴：<a href="https://www.w3school.com.cn/js/js_popup.asp">https://www.w3school.com.cn/js/js_popup.asp</a></p>
+</blockquote>
+<p>用于显示带有一条指定消息和一个 OK 按钮的警告框。</p>
+<p>用法：<code>window.alert(&quot;I am an alert box!!&quot;)</code>，前缀 <code>window.</code> 可以省略不写。</p>
+<p>类似的：</p>
+<p><strong>confirm(“sometext”)</strong></p>
+<p>确认框。如果用户单击“确定”，该框返回 true。如果用户单击“取消”，该框返回 false。</p>
+<p>如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> r = confirm(<span class="string">&quot;请按按钮&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (r == <span class="literal">true</span>) &#123;</span><br><span class="line">    x = <span class="string">&quot;您按了确认！&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    x = <span class="string">&quot;您按了取消！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>prompt(“sometext”,”defaultText”)</strong></p>
+<p>提示框。如果用户单击“确定”，该框返回输入值。如果用户单击“取消”，该框返回 NULL。</p>
+<p>如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = prompt(<span class="string">&quot;请输入您的姓名&quot;</span>, <span class="string">&quot;比尔盖茨&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (person != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML = <span class="string">&quot;你好 &quot;</span> + person + <span class="string">&quot;！今天过的怎么样？&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="for，if"><a href="#for，if" class="headerlink" title="for，if"></a>for，if</h3><p>和 java 一样。</p>
+<p>不同的是，0 和 1 可以作为 false 和 true 使用。</p>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -2892,28 +2910,6 @@ F(0) = 0
       </categories>
       <tags>
         <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>购物车结算系统-配置文件篇-项目小记</title>
-    <url>/2022/01/11/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<h3 id="编写Properties文件"><a href="#编写Properties文件" class="headerlink" title="编写Properties文件"></a>编写Properties文件</h3><ol>
-<li><p>文件名：<code>xxx.properties</code></p>
-</li>
-<li><p>内容格式：<code>key=value</code>，如 <code>driver=com.mysql.jdbc.Driver</code></p>
-<p>如果 key 是多个单词组成，需要使用空格，可以使用反斜杠(\)对空格进行转移。如 <code>main form firstName=Stone</code> 可以修改为 <code>main\ form\ firstName=Stone</code></p>
-</li>
-</ol>
-<span id="more"></span>
-<h3 id="获取Properties文件的内容"><a href="#获取Properties文件的内容" class="headerlink" title="获取Properties文件的内容"></a>获取Properties文件的内容</h3><p>参考如下代码使用：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">      InputStream input;</span><br><span class="line">      String profile = <span class="string">&quot;jdbc.properties&quot;</span>;</span><br><span class="line">      <span class="comment">// 加载配置文件到输入流</span></span><br><span class="line">      input = DBUtil.class.getClassLoader().getResourceAsStream(profile);</span><br><span class="line">      <span class="comment">// 从输入流读取属性列表</span></span><br><span class="line">      pro.load(input);</span><br><span class="line">      <span class="comment">// 获取指定参数</span></span><br><span class="line">      String driver = pro.getProperty(<span class="string">&quot;driver&quot;</span>);</span><br><span class="line">      String url = pro.getProperty(<span class="string">&quot;url&quot;</span>);</span><br><span class="line">      String username = pro.getProperty(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">      String password = pro.getProperty(<span class="string">&quot;password&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>其中，需要将 <code>jdbc.properties</code> 文件放到 <code>resource</code> 目录下。</p>
-]]></content>
-      <categories>
-        <category>项目小记</category>
-      </categories>
-      <tags>
-        <tag>文件配置</tag>
       </tags>
   </entry>
   <entry>
@@ -3794,10 +3790,10 @@ F(0) = 0
 </ol>
 <h2 id="20-ConcurrentHashMap底层原理"><a href="#20-ConcurrentHashMap底层原理" class="headerlink" title="20. ConcurrentHashMap底层原理"></a>20. ConcurrentHashMap底层原理</h2><p>​        首先了解为什么使用ConcurrentHashMap。在并发编程下使用HashMap可能导致死循环，而使用线程安全的HashTable效率又非常低下，于是引出了ConcurrentHashMap。HashTable效率低的原因很明显，因为HashTable使用Synchronized关键字，所以在并发时只能运行一个线程，而将其他线程阻塞等待；HashMap导致死循环的原因是put操作扩容，假设有两个线程A和B要同时进行扩容，此时数组中下标为1对应的链表指向是 a - b - c，扩容需要将他们迁移到新数组下标为4的位置，这里假设abc钱以后也在同意下标，进行扩容操作有两个指针 e 和 next，A先执行，假设当 e = a，next = b 的时候cpu时间片用完，会暂停A的执行，由B开始执行，因为是头插法，插入的顺序是将e.next = newtable[4]，newtable[4] = e,e = next。B会将 abc 全都放到newtable[4]的空间中，然后时间片用完，A继续执行，在B线程将 b 指向 a，在这里又将 a 指向 b，此时就产生了死循环。</p>
 <p>​         而ConcurrentHashMap应用在多线程的优点在于它的数据结构。</p>
-<p>​        在JDK1.7底层采用：segment + HashEntry数组结构组成，实现的思路是先将数据分成一段一段地存 储，然后给每一段数据配一把锁，这样当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问，这就是锁分段技术。其中Segment继承了ReetrantLock可重入锁接口，所以自带了锁的功能，让每一个片段都有了锁；HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组。Segment的结构和HashMap类似，是一种数组和链表结构。一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得与它对应的Segment锁。</p>
+<p>​        在JDK1.7底层采用：segment + HashEntry数组结构组成，实现的思路是先将数据分成一段一段地存储，然后给每一段数据配一把锁，这样当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问，这就是锁分段技术。其中Segment继承了ReetrantLock可重入锁接口，所以自带了锁的功能，让每一个片段都有了锁；HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，Segment的结构和HashMap类似，是一种数组和链表结构。一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组，当对HashEntry数组的数据进行修改时，必须首先获得与它对应的Segment锁。</p>
 <p>​        JDK1.8底层与HashMap底层结构一致，将锁的粒度调整到每个数组元素加锁，并且定位节点的hash算法被简化，导致hash冲突加剧，因此在链表长度大于8时，会将链表转换为红黑树存储，这样一来，查询的时间复杂度就从O(n)转变为O(logn)。</p>
 <p>​        对于锁的设计，JDK1.8取消了Segment分段锁，采用了CAS+Synchronized来保证并发安全。当执行<code>put</code>方法插入数据时，定义一个Node节点 <code>f</code>，如果 <code>f == null</code>，则相应位置的<code>Node</code>还未初始化，通过CAS插入相应的数据；如果 <code>f.hash == -1</code>，说明当前有其他线程正在扩容，则一起进行扩容操作；如果是其余情况就是把新的node节点按照链表或红黑树的方式插入到合适的位置，其中有一个binCount变量用于判断当前链表长度是否&gt;=8。</p>
-<p>​        JDK1.8中还使用一个volatile类型的变量baseCount记录元素的个数，用于判断是否扩容，当插入新数据或删除元素时，会通过 <code>addCount()</code> 方法更新 <code>baseCount</code> 。具体的实现过程的：先利用CAS方法更新baseCount的值，然后检查是否需要扩容，默认check=1时需要检查；如果满足扩容条件，即 <code>map.size() &gt;= sizeCTL</code>，此处 <code>sizeCtl</code> 为扩容阈值，判断当前是否正在扩容，如果是正在扩容旧一起扩容，如果不在扩容就将 <code>sizeCtl</code> 更新为负数，并进行扩容处理。</p>
+<p>​        JDK1.8中还使用一个volatile类型的变量baseCount记录元素的个数，用于判断是否扩容，当插入新数据或删除元素时，会通过 <code>addCount()</code> 方法更新 <code>baseCount</code> 。具体的实现过程是：先利用CAS方法更新baseCount的值，然后检查是否需要扩容，默认check=1时需要检查；如果满足扩容条件，即 <code>map.size() &gt;= sizeCTL</code>，此处 <code>sizeCtl</code> 为扩容阈值，判断当前是否正在扩容，如果是正在扩容就一起扩容，如果不在扩容就将 <code>sizeCtl</code> 更新为负数，并进行扩容处理。</p>
 <h2 id="21-Comparable-和-Comparator-的区别"><a href="#21-Comparable-和-Comparator-的区别" class="headerlink" title="21. Comparable 和 Comparator 的区别"></a>21. Comparable 和 Comparator 的区别</h2><ol>
 <li>Comparable是内部比较器，实现该接口意味着该类支持排序，不需要额外实现比较器，比较简单，但是需要修改源代码；</li>
 <li>Comparator是外部比较器，当需要控制某个类的次序，而该类本身不支持排序，可以自定义一个该类的比较器进行排序，好处是不需要修改源代码，只需要自定义一个比较器。</li>
@@ -3884,19 +3880,7 @@ F(0) = 0
 <p>引用队列可以与软引用、弱引用以及虚引用一起配合使用，当垃圾回收器准备回收一个对象时，如果发现它还有引用，那么就会在回收对象之前，把这个引用加入到与之关联的引用队列中去。程序可以通过判断引用队列中是否已经加入了引用，来判断被引用的对象是否将要被垃圾回收，这样就可以在对象被回收之前采取一些必要的措施。</p>
 </li>
 </ol>
-<h2 id="27-JVM内存分配与回收"><a href="#27-JVM内存分配与回收" class="headerlink" title="27. JVM内存分配与回收"></a>27. JVM内存分配与回收</h2><p>JVM内存分配：</p>
-<ol>
-<li>基础数据类型直接在栈空间分配;</li>
-<li>方法的形式参数，直接在栈空间分配，当方法调用完成后从栈空间回收;</li>
-<li>引用数据类型，需要用new来创建，既在栈空间分配一个地址空间，又在堆空间分配对象的类变量;</li>
-<li>方法的引用参数，在栈空间分配一个地址空间，并指向堆空间的对象区，当方法调用完后从栈空间回收;</li>
-<li>局部变量new出来时，在栈空间和堆空间中分配空间，当局部变量生命周期结束后，栈空间立刻被回收，堆空间区域等待GC回收;</li>
-<li>方法调用时传入的实际参数，先在栈空间分配，在方法调用完成后从栈空间释放;</li>
-<li>字符串常量在DATA区域分配，this在堆空间分配;</li>
-<li>数组既在栈空间分配数组名称，又在堆空间分配数组实际的大小。</li>
-</ol>
-<p>JVM内存回收看垃圾回收机制。</p>
-<h3 id="扩展：JVM内存模型"><a href="#扩展：JVM内存模型" class="headerlink" title="扩展：JVM内存模型"></a>扩展：JVM内存模型</h3><p>JVM启动时会向系统申请一块内存，它将这块内存划分为若干个子区域存放不同形式的数据，大致分为三个大区域：堆、栈、方法区。</p>
+<h2 id="27-JVM内存分配与回收"><a href="#27-JVM内存分配与回收" class="headerlink" title="27. JVM内存分配与回收"></a>27. JVM内存分配与回收</h2><h3 id="1-首先了解一下JVM的内存模型。"><a href="#1-首先了解一下JVM的内存模型。" class="headerlink" title="1. 首先了解一下JVM的内存模型。"></a>1. 首先了解一下JVM的内存模型。</h3><p>JVM启动时会向系统申请一块内存，它将这块内存划分为若干个子区域存放不同形式的数据，大致分为三个大区域：堆、栈、方法区。</p>
 <ol>
 <li><p>堆</p>
 <p>（1）堆用来存储引用类型的数据；</p>
@@ -3913,6 +3897,9 @@ F(0) = 0
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Demo d = <span class="keyword">new</span> Demo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其中 <code>main</code> 栈帧入栈，这个栈帧中存储 d 这个局部变量，这个变量是引用类型，引用了 <code>Demo</code> 这个对象，这个对象在堆中存放，所以栈中 <code>main</code> 栈帧中存储的 <code>d</code> 变量会指向堆中的 <code>demo</code> 对象。</p>
 </li>
+<li><p>方法区</p>
+<p>方法区是线程共享的，它存储已经被虚拟机加载的类信息如类型标志（该类是类类型还是接口类型）、常量、静态变量、即时编译器编译后的代码等等。</p>
+</li>
 </ol>
 <p>这里具体以一个例子来说明对象的创建过程：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Car c = <span class="keyword">new</span> Car();</span><br><span class="line">	c.brand = <span class="string">&quot;奔驰&quot;</span>;</span><br><span class="line">	c.color = <span class="string">&quot;红色&quot;</span>;</span><br><span class="line">	c.maxSpeed = <span class="number">500</span>;</span><br><span class="line">	c.run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3924,14 +3911,36 @@ F(0) = 0
 <li>后续三个赋值操作访问了成员变量，通过 <code>c.</code> 找到堆中的相应成员变量，进行赋值；</li>
 <li><code>c.sun()</code> 操作将 <code>run()</code> 方法入栈。</li>
 </ol>
-<h2 id="28-垃圾收集算法"><a href="#28-垃圾收集算法" class="headerlink" title="28. 垃圾收集算法"></a>28. 垃圾收集算法</h2><p>有四种垃圾收集算法。</p>
+<h3 id="2-JVM内存分配："><a href="#2-JVM内存分配：" class="headerlink" title="2. JVM内存分配："></a>2. JVM内存分配：</h3><ol>
+<li>基础数据类型直接在栈空间分配;</li>
+<li>方法的形式参数，直接在栈空间分配，当方法调用完成后从栈空间回收;</li>
+<li>引用数据类型，需要用new来创建，既在栈空间分配一个地址空间，又在堆空间分配对象的类变量;</li>
+<li>方法的引用参数，在栈空间分配一个地址空间，并指向堆空间的对象区，当方法调用完后从栈空间回收;</li>
+<li>局部变量new出来时，在栈空间和堆空间中分配空间，当局部变量生命周期结束后，栈空间立刻被回收，堆空间区域等待GC回收;</li>
+<li>方法调用时传入的实际参数，先在栈空间分配，在方法调用完成后从栈空间释放;</li>
+<li>字符串常量在DATA区域分配，this在堆空间分配;</li>
+<li>数组既在栈空间分配数组名称，又在堆空间分配数组实际的大小。</li>
+</ol>
+<h3 id="3-JVM内存回收"><a href="#3-JVM内存回收" class="headerlink" title="3. JVM内存回收"></a>3. JVM内存回收</h3><h4 id="判断对象是否可以被回收（引用计数法和可达性分析算法）"><a href="#判断对象是否可以被回收（引用计数法和可达性分析算法）" class="headerlink" title="判断对象是否可以被回收（引用计数法和可达性分析算法）"></a>判断对象是否可以被回收（引用计数法和可达性分析算法）</h4><h4 id="1-引用计数法"><a href="#1-引用计数法" class="headerlink" title="1. 引用计数法"></a>1. 引用计数法</h4><p>就是给对象添加一个引用计数器，每当有一个地方引用到它就加一，引用失效就减一，任何时刻计数器为0的对象就是不能再被使用的。引用计数法实现简单，判定效率也很高，但是它很难解决对象间循环引用的问题。比如以下代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> _1MB = <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] bigsize = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span> * _1MB]; <span class="comment">// 这个成员属性的唯一意义就是占点内存，方便在GC日志冲查看是否被回收过</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testGC</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        demo objA = <span class="keyword">new</span> demo();</span><br><span class="line">        demo objB = <span class="keyword">new</span> demo();</span><br><span class="line">        </span><br><span class="line">        objA.instance = objB;</span><br><span class="line">        objB.instance = objA;</span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码中的 <code>objA</code> 和 <code>objB</code> 两个对象实际上已经不可能再被访问，但是由于它们互相引用对方，导致引用计数器都无法归零，于是引用计数器都无法同之GC收集器回收他们。</p>
+<h4 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2. 可达性分析算法"></a>2. 可达性分析算法</h4><p>当前主流的商用语言的内存管理子系统，都是 通过可达性分析（Reachability Analysis）算法来判定对象是否存活的。这个算法的基本思路就是通过 一系列称为“GC Roots”的根对象作为起始节点集，从这些节点开始，根据引用关系向下搜索，搜索过 程所走过的路径称为“引用链”（Reference Chain），如果某个对象到GC Roots间没有任何引用链相连， 或者用图论的话来说就是从GC Roots到这个对象不可达时，则证明此对象是不可能再被使用的。</p>
+<p>在java语言中，常见的可作为GC Roots的对象包括下面几种：</p>
+<ol>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象；</li>
+<li>方法区中类静态属性引用的对象；</li>
+<li>方法区中常量引用的对象；</li>
+<li>本地方法栈中JNI（即一般所说的Native方法）引用的对象。</li>
+</ol>
+<p>这种方式可找到所以得垃圾对象，并且完美解决对象之间循环引用的问题。但是不可避免地要遍历全局所有对象，导致搜索效率不高。</p>
+<h3 id="4-垃圾收集算法"><a href="#4-垃圾收集算法" class="headerlink" title="4. 垃圾收集算法"></a>4. 垃圾收集算法</h3><p>有四种垃圾收集算法。</p>
 <ol>
 <li><strong>标记清除算法</strong>：包括“标记”和“清除”两个过程 - 先标记出所有需要回收的对象，再统一清除掉所有被标记的对象。这种方法有两个缺点：（1）标记和清除的过程的效率都不高；（2）标记清除后可能会产生大量不连续的内存，这样在程序运行过程中，需要分配较大的对象时无法找到足够的连续内存而不得不提前触发再一次的垃圾收集操作。</li>
 <li><strong>复制算法</strong>：是为了解决标记清除算法的效率问题产生的。它将内存等分为两个部分，每次只使用其中的一块。当这块内存用完了，将还存活的对象复制到另一边，然后把已使用过的这一部分全部清理掉。这种方式因为每次只对一个部分回收，内存分配就不需要考虑内存碎片的复杂情况，只需要移动堆顶指针，按顺序分配内存即可，简单高效；缺点是一次只使用一半的内存，代价太高；</li>
 <li><strong>标记整理算法</strong>：如果对象存活率较高，使用复制算法需要进行读哦此复制，效率不高。可以使用标记整理算法，它的标记过程与标记清除算法一样，只是后续不是直接对可回收对象进行处理，而是先将所有存活对象向一端移动，然后直接清理掉除了端边界意外的所有内存；</li>
 <li><strong>分代收集算法</strong>：当代商业虚拟机的垃圾收集都是采用该方法。该算法根据生命周期的不同将内存划分，一般是将堆划分为新生代和老生代，然后根据不同生代的特点选择合适的算法处理。新生代的特点是大批对象死亡，少量对象存活，可以使用复制算法，以少量存活对象的复制成本就可以完成采集；老生代因为存活率较高，没有多余的空间进行分配担保，所以使用标记清除算法或标记整理算法处理。</li>
 </ol>
-<h2 id="29-垃圾收集器"><a href="#29-垃圾收集器" class="headerlink" title="29. 垃圾收集器"></a>29. 垃圾收集器</h2><p>有七种垃圾收集器，其中，<code>Serial、Parallel Scavenge、Parnew</code> 是新生代收集器，<code>Serial Old、Parallel Old、CMS</code> 是老生代收集器，G1是整堆收集器，堆老生代和新生代都适用。</p>
+<h3 id="5-垃圾收集器"><a href="#5-垃圾收集器" class="headerlink" title="5. 垃圾收集器"></a>5. 垃圾收集器</h3><p>有七种垃圾收集器，其中，<code>Serial、Parallel Scavenge、Parnew</code> 是新生代收集器，<code>Serial Old、Parallel Old、CMS</code> 是老生代收集器，G1是整堆收集器，堆老生代和新生代都适用。</p>
 <ol>
 <li><p><strong>Serial</strong>：以串行的方式运行，使用复制算法，是单线程收集器，工作时其他线程会停止工作，使用复制算法收集新生代垃圾。优点是简单高效，在单个CPU环境下，由于没有线程交互的开销，因此拥有最高的单线程收集效率，是Client场景下默认的新生代垃圾收集器；</p>
 </li>
@@ -3982,37 +3991,22 @@ F(0) = 0
 <p>3）相比起CMS的增量更新算法，原始快照算法能减少并发标记和重新标记阶段的消耗，避免CMS那样在最终标记阶段停顿时间过长的缺点， 但是在用户程序运行过程中确实会产生由跟踪引用变化带来的额外负担。</p>
 </li>
 </ol>
-<h2 id="30-引用计数法和可达性分析算法"><a href="#30-引用计数法和可达性分析算法" class="headerlink" title="30. 引用计数法和可达性分析算法"></a>30. 引用计数法和可达性分析算法</h2><h4 id="1-引用计数法"><a href="#1-引用计数法" class="headerlink" title="1. 引用计数法"></a>1. 引用计数法</h4><p>就是给对象添加一个引用计数器，每当有一个地方引用到它就加一，引用失效就减一，任何时刻计数器为0的对象就是不能再被使用的。引用计数法实现简单，判定效率也很高，但是它很难解决对象间循环引用的问题。比如以下代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> _1MB = <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] bigsize = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span> * _1MB]; <span class="comment">// 这个成员属性的唯一意义就是占点内存，方便在GC日志冲查看是否被回收过</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testGC</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        demo objA = <span class="keyword">new</span> demo();</span><br><span class="line">        demo objB = <span class="keyword">new</span> demo();</span><br><span class="line">        </span><br><span class="line">        objA.instance = objB;</span><br><span class="line">        objB.instance = objA;</span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码中的 <code>objA</code> 和 <code>objB</code> 两个对象实际上已经不可能再被访问，但是由于它们互相引用对方，导致引用计数器都无法归零，于是引用计数器都无法同之GC收集器回收他们。</p>
-<h4 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2. 可达性分析算法"></a>2. 可达性分析算法</h4><p>当前主流的商用语言的内存管理子系统，都是 通过可达性分析（Reachability Analysis）算法来判定对象是否存活的。这个算法的基本思路就是通过 一系列称为“GC Roots”的根对象作为起始节点集，从这些节点开始，根据引用关系向下搜索，搜索过 程所走过的路径称为“引用链”（Reference Chain），如果某个对象到GC Roots间没有任何引用链相连， 或者用图论的话来说就是从GC Roots到这个对象不可达时，则证明此对象是不可能再被使用的。</p>
-<p>在java语言中，常见的可作为GC Roots的对象包括下面几种：</p>
-<ol>
-<li><p>虚拟机栈（栈帧中的本地变量表）中引用的对象；</p>
-</li>
-<li><p>方法区中类静态属性引用的对象；</p>
-</li>
-<li><p>方法区中常量引用的对象；</p>
-</li>
-<li><p>本地方法栈中JNI（即一般所说的Native方法）引用的对象。</p>
-</li>
-</ol>
-<h2 id="31-进程和线程的区别和联系"><a href="#31-进程和线程的区别和联系" class="headerlink" title="31. 进程和线程的区别和联系"></a>31. 进程和线程的区别和联系</h2><ol>
+<h2 id="28-进程和线程的区别和联系"><a href="#28-进程和线程的区别和联系" class="headerlink" title="28. 进程和线程的区别和联系"></a>28. 进程和线程的区别和联系</h2><ol>
 <li>进程是对运行时程序的封装，是系统进行资源调度和分配的的基本单位，实现了操作系统的并发；</li>
 <li>线程是进程的子任务，是CPU调度和分派的基本单位，用于保证程序的 实时性，实现进程内部的并发；</li>
 <li>一个程序至少有一个进程，一个进程至少有一个线程，线程依赖于进程而存在；</li>
 <li>进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存。</li>
 </ol>
-<h2 id="32-并行与并发"><a href="#32-并行与并发" class="headerlink" title="32. 并行与并发"></a>32. 并行与并发</h2><p><strong>1. 并发：</strong></p>
-<p>当我们谈论至少两个或更多任务时，并发这个定义是适用的。当一个应用程序实际上可以同时执行两个任务时，我们将其称为并发应用程序。尽管这里的任务看起来像是同时运行的，但实际上它们可能不一样。它们利用操作系统的CPU时间分片功能，其中每个任务运行其任务的一部分，然后进入等待状态。当第一个任务处于等待状态时，会将CPU分配给第二个任务以完成其一部分任务。<br>操作系统根据任务的优先级分配CPU和其他计算资源，例如内存;依次处理所有任务，并给他们完成任务的机会。对于最终结果来看，用户感觉所有任务都是同时运行的，这称为并发。</p>
+<h2 id="29-并行与并发"><a href="#29-并行与并发" class="headerlink" title="29. 并行与并发"></a>29. 并行与并发</h2><p><strong>1. 并发：</strong></p>
+<p>指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个进程同时执行的效果，但在微观上并不是同时执行的，只是利用系统CPU的时间分片功能，使多个进程快速交替的执行。</p>
 <p><strong>2. 并行：</strong></p>
-<p>并行不需要两个任务存在。通过为每个任务或子任务分配一个内核，它实际上使用多核CPU基础结构同时运行部分任务或多个任务。<br>并行性本质上要求具有多个处理单元的硬件。在单核CPU中，您可能会获得并发性，但不能获得并行性。<br>并发是由独立执行的进程组成，而并行性是同时执行（相关的）计算。<br>并发就是一次处理很多事情。并行是关于一次做很多事情。</p>
+<p>指在同一时刻，有多条指令在多个处理器上同时执行。所以无论从微观还是从宏观来看，二者都是一起执行的。</p>
 <p><strong>3. 场景分析：</strong></p>
 <p>一个应用程序可以是并发的，但不能是并行的，这意味着它可以同时处理多个任务，但是没有两个任务可以同时执行。</p>
 <p>一个应用程序可以是并行的，但不能是并发的，这意味着它可以同时处理多核CPU中一个任务的多个子任务。</p>
 <p>一个应用程序既不能是并行的，也不能是并发的，这意味着它一次顺序地处理所有任务。</p>
 <p>一个应用程序可以是并行的，也可以是并发的，这意味着它可以同时在多核CPU中同时处理多个任务。</p>
-<h2 id="33-线程的生命周期和状态"><a href="#33-线程的生命周期和状态" class="headerlink" title="33. 线程的生命周期和状态"></a>33. 线程的生命周期和状态</h2><p>线程一共有五种状态：新生态、就绪态、运行态、阻塞态、死亡态。这五种状态统称线程的生命周期，Java线程在运行的生命周期中的指定时刻，只可能处于其中一种状态。</p>
+<h2 id="30-线程的生命周期和状态"><a href="#30-线程的生命周期和状态" class="headerlink" title="30. 线程的生命周期和状态"></a>30. 线程的生命周期和状态</h2><p>线程一共有五种状态：新生态、就绪态、运行态、阻塞态、死亡态。这五种状态统称线程的生命周期，Java线程在运行的生命周期中的指定时刻，只可能处于其中一种状态。</p>
 <ol>
 <li><p>新生态：当线程对象创建后，就进入了新生状态：Thread t = new Thread();</p>
 </li>
@@ -4034,7 +4028,7 @@ F(0) = 0
 <li>运行态转换为就绪态：线程主动调用 <code>yield()</code> 方法或在运行过程中失去CPU资源；</li>
 <li>运行态转换为死亡态：线程执行完毕或出现异常</li>
 </ol>
-<h2 id="34-线程死锁"><a href="#34-线程死锁" class="headerlink" title="34. 线程死锁"></a>34. 线程死锁</h2><ol>
+<h2 id="31-线程死锁"><a href="#31-线程死锁" class="headerlink" title="31. 线程死锁"></a>31. 线程死锁</h2><ol>
 <li><p>概念：死锁指的是两个线程互相拥有对方所需要的资源，由于synchronized的特性，一个线程持有一个资源，或者说获得了一个锁，在该线程释放这个锁之前，其他线程是获取不到这个锁的，并会一直等下去，这就造成了死锁。</p>
 </li>
 <li><p>死锁产生的必要条件：</p>
@@ -4049,7 +4043,7 @@ F(0) = 0
 <p>（3）死锁检测：是一种更好的死锁预防机制，针对前两种方法解决不了的情况。当一个线程获得了锁，会在线程和锁相关的数据结构中记下，比如map，除此之外，每当有线程请求锁，也会记录在这个数据结构中，当一个线程获取锁失败，就可以遍历这个数据结构查看是否有死锁发生。</p>
 </li>
 </ol>
-<h2 id="35-线程池的原理及使用"><a href="#35-线程池的原理及使用" class="headerlink" title="35. 线程池的原理及使用"></a>35. 线程池的原理及使用</h2><p>​        线程池是在系统启动或者实例化池时创建一些空闲的线程，等待工作调度，执行完任务后，线程并不会立即被销毁，而是重新处于空闲状态，等待下一次调度。</p>
+<h2 id="32-线程池的原理及使用"><a href="#32-线程池的原理及使用" class="headerlink" title="32. 线程池的原理及使用"></a>32. 线程池的原理及使用</h2><p>​        线程池是在系统启动或者实例化池时创建一些空闲的线程，等待工作调度，执行完任务后，线程并不会立即被销毁，而是重新处于空闲状态，等待下一次调度。</p>
 <p>​        工作机制为：在线程池的编程模式中，任务提交并不是直接提交给线程，而是提交给池。线程池在拿到任务之后，就会寻找有没有空闲的线程，有则分配给空闲线程执行，暂时没有则会进入等待队列，继续等待空闲线程。如果超出最大接受的工作数量，则会触发线程池的拒绝策略。</p>
 <p>​        由于线程的创建与销毁需要消耗大量资源，重复的创建与销毁明显不必要。而且池的好处就是响应快，需要的时候自取，就不会存在等待创建的时间。线程池可以很好地管理系统内部的线程，如数量以及调度。</p>
 <p>​        Java类ExecutorService是线程池的父接口。以下四种常用线程池的类型都可以是ExecutorService：</p>
@@ -4093,14 +4087,14 @@ F(0) = 0
 </ol>
 </li>
 </ol>
-<h2 id="36-互斥、自旋、读写、悲观、乐观锁"><a href="#36-互斥、自旋、读写、悲观、乐观锁" class="headerlink" title="36. 互斥、自旋、读写、悲观、乐观锁"></a>36. 互斥、自旋、读写、悲观、乐观锁</h2><ol>
+<h2 id="33-互斥、自旋、读写、悲观、乐观锁"><a href="#33-互斥、自旋、读写、悲观、乐观锁" class="headerlink" title="33. 互斥、自旋、读写、悲观、乐观锁"></a>33. 互斥、自旋、读写、悲观、乐观锁</h2><ol>
 <li>互斥锁：一个线程访问共享资源前会对线程访问的这段代码加锁，加锁之后没有释放锁，其他想要访问临界资源的线程会被阻塞睡眠，直到解锁，如果阻塞了多个线程，解锁的时候，这些线程都转换为就绪状态，第一个变为就绪态的线程获取资源的使用权，其他线程继续阻塞等待；</li>
 <li>读写锁：也叫共享互斥锁，读模式共享，写模式互斥，即只有一个线程能占有写模式的读写锁，可以有多个线程占用读模式的读写锁。在写加锁模式下，任何线程进行写加锁操作都会被阻塞，直到解锁；在读加锁模式下，任何线程都可以进行读加锁操作，但全部试图进行写加锁的线程都会被阻塞，直到全部读加锁的线程释放锁，可是当读线程太多，写线程一直被阻塞也不行，因此一个线程想加锁的时候，会阻塞之后的读加锁的请求，让写线程先加锁；</li>
 <li>自旋锁：自旋锁和互斥锁很像，唯一不同的是自旋锁访问加锁资源时，会循环查看是否释放锁，这种方式比互斥锁更有效率，但是有两个问题：一是会一直占用CPU的资源，所以适用于多核的CPU；二是自旋锁递归调用容易造成死锁，所以得慎重使用自旋锁；</li>
 <li>乐观锁：总是假设最好的情况，每次拿数据都认为其他线程不会修改，所以不会上锁，但在更新的时候会判断一下在词期间其他线程有没有更新这个数据，可用使用版本号机制和CAS算法实现。乐观锁适用于多读的应用类型，这样可用提高吞吐量；</li>
 <li>悲观锁：总是假设最坏的情况，每次拿数据都会认为其他线程会修改，所以在拿数据的时候都会上锁，想获取这个锁的线程会被阻塞直到当前线程释放锁。</li>
 </ol>
-<h2 id="37-Synchronized锁源码"><a href="#37-Synchronized锁源码" class="headerlink" title="37. Synchronized锁源码"></a>37. Synchronized锁源码</h2><p>首先介绍两个概念：</p>
+<h2 id="34-Synchronized锁源码"><a href="#34-Synchronized锁源码" class="headerlink" title="34. Synchronized锁源码"></a>34. Synchronized锁源码</h2><p>首先介绍两个概念：</p>
 <h4 id="1-cas"><a href="#1-cas" class="headerlink" title="1. cas"></a>1. cas</h4><p>CAS算法的原理：</p>
 <p>​        CAS算法的全称是比较和交换，可以看成是一个自旋锁。下面以一个例子来说明：</p>
 <p>​        假设有多线程任务，2个线程同时完成对一个共享变量 <code>i</code> 的减法，假设该算法只有三个步骤：<code>get共享变量的值、--、将更新的值put回共享变量</code>，不使用CAS算法的运行过程中，可能将前两个步骤完成，然后在要执行第三个步骤的时候被CPU的时间片切出去，第二个线程开始执行，这时候由于两个线程 <code>get</code> 的值一样，最终所得的结果肯定也是一样的；如果使用CAS算法，即可以简单的使用 <code>atomic</code> 变量来解决，会在 <code>get</code> 方法设置一个E值，即旧的值，计算步骤完成后，将E值和共享变量内的值比较，如果相同，交换共享变量内的值为更新的值，否则线程再运行一遍，重新获取值进行运算，这也可以称为自旋锁。这个atomic变量保证了这个CAS算法不会存在多线程问题，因为这个算法的核心函数是 <code>native</code> 即CPU本地提供的，而CPU都是一行一行执行的，不会存在并行过程。</p>
@@ -4148,7 +4142,7 @@ F(0) = 0
 <p>解锁过程：</p>
 <p>因为虚拟机线程栈帧中的 Displaced Mark Word 是最初的无锁状态时的数据结构，所以用它来替换对象头中的 Mark Word 就可以释放锁。如果锁已经膨胀为重量级，此时是不可以被替换的，所以替换失败，唤醒被挂起的线程。</p>
 <p><strong>注：锁膨胀的过程其实就是对象头中的 Mark Word 数据结构改变的过程。</strong></p>
-<h2 id="38-volatile、threadlocal"><a href="#38-volatile、threadlocal" class="headerlink" title="38. volatile、threadlocal"></a>38. volatile、threadlocal</h2><p> 首先应该知道并发变成的三个概念：</p>
+<h2 id="35-volatile、threadlocal"><a href="#35-volatile、threadlocal" class="headerlink" title="35. volatile、threadlocal"></a>35. volatile、threadlocal</h2><p> 首先应该知道并发变成的三个概念：</p>
 <ol>
 <li>原子性：即一个或多个操作，要不全部执行，要不全部不执行；</li>
 <li>可见性：即多个线程访问一个变量，一个线程修改了这个变量，其他线程能够立即看到这个修改；</li>
@@ -4163,7 +4157,6 @@ F(0) = 0
 <li>禁止编译器的重排序，对于该变量操作之前和操作之后的代码顺序不会变；</li>
 <li>volatile关键字只能保变量的可见性，不能保证针对该变量的原子性。</li>
 </ol>
-<h2 id="39-JDK7和JDK8中ConcurrentHashMap的区别"><a href="#39-JDK7和JDK8中ConcurrentHashMap的区别" class="headerlink" title="39. JDK7和JDK8中ConcurrentHashMap的区别"></a>39. JDK7和JDK8中ConcurrentHashMap的区别</h2><p>1.数据结构：取消了Segment分段锁的数据结构，取而代之的是数组+链表+红黑树的结构。<br>2.保证线程安全机制：JDK1.7采用segment的分段锁机制实现线程安全，其中segment继承自ReentrantLock。JDK1.8采用CAS+Synchronized保证线程安全。<br>3.锁的粒度：原来是对需要进行数据操作的Segment加锁，现调整为对每个数组元素加锁（Node）。<br>4.链表转化为红黑树:定位结点的hash算法简化会带来弊端,Hash冲突加剧,因此在链表节点数量大于8时，会将链表转化为红黑树进行存储。<br>5.查询时间复杂度：从原来的遍历链表O(n)，变成遍历红黑树O(logN)。</p>
 ]]></content>
       <categories>
         <category>面试题</category>
