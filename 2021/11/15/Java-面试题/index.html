@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. Java语言的特点Java语言有十大特点：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-15T13:39:32.000Z">
-<meta property="article:modified_time" content="2022-01-15T09:44:36.339Z">
+<meta property="article:modified_time" content="2022-01-16T12:52:01.717Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-15 17:44:36" itemprop="dateModified" datetime="2022-01-15T17:44:36+08:00">2022-01-15</time>
+                <time title="修改时间：2022-01-16 20:52:01" itemprop="dateModified" datetime="2022-01-16T20:52:01+08:00">2022-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -798,16 +798,12 @@
 <p>（1）栈以方法为单元存放数据，这样的单元叫做方法栈桢；</p>
 <p>（2）栈中存放的数据的有序的，遵循先进后出的规则；</p>
 <p>（3）方法调用结束后，它占有的方法会被立即释放。</p>
-<p><strong>堆和栈的关系：</strong></p>
-<p>比如以下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Demo d = <span class="keyword">new</span> Demo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中 <code>main</code> 栈帧入栈，这个栈帧中存储 d 这个局部变量，这个变量是引用类型，引用了 <code>Demo</code> 这个对象，这个对象在堆中存放，所以栈中 <code>main</code> 栈帧中存储的 <code>d</code> 变量会指向堆中的 <code>demo</code> 对象。</p>
 </li>
 <li><p>方法区</p>
-<p>方法区是线程共享的，它存储已经被虚拟机加载的类信息如类型标志（该类是类类型还是接口类型）、常量、静态变量、即时编译器编译后的代码等等。</p>
+<p>方法区是线程共享的，它存储已经被虚拟机加载的类信息如类型标志（该类是类类型还是接口类型）、常量、静态变量、即时编译（也就是静态编译）后的代码等等。</p>
 </li>
 </ol>
-<p>这里具体以一个例子来说明对象的创建过程：</p>
+<h3 id="2-JVM内存分配："><a href="#2-JVM内存分配：" class="headerlink" title="2. JVM内存分配："></a>2. JVM内存分配：</h3><p>这里具体以一个例子来说明JVM的内存分配过程：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Car c = <span class="keyword">new</span> Car();</span><br><span class="line">	c.brand = <span class="string">&quot;奔驰&quot;</span>;</span><br><span class="line">	c.color = <span class="string">&quot;红色&quot;</span>;</span><br><span class="line">	c.maxSpeed = <span class="number">500</span>;</span><br><span class="line">	c.run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
 <li><p><code>main</code> 栈帧入栈；</p>
@@ -816,16 +812,6 @@
 </li>
 <li>后续三个赋值操作访问了成员变量，通过 <code>c.</code> 找到堆中的相应成员变量，进行赋值；</li>
 <li><code>c.sun()</code> 操作将 <code>run()</code> 方法入栈。</li>
-</ol>
-<h3 id="2-JVM内存分配："><a href="#2-JVM内存分配：" class="headerlink" title="2. JVM内存分配："></a>2. JVM内存分配：</h3><ol>
-<li>基础数据类型直接在栈空间分配;</li>
-<li>方法的形式参数，直接在栈空间分配，当方法调用完成后从栈空间回收;</li>
-<li>引用数据类型，需要用new来创建，既在栈空间分配一个地址空间，又在堆空间分配对象的类变量;</li>
-<li>方法的引用参数，在栈空间分配一个地址空间，并指向堆空间的对象区，当方法调用完后从栈空间回收;</li>
-<li>局部变量new出来时，在栈空间和堆空间中分配空间，当局部变量生命周期结束后，栈空间立刻被回收，堆空间区域等待GC回收;</li>
-<li>方法调用时传入的实际参数，先在栈空间分配，在方法调用完成后从栈空间释放;</li>
-<li>字符串常量在DATA区域分配，this在堆空间分配;</li>
-<li>数组既在栈空间分配数组名称，又在堆空间分配数组实际的大小。</li>
 </ol>
 <h3 id="3-JVM内存回收"><a href="#3-JVM内存回收" class="headerlink" title="3. JVM内存回收"></a>3. JVM内存回收</h3><h4 id="判断对象是否可以被回收（引用计数法和可达性分析算法）"><a href="#判断对象是否可以被回收（引用计数法和可达性分析算法）" class="headerlink" title="判断对象是否可以被回收（引用计数法和可达性分析算法）"></a>判断对象是否可以被回收（引用计数法和可达性分析算法）</h4><h4 id="1-引用计数法"><a href="#1-引用计数法" class="headerlink" title="1. 引用计数法"></a>1. 引用计数法</h4><p>就是给对象添加一个引用计数器，每当有一个地方引用到它就加一，引用失效就减一，任何时刻计数器为0的对象就是不能再被使用的。引用计数法实现简单，判定效率也很高，但是它很难解决对象间循环引用的问题。比如以下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> _1MB = <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] bigsize = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span> * _1MB]; <span class="comment">// 这个成员属性的唯一意义就是占点内存，方便在GC日志冲查看是否被回收过</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testGC</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        demo objA = <span class="keyword">new</span> demo();</span><br><span class="line">        demo objB = <span class="keyword">new</span> demo();</span><br><span class="line">        </span><br><span class="line">        objA.instance = objB;</span><br><span class="line">        objB.instance = objA;</span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -843,10 +829,10 @@
 <ol>
 <li><strong>标记清除算法</strong>：包括“标记”和“清除”两个过程 - 先标记出所有需要回收的对象，再统一清除掉所有被标记的对象。这种方法有两个缺点：（1）标记和清除的过程的效率都不高；（2）标记清除后可能会产生大量不连续的内存，这样在程序运行过程中，需要分配较大的对象时无法找到足够的连续内存而不得不提前触发再一次的垃圾收集操作。</li>
 <li><strong>复制算法</strong>：是为了解决标记清除算法的效率问题产生的。它将内存等分为两个部分，每次只使用其中的一块。当这块内存用完了，将还存活的对象复制到另一边，然后把已使用过的这一部分全部清理掉。这种方式因为每次只对一个部分回收，内存分配就不需要考虑内存碎片的复杂情况，只需要移动堆顶指针，按顺序分配内存即可，简单高效；缺点是一次只使用一半的内存，代价太高；</li>
-<li><strong>标记整理算法</strong>：如果对象存活率较高，使用复制算法需要进行读哦此复制，效率不高。可以使用标记整理算法，它的标记过程与标记清除算法一样，只是后续不是直接对可回收对象进行处理，而是先将所有存活对象向一端移动，然后直接清理掉除了端边界意外的所有内存；</li>
+<li><strong>标记整理算法</strong>：如果对象存活率较高，使用复制算法需要进行多次复制，效率不高。可以使用标记整理算法，它的标记过程与标记清除算法一样，只是后续不是直接对可回收对象进行处理，而是先将所有存活对象向一端移动，然后直接清理掉除了端边界以外的所有内存；</li>
 <li><strong>分代收集算法</strong>：当代商业虚拟机的垃圾收集都是采用该方法。该算法根据生命周期的不同将内存划分，一般是将堆划分为新生代和老生代，然后根据不同生代的特点选择合适的算法处理。新生代的特点是大批对象死亡，少量对象存活，可以使用复制算法，以少量存活对象的复制成本就可以完成采集；老生代因为存活率较高，没有多余的空间进行分配担保，所以使用标记清除算法或标记整理算法处理。</li>
 </ol>
-<h3 id="5-垃圾收集器"><a href="#5-垃圾收集器" class="headerlink" title="5. 垃圾收集器"></a>5. 垃圾收集器</h3><p>有七种垃圾收集器，其中，<code>Serial、Parallel Scavenge、Parnew</code> 是新生代收集器，<code>Serial Old、Parallel Old、CMS</code> 是老生代收集器，G1是整堆收集器，堆老生代和新生代都适用。</p>
+<h3 id="5-垃圾收集器"><a href="#5-垃圾收集器" class="headerlink" title="5. 垃圾收集器"></a>5. 垃圾收集器</h3><p>有七种垃圾收集器，其中，<code>Serial、Parallel Scavenge、Parnew</code> 是新生代收集器，<code>Serial Old、Parallel Old、CMS</code> 是老生代收集器，G1是整堆收集器，对老生代和新生代都适用。</p>
 <ol>
 <li><p><strong>Serial</strong>：以串行的方式运行，使用复制算法，是单线程收集器，工作时其他线程会停止工作，使用复制算法收集新生代垃圾。优点是简单高效，在单个CPU环境下，由于没有线程交互的开销，因此拥有最高的单线程收集效率，是Client场景下默认的新生代垃圾收集器；</p>
 </li>
@@ -912,7 +898,7 @@
 <p>一个应用程序可以是并行的，但不能是并发的，这意味着它可以同时处理多核CPU中一个任务的多个子任务。</p>
 <p>一个应用程序既不能是并行的，也不能是并发的，这意味着它一次顺序地处理所有任务。</p>
 <p>一个应用程序可以是并行的，也可以是并发的，这意味着它可以同时在多核CPU中同时处理多个任务。</p>
-<h2 id="30-线程的生命周期和状态"><a href="#30-线程的生命周期和状态" class="headerlink" title="30. 线程的生命周期和状态"></a>30. 线程的生命周期和状态</h2><p>线程一共有五种状态：新生态、就绪态、运行态、阻塞态、死亡态。这五种状态统称线程的生命周期，Java线程在运行的生命周期中的指定时刻，只可能处于其中一种状态。</p>
+<h2 id="30-线程的生命周期和状态"><a href="#30-线程的生命周期和状态" class="headerlink" title="30. 线程的生命周期和状态"></a>30. 线程的生命周期和状态</h2><p>线程一共有五种状态：新生态、就绪态、运行态、阻塞态、死亡态。这五种状态统称线程的生命周期。线程在同一时刻只会处于一种状态。下面简述这五种状态：</p>
 <ol>
 <li><p>新生态：当线程对象创建后，就进入了新生状态：Thread t = new Thread();</p>
 </li>
@@ -928,7 +914,7 @@
 <li><p>死亡态：线程执行完毕或异常退出，该线程结束生命周期。</p>
 </li>
 </ol>
-<p><strong>状态的转换：</strong></p>
+<p><strong>允许状态的转换：</strong></p>
 <ol>
 <li>就绪态转换为运行态：线程得到CPU资源；</li>
 <li>运行态转换为就绪态：线程主动调用 <code>yield()</code> 方法或在运行过程中失去CPU资源；</li>
