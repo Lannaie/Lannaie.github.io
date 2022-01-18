@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. Java语言的特点Java语言有十大特点：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-15T13:39:32.000Z">
-<meta property="article:modified_time" content="2022-01-17T10:10:42.670Z">
+<meta property="article:modified_time" content="2022-01-18T16:01:28.369Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-17 18:10:42" itemprop="dateModified" datetime="2022-01-17T18:10:42+08:00">2022-01-17</time>
+                <time title="修改时间：2022-01-19 00:01:28" itemprop="dateModified" datetime="2022-01-19T00:01:28+08:00">2022-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -849,7 +849,7 @@
 <li><p><strong>Parallel Old</strong>：</p>
 <p>是Parallel Scavenge的老年代版本，支持多线程并发收集，基于标记-整理算法实现，在一些注重吞吐量或处理器资源比较稀缺的场景中，可以使用Parallel Scavenge + Parallel Old的组合。</p>
 </li>
-<li><p><strong>CMS</strong>：是一种以获取最短回收停顿时间为目标的收集器，主要适用于较为关注服务响应速度、希望系统停顿时间尽可能短、以给用户带来良好的交互体验的应用。它的运作过程分为四个步骤：初始标记、并发标记、重新标记、并发清除。其中初始标记、重新标记仍然需要STW机制。</p>
+<li><p><strong>CMS</strong>：是一种以获取最短回收停顿时间为目标的收集器，主要适用于较为关注服务响应速度、希望系统停顿时间尽可能短、以给用户带来良好的交互体验的应用。它的运作过程分为四个步骤：初始标记、并发标记、重新标记、并发清除。其中初始标记、重新标记仍然需要STW机制（STW机制就是stop the world机制，指GC过程中会产生应用程序的停顿）。</p>
 <p><strong>1）初始标记</strong>：</p>
 <p>​        用于标记GC Roots以及它们直接关联到的对象，所谓GC Roots是进行可达性分析的时候找到的根节点，从根节点出发，哪些对象被引用了，我们就认为这些对象是存活的，把它们标记上。</p>
 <p>​        在这个过程之前，用户线程在正常运行，如果要GC，由于初始标记的过程是要暂停所有用户线程的，这些用户线程就需要找一个安全点（sfaepoint）停下来，这个所谓的安全点，就是对象引用关系不会再发生变化，但是如果有的线程正在休眠，比如线程1正在休眠，这个时候就没有办法判断这个线程有没有执行到安全点，这里就引入了安全区的概念，所谓的安全区，就是在这个代码区域内，对象的引用关系都不会发生改变，也就是说如果线程1在休眠之前进入安全区域，会标识自己进入了安全区域，当初始标记时，就不用管这个线程，当线程向从安全区域出去的时候，先看初始标记的过程是否结束，如果没有结束，就等到结束后才能从安全区域出来。</p>
