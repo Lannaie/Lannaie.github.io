@@ -195,6 +195,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/25/LeetCode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/25/LeetCode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/" class="post-title-link" itemprop="url">LeetCode - 139. 单词拆分</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-25 11:54:22 / 修改时间：12:00:56" itemprop="dateCreated datePublished" datetime="2022-01-25T11:54:22+08:00">2022-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/word-break/">https://leetcode-cn.com/problems/word-break/</a></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>​        一开始的思路是逐个计算每个 <code>word</code> 出现在字符串的次数，然后加上长度，等于字符串长度就看成是可以拼接。但是这种思路的实现较为复杂，就没有实现。</p>
+<p>​        可以换另一种思考方式，不求时间复杂度的优化，使用动态规划进行嵌套查询，遍历字符串的元素，将每个元素作为一个单词的截至字符，从头开始查是否存在到当前元素位置的字符串能够拼接成功。边界条件为：空串默认可以拼接。</p>
+<p>具体代码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">wordBreak</span><span class="params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span>[] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[s.length() + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        dp[<span class="number">0</span>] = <span class="keyword">true</span>;   <span class="comment">// 空串为 true</span></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= s.length(); ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>( dp[j] &amp;&amp; wordDict.contains(s.substring(j, i)) )</span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i] = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[s.length()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/21/LeetCode-85-%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -907,88 +980,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/03/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-HTML%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/03/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-HTML%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" class="post-title-link" itemprop="url">购物车结算系统 - HTML篇 - 项目小记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-03 23:09:49" itemprop="dateCreated datePublished" datetime="2022-01-03T23:09:49+08:00">2022-01-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-08 00:21:49" itemprop="dateModified" datetime="2022-01-08T00:21:49+08:00">2022-01-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">项目小记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="form"><a href="#form" class="headerlink" title="form"></a>form</h3><h4 id="action"><a href="#action" class="headerlink" title="action"></a>action</h4><p>使用：<code>action=&quot;[跳转页面名称].jsp&quot;</code></p>
-<p>如：<code>action=&quot;choose_goods.jsp&quot;</code></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/03/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-HTML%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1060,7 +1051,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
