@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="定义定义：是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。 ​        按照定义，动态规划是将一个大问题拆分为多个小问题来解决。但是最终决定这个问题是否能用动态规划解决的因素是这些小问题是否能被重复调用。 ​        如果能被重复利用，我们需要找出其中的状态转移方程，也就是找到相邻的两个结果之间的转换方程。">
+  <meta name="description" content="题目https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;maximum-product-subarray&#x2F; 解题思路题目本身实现动态规划是大致思路，主要看怎么实现 O(n) 时间复杂度的动态规划。 嵌套循环以每个元素为连续子数组的第一个元素，遍历相乘取最大值。 123456789101112131415161718192021class Solution &amp;#123;    pub">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态规划算法">
-<meta property="og:url" content="http://example.com/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:title" content="LeetCode - 152. 乘积最大子数组">
+<meta property="og:url" content="http://example.com/2022/01/26/LeetCode-152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/index.html">
 <meta property="og:site_name" content="往南">
-<meta property="og:description" content="定义定义：是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。 ​        按照定义，动态规划是将一个大问题拆分为多个小问题来解决。但是最终决定这个问题是否能用动态规划解决的因素是这些小问题是否能被重复调用。 ​        如果能被重复利用，我们需要找出其中的状态转移方程，也就是找到相邻的两个结果之间的转换方程。">
+<meta property="og:description" content="题目https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;maximum-product-subarray&#x2F; 解题思路题目本身实现动态规划是大致思路，主要看怎么实现 O(n) 时间复杂度的动态规划。 嵌套循环以每个元素为连续子数组的第一个元素，遍历相乘取最大值。 123456789101112131415161718192021class Solution &amp;#123;    pub">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-06-16T02:04:50.000Z">
-<meta property="article:modified_time" content="2021-10-26T13:40:12.554Z">
+<meta property="article:published_time" content="2022-01-26T07:53:04.000Z">
+<meta property="article:modified_time" content="2022-01-26T08:02:22.147Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="http://example.com/2022/01/26/LeetCode-152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>动态规划算法 | 往南</title>
+  <title>LeetCode - 152. 乘积最大子数组 | 往南</title>
   
 
 
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/16/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/26/LeetCode-152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -212,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          动态规划算法
+          LeetCode - 152. 乘积最大子数组
         </h1>
 
         <div class="post-meta">
@@ -221,23 +221,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-06-16 10:04:50" itemprop="dateCreated datePublished" datetime="2021-06-16T10:04:50+08:00">2021-06-16</time>
+              <time title="创建时间：2022-01-26 15:53:04 / 修改时间：16:02:22" itemprop="dateCreated datePublished" datetime="2022-01-26T15:53:04+08:00">2022-01-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-26 21:40:12" itemprop="dateModified" datetime="2021-10-26T21:40:12+08:00">2021-10-26</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
                 </span>
             </span>
 
@@ -252,19 +246,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义：是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。</p>
-<p>​        按照定义，动态规划是将一个大问题拆分为多个小问题来解决。但是最终决定这个问题是否能用动态规划解决的因素是这些小问题是否能被重复调用。</p>
-<p>​        如果能被重复利用，我们需要找出其中的状态转移方程，也就是找到相邻的两个结果之间的转换方程。</p>
-<span id="more"></span>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="题目见下链接"><a href="#题目见下链接" class="headerlink" title="题目见下链接"></a>题目见下链接</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">https://leetcode-cn.com/problems/maximum-subarray/</a></p>
-<h3 id="动态规划思想"><a href="#动态规划思想" class="headerlink" title="动态规划思想"></a>动态规划思想</h3><p>因为要求是连续数组的最大值，所以每一次计算的中间结果，也必须是以当前最后一个元素为当亲计算的结尾。</p>
-<p>上述，可以得到状态转移方程：</p>
-<p><code>maxn = max(maxn+num[i], num[i])</code></p>
-<p>但是由于以当前最后一个元素结尾的最大值不一定是整体数组中的最大值，所以需要再使用一个变量来存储整体数组的最大值：</p>
-<p><code>res = max(maxn, res)</code></p>
-<p>经过分析，可以得到具体代码如下：</p>
-<h4 id="java"><a href="#java" class="headerlink" title="java:"></a>java:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int pre = 0, res = nums[0];</span><br><span class="line">        for ( int n : nums )</span><br><span class="line">        &#123;</span><br><span class="line">            pre = Math.max(pre + n, n);</span><br><span class="line">            res = Math.max(pre, res);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="python"><a href="#python" class="headerlink" title="python:"></a>python:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxSubArray(self, nums: List[int]) -&gt; int:</span><br><span class="line">        pre, res = 0, nums[0]</span><br><span class="line">        for n in nums:</span><br><span class="line">            pre = max( pre + n, n )</span><br><span class="line">            res = max( pre, res )</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+        <span id="more"></span>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-product-subarray/">https://leetcode-cn.com/problems/maximum-product-subarray/</a></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>题目本身实现动态规划是大致思路，主要看怎么实现 O(n) 时间复杂度的动态规划。</p>
+<h3 id="嵌套循环"><a href="#嵌套循环" class="headerlink" title="嵌套循环"></a>嵌套循环</h3><p>以每个元素为连续子数组的第一个元素，遍历相乘取最大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( nums.length == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> maxpro = nums[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> curpro = nums[i];</span><br><span class="line">            maxpro = Math.max(maxpro, curpro);</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; nums.length; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                curpro *= nums[j];</span><br><span class="line">                maxpro = Math.max(maxpro, curpro);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxpro;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="一次循环"><a href="#一次循环" class="headerlink" title="一次循环"></a>一次循环</h3><p>相乘的连续子数组与一般的连续子数组的区别在于：一般连续子数组取的每个小部分都是最大值；但是相乘的连续子数组可能小部分是最小值，也可能是最大值。所以我们需要同时获取以当前元素为连续子数组的最后一个元素的最大积和最小积。</p>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( nums.length == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span> curmax = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> curmin = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> maxpro = curmax;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> tmpmax = curmax, tmpmin = curmin;</span><br><span class="line">            curmax = Math.max(Math.max(nums[i], tmpmax * nums[i]), tmpmin * nums[i]);</span><br><span class="line">            curmin = Math.min(Math.min(nums[i], tmpmax * nums[i]), tmpmin * nums[i]);</span><br><span class="line">            maxpro = Math.max(maxpro, curmax);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxpro;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -293,13 +282,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/06/06/spark-%E5%AE%89%E8%A3%85%20&%20%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8wordcount/" rel="prev" title="spark - 安装 & 简单使用wordcount">
-      <i class="fa fa-chevron-left"></i> spark - 安装 & 简单使用wordcount
+    <a href="/2022/01/25/LeetCode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/" rel="prev" title="LeetCode - 139. 单词拆分">
+      <i class="fa fa-chevron-left"></i> LeetCode - 139. 单词拆分
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/06/17/Spark-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" rel="next" title="Spark - 运行环境的安装配置">
-      Spark - 运行环境的安装配置 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -358,7 +344,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%81%E4%B8%8B%E9%93%BE%E6%8E%A5"><span class="nav-number">2.1.</span> <span class="nav-text">题目见下链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%9D%E6%83%B3"><span class="nav-number">2.2.</span> <span class="nav-text">动态规划思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#java"><span class="nav-number">2.2.1.</span> <span class="nav-text">java:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python"><span class="nav-number">2.2.2.</span> <span class="nav-text">python:</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.1.</span> <span class="nav-text">嵌套循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.2.</span> <span class="nav-text">一次循环</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
