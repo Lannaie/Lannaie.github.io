@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机基础面试题">
+<meta property="og:url" content="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="往南">
+<meta property="og:description" content="MySQL">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-29T11:20:07.000Z">
+<meta property="article:modified_time" content="2022-01-29T13:41:19.287Z">
+<meta property="article:author" content="Bonnie">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机基础面试题 | 往南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">往南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机基础面试题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-29 19:20:07 / 修改时间：21:41:19" itemprop="dateCreated datePublished" datetime="2022-01-29T19:20:07+08:00">2022-01-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><span id="more"></span>
+<h3 id="1-什么是MySQL"><a href="#1-什么是MySQL" class="headerlink" title="1. 什么是MySQL"></a>1. 什么是MySQL</h3><h3 id="2-MySQL主从复制"><a href="#2-MySQL主从复制" class="headerlink" title="2. MySQL主从复制"></a>2. MySQL主从复制</h3><h3 id="3-存储引擎"><a href="#3-存储引擎" class="headerlink" title="3. 存储引擎"></a>3. 存储引擎</h3><h3 id="4-索引及索引底层结构"><a href="#4-索引及索引底层结构" class="headerlink" title="4. 索引及索引底层结构"></a>4. 索引及索引底层结构</h3><h3 id="5-查询缓存"><a href="#5-查询缓存" class="headerlink" title="5. 查询缓存"></a>5. 查询缓存</h3><h3 id="6-什么是事务"><a href="#6-什么是事务" class="headerlink" title="6. 什么是事务"></a>6. 什么是事务</h3><h3 id="7-事务四大特性"><a href="#7-事务四大特性" class="headerlink" title="7. 事务四大特性"></a>7. 事务四大特性</h3><h3 id="8-事务隔离及MySQL的默认隔离级别"><a href="#8-事务隔离及MySQL的默认隔离级别" class="headerlink" title="8. 事务隔离及MySQL的默认隔离级别"></a>8. 事务隔离及MySQL的默认隔离级别</h3><h3 id="9-并发事务带来的问题"><a href="#9-并发事务带来的问题" class="headerlink" title="9. 并发事务带来的问题"></a>9. 并发事务带来的问题</h3><h3 id="10-锁机制"><a href="#10-锁机制" class="headerlink" title="10. 锁机制"></a>10. 锁机制</h3><h3 id="11-大表优化"><a href="#11-大表优化" class="headerlink" title="11. 大表优化"></a>11. 大表优化</h3><h3 id="12-SQL语句的执行过程"><a href="#12-SQL语句的执行过程" class="headerlink" title="12. SQL语句的执行过程"></a>12. SQL语句的执行过程</h3><h3 id="13-MySQL高性能优化"><a href="#13-MySQL高性能优化" class="headerlink" title="13. MySQL高性能优化"></a>13. MySQL高性能优化</h3><h3 id="14-MVCC及视图"><a href="#14-MVCC及视图" class="headerlink" title="14. MVCC及视图"></a>14. MVCC及视图</h3><h3 id="15-常用的增删改查命令"><a href="#15-常用的增删改查命令" class="headerlink" title="15. 常用的增删改查命令"></a>15. 常用的增删改查命令</h3><h3 id="16-左连接和右连接的区别"><a href="#16-左连接和右连接的区别" class="headerlink" title="16. 左连接和右连接的区别"></a>16. 左连接和右连接的区别</h3><h3 id="17-sql和nosql"><a href="#17-sql和nosql" class="headerlink" title="17. sql和nosql"></a>17. sql和nosql</h3><h3 id="18-MySQL-ACID-隔离级别？（MySQL读提交会造成哪些数据不一致问题？）"><a href="#18-MySQL-ACID-隔离级别？（MySQL读提交会造成哪些数据不一致问题？）" class="headerlink" title="18. MySQL ACID 隔离级别？（MySQL读提交会造成哪些数据不一致问题？）"></a>18. MySQL ACID 隔离级别？（MySQL读提交会造成哪些数据不一致问题？）</h3><h3 id="19-数据库的三大范式？"><a href="#19-数据库的三大范式？" class="headerlink" title="19. 数据库的三大范式？"></a>19. 数据库的三大范式？</h3><h3 id="20-delete和truncate、where和having、find和grep的用法区别"><a href="#20-delete和truncate、where和having、find和grep的用法区别" class="headerlink" title="20. delete和truncate、where和having、find和grep的用法区别"></a>20. delete和truncate、where和having、find和grep的用法区别</h3><h3 id="21-数据库中索引作用"><a href="#21-数据库中索引作用" class="headerlink" title="21. 数据库中索引作用"></a>21. 数据库中索引作用</h3><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="1-文件系统的原理，特别是-inode-和-block。数据恢复原理。"><a href="#1-文件系统的原理，特别是-inode-和-block。数据恢复原理。" class="headerlink" title="1. 文件系统的原理，特别是 inode 和 block。数据恢复原理。"></a>1. 文件系统的原理，特别是 inode 和 block。数据恢复原理。</h3><h3 id="2-硬链接与软链接的区别。"><a href="#2-硬链接与软链接的区别。" class="headerlink" title="2. 硬链接与软链接的区别。"></a>2. 硬链接与软链接的区别。</h3><h3 id="3-能够使用常用的命令，比如-cat-文件内容查看、find-搜索文件，以及-cut、sort-等管线命令。了解-grep-和-awk-的作用。"><a href="#3-能够使用常用的命令，比如-cat-文件内容查看、find-搜索文件，以及-cut、sort-等管线命令。了解-grep-和-awk-的作用。" class="headerlink" title="3. 能够使用常用的命令，比如 cat 文件内容查看、find 搜索文件，以及 cut、sort 等管线命令。了解 grep 和 awk 的作用。"></a>3. 能够使用常用的命令，比如 cat 文件内容查看、find 搜索文件，以及 cut、sort 等管线命令。了解 grep 和 awk 的作用。</h3><h3 id="4-僵尸进程与孤儿进程的区别，从-SIGCHLD-分析产生僵尸进程的原因。"><a href="#4-僵尸进程与孤儿进程的区别，从-SIGCHLD-分析产生僵尸进程的原因。" class="headerlink" title="4.  僵尸进程与孤儿进程的区别，从 SIGCHLD 分析产生僵尸进程的原因。"></a>4.  僵尸进程与孤儿进程的区别，从 SIGCHLD 分析产生僵尸进程的原因。</h3><h2 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h2><h3 id="1-udp会丢包，是什么原因造成的"><a href="#1-udp会丢包，是什么原因造成的" class="headerlink" title="1. udp会丢包，是什么原因造成的"></a>1. udp会丢包，是什么原因造成的</h3><h3 id="2-tcp和udp"><a href="#2-tcp和udp" class="headerlink" title="2. tcp和udp"></a>2. tcp和udp</h3><h3 id="3-OSI七层网络模型、TCP-IP分层模型、五层网络模型（每一层解决什么问题）"><a href="#3-OSI七层网络模型、TCP-IP分层模型、五层网络模型（每一层解决什么问题）" class="headerlink" title="3. OSI七层网络模型、TCP/IP分层模型、五层网络模型（每一层解决什么问题）"></a>3. OSI七层网络模型、TCP/IP分层模型、五层网络模型（每一层解决什么问题）</h3><h3 id="4-TCP和UDP的区别"><a href="#4-TCP和UDP的区别" class="headerlink" title="4. TCP和UDP的区别"></a>4. TCP和UDP的区别</h3><h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><p>UDP协议的全称是用户数据报协议，它和TCP一样用于处理数据包，它是一种无连接协议，在OSI模型中，二者位于传输层，在IP层的上一层，UDP有不提供数据包分组、组装和不能对数据包进行排序的缺点，因此，当数据报文传输后，无法确认是否能够安全完整的到达。<br><strong>UDP有如下几个特点：</strong><br>1）面向无连接：UDP是不需要和TCP一样通过三次握手建立连接的，想发数据的时候就可以发，并且也只是数据报文的搬运工，不会对数据报文进行任何拆分或拼接；<br>2）有单播、多播和广播功能：UDP不仅能够一对一传输，还能多对一、一对多、多对多传输，所以它有单播、多播和广播功能；<br>3）UDP是面向报文的：面向报文的传输方式是应用层交给UDP多长的报文，UDP就照样发送，即一次发送一个报文。因此，应用程序必须选择合适大小的报文。若报文太长，则IP层需要分片，降低效率。若太短，接收方IP层则需要进行数据报的重组；<br>4）不可靠性：<br>（1）首先不可靠性体现在无连接上，通信都不需要建立连接，想发就发，这样的情况肯定不可靠；<br>（2）并且收到什么数据就传递什么数据，并且也不会备份数据，发送数据也不会关心对方是否已经正确接收到数据了；<br>（3）再者网络环境时好时坏，但是 UDP因为没有拥塞控制，一直会以恒定的速度发送数据。即使网络条件不好，也不会对发送速率进行调整。这样实现的弊端就是在网络条件不好的情况下可能会导致丢包，但是优点也很明显，在某些实时性要求高的场景（比如电话会议）就需要使用 UDP 而不是 TCP。 5）头部花销少，传输数据报文是高效的：UDP的头部包含以下几个数据：16位源端口号、16位目的端口号、16位UDP长度和16位UDP校验和；因为UDP的头部花销少，只有8个字节，相比TCP需要至少20个字节，在传输数据的时候是高效的。</p>
+<h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><p>TCP协议全称是传输控制协议是一种面向连接的、可靠的、基于字节流的传输层通信协议，由 IETF 的RFC 793定义。TCP是面向连接的、可靠的流协议。流就是指不间断的数据结构。<br><strong>TCP的特点如下：</strong><br>1）面向连接：面向连接，是指发送数据之前必须在两端建立连接。建立连接的方法是“三次握手”，这样能建立可靠的连接。建立连接，是为数据的可靠传输打下了基础。 2）仅支持单播传输： 每条TCP传输连接只能有两个端点，只能进行点对点的数据传输，不支持多播和广播传输方式。<br>3）面向字节流：TCP不像UDP一样那样一个个报文独立地传输，而是在不保留报文边界的情况下以字节流方式进行传输。<br>4）可靠传输：对于可靠传输，判断丢包，误码靠的是TCP的段编号以及确认号。TCP为了保证报文传输的可靠，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的字节发回一个相应的确认(ACK)；如果发送端实体在合理的往返时延(RTT)内未收到确认，那么对应的数据（假设丢失了）将会被重传。<br>5）提供拥塞控制：当网络出现拥塞的时候，TCP能够减小向网络注入数据的速率和数量，缓解拥塞。<br>6）TCP提供全双工通信：TCP允许通信双方的应用程序在任何时候都能发送数据，因为TCP连接的两端都设有缓存，用来临时存放双向通信的数据。当然，TCP可以立即发送一个数据段，也可以缓存一段时间以便一次发送更多的数据段（最大的数据段大小取决于最大报文段长度MSS）</p>
+<h4 id="二者的区别大致如下"><a href="#二者的区别大致如下" class="headerlink" title="二者的区别大致如下"></a>二者的区别大致如下</h4><p>1）TCP是面向连接的，而UDP是面向无连接即发送数据钱不需要建立连接；<br>2）TCP提供可靠的服务，而UDP无法保证；<br>3）TCP面向字节流，UDP面向报文；<br>4）TCP数据传输慢，UDP的数据传输快。</p>
+<h3 id="5-http和https的区别"><a href="#5-http和https的区别" class="headerlink" title="5. http和https的区别"></a>5. http和https的区别</h3><p>http是超文本传输协议，它是通过明文的方式发送内容，没有任何的加密，比如我们访问一个网站，我们可能需要在这个网站输入密码，之后账号和密码就会发送到网站的服务器上，但要是有人在中途截取了信息，这些信息很容易就会暴露，为了解决http在传输过程中不加密的问题，又增加了一个SSL协议，这个协议简单说就是提供数据安全和完整性的协议，也就是负责网络连接的加密，比如访问一个https的网站，电脑就会先和服务器建立一个安全的连接通道，然后服务器会先发送一份网站的证书信息到电脑，就相当于是告诉电脑，你访问的服务器没有问题，确认了信息之后，我们的服务器就会生成一个加锁的箱子，但是这把锁有两把不一样的钥匙，一把给电脑，一把自留，然后服务器就会把没有上锁的箱子和钥匙发给电脑，我们把信息放在箱子里面之后，用钥匙锁上，再发给服务器，服务器再用自己的钥匙打开箱子，来保证信息的安全，在这个过程中，即使箱子被人拦截，因为没有钥匙，以目前的技术来讲，还是很难打开箱子的，所以一些大的网站尤其是购物网站，或者是需要登录的网站，基本都是https的。</p>
+<h3 id="6-ping的底层协议？"><a href="#6-ping的底层协议？" class="headerlink" title="6. ping的底层协议？"></a>6. ping的底层协议？</h3><h3 id="7-TCP怎么流量控制？怎么拥塞控制？"><a href="#7-TCP怎么流量控制？怎么拥塞控制？" class="headerlink" title="7. TCP怎么流量控制？怎么拥塞控制？"></a>7. TCP怎么流量控制？怎么拥塞控制？</h3><h3 id="8-TCP连接的整个建立过程？"><a href="#8-TCP连接的整个建立过程？" class="headerlink" title="8. TCP连接的整个建立过程？"></a>8. TCP连接的整个建立过程？</h3><h3 id="9-三次握手、四次挥手"><a href="#9-三次握手、四次挥手" class="headerlink" title="9. 三次握手、四次挥手"></a>9. 三次握手、四次挥手</h3><p>建立TCP需要三次握手才能建立，而断开连接则需要四次握手。</p>
+<h4 id="三次握手："><a href="#三次握手：" class="headerlink" title="三次握手："></a>三次握手：</h4><p>第一次握手，主机A通过向主机B发送一个含有同步序列号的标志位的数据段给主机B，向主机B请求建立连接，通过这个数据段，主机A对主机B说：我想与你通信，你可以用哪个序列号作为其实数据段来回应我；<br>第二次握手，主机B收到主机A的请求后，用一个带有确认应答（ACK）和同步序列号（SYN）标志位的数据段响应主机A，也告诉主机A两件事：我已经收到你的请求了，你可以传输数据了；你要用这个序列号作为起始数据段来回应我；<br>第三次握手，主机A收到这个数据段后，再发送一个确认应答，确认已收到主机B的数据段：”我已收到回复，我现在要开始传输实际数据了。</p>
+<h4 id="四次挥手："><a href="#四次挥手：" class="headerlink" title="四次挥手："></a>四次挥手：</h4><p>第一次： 当主机A完成数据传输后,将控制位FIN置1，提出停止TCP连接的请求；<br>第二次： 主机B收到FIN后对其作出响应，确认这一方向上的TCP连接将关闭,将ACK置1；<br>第三次： 由B 端再提出反方向的关闭请求,将FIN置1 ；<br>第四次： 主机A对主机B的请求进行确认，将ACK置1，双方向的关闭结束。</p>
+<h3 id="10-事实表与维度表？事实表有哪些种类？"><a href="#10-事实表与维度表？事实表有哪些种类？" class="headerlink" title="10. 事实表与维度表？事实表有哪些种类？"></a>10. 事实表与维度表？事实表有哪些种类？</h3><h3 id="11-操作系统死锁？死锁条件？怎么破坏？"><a href="#11-操作系统死锁？死锁条件？怎么破坏？" class="headerlink" title="11. 操作系统死锁？死锁条件？怎么破坏？"></a>11. 操作系统死锁？死锁条件？怎么破坏？</h3><h3 id="12-telnet的默认端口号"><a href="#12-telnet的默认端口号" class="headerlink" title="12. telnet的默认端口号"></a>12. telnet的默认端口号</h3><h3 id="13-进程的状态以及进程间的通信"><a href="#13-进程的状态以及进程间的通信" class="headerlink" title="13. 进程的状态以及进程间的通信"></a>13. 进程的状态以及进程间的通信</h3><h3 id="14-访问百度和访问一个普通IP地址的区别（dns协议）"><a href="#14-访问百度和访问一个普通IP地址的区别（dns协议）" class="headerlink" title="14. 访问百度和访问一个普通IP地址的区别（dns协议）"></a>14. 访问百度和访问一个普通IP地址的区别（dns协议）</h3><h2 id="一些面经-中兴"><a href="#一些面经-中兴" class="headerlink" title="一些面经 - 中兴"></a>一些面经 - 中兴</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/660801?type=2&amp;order=0&amp;pos=2&amp;page=1&amp;source_id=discuss_tag_nctrack&amp;channel=-1&amp;ncTraceId=44b95a713e9442b19e190965da36ad9c.406.16434563011824714&amp;gio_id=E30D9748681AD7BB6D8E8BBBB13EBA9E-1643456301844">中兴 java岗 社招 面筋</a></p>
+
+    </div>
+
+    
+    
+    
+	  
+	
+	 <div>
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	 </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" rel="tag"># 计算机基础</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/28/%E8%B5%84%E6%BA%90%E5%88%97%E8%A1%A8/" rel="prev" title="资源列表">
+      <i class="fa fa-chevron-left"></i> 资源列表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/29/%E9%9D%9E%E4%B8%93%E4%B8%9A%E7%BB%BC%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="next" title="非专业综合面试题">
+      非专业综合面试题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFMySQL"><span class="nav-number">1.1.</span> <span class="nav-text">1. 什么是MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-number">1.2.</span> <span class="nav-text">2. MySQL主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.3.</span> <span class="nav-text">3. 存储引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%B4%A2%E5%BC%95%E5%8F%8A%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">4. 索引及索引底层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.</span> <span class="nav-text">5. 查询缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.6.</span> <span class="nav-text">6. 什么是事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E4%BA%8B%E5%8A%A1%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="nav-number">1.7.</span> <span class="nav-text">7. 事务四大特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E5%8F%8AMySQL%E7%9A%84%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">1.8.</span> <span class="nav-text">8. 事务隔离及MySQL的默认隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.</span> <span class="nav-text">9. 并发事务带来的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E9%94%81%E6%9C%BA%E5%88%B6"><span class="nav-number">1.10.</span> <span class="nav-text">10. 锁机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E5%A4%A7%E8%A1%A8%E4%BC%98%E5%8C%96"><span class="nav-number">1.11.</span> <span class="nav-text">11. 大表优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-SQL%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.12.</span> <span class="nav-text">12. SQL语句的执行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-MySQL%E9%AB%98%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.13.</span> <span class="nav-text">13. MySQL高性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-MVCC%E5%8F%8A%E8%A7%86%E5%9B%BE"><span class="nav-number">1.14.</span> <span class="nav-text">14. MVCC及视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E5%91%BD%E4%BB%A4"><span class="nav-number">1.15.</span> <span class="nav-text">15. 常用的增删改查命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-%E5%B7%A6%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%8F%B3%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.16.</span> <span class="nav-text">16. 左连接和右连接的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-sql%E5%92%8Cnosql"><span class="nav-number">1.17.</span> <span class="nav-text">17. sql和nosql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-MySQL-ACID-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%EF%BC%9F%EF%BC%88MySQL%E8%AF%BB%E6%8F%90%E4%BA%A4%E4%BC%9A%E9%80%A0%E6%88%90%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98%EF%BC%9F%EF%BC%89"><span class="nav-number">1.18.</span> <span class="nav-text">18. MySQL ACID 隔离级别？（MySQL读提交会造成哪些数据不一致问题？）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%EF%BC%9F"><span class="nav-number">1.19.</span> <span class="nav-text">19. 数据库的三大范式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-delete%E5%92%8Ctruncate%E3%80%81where%E5%92%8Chaving%E3%80%81find%E5%92%8Cgrep%E7%9A%84%E7%94%A8%E6%B3%95%E5%8C%BA%E5%88%AB"><span class="nav-number">1.20.</span> <span class="nav-text">20. delete和truncate、where和having、find和grep的用法区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E4%BD%9C%E7%94%A8"><span class="nav-number">1.21.</span> <span class="nav-text">21. 数据库中索引作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux"><span class="nav-number">2.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%8C%E7%89%B9%E5%88%AB%E6%98%AF-inode-%E5%92%8C-block%E3%80%82%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D%E5%8E%9F%E7%90%86%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">1. 文件系统的原理，特别是 inode 和 block。数据恢复原理。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">2. 硬链接与软链接的区别。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%83%BD%E5%A4%9F%E4%BD%BF%E7%94%A8%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%EF%BC%8C%E6%AF%94%E5%A6%82-cat-%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B%E3%80%81find-%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6%EF%BC%8C%E4%BB%A5%E5%8F%8A-cut%E3%80%81sort-%E7%AD%89%E7%AE%A1%E7%BA%BF%E5%91%BD%E4%BB%A4%E3%80%82%E4%BA%86%E8%A7%A3-grep-%E5%92%8C-awk-%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%82"><span class="nav-number">2.3.</span> <span class="nav-text">3. 能够使用常用的命令，比如 cat 文件内容查看、find 搜索文件，以及 cut、sort 等管线命令。了解 grep 和 awk 的作用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%8E-SIGCHLD-%E5%88%86%E6%9E%90%E4%BA%A7%E7%94%9F%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8E%9F%E5%9B%A0%E3%80%82"><span class="nav-number">2.4.</span> <span class="nav-text">4.  僵尸进程与孤儿进程的区别，从 SIGCHLD 分析产生僵尸进程的原因。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">3.</span> <span class="nav-text">计算机基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-udp%E4%BC%9A%E4%B8%A2%E5%8C%85%EF%BC%8C%E6%98%AF%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%E9%80%A0%E6%88%90%E7%9A%84"><span class="nav-number">3.1.</span> <span class="nav-text">1. udp会丢包，是什么原因造成的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-tcp%E5%92%8Cudp"><span class="nav-number">3.2.</span> <span class="nav-text">2. tcp和udp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-OSI%E4%B8%83%E5%B1%82%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E3%80%81TCP-IP%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B%E3%80%81%E4%BA%94%E5%B1%82%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%EF%BC%88%E6%AF%8F%E4%B8%80%E5%B1%82%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3. OSI七层网络模型、TCP&#x2F;IP分层模型、五层网络模型（每一层解决什么问题）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-TCP%E5%92%8CUDP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.4.</span> <span class="nav-text">4. TCP和UDP的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP"><span class="nav-number">3.4.1.</span> <span class="nav-text">UDP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP"><span class="nav-number">3.4.2.</span> <span class="nav-text">TCP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E8%80%85%E7%9A%84%E5%8C%BA%E5%88%AB%E5%A4%A7%E8%87%B4%E5%A6%82%E4%B8%8B"><span class="nav-number">3.4.3.</span> <span class="nav-text">二者的区别大致如下</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-http%E5%92%8Chttps%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.5.</span> <span class="nav-text">5. http和https的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-ping%E7%9A%84%E5%BA%95%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="nav-number">3.6.</span> <span class="nav-text">6. ping的底层协议？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-TCP%E6%80%8E%E4%B9%88%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%EF%BC%9F%E6%80%8E%E4%B9%88%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%EF%BC%9F"><span class="nav-number">3.7.</span> <span class="nav-text">7. TCP怎么流量控制？怎么拥塞控制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-TCP%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%95%B4%E4%B8%AA%E5%BB%BA%E7%AB%8B%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="nav-number">3.8.</span> <span class="nav-text">8. TCP连接的整个建立过程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E3%80%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-number">3.9.</span> <span class="nav-text">9. 三次握手、四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9A"><span class="nav-number">3.9.1.</span> <span class="nav-text">三次握手：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9A"><span class="nav-number">3.9.2.</span> <span class="nav-text">四次挥手：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%BA%8B%E5%AE%9E%E8%A1%A8%E4%B8%8E%E7%BB%B4%E5%BA%A6%E8%A1%A8%EF%BC%9F%E4%BA%8B%E5%AE%9E%E8%A1%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E7%A7%8D%E7%B1%BB%EF%BC%9F"><span class="nav-number">3.10.</span> <span class="nav-text">10. 事实表与维度表？事实表有哪些种类？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81%EF%BC%9F%E6%AD%BB%E9%94%81%E6%9D%A1%E4%BB%B6%EF%BC%9F%E6%80%8E%E4%B9%88%E7%A0%B4%E5%9D%8F%EF%BC%9F"><span class="nav-number">3.11.</span> <span class="nav-text">11. 操作系统死锁？死锁条件？怎么破坏？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-telnet%E7%9A%84%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">3.12.</span> <span class="nav-text">12. telnet的默认端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E4%BB%A5%E5%8F%8A%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="nav-number">3.13.</span> <span class="nav-text">13. 进程的状态以及进程间的通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E8%AE%BF%E9%97%AE%E7%99%BE%E5%BA%A6%E5%92%8C%E8%AE%BF%E9%97%AE%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9AIP%E5%9C%B0%E5%9D%80%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%88dns%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="nav-number">3.14.</span> <span class="nav-text">14. 访问百度和访问一个普通IP地址的区别（dns协议）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%9D%A2%E7%BB%8F-%E4%B8%AD%E5%85%B4"><span class="nav-number">4.</span> <span class="nav-text">一些面经 - 中兴</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bonnie"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Bonnie</p>
+  <div class="site-description" itemprop="description">每天都要做个人啊</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-05 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bonnie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
