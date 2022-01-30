@@ -256,6 +256,7 @@
 <p>​        按照定义，动态规划是将一个大问题拆分为多个小问题来解决。但是最终决定这个问题是否能用动态规划解决的因素是这些小问题是否能被重复调用。</p>
 <p>​        如果能被重复利用，我们需要找出其中的状态转移方程，也就是找到相邻的两个结果之间的转换方程。</p>
 <span id="more"></span>
+
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="题目见下链接"><a href="#题目见下链接" class="headerlink" title="题目见下链接"></a>题目见下链接</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">https://leetcode-cn.com/problems/maximum-subarray/</a></p>
 <h3 id="动态规划思想"><a href="#动态规划思想" class="headerlink" title="动态规划思想"></a>动态规划思想</h3><p>因为要求是连续数组的最大值，所以每一次计算的中间结果，也必须是以当前最后一个元素为当亲计算的结尾。</p>
 <p>上述，可以得到状态转移方程：</p>
@@ -264,7 +265,11 @@
 <p><code>res = max(maxn, res)</code></p>
 <p>经过分析，可以得到具体代码如下：</p>
 <h4 id="java"><a href="#java" class="headerlink" title="java:"></a>java:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int pre = 0, res = nums[0];</span><br><span class="line">        for ( int n : nums )</span><br><span class="line">        &#123;</span><br><span class="line">            pre = Math.max(pre + n, n);</span><br><span class="line">            res = Math.max(pre, res);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="python"><a href="#python" class="headerlink" title="python:"></a>python:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxSubArray(self, nums: List[int]) -&gt; int:</span><br><span class="line">        pre, res = 0, nums[0]</span><br><span class="line">        for n in nums:</span><br><span class="line">            pre = max( pre + n, n )</span><br><span class="line">            res = max( pre, res )</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+
+
 
     </div>
 
@@ -387,7 +392,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

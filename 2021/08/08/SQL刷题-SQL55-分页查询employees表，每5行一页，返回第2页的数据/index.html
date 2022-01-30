@@ -254,14 +254,19 @@
       
         <h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/f24966e0cb8a49c192b5e65339bc8c03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/f24966e0cb8a49c192b5e65339bc8c03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
 <span id="more"></span>
+
+
+
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>知识点：分页查询。</p>
 <p><strong>每页n行，取第k页的全部数据。</strong></p>
-<h3 id="1-limit进行分页"><a href="#1-limit进行分页" class="headerlink" title="1. limit进行分页"></a>1. limit进行分页</h3><p>公式：<code>limit n * (k - 1), n</code></p>
+<h3 id="1-limit进行分页"><a href="#1-limit进行分页" class="headerlink" title="1. limit进行分页"></a>1. limit进行分页</h3><p>公式：<code>limit n * (k - 1), n </code></p>
 <p>具体代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> emp_no</span><br><span class="line">limit <span class="number">5</span>,<span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
 <p>在具体代码中，<strong>limit后不支持计算</strong>。</p>
 <h3 id="2-row-number实现分页查询"><a href="#2-row-number实现分页查询" class="headerlink" title="2. row_number实现分页查询"></a>2. row_number实现分页查询</h3><p>具体代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> emp_no,birth_date,first_name,last_name,gender,hire_date</span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">       ,<span class="built_in">floor</span>(rn <span class="operator">/</span> <span class="number">5</span>) <span class="keyword">as</span> dr</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> e.<span class="operator">*</span></span><br><span class="line">       ,<span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">order</span> <span class="keyword">by</span> emp_no) <span class="operator">-</span> <span class="number">1</span> <span class="keyword">as</span> rn</span><br><span class="line">  <span class="keyword">from</span> employees e</span><br><span class="line">)e1</span><br><span class="line">)e2 <span class="keyword">where</span> dr <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>思路是：</p>
 <ol>
 <li>首先对整体数据添加序号：<code>row_number() over</code> 至少需要用 <code>order by</code> 进行排序；</li>
@@ -390,7 +395,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

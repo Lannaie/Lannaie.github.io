@@ -248,10 +248,14 @@
       
         <h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/b9068bfe5df74276bd015b9729eec4bf?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/b9068bfe5df74276bd015b9729eec4bf?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
 <span id="more"></span>
+
+
+
 <h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><ol>
 <li><code>row_number</code> - 生成连续唯一的序号，即序号不重复：</li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+
 <p>得到结果：</p>
 <blockquote>
 <p>1</p>
@@ -259,10 +263,11 @@
 <p>2</p>
 <p>3</p>
 </blockquote>
-<ol>
+<ol start="2">
 <li><code>rank</code> - 分区内排名，即一个分区的排名一致，但会产生间断：</li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+
 <p>得到结果：</p>
 <blockquote>
 <p>1</p>
@@ -270,10 +275,11 @@
 <p>2</p>
 <p>4</p>
 </blockquote>
-<ol>
+<ol start="2">
 <li><code>dense_rank</code> - 分区内排名，不会产生间断：</li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+
 <p>得到结果：</p>
 <blockquote>
 <p>1</p>
@@ -281,10 +287,11 @@
 <p>2</p>
 <p>3</p>
 </blockquote>
-<ol>
+<ol start="2">
 <li><code>ntile</code> - 按照指定的排序规则均分成指定数目的组</li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ntile</span>(<span class="number">2</span>) <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+
 <p>得到结果：</p>
 <blockquote>
 <p>1</p>
@@ -293,6 +300,7 @@
 <p>2</p>
 </blockquote>
 <h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> emp_no</span><br><span class="line">       ,salary</span><br><span class="line">       ,<span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) <span class="keyword">as</span> t_rank</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t_rank <span class="keyword">asc</span>, emp_no <span class="keyword">asc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -415,7 +423,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

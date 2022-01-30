@@ -254,6 +254,7 @@
       
         <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>​        Redis是一款基于键值对的NoSQL数据库，它的值支持多种数据结构：字符串(strings)、哈希(hashes)、列表(lists)、集合(sets)、有序集合(sorted sets)等。</p>
 <span id="more"></span>
+
 <p>​        Redis将所有的数据都存放在内存中，所以它的读写性能十分惊人。同时，Redis还可以将内存中的数据以快照或日志的形式保存到硬盘上，以保证数据的安全性。</p>
 <p>​        其中快照的形式，也叫RDB的形式，这种形式就是将内存中的数据原原本本存到硬盘上，这种形式的优点是数据体积小，如果想从硬盘恢复数据到内存里，速度会很快；而缺点是，因为是一次性将数据存到硬盘，这个过程会比较耗时，而且在存储的时候会产生阻塞，如果这个时候还在处理其他业务，会对其他业务有影响。所以快照的形式不适合实时的场景，而是适用于隔一段时间做一次备份的场景。</p>
 <p>​        以日志的形式存数据到硬盘，这种形式叫AOF。每执行一次redis命令，就会以日志的形式把这个命令存下来。因为一个命令通俗来看就是一句话的记录，所以会比较快，适用于实时的场景。AOF以追加的形式存储，数据的体积会比较大，比较占磁盘空间；另外，如果想从磁盘把数据恢复到内存，就需要将记录的命令从头到尾再跑一遍，所以恢复的速度会比较慢。</p>
@@ -280,7 +281,7 @@
 <li>可以通过 <code>select num</code> 来更换库，其中 <code>num</code> 为库的序列号。</li>
 <li>如果想删除一个库中的数据，在该库下执行 <code>flushdb</code> 命令；</li>
 </ol>
-<h3 id="操作String类型数据"><a href="#操作String类型数据" class="headerlink" title="操作String类型数据"></a>操作String类型数据</h3><p>存：<code>set key value</code></p>
+<h3 id="操作String类型数据"><a href="#操作String类型数据" class="headerlink" title="操作String类型数据"></a>操作String类型数据</h3><p>存：<code>set key value </code></p>
 <p>取：<code>get key</code></p>
 <p>其中，对于 key，如果是多个单词组成，使用 <code>:</code> 连接。对于 key 和 value，类型都是 String。</p>
 <p>让 value 自增1：<code>incr test:count</code>，会自动将 value 转换为 Integer 类型并加一。</p>
@@ -289,6 +290,9 @@
 <p>取：<code>hget key field</code>。</p>
 <p>具体实例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; hset test:user <span class="built_in">id</span> <span class="number">1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; hset test:user name zhangsan</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; hget test:user <span class="built_in">id</span></span><br><span class="line"><span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; hget test:user name</span><br><span class="line"><span class="string">&quot;zhangsan&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
 <p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/study/live/246/4/1">https://www.nowcoder.com/study/live/246/4/1</a></p>
 
     </div>
@@ -412,7 +416,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

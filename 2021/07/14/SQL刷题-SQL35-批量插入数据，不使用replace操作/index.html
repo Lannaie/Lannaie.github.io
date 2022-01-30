@@ -254,13 +254,16 @@
       
         <h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
 <span id="more"></span>
+
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p><strong>主要是insert ignore 和 replace into 的区别：</strong></p>
 <p>使用 <code>ignore</code> 关键字。</p>
 <p><code>insert ignore</code>  - 如果数据库中不存在这条数据就插入，存在就跳过。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> </span><br><span class="line">ignore </span><br><span class="line">  <span class="keyword">into</span> actor </span><br><span class="line"><span class="keyword">values</span>(<span class="number">3</span>, <span class="string">&#x27;ED&#x27;</span>, <span class="string">&#x27;CHASE&#x27;</span>, <span class="string">&#x27;2006-02-15 12:34:33&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
 <p>使用 <code>replace</code> 关键字。</p>
 <p><code>replace into</code> - 如果存在 <code>primary key</code> 或 <code>unique</code> 相同的记录，先删除原有记录，再添加此新记录。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">replace </span><br><span class="line">   <span class="keyword">into</span> actor</span><br><span class="line"> <span class="keyword">select</span> <span class="number">3</span></span><br><span class="line">        ,<span class="string">&#x27;ED&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;CHASE&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;2006-02-15 12:34:33&#x27;</span></span><br><span class="line">   <span class="keyword">from</span> actor</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
 <p><strong>ignore 和 replace 是mysql8之后有的内容。</strong></p>
 
     </div>
@@ -384,7 +387,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
