@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. Java语言的特点Java语言的主要特点有：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-15T13:39:32.000Z">
-<meta property="article:modified_time" content="2022-02-02T16:19:49.163Z">
+<meta property="article:modified_time" content="2022-02-04T17:18:32.247Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-03 00:19:49" itemprop="dateModified" datetime="2022-02-03T00:19:49+08:00">2022-02-03</time>
+                <time title="修改时间：2022-02-05 01:18:32" itemprop="dateModified" datetime="2022-02-05T01:18:32+08:00">2022-02-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -314,14 +314,15 @@
 <h2 id="10-泛型和泛型擦除"><a href="#10-泛型和泛型擦除" class="headerlink" title="10. 泛型和泛型擦除"></a>10. 泛型和泛型擦除</h2><p>​        参数化类型被称为泛型，泛型允许在创建集合时指定元素的类型，则集合中只保存这种类型的元素。泛型的作用是在发生编译时，提供安全检查机制。</p>
 <p>​        泛型类允许在定义接口、类、方法时声明类型形参，该类型形参在整个接口、类、方法中可以作为普通类型使用，直到声明变量、创建对象或调用方法时再动态的指定实际的参数类型。如果要定义泛型类的子类，因为此时是在使用父类了，所以必须传入实参，或者不传参。</p>
 <p>​        在定义泛型的时候也可以指定类型形参的上限，如 <code>class A&lt;T extends B&gt;</code> ，该声明表示，传入的实参为类型 <code>B</code> 及其子类。</p>
-<p>​        而泛型擦除是指，当把一个具有泛型信息的对象赋值给一个没有泛型的对象，就会把尖括号之间的所有泛型信息都扔掉，比如List<Integer> 类型会转换为 List 类型，则该 List 元素的类型就会变成该类型变量的上限。如果反过来，就是泛型转换。</Integer></p>
+<p>​        而泛型擦除是指，当把一个具有泛型信息的对象赋值给一个没有泛型的对象，就会把尖括号之间的所有泛型信息都扔掉，比如List&lt;Integer&gt; 类型会转换为 List 类型，则该 List 元素的类型就会变成该类型变量的上限。如果反过来，就是泛型转换。</p>
 <h2 id="11-x3D-x3D-和-equals-的区别，以及hashCode-和-euqlas"><a href="#11-x3D-x3D-和-equals-的区别，以及hashCode-和-euqlas" class="headerlink" title="11. &#x3D;&#x3D; 和 equals() 的区别，以及hashCode() 和 euqlas()"></a>11. &#x3D;&#x3D; 和 equals() 的区别，以及hashCode() 和 euqlas()</h2><ol>
-<li><p>&#x3D;&#x3D; 和 equals() 的区别：&#x3D;&#x3D;比较基本类型会判断两个值是否相同，比较引用类型会判断两个地址是否相同；equals知判断引用类型的两个地址是否相同。</p>
+<li><p>&#x3D;&#x3D; 和 equals() 的区别：&#x3D;&#x3D;比较基本类型会判断两个值是否相同，比较引用类型会判断两个地址是否相同；equals只会判断引用类型的两个地址是否相同。</p>
 </li>
 <li><p>hashCode() 和 equals() 的区别和联系：</p>
-<p>（1）HashCode()返回的值是一个对象在hash表中的位置，这个位置是依据特定的hash算法得到的，所以，两个不同的对象有可能有相同的hash code；<br>（2）hashcode()和equals()常被组合用于排序，在大型排序中，常会重写hashcode()和equals()方法，让具有相同hashcode的对象执行equals()方法，以提高排序的效率；<br>（3）相同的hash code，equals()返回的值不一定是true；equals返回值相同的，hash code一定相同。</p>
+<p>（1）HashCode()返回的值是一个对象在hash表中的位置，这个位置是依据特定的hash算法得到的，所以，两个不同的对象有可能有相同的hash code；<br>（2）相同的hash code，equals()返回的值不一定是true；equals返回值为true的，hash code一定相同；</p>
 </li>
 </ol>
+<p>（3）hashcode()和equals()常被组合用于排序，在大型排序中，常会重写hashcode()和equals()方法，让具有相同hashcode的对象执行equals()方法，以提高排序的效率。</p>
 <h2 id="12-基本的数据类型有哪些？自动装箱和拆箱？"><a href="#12-基本的数据类型有哪些？自动装箱和拆箱？" class="headerlink" title="12. 基本的数据类型有哪些？自动装箱和拆箱？"></a>12. 基本的数据类型有哪些？自动装箱和拆箱？</h2><ol>
 <li>Java支持的数据类型有两种：基本数据类型和引用类型。</li>
 </ol>
@@ -396,7 +397,7 @@
 </li>
 <li><p>接口隔离原则：</p>
 <p>​    接口尽量细化，使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。</p>
-<p>​    比如星探找艺人，需要通过一个标准来找，可以分为外貌型和气质型两个接口，这样之后不管是选择气质型的艺人还是外貌型的，都可以保持接口的稳定。</p>
+<p>​    比如有一个学生成绩管理程序，包含插入成绩、删除成绩、修改成绩、打印成绩等功能，这些功能全都放到一个统一的接口中显然是不合理的，正确的作法应该是分为输入、打印等模块进行处理。</p>
 </li>
 <li><p>迪米特原则：</p>
 <p>​    尽量减少对象之间的交互，可以引入一个合理的第三方来降低现有对象之间的耦合度。</p>
@@ -484,8 +485,8 @@
 <h3 id="（3）观察者模式"><a href="#（3）观察者模式" class="headerlink" title="（3）观察者模式"></a>（3）观察者模式</h3><p>观察者模式很好理解，类似于订阅模式，属于行为型模式的一种，它定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态变化时，会通知所有的观察者对象，使他们能够自动更新自己。</p>
 <p>在观察者模式中有如下角色：</p>
 <ol>
-<li>Subject：抽象主题（抽象被观察者），抽象主题角色把所有观察者对象保存在一个集合里，每个主题都可以有任意数量的观察者，抽象主题提供一个接口，可以增加和删除观察者对象。</li>
-<li>ConcreteSubject：具体主题（具体被观察者），该角色将有关状态存入具体观察者对象，在具体主题的内部状态发生改变时，给所有注册过的观察者发送通知。</li>
+<li>Subject：抽象主题（抽象被观察者），定义增删观察者接口和通知观察者更新的接口。</li>
+<li>ConcreteSubject：具体主题（具体被观察者），创建存储观察者的集合，并实现抽象主题的内容。</li>
 <li>Observer：抽象观察者，是观察者者的抽象类，它定义了一个更新接口，使得在得到主题更改通知时更新自己。</li>
 <li>ConcrereObserver：具体观察者，实现抽象观察者定义的更新接口，以便在得到主题更改通知时更新自身的状态。</li>
 </ol>
@@ -494,7 +495,7 @@
 <ol>
 <li>抽象观察者：</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(String msg)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li><p>具体观察者：</p>
@@ -504,13 +505,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 增加订阅者</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> observer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Observer observer)</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除订阅者</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> observer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">detach</span><span class="params">(Observer observer)</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通知订阅者更新消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>具体主题：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubscriptionSubject</span> <span class="keyword">implements</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="comment">//储存订阅公众号的微信用户</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Observer&gt; weixinUserlist = <span class="keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        weixinUserlist.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">detach</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        weixinUserlist.remove(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Observer observer : weixinUserlist) &#123;</span><br><span class="line">            observer.update(message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubscriptionSubject</span> <span class="keyword">implements</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="comment">//储存订阅公众号的微信用户</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;WeixinUser&gt; weixinUserlist = <span class="keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(WeixinUser u)</span> </span>&#123;</span><br><span class="line">        weixinUserlist.add(u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">detach</span><span class="params">(WeixinUser u)</span> </span>&#123;</span><br><span class="line">        weixinUserlist.remove(u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (WeixinUser u : weixinUserlist) &#123;</span><br><span class="line">            u.update(message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>客户端调用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SubscriptionSubject mSubscriptionSubject=<span class="keyword">new</span> SubscriptionSubject();</span><br><span class="line">        <span class="comment">//创建微信用户</span></span><br><span class="line">        WeixinUser user1=<span class="keyword">new</span> WeixinUser(<span class="string">&quot;杨影枫&quot;</span>);</span><br><span class="line">        WeixinUser user2=<span class="keyword">new</span> WeixinUser(<span class="string">&quot;月眉儿&quot;</span>);</span><br><span class="line">        WeixinUser user3=<span class="keyword">new</span> WeixinUser(<span class="string">&quot;紫轩&quot;</span>);</span><br><span class="line">        <span class="comment">//订阅公众号</span></span><br><span class="line">        mSubscriptionSubject.attach(user1);</span><br><span class="line">        mSubscriptionSubject.attach(user2);</span><br><span class="line">        mSubscriptionSubject.attach(user3);</span><br><span class="line">        <span class="comment">//公众号更新发出消息给订阅的微信用户</span></span><br><span class="line">        mSubscriptionSubject.notify(<span class="string">&quot;刘望舒的专栏更新了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        SubscriptSubject sub = <span class="keyword">new</span> SubscriptSubject();</span><br><span class="line">        WechatUser a = <span class="keyword">new</span> WechatUser(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">        WechatUser b = <span class="keyword">new</span> WechatUser(<span class="string">&quot;b&quot;</span>);</span><br><span class="line"></span><br><span class="line">        sub.attach(a);</span><br><span class="line">        sub.attach(b);</span><br><span class="line">        sub.notify(<span class="string">&quot;你们订阅的内容更新了！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">杨影枫-刘望舒的专栏更新了</span><br><span class="line">月眉儿-刘望舒的专栏更新了</span><br><span class="line">紫轩-刘望舒的专栏更新了</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">杨影枫-刘望舒的专栏更新了</span><br><span class="line">   月眉儿-刘望舒的专栏更新了</span><br><span class="line">紫轩-刘望舒的专栏更新了</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>优点：</p>
 <ul>
@@ -645,7 +646,7 @@
 <li>HashMap底层由 <code>链表 + 数组 + 红黑树</code> 实现，当链表长度 <code>&gt;=8</code> 、数组长度 <code>超过64</code> 时转换为红黑树，非线程安全，可以存储 <code>null</code> 键和 <code>null</code> 值，初始 <code>size = 16</code> ，扩容方式为 <code>newsize = oldsize * 2</code> 先插入再扩容；</li>
 <li>HashTable底层由 <code>链表 + 数组</code> 实现，通过在方法和对象前添加 <code>syncronized</code> 关键字来保证线程安全，不可以存储 <code>null</code> 键 <code>null</code> 值，初始 <code>size = 11</code> ，扩容方式为 <code>newsize = olesize * 2 + 1</code> 先扩容再插入；</li>
 <li>HashSet底层由HashMap实现，其中的HashMap仅存在key，value都是同一个object，非线程安全；</li>
-<li>TreeMap底层由红黑树实现，是有序的 <code>key-value</code> 组合，非线程安全，存入TreeMap的元素应该实现Comparable或Comparator接口，会按照排序后的顺序迭代元素，主要用于元素插入时对元素自动排序，迭代输出就按顺序输出。</li>
+<li>TreeMap底层由红黑树实现，是有序的 <code>key-value</code> 组合，非线程安全，存入TreeMap的元素应该实现Comparable或Comparator接口，会按照排序后的顺序迭代元素，元素插入时对元素自动排序，迭代输出就按顺序输出。</li>
 </ol>
 <h2 id="18-HashMap的底层原理"><a href="#18-HashMap的底层原理" class="headerlink" title="18. HashMap的底层原理"></a>18. HashMap的底层原理</h2><p>HashMap的底层由数组+链表+红黑树的形式实现，数组中的元素为内部类Node节点。</p>
 <p>具体实现如下：</p>
@@ -665,7 +666,7 @@
 <p>（2）ConcurrentHashMap采用了更细粒度的锁来提高并发情况下的效率，ConcurrentHashMap将hash表默认分为16个桶，每个桶可以看作是一个hashtable，诸如get、put、remove等写操作只需要锁当前需要的桶，在理想状态下，原来同一时刻只能进入一个线程，现在能同时进入16个，并发性的提升显而易见；因为在读取的大多数情况不需要锁，所以读取操作几乎是完全的并发操作。</p>
 </li>
 </ol>
-<h2 id="20-ConcurrentHashMap底层原理"><a href="#20-ConcurrentHashMap底层原理" class="headerlink" title="20. ConcurrentHashMap底层原理"></a>20. ConcurrentHashMap底层原理</h2><p>​        首先了解为什么使用ConcurrentHashMap。在并发编程下使用HashMap可能导致死循环，而使用线程安全的HashTable效率又非常低下，于是引出了ConcurrentHashMap。HashTable效率低的原因很明显，因为HashTable使用Synchronized关键字，所以在并发时只能运行一个线程，而将其他线程阻塞等待；HashMap导致死循环的原因是put操作扩容，假设有两个线程A和B要同时进行扩容，此时数组中下标为1对应的链表指向是 a - b - c，扩容需要将他们迁移到新数组下标为4的位置，这里假设abc钱以后也在同意下标，进行扩容操作有两个指针 e 和 next，A先执行，假设当 e &#x3D; a，next &#x3D; b 的时候cpu时间片用完，会暂停A的执行，由B开始执行，因为是头插法，插入的顺序是将e.next &#x3D; newtable[4]，newtable[4] &#x3D; e,e &#x3D; next。B会将 abc 全都放到newtable[4]的空间中，然后时间片用完，A继续执行，在B线程将 b 指向 a，在这里又将 a 指向 b，此时就产生了死循环。</p>
+<h2 id="20-ConcurrentHashMap底层原理"><a href="#20-ConcurrentHashMap底层原理" class="headerlink" title="20. ConcurrentHashMap底层原理"></a>20. ConcurrentHashMap底层原理</h2><p>​        首先了解为什么使用ConcurrentHashMap。在并发编程下使用HashMap可能导致死循环，而使用线程安全的HashTable效率又非常低下，于是引出了ConcurrentHashMap。HashTable效率低的原因很明显，因为HashTable使用Synchronized关键字，所以在并发时只能运行一个线程，而将其他线程阻塞等待；HashMap导致死循环的原因是put操作扩容，假设有两个线程A和B要同时进行扩容，此时数组中下标为1对应的链表指向是 a - b - c，扩容需要将他们迁移到新数组，这里假设abc迁移后在同一下标4，进行扩容操作有两个指针 e 和 next，A先执行，假设当 e &#x3D; a，next &#x3D; b 的时候cpu时间片用完，会暂停A的执行，由B开始执行，因为是头插法，插入的顺序是将e.next &#x3D; newtable[4]，newtable[4] &#x3D; e,e &#x3D; next。B会将 abc 全都放到newtable[4]的空间中，然后时间片用完，A继续执行，在B线程将 b 指向 a，在这里又将 a 指向 b，此时就产生了死循环。</p>
 <p>​         而ConcurrentHashMap应用在多线程的优点在于它的数据结构。</p>
 <p>​        在JDK1.7底层采用：segment + HashEntry数组结构组成，实现的思路是先将数据分成一段一段地存储，然后给每一段数据配一把锁，这样当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问，这就是锁分段技术。其中Segment继承了ReetrantLock可重入锁接口，所以自带了锁的功能，让每一个片段都有了锁；HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，Segment的结构和HashMap类似，是一种数组和链表结构。一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组，当对HashEntry数组的数据进行修改时，必须首先获得与它对应的Segment锁。</p>
 <p>​        JDK1.8底层与HashMap底层结构一致，将锁的粒度调整到每个数组元素加锁，并且定位节点的hash算法被简化，导致hash冲突加剧，因此在链表长度大于8时，会将链表转换为红黑树存储，这样一来，查询的时间复杂度就从O(n)转变为O(logn)。</p>
@@ -1138,7 +1139,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1151,7 +1152,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
