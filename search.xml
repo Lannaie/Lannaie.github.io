@@ -210,6 +210,26 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode - 1370. 上升下降字符串</title>
+    <url>/2021/11/12/LeetCode-1370-%E4%B8%8A%E5%8D%87%E4%B8%8B%E9%99%8D%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><a href="https://leetcode-cn.com/problems/increasing-decreasing-string/">https://leetcode-cn.com/problems/increasing-decreasing-string/</a></p>
+<span id="more"></span>
+
+<h2 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h2><p>因为是 <strong>字符的个数</strong> 计算，可以使用 <strong>固定大小的桶</strong> 来存放累加的个数，即大小为 26 的桶。</p>
+<p>然后遍历原字符串，累加相应的字符下标 <code>c - &#39;a&#39;</code> ，之后按照规则，从前往后取，再从后往前取就行。注意，每取一次，减一，直到该元素为0。</p>
+<p>具体代码为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sortString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] chars = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">        String res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            ++chars[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(res.length() &lt; s.length())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; ++i )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(chars[i] &gt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    --chars[i];</span><br><span class="line">                    res += (<span class="keyword">char</span>)(i + <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">25</span>; i &gt;= <span class="number">0</span>; --i )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>( chars[i] &gt; <span class="number">0</span> )</span><br><span class="line">                &#123;</span><br><span class="line">                    --chars[i];</span><br><span class="line">                    res += (<span class="keyword">char</span>)(i + <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>桶计数</tag>
+        <tag>哈希表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode - 139. 单词拆分</title>
     <url>/2022/01/25/LeetCode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/</url>
     <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/word-break/">https://leetcode-cn.com/problems/word-break/</a></p>
@@ -253,26 +273,6 @@
       <tags>
         <tag>双指针</tag>
         <tag>哈希表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode - 1370. 上升下降字符串</title>
-    <url>/2021/11/12/LeetCode-1370-%E4%B8%8A%E5%8D%87%E4%B8%8B%E9%99%8D%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><a href="https://leetcode-cn.com/problems/increasing-decreasing-string/">https://leetcode-cn.com/problems/increasing-decreasing-string/</a></p>
-<span id="more"></span>
-
-<h2 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h2><p>因为是 <strong>字符的个数</strong> 计算，可以使用 <strong>固定大小的桶</strong> 来存放累加的个数，即大小为 26 的桶。</p>
-<p>然后遍历原字符串，累加相应的字符下标 <code>c - &#39;a&#39;</code> ，之后按照规则，从前往后取，再从后往前取就行。注意，每取一次，减一，直到该元素为0。</p>
-<p>具体代码为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sortString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] chars = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">        String res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            ++chars[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(res.length() &lt; s.length())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; ++i )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(chars[i] &gt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    --chars[i];</span><br><span class="line">                    res += (<span class="keyword">char</span>)(i + <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">25</span>; i &gt;= <span class="number">0</span>; --i )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>( chars[i] &gt; <span class="number">0</span> )</span><br><span class="line">                &#123;</span><br><span class="line">                    --chars[i];</span><br><span class="line">                    res += (<span class="keyword">char</span>)(i + <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>哈希表</tag>
-        <tag>桶计数</tag>
       </tags>
   </entry>
   <entry>
@@ -494,26 +494,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - 221. 最大正方形</title>
-    <url>/2021/12/24/LeetCode-221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/</url>
-    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/maximal-square/">https://leetcode-cn.com/problems/maximal-square/</a></p>
-<span id="more"></span>
-
-
-
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>不能放图，可以简单的想象，一个右下角为 <code>(i, j)</code> 边长为3的正方形，有三个边长为2的正方形组成，其右下角坐标是：<code>(i - 1, j)、(i, j - 1)、(i - 1, j - 1)</code> ，如果其中一个子正方形的面积为0，都不能构成以当前 <code>(i, j)</code> 为右下角的正方形。如果构成当前右下角的正方形，则子边长加一，所以综上，可以得出转移方程：<br>$$<br>dp[i][j] &#x3D; Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1<br>$$<br>已知当 <code>i == 0 || j == 0</code> 最多只会有边长为1的正方形，当 <code>matrix[i][j] == 0</code> 的时候，不会构成正方形：<code>dp[i][j] = 0</code> ，可以得到如下最终结论：<br>$$<br>dp[i][j] &#x3D; \begin{cases}<br>matrix[i][j] - ‘0’ &amp;\text{i &#x3D;&#x3D; 0 || j &#x3D;&#x3D; 0}\<br>0 &amp;\text{matrix[i][j] &#x3D;&#x3D; ‘0’}\<br>Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1 &amp;\text{除了上述条件}\<br>\end{cases}<br>$$<br>具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximalSquare</span><span class="params">(<span class="keyword">char</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.length, n = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m][n];</span><br><span class="line">        <span class="keyword">int</span> maxlen = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>( i == <span class="number">0</span> || j == <span class="number">0</span> || matrix[i][j] == <span class="string">&#x27;0&#x27;</span> )</span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i][j] = matrix[i][j] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i][j] = Math.min(dp[i - <span class="number">1</span>][j], Math.min(dp[i][j - <span class="number">1</span>], dp[i - <span class="number">1</span>][j - <span class="number">1</span>])) + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                maxlen = Math.max(maxlen, dp[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxlen * maxlen;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>动态规划</tag>
-        <tag>这脑回路我是想不到</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - 234. 回文链表</title>
     <url>/2022/02/09/LeetCode-234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/palindrome-linked-list/">https://leetcode-cn.com/problems/palindrome-linked-list/</a></p>
@@ -541,6 +521,26 @@
       <tags>
         <tag>递归</tag>
         <tag>快慢指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - 221. 最大正方形</title>
+    <url>/2021/12/24/LeetCode-221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/</url>
+    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/maximal-square/">https://leetcode-cn.com/problems/maximal-square/</a></p>
+<span id="more"></span>
+
+
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>不能放图，可以简单的想象，一个右下角为 <code>(i, j)</code> 边长为3的正方形，有三个边长为2的正方形组成，其右下角坐标是：<code>(i - 1, j)、(i, j - 1)、(i - 1, j - 1)</code> ，如果其中一个子正方形的面积为0，都不能构成以当前 <code>(i, j)</code> 为右下角的正方形。如果构成当前右下角的正方形，则子边长加一，所以综上，可以得出转移方程：<br>$$<br>dp[i][j] &#x3D; Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1<br>$$<br>已知当 <code>i == 0 || j == 0</code> 最多只会有边长为1的正方形，当 <code>matrix[i][j] == 0</code> 的时候，不会构成正方形：<code>dp[i][j] = 0</code> ，可以得到如下最终结论：<br>$$<br>dp[i][j] &#x3D; \begin{cases}<br>matrix[i][j] - ‘0’ &amp;\text{i &#x3D;&#x3D; 0 || j &#x3D;&#x3D; 0}\<br>0 &amp;\text{matrix[i][j] &#x3D;&#x3D; ‘0’}\<br>Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1 &amp;\text{除了上述条件}\<br>\end{cases}<br>$$<br>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximalSquare</span><span class="params">(<span class="keyword">char</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.length, n = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m][n];</span><br><span class="line">        <span class="keyword">int</span> maxlen = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>( i == <span class="number">0</span> || j == <span class="number">0</span> || matrix[i][j] == <span class="string">&#x27;0&#x27;</span> )</span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i][j] = matrix[i][j] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i][j] = Math.min(dp[i - <span class="number">1</span>][j], Math.min(dp[i][j - <span class="number">1</span>], dp[i - <span class="number">1</span>][j - <span class="number">1</span>])) + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                maxlen = Math.max(maxlen, dp[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxlen * maxlen;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+        <tag>这脑回路我是想不到</tag>
       </tags>
   </entry>
   <entry>
@@ -615,6 +615,22 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode - 279. 完全平方数</title>
+    <url>/2022/02/14/LeetCode-279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/perfect-squares/">https://leetcode-cn.com/problems/perfect-squares/</a></p>
+<span id="more"></span>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>使用动态规划遍历到当前 i 之内（包括当前 i ）的所有可能的内容。使用嵌套循环，因为从 1 到 n 的每一个元素都会被重复使用，所以无法省略数组为单一的值。</p>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numSquares</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">1</span>; j * j &lt;= i; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                min = Math.min(min, dp[i - j * j]);</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i] = min + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>dp[i] = min + 1</code> 中的 <code>+1</code> 的操作是因为 <code>j * j</code> 为一个完全平方的整数。</p>
+]]></content>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode - 36. 有效的数独</title>
     <url>/2021/10/26/LeetCode-36-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC/</url>
     <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/valid-sudoku/">https://leetcode-cn.com/problems/valid-sudoku/</a></p>
@@ -686,6 +702,29 @@
       <tags>
         <tag>动态规划</tag>
         <tag>记忆化搜索</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - 39. 组合总和</title>
+    <url>/2022/01/08/LeetCode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/</url>
+    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/combination-sum/">https://leetcode-cn.com/problems/combination-sum/</a></p>
+<span id="more"></span>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这里简单的区分一下递归和回溯：递归就是直接或间接的调用自己，回溯相较于递归的区别，就是它有剪枝的功能，知道这条路走不通，会换另一条路走。</p>
+<p>我一开始使用递归的思路解决：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        getCombination(candidates, target, res, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getCombination</span><span class="params">( <span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target, List&lt;List&lt;Integer&gt;&gt; res, List&lt;Integer&gt; tmp )</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target &lt;= <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( target == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(tmp));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> can : candidates )</span><br><span class="line">        &#123;</span><br><span class="line">            tmp.add(can);</span><br><span class="line">            getCombination(candidates, target - can, res, tmp);</span><br><span class="line">            tmp.remove(tmp.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是这种方法的结果是错的，相当于将结果内部全排序了。所以必须用到<strong>剪枝的思想</strong>。</p>
+<p>应该对 <code>candidates</code> 数组升序排序，然后为了防止全排序，又因为元素可以重复，所以应该从当前下标开始遍历。</p>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        Arrays.sort(candidates);</span><br><span class="line">        getCombination(candidates, target, res, <span class="keyword">new</span> ArrayList&lt;&gt;(), <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getCombination</span><span class="params">( <span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target, List&lt;List&lt;Integer&gt;&gt; res, List&lt;Integer&gt; tmp, <span class="keyword">int</span> idx )</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(tmp));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( ; idx &lt; candidates.length; ++idx )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( target - candidates[idx] &lt; <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            tmp.add(candidates[idx]);</span><br><span class="line">            getCombination(candidates, target - candidates[idx], res, tmp, idx);</span><br><span class="line">            tmp.remove(tmp.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>回溯</tag>
       </tags>
   </entry>
   <entry>
@@ -945,29 +984,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - 39. 组合总和</title>
-    <url>/2022/01/08/LeetCode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/</url>
-    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/combination-sum/">https://leetcode-cn.com/problems/combination-sum/</a></p>
-<span id="more"></span>
-
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这里简单的区分一下递归和回溯：递归就是直接或间接的调用自己，回溯相较于递归的区别，就是它有剪枝的功能，知道这条路走不通，会换另一条路走。</p>
-<p>我一开始使用递归的思路解决：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        getCombination(candidates, target, res, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getCombination</span><span class="params">( <span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target, List&lt;List&lt;Integer&gt;&gt; res, List&lt;Integer&gt; tmp )</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target &lt;= <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( target == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(tmp));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> can : candidates )</span><br><span class="line">        &#123;</span><br><span class="line">            tmp.add(can);</span><br><span class="line">            getCombination(candidates, target - can, res, tmp);</span><br><span class="line">            tmp.remove(tmp.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>但是这种方法的结果是错的，相当于将结果内部全排序了。所以必须用到<strong>剪枝的思想</strong>。</p>
-<p>应该对 <code>candidates</code> 数组升序排序，然后为了防止全排序，又因为元素可以重复，所以应该从当前下标开始遍历。</p>
-<p>具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        Arrays.sort(candidates);</span><br><span class="line">        getCombination(candidates, target, res, <span class="keyword">new</span> ArrayList&lt;&gt;(), <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getCombination</span><span class="params">( <span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target, List&lt;List&lt;Integer&gt;&gt; res, List&lt;Integer&gt; tmp, <span class="keyword">int</span> idx )</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( target == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(tmp));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( ; idx &lt; candidates.length; ++idx )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( target - candidates[idx] &lt; <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            tmp.add(candidates[idx]);</span><br><span class="line">            getCombination(candidates, target - candidates[idx], res, tmp, idx);</span><br><span class="line">            tmp.remove(tmp.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>回溯</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - 42. 接雨水</title>
     <url>/2022/01/09/LeetCode-42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/</url>
     <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/trapping-rain-water/">https://leetcode-cn.com/problems/trapping-rain-water/</a></p>
@@ -1147,30 +1163,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - 55. 跳跃游戏</title>
-    <url>/2022/01/13/LeetCode-55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/</url>
-    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/jump-game/">https://leetcode-cn.com/problems/jump-game/</a></p>
-<span id="more"></span>
-
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="HashSet去重-队列"><a href="#HashSet去重-队列" class="headerlink" title="HashSet去重 + 队列"></a>HashSet去重 + 队列</h3><p>使用队列按照插入顺序获取下标，插入前在 <code>HashSet</code> 中查找是否已经存在过此下标，直到队列中没有可以到达的下标。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; unq_idxs = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        Queue&lt;Integer&gt; idxs = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        idxs.offer(<span class="number">0</span>);</span><br><span class="line">        unq_idxs.add(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">while</span>( !idxs.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> idx = idxs.poll();</span><br><span class="line">            <span class="keyword">if</span>( nums[idx] + idx &gt;= nums.length - <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>( nums[idx] == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span>( <span class="keyword">int</span> i = idx + <span class="number">1</span>; i &lt;= idx + nums[idx]; ++i )</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>( unq_idxs.add(i) )</span><br><span class="line">                    &#123;</span><br><span class="line">                        idxs.offer(i);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h3><p>记录每次能够到达的最远的下标位置，在这个 <code>maxlen</code> 的最远下标之前的所有下标都可以到达。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxlen = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( i &lt;= maxlen )</span><br><span class="line">            &#123;</span><br><span class="line">                maxlen = Math.max(maxlen, i + nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( maxlen &gt;= len - <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( maxlen &gt;= nums.length - <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>贪心</tag>
-        <tag>队列</tag>
-        <tag>HashSet</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - 84. 柱状图中最大的矩形</title>
     <url>/2022/01/18/LeetCode-84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/</url>
     <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/">https://leetcode-cn.com/problems/largest-rectangle-in-histogram/</a></p>
@@ -1192,6 +1184,30 @@
       </categories>
       <tags>
         <tag>单调栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - 55. 跳跃游戏</title>
+    <url>/2022/01/13/LeetCode-55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/</url>
+    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/jump-game/">https://leetcode-cn.com/problems/jump-game/</a></p>
+<span id="more"></span>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="HashSet去重-队列"><a href="#HashSet去重-队列" class="headerlink" title="HashSet去重 + 队列"></a>HashSet去重 + 队列</h3><p>使用队列按照插入顺序获取下标，插入前在 <code>HashSet</code> 中查找是否已经存在过此下标，直到队列中没有可以到达的下标。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; unq_idxs = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        Queue&lt;Integer&gt; idxs = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        idxs.offer(<span class="number">0</span>);</span><br><span class="line">        unq_idxs.add(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">while</span>( !idxs.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> idx = idxs.poll();</span><br><span class="line">            <span class="keyword">if</span>( nums[idx] + idx &gt;= nums.length - <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>( nums[idx] == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span>( <span class="keyword">int</span> i = idx + <span class="number">1</span>; i &lt;= idx + nums[idx]; ++i )</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>( unq_idxs.add(i) )</span><br><span class="line">                    &#123;</span><br><span class="line">                        idxs.offer(i);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h3><p>记录每次能够到达的最远的下标位置，在这个 <code>maxlen</code> 的最远下标之前的所有下标都可以到达。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxlen = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( i &lt;= maxlen )</span><br><span class="line">            &#123;</span><br><span class="line">                maxlen = Math.max(maxlen, i + nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( maxlen &gt;= len - <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( maxlen &gt;= nums.length - <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>贪心</tag>
+        <tag>队列</tag>
+        <tag>HashSet</tag>
       </tags>
   </entry>
   <entry>
@@ -1364,31 +1380,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode - JZ48 最长不含重复字符的子字符串</title>
-    <url>/2021/11/30/LeetCode-JZ48-%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://www.nowcoder.com/practice/48d2ff79b8564c40a50fa79f9d5fa9c7?tpId=13&amp;tqId=2276769&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking">https://www.nowcoder.com/practice/48d2ff79b8564c40a50fa79f9d5fa9c7?tpId=13&amp;tqId=2276769&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking</a></p>
-<span id="more"></span>
-
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>动态规划问题肯定需要一个 <code>dp</code> 或 <code>dp[i]</code> ，本题仅涉及 <code>dp[i-1]</code> ，所以使用 <code>dp</code> 计算就可以了。</p>
-<p>涉及到重复字符的问题，需要存储上个相同字符的位置，使用 <code>HashMap</code> 更加便捷。</p>
-<p>获得最大值结果，使用 <code>max_length</code> 来存储。</p>
-<p>如此其实可以推出了代码的大致方向，这里面最需要思考的问题是 <code>dp</code> 的赋值问题。</p>
-<ol>
-<li>如果没有重复字符最简单，直接 <code>dp += 1</code> 就可以得到当前不重复长度；</li>
-<li>如果有重复字符，一开始的想法是 <code>dp = i - map.get(s.charAt(i))</code> ，但是这种方式的一个误区在于：如果重复元素嵌套，比如 <code>abba</code> ，结果会出错，需要重新理清思路：当前的最长字符串，不是由上个重复元素的位置决定，是由 <strong>上一个最长字符串</strong> 决定的，也就是 <code>第二个a</code> 的最长字符串长度不是由 <code>第一个a</code> 决定，而是由 <code>第二个b</code> 决定，当两个重复元素中间没有嵌套重复元素，比如 <code>abca</code> ，当前的长度才会由上一个重复元素决定，也就是说，应该取二者中更短的一边：<strong>dp &#x3D; Math.min(dp + 1, i - map.get(s.charAt(i)))</strong> 。</li>
-</ol>
-<p>具体代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> s string字符串 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( s == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>( s.length() == <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span>[] chars = s.toCharArray();</span><br><span class="line"><span class="comment">//         int[] dp = new int[chars.length];</span></span><br><span class="line">        <span class="keyword">int</span> dp = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max_length = <span class="number">1</span>;</span><br><span class="line">        HashMap&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        </span><br><span class="line"><span class="comment">//         dp[0] = 1;</span></span><br><span class="line">        map.put(chars[<span class="number">0</span>], <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; chars.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( !map.containsKey(chars[i]) )</span><br><span class="line">            &#123;</span><br><span class="line">                dp += <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                dp = Math.min(dp + <span class="number">1</span>, i - map.get(chars[i]));</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(chars[i], i);</span><br><span class="line">            max_length = Math.max(max_length, dp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max_length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>动态规划</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode - JZ51 数组中的逆序对</title>
     <url>/2021/12/01/LeetCode-JZ51-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/</url>
     <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://www.nowcoder.com/practice/96bd6684e04a44eb80e6a68efc0ec6c5?tpId=13&amp;tqId=23260&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking">https://www.nowcoder.com/practice/96bd6684e04a44eb80e6a68efc0ec6c5?tpId=13&amp;tqId=23260&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking</a></p>
@@ -1415,6 +1406,31 @@
       </categories>
       <tags>
         <tag>归并排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - JZ48 最长不含重复字符的子字符串</title>
+    <url>/2021/11/30/LeetCode-JZ48-%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://www.nowcoder.com/practice/48d2ff79b8564c40a50fa79f9d5fa9c7?tpId=13&amp;tqId=2276769&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking">https://www.nowcoder.com/practice/48d2ff79b8564c40a50fa79f9d5fa9c7?tpId=13&amp;tqId=2276769&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking</a></p>
+<span id="more"></span>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>动态规划问题肯定需要一个 <code>dp</code> 或 <code>dp[i]</code> ，本题仅涉及 <code>dp[i-1]</code> ，所以使用 <code>dp</code> 计算就可以了。</p>
+<p>涉及到重复字符的问题，需要存储上个相同字符的位置，使用 <code>HashMap</code> 更加便捷。</p>
+<p>获得最大值结果，使用 <code>max_length</code> 来存储。</p>
+<p>如此其实可以推出了代码的大致方向，这里面最需要思考的问题是 <code>dp</code> 的赋值问题。</p>
+<ol>
+<li>如果没有重复字符最简单，直接 <code>dp += 1</code> 就可以得到当前不重复长度；</li>
+<li>如果有重复字符，一开始的想法是 <code>dp = i - map.get(s.charAt(i))</code> ，但是这种方式的一个误区在于：如果重复元素嵌套，比如 <code>abba</code> ，结果会出错，需要重新理清思路：当前的最长字符串，不是由上个重复元素的位置决定，是由 <strong>上一个最长字符串</strong> 决定的，也就是 <code>第二个a</code> 的最长字符串长度不是由 <code>第一个a</code> 决定，而是由 <code>第二个b</code> 决定，当两个重复元素中间没有嵌套重复元素，比如 <code>abca</code> ，当前的长度才会由上一个重复元素决定，也就是说，应该取二者中更短的一边：<strong>dp &#x3D; Math.min(dp + 1, i - map.get(s.charAt(i)))</strong> 。</li>
+</ol>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> s string字符串 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( s == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>( s.length() == <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span>[] chars = s.toCharArray();</span><br><span class="line"><span class="comment">//         int[] dp = new int[chars.length];</span></span><br><span class="line">        <span class="keyword">int</span> dp = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max_length = <span class="number">1</span>;</span><br><span class="line">        HashMap&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        </span><br><span class="line"><span class="comment">//         dp[0] = 1;</span></span><br><span class="line">        map.put(chars[<span class="number">0</span>], <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; chars.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( !map.containsKey(chars[i]) )</span><br><span class="line">            &#123;</span><br><span class="line">                dp += <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                dp = Math.min(dp + <span class="number">1</span>, i - map.get(chars[i]));</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(chars[i], i);</span><br><span class="line">            max_length = Math.max(max_length, dp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max_length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
       </tags>
   </entry>
   <entry>
@@ -1454,53 +1470,6 @@
       <tags>
         <tag>哈希表</tag>
         <tag>位运算</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode - NC102 在二叉树中找到两个节点的最近公共祖先</title>
-    <url>/2021/07/10/LeetCode-NC102-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%BE%E5%88%B0%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>可以有两种思路：</p>
-<h3 id="1-从局部看：看两个值和公共节点的关系"><a href="#1-从局部看：看两个值和公共节点的关系" class="headerlink" title="1. 从局部看：看两个值和公共节点的关系"></a>1. 从局部看：看两个值和公共节点的关系</h3><p>有三种关系：</p>
-<ol>
-<li>o1和o2在公共节点的两边；</li>
-<li>o1是公共节点；</li>
-<li>o2是公共节点。</li>
-</ol>
-<p>对于第一个关系，就说明该节点的左右子节点都不可能为<code>NULL</code>，则可以得到下述：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root.left != <span class="keyword">null</span> &amp;&amp; root.right!=<span class="keyword">null</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于第二和三的关系，假设当前节点就是公共节点，可以返回该节点。然后由上面一个节点判断此时本节点是公共节点还是一个节点的长辈节点：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>为了防止有节点只有左节点和右节点中的一个：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br></pre></td></tr></table></figure>
-
-<p>总体代码如下：</p>
-<p>java:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">CommonAncestor</span><span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode left = CommonAncestor(root.left, o1, o2);</span><br><span class="line">        TreeNode right = CommonAncestor(root.right, o1, o2);</span><br><span class="line">        <span class="keyword">if</span>( left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">CommonAncestor</span>(<span class="params">root, o1, o2</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> root.val <span class="keyword">in</span> [o1, o2]:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            left = CommonAncestor(root.left, o1, o2)</span><br><span class="line">            right = CommonAncestor(root.right, o1, o2)</span><br><span class="line">            <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            <span class="keyword">return</span> left <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> right</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-从整体看：看每个值之间的区别"><a href="#2-从整体看：看每个值之间的区别" class="headerlink" title="2. 从整体看：看每个值之间的区别"></a>2. 从整体看：看每个值之间的区别</h3><p>可以记录从顶点到每个值的路径，然后比较两个路径是从哪个顶点开始聚合或分道扬镳的，该节点就算最近公共节点。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; s1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; s2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        getPath(root, o1, s1);</span><br><span class="line">        getPath(root, o2, s2);</span><br><span class="line">        <span class="keyword">int</span> res = root.val;</span><br><span class="line">        <span class="keyword">while</span>( !(s1.isEmpty() || s2.isEmpty()) )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> f1 = s1.pop(), f2 = s2.pop();</span><br><span class="line">            System.out.println(f1+<span class="string">&quot; &quot;</span>+f2);</span><br><span class="line">            <span class="keyword">if</span>( f1 != f2 )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            res = f1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">getPath</span><span class="params">(TreeNode root, <span class="keyword">int</span> o, Stack&lt;Integer&gt; stack)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( root.val == o || getPath(root.left, o, stack) || getPath(root.right, o, stack) )</span><br><span class="line">        &#123;</span><br><span class="line">            stack.push(root.val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>选择元素不相等时退出是因为<code>getPath</code>函数是从下往上<code>push</code>元素的。</p>
-<p>python：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">getPath</span>(<span class="params">root, o, s</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> root.val == o <span class="keyword">or</span> getPath(root.left, o, s) <span class="keyword">or</span> getPath(root.right, o, s):</span><br><span class="line">                s.append(root.val)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s1, s2 = [], []</span><br><span class="line">        res = root.val</span><br><span class="line">        getPath(root, o1, s1)</span><br><span class="line">        getPath(root, o2, s2)</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s1) != <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(s2) != <span class="number">0</span>:</span><br><span class="line">            f1, f2 = s1.pop(), s2.pop()</span><br><span class="line">            <span class="keyword">if</span> f1 != f2:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            res = f1</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>java, python</tag>
       </tags>
   </entry>
   <entry>
@@ -1571,6 +1540,53 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode - NC102 在二叉树中找到两个节点的最近公共祖先</title>
+    <url>/2021/07/10/LeetCode-NC102-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%BE%E5%88%B0%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>可以有两种思路：</p>
+<h3 id="1-从局部看：看两个值和公共节点的关系"><a href="#1-从局部看：看两个值和公共节点的关系" class="headerlink" title="1. 从局部看：看两个值和公共节点的关系"></a>1. 从局部看：看两个值和公共节点的关系</h3><p>有三种关系：</p>
+<ol>
+<li>o1和o2在公共节点的两边；</li>
+<li>o1是公共节点；</li>
+<li>o2是公共节点。</li>
+</ol>
+<p>对于第一个关系，就说明该节点的左右子节点都不可能为<code>NULL</code>，则可以得到下述：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root.left != <span class="keyword">null</span> &amp;&amp; root.right!=<span class="keyword">null</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于第二和三的关系，假设当前节点就是公共节点，可以返回该节点。然后由上面一个节点判断此时本节点是公共节点还是一个节点的长辈节点：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了防止有节点只有左节点和右节点中的一个：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br></pre></td></tr></table></figure>
+
+<p>总体代码如下：</p>
+<p>java:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">CommonAncestor</span><span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> || root.val == o1 || root.val == o2 )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode left = CommonAncestor(root.left, o1, o2);</span><br><span class="line">        TreeNode right = CommonAncestor(root.right, o1, o2);</span><br><span class="line">        <span class="keyword">if</span>( left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left == <span class="keyword">null</span> ? right : left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">CommonAncestor</span>(<span class="params">root, o1, o2</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> root.val <span class="keyword">in</span> [o1, o2]:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            left = CommonAncestor(root.left, o1, o2)</span><br><span class="line">            right = CommonAncestor(root.right, o1, o2)</span><br><span class="line">            <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">            <span class="keyword">return</span> left <span class="keyword">if</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> right</span><br><span class="line">        <span class="keyword">return</span> CommonAncestor(root, o1, o2).val</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-从整体看：看每个值之间的区别"><a href="#2-从整体看：看每个值之间的区别" class="headerlink" title="2. 从整体看：看每个值之间的区别"></a>2. 从整体看：看每个值之间的区别</h3><p>可以记录从顶点到每个值的路径，然后比较两个路径是从哪个顶点开始聚合或分道扬镳的，该节点就算最近公共节点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *   int val = 0;</span></span><br><span class="line"><span class="comment"> *   TreeNode left = null;</span></span><br><span class="line"><span class="comment"> *   TreeNode right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> root TreeNode类 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o1 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o2 int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lowestCommonAncestor</span> <span class="params">(TreeNode root, <span class="keyword">int</span> o1, <span class="keyword">int</span> o2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; s1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;Integer&gt; s2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        getPath(root, o1, s1);</span><br><span class="line">        getPath(root, o2, s2);</span><br><span class="line">        <span class="keyword">int</span> res = root.val;</span><br><span class="line">        <span class="keyword">while</span>( !(s1.isEmpty() || s2.isEmpty()) )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> f1 = s1.pop(), f2 = s2.pop();</span><br><span class="line">            System.out.println(f1+<span class="string">&quot; &quot;</span>+f2);</span><br><span class="line">            <span class="keyword">if</span>( f1 != f2 )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            res = f1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">getPath</span><span class="params">(TreeNode root, <span class="keyword">int</span> o, Stack&lt;Integer&gt; stack)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( root.val == o || getPath(root.left, o, stack) || getPath(root.right, o, stack) )</span><br><span class="line">        &#123;</span><br><span class="line">            stack.push(root.val);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>选择元素不相等时退出是因为<code>getPath</code>函数是从下往上<code>push</code>元素的。</p>
+<p>python：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># @param root TreeNode类 </span></span><br><span class="line"><span class="comment"># @param o1 int整型 </span></span><br><span class="line"><span class="comment"># @param o2 int整型 </span></span><br><span class="line"><span class="comment"># @return int整型</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self , root , o1 , o2 </span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">getPath</span>(<span class="params">root, o, s</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> root.val == o <span class="keyword">or</span> getPath(root.left, o, s) <span class="keyword">or</span> getPath(root.right, o, s):</span><br><span class="line">                s.append(root.val)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s1, s2 = [], []</span><br><span class="line">        res = root.val</span><br><span class="line">        getPath(root, o1, s1)</span><br><span class="line">        getPath(root, o2, s2)</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s1) != <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(s2) != <span class="number">0</span>:</span><br><span class="line">            f1, f2 = s1.pop(), s2.pop()</span><br><span class="line">            <span class="keyword">if</span> f1 != f2:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            res = f1</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>java, python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode - NC15 求二叉树的层序遍历</title>
     <url>/2021/07/08/LeetCode-NC15-%E6%B1%82%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/04a5560e43e24e9db4595865dc9c63a3?tpId=188&amp;&amp;tqId=38595&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking">https://www.nowcoder.com/practice/04a5560e43e24e9db4595865dc9c63a3?tpId=188&amp;&amp;tqId=38595&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/job-code-high-week/question-ranking</a></p>
@@ -1602,27 +1618,6 @@
       </categories>
       <tags>
         <tag>java, python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode - NC19 子数组的最大累加和问题</title>
-    <url>/2021/07/15/LeetCode-NC19-%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%AF%E5%8A%A0%E5%92%8C%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-
-
-
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>我之前一直想的方法：获取每个子数组的最大连续累加和。</p>
-<p>但是这种方法并不适用于这里，因为这种方式求的是并不能连续的最大和。</p>
-<p>正确的方法：将之前累加的值永远与当前的值进行比较，将比当前值小的累加抛弃，最小的和是0，即所有值都不取。</p>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * max sum of the subarray</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr int整型一维数组 the array</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxsumofSubarray</span> <span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = Math.max(<span class="number">0</span>, arr[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            arr[i] = Math.max(arr[i], arr[i-<span class="number">1</span>]+arr[i]);</span><br><span class="line">            max = Math.max(max, arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -1697,6 +1692,27 @@
       </categories>
       <tags>
         <tag>java, python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode - NC19 子数组的最大累加和问题</title>
+    <url>/2021/07/15/LeetCode-NC19-%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%AF%E5%8A%A0%E5%92%8C%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=188&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+<span id="more"></span>
+
+
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>我之前一直想的方法：获取每个子数组的最大连续累加和。</p>
+<p>但是这种方法并不适用于这里，因为这种方式求的是并不能连续的最大和。</p>
+<p>正确的方法：将之前累加的值永远与当前的值进行比较，将比当前值小的累加抛弃，最小的和是0，即所有值都不取。</p>
+<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * max sum of the subarray</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr int整型一维数组 the array</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxsumofSubarray</span> <span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = Math.max(<span class="number">0</span>, arr[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            arr[i] = Math.max(arr[i], arr[i-<span class="number">1</span>]+arr[i]);</span><br><span class="line">            max = Math.max(max, arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -1984,6 +2000,34 @@
 <h4 id="netstat-ap-grep-端口号"><a href="#netstat-ap-grep-端口号" class="headerlink" title="netstat -ap | grep [端口号]"></a>netstat -ap | grep [端口号]</h4><p>查看指定端口有哪些进程。</p>
 <h3 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h3><p>删除执行中的程序或工作。</p>
 <h4 id="kill-9"><a href="#kill-9" class="headerlink" title="kill -9"></a>kill -9</h4><p>强制杀死进程。</p>
+<h3 id="统计文件行数"><a href="#统计文件行数" class="headerlink" title="统计文件行数"></a>统计文件行数</h3><p>两种方式：</p>
+<p><strong>1. wc -l test.txt | awk ‘{print $1}’</strong></p>
+<p><code>wc -l test.txt</code> 显示行数和 ‘test.txt’ 两列。</p>
+<p><code>awk &#39;&#123;print $1&#125;&#39;</code> 显示管道前输出的第一列。</p>
+<p><strong>2. awk ‘{print NR}’ test.txt | tail -n1</strong></p>
+<p><code>awk &#39;&#123;print NR&#125;&#39; test.txt</code> 显示 <code>test.txt</code> 文件的行号，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p><code>tail -n 1</code> 最后一行。</p>
+<p><strong>3. awk ‘END{print NR}’ test.txt</strong></p>
+<p><code>END</code> 必须大写。</p>
+<p><strong>4. grep -c “” test.txt</strong></p>
+<p><code>grep -c</code> 输出文件 <code>test.txt</code> 中匹配字符串 <code>&quot;&quot;</code> 的行。</p>
+<p><strong>5. grep -n “” test.txt | awk -F “:” ‘{print $1}’</strong></p>
+<p><code>grep -n &quot;&quot; test.txt</code> 输出文件 <code>test.txt</code> 中匹配字符串 <code>&quot;&quot;</code> 的行号及行，格式为：<code>行号:行内容</code> ；</p>
+<p><code>awk -F &quot;:&quot; &#39;&#123;print $1&#125;&#39;</code> 将输入依照 <code>:</code> 分隔符切分，并输出第一列。</p>
+<h2 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h2><p>如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!bin/bash</span></span><br><span class="line">num=0</span><br><span class="line"><span class="keyword">while</span> (( num &lt;= 500 ))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="keyword">if</span> (( num % 7 == 0 ))</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$num</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">    ((num++))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> &#123;0..500..7&#125;; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$num</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>&#123;0..500..7&#125;</code> 的含义是输出 0 - 500 中 7 的倍数。</p>
+<h2 id="头n行和后n行"><a href="#头n行和后n行" class="headerlink" title="头n行和后n行"></a>头n行和后n行</h2><p>头n行：<code>head -n n</code></p>
+<p>后n行：<code>tail -n n</code></p>
+<h3 id="实现打印第五行"><a href="#实现打印第五行" class="headerlink" title="实现打印第五行"></a>实现打印第五行</h3><p><strong>1. head -n 5 test.txt | tail -n 1</strong></p>
+<p><strong>2. sed -n 5p</strong></p>
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -2128,58 +2172,33 @@
       </tags>
   </entry>
   <entry>
-    <title>SQL刷题 - SQL12 获取每个部门中当前员工薪水最高的相关信息</title>
-    <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98-SQL12-%E8%8E%B7%E5%8F%96%E6%AF%8F%E4%B8%AA%E9%83%A8%E9%97%A8%E4%B8%AD%E5%BD%93%E5%89%8D%E5%91%98%E5%B7%A5%E8%96%AA%E6%B0%B4%E6%9C%80%E9%AB%98%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/4a052e3e1df5435880d4353eb18a91c6?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/4a052e3e1df5435880d4353eb18a91c6?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
+    <title>SQL刷题 &amp; 笔记</title>
+    <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98%20&amp;%20%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="获取每一个分组中的最大元素"><a href="#获取每一个分组中的最大元素" class="headerlink" title="获取每一个分组中的最大元素"></a>获取每一个分组中的最大元素</h2><p><a href="https://www.nowcoder.com/practice/4a052e3e1df5435880d4353eb18a91c6?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL12 获取每个部门中当前员工薪水最高的相关信息</a></p>
 <span id="more"></span>
 
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>要求获取每一个分组中的最大元素（也可以看作获取每个分组的第一个元素）。</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>要求获取每一个分组中的最大元素（也可以看作获取每个分组的第一个元素）。</p>
 <p>错误的思考：在同一个语句中group by+order by - </p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 错误</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b</span><br></pre></td></tr></table></figure>
 
 <p>原因：group by后显示的就会是每个分组的第一条数据；之后进行order by就是对每个分组的第一条数据进行排序，即组间排序，并没有意义。</p>
 <p>分析：有一种方法是可以先order by limit再进行group by，但是这种方法不够灵活有效；还有一种方法就算下述，先获取每个分组的目标元素的最大值和目标分组的字段，然后联表获取所有所需字段和目标分组字段，将两个部分进行连接就可以了。</p>
-<h3 id="2-具体题解"><a href="#2-具体题解" class="headerlink" title="2. 具体题解"></a>2. 具体题解</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> B1.dept_no</span><br><span class="line">      ,B2.emp_no</span><br><span class="line">      ,B1.maxSalary</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, <span class="built_in">max</span>(A2.salary) <span class="keyword">as</span> maxSalary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">      <span class="keyword">group</span> <span class="keyword">by</span> A1.dept_no</span><br><span class="line">) B1</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, A1.emp_no, A2.salary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">) B2</span><br><span class="line">     <span class="keyword">on</span> B1.dept_no <span class="operator">=</span> B2.dept_no</span><br><span class="line">     <span class="keyword">and</span> B1.maxSalary <span class="operator">=</span> B2.salary</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> B1.dept_no</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h4 id="2-具体题解"><a href="#2-具体题解" class="headerlink" title="2. 具体题解"></a>2. 具体题解</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> B1.dept_no</span><br><span class="line">      ,B2.emp_no</span><br><span class="line">      ,B1.maxSalary</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, <span class="built_in">max</span>(A2.salary) <span class="keyword">as</span> maxSalary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">      <span class="keyword">group</span> <span class="keyword">by</span> A1.dept_no</span><br><span class="line">) B1</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line">        <span class="keyword">select</span> A1.dept_no, A1.emp_no, A2.salary</span><br><span class="line">          <span class="keyword">from</span> dept_emp <span class="keyword">as</span> A1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries <span class="keyword">as</span> A2</span><br><span class="line">            <span class="keyword">on</span> A1.emp_no <span class="operator">=</span> A2.emp_no</span><br><span class="line">) B2</span><br><span class="line">     <span class="keyword">on</span> B1.dept_no <span class="operator">=</span> B2.dept_no</span><br><span class="line">     <span class="keyword">and</span> B1.maxSalary <span class="operator">=</span> B2.salary</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> B1.dept_no</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL15 查找employees表emp_no与last_name的员工信息</title>
-    <url>/2021/07/09/SQL%E5%88%B7%E9%A2%98-SQL15-%E6%9F%A5%E6%89%BEemployees%E8%A1%A8emp-no%E4%B8%8Elast-name%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
 
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>不相等的三种表达：<code>!=、&lt;&gt;、is not</code>；</p>
+
+<h2 id="数值计算"><a href="#数值计算" class="headerlink" title="数值计算"></a>数值计算</h2><p><a href="https://www.nowcoder.com/practice/a32669eb1d1740e785f105fa22741d5c?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL15 查找employees表emp_no与last_name的员工信息</a></p>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-1"><a href="#1-知识点-1" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>不相等的三种表达：<code>!=、&lt;&gt;、is not</code>；</p>
 <p>求余：<code>%、MOD</code>；</p>
 <p>判断是否为奇数：<code>val%2 = 1、val&amp;1</code>；</p>
 <p>判断是否为偶数：<code>val = (val &gt;&gt; 1 &lt;&lt; 1)</code> - 即先右移一位再左移一位，如果是奇数，二进制最后一位一定是1，右移一位后再左移一位最后一个二进制数会补0而不是1，此时如果是奇数会与原值不等，如果是偶数会相等；</p>
 <p>除法计算：默认 - <code>/</code>、取指定小数位 - <code>convert(val1 / val2, decimal(10, 2))</code> - 取两位小数，为0取整不保留小数、直接取整 - <code>val1 DIV val2</code>；</p>
-<p><strong>计算还是推荐使用位运算的</strong>。</p>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">%</span> <span class="number">2</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--或者</span></span><br><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">&amp;</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL23 对所有员工的薪水按照salary降序进行1-N的排名</title>
-    <url>/2021/07/11/SQL%E5%88%B7%E9%A2%98-SQL23-%E5%AF%B9%E6%89%80%E6%9C%89%E5%91%98%E5%B7%A5%E7%9A%84%E8%96%AA%E6%B0%B4%E6%8C%89%E7%85%A7salary%E9%99%8D%E5%BA%8F%E8%BF%9B%E8%A1%8C1-N%E7%9A%84%E6%8E%92%E5%90%8D/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/b9068bfe5df74276bd015b9729eec4bf?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/b9068bfe5df74276bd015b9729eec4bf?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
+<h4 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">%</span> <span class="number">2</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--或者</span></span><br><span class="line">  <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">    <span class="keyword">from</span> employees</span><br><span class="line">   <span class="keyword">where</span> emp_no <span class="operator">&amp;</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">and</span> last_name <span class="operator">&lt;&gt;</span> &quot;Mary&quot;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> hire_date</span><br><span class="line">    <span class="keyword">desc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><ol>
+<h2 id="生成序号"><a href="#生成序号" class="headerlink" title="生成序号"></a>生成序号</h2><p><a href="https://www.nowcoder.com/practice/b9068bfe5df74276bd015b9729eec4bf?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL23 对所有员工的薪水按照salary降序进行1-N的排名</a></p>
+<h3 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h3><h4 id="1-知识点-2"><a href="#1-知识点-2" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><ol>
 <li><code>row_number</code> - 生成连续唯一的序号，即序号不重复：</li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
@@ -2227,23 +2246,27 @@
 <p>2</p>
 <p>2</p>
 </blockquote>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> emp_no</span><br><span class="line">       ,salary</span><br><span class="line">       ,<span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) <span class="keyword">as</span> t_rank</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t_rank <span class="keyword">asc</span>, emp_no <span class="keyword">asc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h4 id="2-具体代码-1"><a href="#2-具体代码-1" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> emp_no</span><br><span class="line">       ,salary</span><br><span class="line">       ,<span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) <span class="keyword">as</span> t_rank</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t_rank <span class="keyword">asc</span>, emp_no <span class="keyword">asc</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL35 批量插入数据，不使用replace操作</title>
-    <url>/2021/07/14/SQL%E5%88%B7%E9%A2%98-SQL35-%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%8D%E4%BD%BF%E7%94%A8replace%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p><strong>主要是insert ignore 和 replace into 的区别：</strong></p>
+
+<h2 id="并集"><a href="#并集" class="headerlink" title="并集"></a>并集</h2><p><a href="https://www.nowcoder.com/practice/979b1a5a16d44afaba5191b22152f64a?tpId=199&tags=&title=&difficulty=0&judgeStatus=0&rp=0">SQL25 查找山东大学或者性别为男生的信息</a></p>
+<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>这道题第一个想到的解法是：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">where</span> university <span class="operator">=</span> <span class="string">&#x27;山东大学&#x27;</span> <span class="keyword">or</span> gender <span class="operator">=</span> <span class="string">&#x27;male&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是题目中有两个提示：</p>
+<ol>
+<li>结果不去重；</li>
+<li>注意输出的顺序，先输出学校为山东大学再输出性别为男生的信息。</li>
+</ol>
+<p>从第一个提示看应该会有去不去重两种可能，这道题其实有两种思路：<code>or</code> 和 <code>union</code>。对于 <code>or</code> 肯定不会存在去不去重的问题，确定是 <code>union</code> 的关键是第二个提示，使用 <code>union</code> 方法都会默认 <code>union</code> 前的结果会放在 <code>union</code> 后的结果前。</p>
+<p>去重的问题：union会去重，union all 不会去重。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> device_id, gender, age, gpa</span><br><span class="line">  <span class="keyword">from</span> user_profile</span><br><span class="line"> <span class="keyword">where</span> university <span class="operator">=</span> <span class="string">&#x27;山东大学&#x27;</span></span><br><span class="line"><span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"><span class="keyword">select</span> device_id, gender, age, gpa</span><br><span class="line">  <span class="keyword">from</span> user_profile</span><br><span class="line"> <span class="keyword">where</span> gender <span class="operator">=</span> <span class="string">&#x27;male&#x27;</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="insert-ignore-和-replace-into"><a href="#insert-ignore-和-replace-into" class="headerlink" title="insert ignore 和 replace into"></a>insert ignore 和 replace into</h2><p><a href="https://www.nowcoder.com/practice/153c8a8e7805400ba8e384e03acc6b3e?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL35 批量插入数据，不使用replace操作</a></p>
+<h3 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>主要是insert ignore 和 replace into 的区别：</strong></p>
 <p>使用 <code>ignore</code> 关键字。</p>
 <p><code>insert ignore</code>  - 如果数据库中不存在这条数据就插入，存在就跳过。</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">insert</span> </span><br><span class="line">ignore </span><br><span class="line">  <span class="keyword">into</span> actor </span><br><span class="line"><span class="keyword">values</span>(<span class="number">3</span>, <span class="string">&#x27;ED&#x27;</span>, <span class="string">&#x27;CHASE&#x27;</span>, <span class="string">&#x27;2006-02-15 12:34:33&#x27;</span>);</span><br></pre></td></tr></table></figure>
@@ -2253,23 +2276,8 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">replace </span><br><span class="line">   <span class="keyword">into</span> actor</span><br><span class="line"> <span class="keyword">select</span> <span class="number">3</span></span><br><span class="line">        ,<span class="string">&#x27;ED&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;CHASE&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;2006-02-15 12:34:33&#x27;</span></span><br><span class="line">   <span class="keyword">from</span> actor</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
 <p><strong>ignore 和 replace 是mysql8之后有的内容。</strong></p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL37 对first_name创建唯一索引uniq_idx_firstname</title>
-    <url>/2021/07/14/SQL%E5%88%B7%E9%A2%98-SQL37-%E5%AF%B9first-name%E5%88%9B%E5%BB%BA%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95uniq-idx-firstname/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e1824daa0c49404aa602cf0cb34bdd75?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e1824daa0c49404aa602cf0cb34bdd75?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-
-
-
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>有以下几种索引 <code>index</code> ：</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p><a href="https://www.nowcoder.com/practice/e1824daa0c49404aa602cf0cb34bdd75?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL37 对first_name创建唯一索引uniq_idx_firstname</a></p>
+<h3 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h3><h3 id="1-知识点-3"><a href="#1-知识点-3" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>有以下几种索引 <code>index</code> ：</p>
 <ul>
 <li>UNIQUE:可选。表示索引为唯一性索引。</li>
 <li>FULLTEXT:可选。表示索引为全文索引。</li>
@@ -2287,27 +2295,12 @@
 </ol>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 带关键字的索引</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test <span class="keyword">add</span> <span class="keyword">unique</span> index (id);</span><br><span class="line"><span class="comment">-- 不带关键字的索引</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test <span class="keyword">add</span> index (filename);</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> actor <span class="keyword">add</span> <span class="keyword">unique</span> index uniq_idx_firstname (first_name);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> actor <span class="keyword">add</span> index idx_lastname (last_name);</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL38 针对actor表创建视图actor_name_view</title>
-    <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL38-%E9%92%88%E5%AF%B9actor%E8%A1%A8%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BEactor-name-view/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
+<h4 id="2-具体代码-2"><a href="#2-具体代码-2" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> actor <span class="keyword">add</span> <span class="keyword">unique</span> index uniq_idx_firstname (first_name);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> actor <span class="keyword">add</span> index idx_lastname (last_name);</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>创建视图：</p>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p><a href="https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL38 针对actor表创建视图actor_name_view</a></p>
+<h3 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-4"><a href="#1-知识点-4" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>创建视图：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view_name <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> column_name(s)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">condition</span></span><br></pre></td></tr></table></figure>
 
 <p>查询视图：</p>
@@ -2319,71 +2312,28 @@
 <p>撤销视图：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DROP VIEW view_name</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="2-具体解决代码"><a href="#2-具体解决代码" class="headerlink" title="2. 具体解决代码"></a>2. 具体解决代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> actor_name_view <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">select</span> first_name <span class="keyword">as</span> first_name_v</span><br><span class="line">       ,last_name <span class="keyword">as</span> last_name_v</span><br><span class="line">  <span class="keyword">from</span> actor;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL39 强制使用索引</title>
-    <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL39-%E5%BC%BA%E5%88%B6%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/f9fa9dc1a1fc4130b08e26c22c7a1e5f?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/f9fa9dc1a1fc4130b08e26c22c7a1e5f?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
+<h4 id="2-具体解决代码"><a href="#2-具体解决代码" class="headerlink" title="2. 具体解决代码"></a>2. 具体解决代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> actor_name_view <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">select</span> first_name <span class="keyword">as</span> first_name_v</span><br><span class="line">       ,last_name <span class="keyword">as</span> last_name_v</span><br><span class="line">  <span class="keyword">from</span> actor;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>强制使用索引：</p>
+<h2 id="强制使用索引"><a href="#强制使用索引" class="headerlink" title="强制使用索引"></a>强制使用索引</h2><p><a href="https://www.nowcoder.com/practice/f9fa9dc1a1fc4130b08e26c22c7a1e5f?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL39 强制使用索引</a></p>
+<h3 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-5"><a href="#1-知识点-5" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>强制使用索引：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> TABLE1 FORCE INDEX (索引名或<span class="keyword">PRIMARY</span>) ;</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> salaries FORCE INDEX (idx_emp_no) <span class="keyword">where</span> emp_no <span class="operator">=</span> <span class="number">10005</span>;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL40 在指定列后添加新列</title>
-    <url>/2021/07/15/SQL%E5%88%B7%E9%A2%98-SQL40-%E5%9C%A8%E6%8C%87%E5%AE%9A%E5%88%97%E5%90%8E%E6%B7%BB%E5%8A%A0%E6%96%B0%E5%88%97/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
+<h4 id="2-具体代码-3"><a href="#2-具体代码-3" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> salaries FORCE INDEX (idx_emp_no) <span class="keyword">where</span> emp_no <span class="operator">=</span> <span class="number">10005</span>;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> table_name</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> column_name column_type [<span class="keyword">not</span> <span class="keyword">NULL</span>]</span><br><span class="line">[<span class="keyword">DEFAULT</span> default_context]</span><br><span class="line">[  after column_name]</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h2 id="给已有表新建列"><a href="#给已有表新建列" class="headerlink" title="给已有表新建列"></a>给已有表新建列</h2><p><a href="https://www.nowcoder.com/practice/119f04716d284cb7a19fba65dd876b03?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL40 在指定列后添加新列</a></p>
+<h3 id="解题思路-7"><a href="#解题思路-7" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-6"><a href="#1-知识点-6" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> table_name</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> column_name column_type [<span class="keyword">not</span> <span class="keyword">NULL</span>]</span><br><span class="line">[<span class="keyword">DEFAULT</span> default_context]</span><br><span class="line">[  after column_name]</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
 <p>其中，<code>after</code> 用来指定在某个列后面添加新列，<code>default</code> 指定默认值。</p>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> actor</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> create_date datetime <span class="keyword">not</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="string">&#x27;2020-10-01 00:00:00&#x27;</span></span><br><span class="line">  after last_update</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL41 构造一个触发器</title>
-    <url>/2021/07/16/SQL%E5%88%B7%E9%A2%98-SQL41-%E6%9E%84%E9%80%A0%E4%B8%80%E4%B8%AA%E8%A7%A6%E5%8F%91%E5%99%A8/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking">https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&amp;&amp;tqId=29809&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking</a></p>
-<span id="more"></span>
+<h4 id="2-具体代码-4"><a href="#2-具体代码-4" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">alter</span> </span><br><span class="line">  <span class="keyword">table</span> actor</span><br><span class="line">    <span class="keyword">add</span></span><br><span class="line"> <span class="keyword">COLUMN</span> create_date datetime <span class="keyword">not</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="string">&#x27;2020-10-01 00:00:00&#x27;</span></span><br><span class="line">  after last_update</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>Trigger创建的语句：</p>
+<h2 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h2><p><a href="https://www.nowcoder.com/practice/7e920bb2e1e74c4e83750f5c16033e2e?tpId=82&&tqId=29809&rp=1&ru=/activity/oj&qru=/ta/sql/question-ranking">SQL41 构造一个触发器</a></p>
+<h3 id="解题思路-8"><a href="#解题思路-8" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-7"><a href="#1-知识点-7" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>Trigger创建的语句：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> trigger_name</span><br><span class="line">       trigger_time trigger_event </span><br><span class="line">    <span class="keyword">ON</span> tbl_name</span><br><span class="line">   <span class="keyword">FOR</span> </span><br><span class="line">  <span class="keyword">EACH</span> </span><br><span class="line">   <span class="type">ROW</span></span><br><span class="line">       trigger_stmt</span><br></pre></td></tr></table></figure>
 
 <p>其中：</p>
@@ -2399,62 +2349,24 @@
 <li>使用方法： NEW.columnName （columnName 为相应数据表某一列名）</li>
 </ol>
 </blockquote>
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">      <span class="keyword">create</span> </span><br><span class="line">     <span class="keyword">trigger</span> audit_log</span><br><span class="line">       after </span><br><span class="line">      <span class="keyword">insert</span> </span><br><span class="line">          <span class="keyword">on</span> employees_test</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="type">row</span></span><br><span class="line">       <span class="keyword">begin</span></span><br><span class="line">             <span class="keyword">insert</span> <span class="keyword">into</span> audit <span class="keyword">values</span>(new.ID, new.NAME);</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h4 id="2-具体代码-5"><a href="#2-具体代码-5" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">      <span class="keyword">create</span> </span><br><span class="line">     <span class="keyword">trigger</span> audit_log</span><br><span class="line">       after </span><br><span class="line">      <span class="keyword">insert</span> </span><br><span class="line">          <span class="keyword">on</span> employees_test</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="type">row</span></span><br><span class="line">       <span class="keyword">begin</span></span><br><span class="line">             <span class="keyword">insert</span> <span class="keyword">into</span> audit <span class="keyword">values</span>(new.ID, new.NAME);</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="3-摘自"><a href="#3-摘自" class="headerlink" title="3. 摘自"></a>3. 摘自</h3><p><a href="https://blog.csdn.net/haut_ykc/article/details/110226668">SQL编程：构造触发器</a></p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL42_43 对表进行条件删除和更新</title>
-    <url>/2021/07/16/SQL%E5%88%B7%E9%A2%98-SQL42-43-%E5%AF%B9%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%9D%A1%E4%BB%B6%E5%88%A0%E9%99%A4%E5%92%8C%E6%9B%B4%E6%96%B0/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p>删除：</p>
-<p><a href="https://www.nowcoder.com/practice/3d92551a6f6d4f1ebde272d20872cf05?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/3d92551a6f6d4f1ebde272d20872cf05?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<p>更新：</p>
-<p><a href="https://www.nowcoder.com/practice/859f28f43496404886a77600ea68ef59?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/859f28f43496404886a77600ea68ef59?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-
-
-
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>删除语法：</p>
+<h4 id="3-摘自"><a href="#3-摘自" class="headerlink" title="3. 摘自"></a>3. 摘自</h4><p><a href="https://blog.csdn.net/haut_ykc/article/details/110226668">SQL编程：构造触发器</a></p>
+<h2 id="表的更新和删除"><a href="#表的更新和删除" class="headerlink" title="表的更新和删除"></a>表的更新和删除</h2><p><a href="https://www.nowcoder.com/practice/3d92551a6f6d4f1ebde272d20872cf05?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL42 对表进行条件删除</a></p>
+<p><a href="https://www.nowcoder.com/practice/859f28f43496404886a77600ea68ef59?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL43 对表进行条件更新</a></p>
+<h3 id="解题思路-9"><a href="#解题思路-9" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-8"><a href="#1-知识点-8" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>删除语法：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name [<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
 
 <p>更新语法：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">UPDATE table_name <span class="keyword">SET</span> field1<span class="operator">=</span><span class="keyword">new</span><span class="operator">-</span>value1, field2<span class="operator">=</span><span class="keyword">new</span><span class="operator">-</span>value2</span><br><span class="line">[<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 删除</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> titles_test</span><br><span class="line"><span class="keyword">where</span> id <span class="keyword">not</span> <span class="keyword">IN</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">select</span> <span class="built_in">min</span>(id)</span><br><span class="line">        <span class="keyword">from</span> titles_test</span><br><span class="line">        <span class="keyword">group</span> <span class="keyword">by</span> emp_no</span><br><span class="line">    )A1</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">--更新</span></span><br><span class="line">UPDATE titles_test</span><br><span class="line">   <span class="keyword">SET</span> to_date<span class="operator">=</span><span class="keyword">NULL</span></span><br><span class="line">       ,from_date<span class="operator">=</span><span class="string">&#x27;2001-01-01&#x27;</span></span><br><span class="line"> <span class="keyword">WHERE</span> to_date <span class="operator">=</span> <span class="string">&#x27;9999-01-01&#x27;</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h4 id="2-具体代码-6"><a href="#2-具体代码-6" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 删除</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> titles_test</span><br><span class="line"><span class="keyword">where</span> id <span class="keyword">not</span> <span class="keyword">IN</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">select</span> <span class="built_in">min</span>(id)</span><br><span class="line">        <span class="keyword">from</span> titles_test</span><br><span class="line">        <span class="keyword">group</span> <span class="keyword">by</span> emp_no</span><br><span class="line">    )A1</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">--更新</span></span><br><span class="line">UPDATE titles_test</span><br><span class="line">   <span class="keyword">SET</span> to_date<span class="operator">=</span><span class="keyword">NULL</span></span><br><span class="line">       ,from_date<span class="operator">=</span><span class="string">&#x27;2001-01-01&#x27;</span></span><br><span class="line"> <span class="keyword">WHERE</span> to_date <span class="operator">=</span> <span class="string">&#x27;9999-01-01&#x27;</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
 <p>这里有一个犯过的错误：</p>
 <p><strong>group by前面的select语句中要用聚合函数！！！不然是没有作用的。</strong></p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL44_45 alter和update</title>
-    <url>/2021/07/18/SQL%E5%88%B7%E9%A2%98-SQL44-45-alter%E5%92%8Cupdate/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p>update：</p>
-<p><a href="https://www.nowcoder.com/practice/2bec4d94f525458ca3d0ebf3bc8cd240?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/2bec4d94f525458ca3d0ebf3bc8cd240?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<p>alter：</p>
-<p><a href="https://www.nowcoder.com/practice/5277d7f92aa746ab8aa42886e5d570d4?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/5277d7f92aa746ab8aa42886e5d570d4?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-
-
-
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>update和alter的<strong>区别</strong>：</p>
+<h2 id="alter和update"><a href="#alter和update" class="headerlink" title="alter和update"></a>alter和update</h2><p><a href="https://www.nowcoder.com/practice/5277d7f92aa746ab8aa42886e5d570d4?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL44 alter</a></p>
+<p><a href="https://www.nowcoder.com/practice/2bec4d94f525458ca3d0ebf3bc8cd240?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL45 update</a></p>
+<h3 id="解题思路-10"><a href="#解题思路-10" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-9"><a href="#1-知识点-9" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>update和alter的<strong>区别</strong>：</p>
 <p>alter 是DDL语句，是修改数据库中对象（表，数据库，视图。。）的语句；update是DML语句，是修改表中数据的语句。</p>
 <p>alter中：</p>
 <p>（1）添加列：</p>
@@ -2480,72 +2392,25 @@
 <p>出现在 <code>update</code> 也是一样：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">set</span> column_name <span class="operator">=</span> replace(column_name, <span class="keyword">old</span>, <span class="keyword">new</span>)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="2-具体代码"><a href="#2-具体代码" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- sql44</span></span><br><span class="line"> UPDATE titles_test </span><br><span class="line">    <span class="keyword">SET</span> emp_no <span class="operator">=</span> REPLACE(emp_no, <span class="number">10001</span>, <span class="number">10005</span>)</span><br><span class="line">  <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">5</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--sql45</span></span><br><span class="line"> <span class="keyword">alter</span> </span><br><span class="line"> <span class="keyword">table</span> titles_test </span><br><span class="line">rename </span><br><span class="line">    <span class="keyword">to</span> titles_2017</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL51 查找字符串 10,A,B 中逗号,出现的次数cnt</title>
-    <url>/2021/07/19/SQL%E5%88%B7%E9%A2%98-SQL51-%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2-10-A-B-%E4%B8%AD%E9%80%97%E5%8F%B7-%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0cnt/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/e3870bd5d6744109a902db43c105bd50?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/e3870bd5d6744109a902db43c105bd50?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
+<h4 id="2-具体代码-7"><a href="#2-具体代码-7" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- sql44</span></span><br><span class="line"> UPDATE titles_test </span><br><span class="line">    <span class="keyword">SET</span> emp_no <span class="operator">=</span> REPLACE(emp_no, <span class="number">10001</span>, <span class="number">10005</span>)</span><br><span class="line">  <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">5</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">--sql45</span></span><br><span class="line"> <span class="keyword">alter</span> </span><br><span class="line"> <span class="keyword">table</span> titles_test </span><br><span class="line">rename </span><br><span class="line">    <span class="keyword">to</span> titles_2017</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><p>MySQL中没有 <code>split</code> 函数。</p>
-<p>我之前以为可以通过 <code>substring_index(str,delim,index)</code> 函数得到和 <code>split</code> 相同的结果…但是不是。这种方法是获取指定字符串按照指定字符分割后的部分字符串。</p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL53 按照dept_no进行汇总</title>
-    <url>/2021/07/29/SQL%E5%88%B7%E9%A2%98-SQL53-%E6%8C%89%E7%85%A7dept-no%E8%BF%9B%E8%A1%8C%E6%B1%87%E6%80%BB/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/6e86365af15e49d8abe2c3d4b5126e87?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/6e86365af15e49d8abe2c3d4b5126e87?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
-
-
-
-<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> dept_no</span><br><span class="line">         ,GROUP_CONCAT(emp_no)</span><br><span class="line">    <span class="keyword">from</span> dept_emp </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept_no;</span><br></pre></td></tr></table></figure>
-
-<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p><code>group_concat(column, delim)</code></p>
+<h2 id="group-concat"><a href="#group-concat" class="headerlink" title="group_concat"></a>group_concat</h2><p><a href="https://www.nowcoder.com/practice/6e86365af15e49d8abe2c3d4b5126e87?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL53 按照dept_no进行汇总</a></p>
+<h3 id="解题思路-11"><a href="#解题思路-11" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-10"><a href="#1-知识点-10" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p><code>group_concat(column, delim)</code></p>
 <p>将聚合后的字段进行连接， <code>delim</code> 参数默认是 <code>,</code> 逗号。</p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL刷题 - SQL55 分页查询employees表，每5行一页，返回第2页的数据</title>
-    <url>/2021/08/08/SQL%E5%88%B7%E9%A2%98-SQL55-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2employees%E8%A1%A8%EF%BC%8C%E6%AF%8F5%E8%A1%8C%E4%B8%80%E9%A1%B5%EF%BC%8C%E8%BF%94%E5%9B%9E%E7%AC%AC2%E9%A1%B5%E7%9A%84%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="https://www.nowcoder.com/practice/f24966e0cb8a49c192b5e65339bc8c03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1">https://www.nowcoder.com/practice/f24966e0cb8a49c192b5e65339bc8c03?tpId=82&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1</a></p>
-<span id="more"></span>
+<h4 id="2-具体代码-8"><a href="#2-具体代码-8" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">select</span> dept_no</span><br><span class="line">         ,GROUP_CONCAT(emp_no)</span><br><span class="line">    <span class="keyword">from</span> dept_emp </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept_no;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>知识点：分页查询。</p>
-<p><strong>每页n行，取第k页的全部数据。</strong></p>
-<h3 id="1-limit进行分页"><a href="#1-limit进行分页" class="headerlink" title="1. limit进行分页"></a>1. limit进行分页</h3><p>公式：<code>limit n * (k - 1), n </code></p>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p><a href="https://www.nowcoder.com/practice/f24966e0cb8a49c192b5e65339bc8c03?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1">SQL55 分页查询employees表，每5行一页，返回第2页的数据</a></p>
+<h3 id="解题思路-12"><a href="#解题思路-12" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-11"><a href="#1-知识点-11" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p><strong>分页查询。每页n行，取第k页的全部数据。</strong></p>
+<h4 id="1-limit进行分页"><a href="#1-limit进行分页" class="headerlink" title="1. limit进行分页"></a>1. limit进行分页</h4><p>公式：<code>limit n * (k - 1), n </code></p>
 <p>具体代码：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> emp_no</span><br><span class="line">limit <span class="number">5</span>,<span class="number">5</span>;</span><br></pre></td></tr></table></figure>
 
 <p>在具体代码中，<strong>limit后不支持计算</strong>。</p>
-<h3 id="2-row-number实现分页查询"><a href="#2-row-number实现分页查询" class="headerlink" title="2. row_number实现分页查询"></a>2. row_number实现分页查询</h3><p>具体代码：</p>
+<h4 id="2-row-number实现分页查询"><a href="#2-row-number实现分页查询" class="headerlink" title="2. row_number实现分页查询"></a>2. row_number实现分页查询</h4><p>具体代码：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> emp_no,birth_date,first_name,last_name,gender,hire_date</span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">       ,<span class="built_in">floor</span>(rn <span class="operator">/</span> <span class="number">5</span>) <span class="keyword">as</span> dr</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> e.<span class="operator">*</span></span><br><span class="line">       ,<span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">order</span> <span class="keyword">by</span> emp_no) <span class="operator">-</span> <span class="number">1</span> <span class="keyword">as</span> rn</span><br><span class="line">  <span class="keyword">from</span> employees e</span><br><span class="line">)e1</span><br><span class="line">)e2 <span class="keyword">where</span> dr <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
 <p>思路是：</p>
@@ -2554,6 +2419,10 @@
 <li>先使用 <code>rn / 5</code> 对数据分页，已知 <code>0/5 == 1/5 == 2/5 == 3/5 == 4/5 == 0</code>（仅整数部分），但是由于此处的计算结果是小数，使用 <code>floor()</code> 函数向下取整。</li>
 <li>最终取分页值为 <code>(k-1)</code> 的数据即可。</li>
 </ol>
+<h2 id="切分字符串"><a href="#切分字符串" class="headerlink" title="切分字符串"></a>切分字符串</h2><p><a href="%5Bhttps://www.nowcoder.com/practice/f04189f92f8d4f6fa0f383d413af7cb8?tpId=199&tqId=1975682&ru=/exam/oj&qru=/ta/sql-quick-study/question-ranking&sourceUrl=/exam/oj?tab=SQL%25E7%25AF%2587&topicId=199%5D(https://www.nowcoder.com/practice/f04189f92f8d4f6fa0f383d413af7cb8?tpId=199&tqId=1975682&ru=/exam/oj&qru=/ta/sql-quick-study/question-ranking&sourceUrl=/exam/oj?tab=SQL%E7%AF%87&topicId=199)">SQL30 统计每种性别的人数</a></p>
+<h3 id="解题思路-13"><a href="#解题思路-13" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="1-知识点-12"><a href="#1-知识点-12" class="headerlink" title="1. 知识点"></a>1. 知识点</h4><p>使用 <code>SUBSTRING_INDEX(str, delim, pos)</code>。</p>
+<h4 id="2-具体代码-9"><a href="#2-具体代码-9" class="headerlink" title="2. 具体代码"></a>2. 具体代码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> gender, <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line">  <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> SUBSTRING_INDEX(profile, <span class="string">&#x27;,&#x27;</span>, <span class="number">-1</span>) gender</span><br><span class="line">  <span class="keyword">from</span> user_submit</span><br><span class="line">)A</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> gender</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>刷题</category>
@@ -2894,33 +2763,6 @@
       </tags>
   </entry>
   <entry>
-    <title>jsp引用外部css文件失效</title>
-    <url>/2021/12/27/jsp%E5%BC%95%E7%94%A8%E5%A4%96%E9%83%A8css%E6%96%87%E4%BB%B6%E5%A4%B1%E6%95%88/</url>
-    <content><![CDATA[<h3 id="失效的内容"><a href="#失效的内容" class="headerlink" title="失效的内容"></a>失效的内容</h3><p>css：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.goodpage</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: white;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">2px</span> <span class="number">2px</span> <span class="number">3px</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>jsp:</p>
-<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/style.css&quot;</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;goodpage&quot;</span>&gt;</span><br><span class="line">        asdf</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-
-<p>结果css样式没有起到作用，jsp的内容在左上角顶格出现。</p>
-<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>我的代码出现这个bug的原因：因为客户端缓存了修改之前的css文件，在下次再加载的时候，客户端不会加载之前缓存的同名文件。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改css文件的名称，或者给文件名称添加一个版本号，此处使用系统时间戳作为版本号：</p>
-<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/style.css?v=&lt;%= System.currentTimeMillis()%&gt;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<p>不用在实际文件中添加，这种 <code>?v | ?version</code> 只是给这个链接添加一个版本号的参数，目的是让客户端区分文件。</p>
-]]></content>
-      <categories>
-        <category>项目小记</category>
-        <category>报错</category>
-      </categories>
-      <tags>
-        <tag>jsp</tag>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java - 内存模型的理解</title>
     <url>/2021/07/13/java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h3 id="Java中的变量"><a href="#Java中的变量" class="headerlink" title="Java中的变量"></a>Java中的变量</h3><p>有三种：</p>
@@ -2952,6 +2794,33 @@
       </categories>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jsp引用外部css文件失效</title>
+    <url>/2021/12/27/jsp%E5%BC%95%E7%94%A8%E5%A4%96%E9%83%A8css%E6%96%87%E4%BB%B6%E5%A4%B1%E6%95%88/</url>
+    <content><![CDATA[<h3 id="失效的内容"><a href="#失效的内容" class="headerlink" title="失效的内容"></a>失效的内容</h3><p>css：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.goodpage</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: white;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">2px</span> <span class="number">2px</span> <span class="number">3px</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>jsp:</p>
+<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/style.css&quot;</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;goodpage&quot;</span>&gt;</span><br><span class="line">        asdf</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>结果css样式没有起到作用，jsp的内容在左上角顶格出现。</p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>我的代码出现这个bug的原因：因为客户端缓存了修改之前的css文件，在下次再加载的时候，客户端不会加载之前缓存的同名文件。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改css文件的名称，或者给文件名称添加一个版本号，此处使用系统时间戳作为版本号：</p>
+<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/style.css?v=&lt;%= System.currentTimeMillis()%&gt;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不用在实际文件中添加，这种 <code>?v | ?version</code> 只是给这个链接添加一个版本号的参数，目的是让客户端区分文件。</p>
+]]></content>
+      <categories>
+        <category>项目小记</category>
+        <category>报错</category>
+      </categories>
+      <tags>
+        <tag>jsp</tag>
+        <tag>css</tag>
       </tags>
   </entry>
   <entry>
@@ -3265,37 +3134,6 @@
       </tags>
   </entry>
   <entry>
-    <title>双指针</title>
-    <url>/2021/10/20/%E5%8F%8C%E6%8C%87%E9%92%88/</url>
-    <content><![CDATA[<h2 id="双指针介绍"><a href="#双指针介绍" class="headerlink" title="双指针介绍"></a>双指针介绍</h2><p><strong>双指针</strong>，指的是在遍历对象的过程中，不是普通的使用单个指针进行访问，而是使用两个相同方向（<em>快慢指针</em>）或者相反方向（<em>对撞指针</em>）的指针进行扫描，从而达到相应的目的。</p>
-<span id="more"></span>
-
-
-
-<h3 id="对撞指针"><a href="#对撞指针" class="headerlink" title="对撞指针"></a>对撞指针</h3><p>设计 <code>left</code> 和 <code>right</code> 两个指针，从两头开始向中间开始遍历，比如 <strong>快速排序</strong> ，使用到了对撞指针。</p>
-<p>简易代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>( left &lt; right )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>( nums[left] &lt;= nums[right] )</span><br><span class="line">    &#123;</span><br><span class="line">        left ++;</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        right --;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h3><p>设计 <code>fast</code> 和 <code>slow</code> 两个指针，从同一侧开始遍历，二者以不同策略移动，通常来说，慢指针一次走一步，快指针一次走多步。</p>
-<p>经典问题为：是否存在环问题。</p>
-<p>思路为：在慢指针遍历完之前，如果与快指针相遇，存在环，否则不存在。</p>
-<p>具体代码为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( head == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode slow = head, fast = head;</span><br><span class="line">        <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( slow != <span class="keyword">null</span> &amp;&amp; fast != slow )</span><br><span class="line">        &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> &amp;&amp; fast.next.next != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                fast = fast.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( slow == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a href="https://zhuanlan.zhihu.com/p/71643340">算法一招鲜——双指针问题</a></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>双指针</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>哈希表</title>
     <url>/2021/10/14/%E5%93%88%E5%B8%8C%E8%A1%A8/</url>
     <content><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/contains-duplicate/">https://leetcode-cn.com/problems/contains-duplicate/</a></p>
@@ -3422,6 +3260,37 @@
       </categories>
       <tags>
         <tag>堆排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>双指针</title>
+    <url>/2021/10/20/%E5%8F%8C%E6%8C%87%E9%92%88/</url>
+    <content><![CDATA[<h2 id="双指针介绍"><a href="#双指针介绍" class="headerlink" title="双指针介绍"></a>双指针介绍</h2><p><strong>双指针</strong>，指的是在遍历对象的过程中，不是普通的使用单个指针进行访问，而是使用两个相同方向（<em>快慢指针</em>）或者相反方向（<em>对撞指针</em>）的指针进行扫描，从而达到相应的目的。</p>
+<span id="more"></span>
+
+
+
+<h3 id="对撞指针"><a href="#对撞指针" class="headerlink" title="对撞指针"></a>对撞指针</h3><p>设计 <code>left</code> 和 <code>right</code> 两个指针，从两头开始向中间开始遍历，比如 <strong>快速排序</strong> ，使用到了对撞指针。</p>
+<p>简易代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>( left &lt; right )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>( nums[left] &lt;= nums[right] )</span><br><span class="line">    &#123;</span><br><span class="line">        left ++;</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        right --;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h3><p>设计 <code>fast</code> 和 <code>slow</code> 两个指针，从同一侧开始遍历，二者以不同策略移动，通常来说，慢指针一次走一步，快指针一次走多步。</p>
+<p>经典问题为：是否存在环问题。</p>
+<p>思路为：在慢指针遍历完之前，如果与快指针相遇，存在环，否则不存在。</p>
+<p>具体代码为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( head == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode slow = head, fast = head;</span><br><span class="line">        <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( slow != <span class="keyword">null</span> &amp;&amp; fast != slow )</span><br><span class="line">        &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            <span class="keyword">if</span>( fast.next != <span class="keyword">null</span> &amp;&amp; fast.next.next != <span class="keyword">null</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                fast = fast.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( slow == <span class="keyword">null</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a href="https://zhuanlan.zhihu.com/p/71643340">算法一招鲜——双指针问题</a></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>
@@ -5003,14 +4872,6 @@
       </tags>
   </entry>
   <entry>
-    <title>非专业综合面试题</title>
-    <url>/2022/01/29/%E9%9D%9E%E4%B8%93%E4%B8%9A%E7%BB%BC%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="面临压力最大的一次是什么时候，你是用什么方法解决的？"><a href="#面临压力最大的一次是什么时候，你是用什么方法解决的？" class="headerlink" title="面临压力最大的一次是什么时候，你是用什么方法解决的？"></a>面临压力最大的一次是什么时候，你是用什么方法解决的？</h3><h3 id="你说你能吃苦，具体体现在什么方面？"><a href="#你说你能吃苦，具体体现在什么方面？" class="headerlink" title="你说你能吃苦，具体体现在什么方面？"></a>你说你能吃苦，具体体现在什么方面？</h3><h3 id="怎样看待加班，能接受什么程度的加班情况？"><a href="#怎样看待加班，能接受什么程度的加班情况？" class="headerlink" title="怎样看待加班，能接受什么程度的加班情况？"></a>怎样看待加班，能接受什么程度的加班情况？</h3><h3 id="自我介绍（中英文）"><a href="#自我介绍（中英文）" class="headerlink" title="自我介绍（中英文）"></a>自我介绍（中英文）</h3><h3 id="期望薪资"><a href="#期望薪资" class="headerlink" title="期望薪资"></a>期望薪资</h3><h3 id="有没有男朋友"><a href="#有没有男朋友" class="headerlink" title="有没有男朋友"></a>有没有男朋友</h3><h3 id="岗位前后端介意吗"><a href="#岗位前后端介意吗" class="headerlink" title="岗位前后端介意吗"></a>岗位前后端介意吗</h3><h3 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h3><h3 id="未来两三年的规划"><a href="#未来两三年的规划" class="headerlink" title="未来两三年的规划"></a>未来两三年的规划</h3><h3 id="月底交付，时间赶，怎么处理风险问题"><a href="#月底交付，时间赶，怎么处理风险问题" class="headerlink" title="月底交付，时间赶，怎么处理风险问题"></a>月底交付，时间赶，怎么处理风险问题</h3>]]></content>
-      <categories>
-        <category>面试题</category>
-      </categories>
-  </entry>
-  <entry>
     <title>hive面试题</title>
     <url>/2021/07/21/hive%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
     <content><![CDATA[<h3 id="1-hive的实现逻辑：为什么小表延迟比较高？"><a href="#1-hive的实现逻辑：为什么小表延迟比较高？" class="headerlink" title="1. hive的实现逻辑：为什么小表延迟比较高？"></a>1. hive的实现逻辑：为什么小表延迟比较高？</h3><p>因为hive是基于hadoop实现的，其计算会经过mapreduce。MapReduce是批处理、高延迟的，无论文件大小都会经过mapreduce。所以Hive的优势在于批处理大数据，而不是小文件。</p>
@@ -5180,6 +5041,14 @@
       <tags>
         <tag>hive</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>非专业综合面试题</title>
+    <url>/2022/01/29/%E9%9D%9E%E4%B8%93%E4%B8%9A%E7%BB%BC%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="面临压力最大的一次是什么时候，你是用什么方法解决的？"><a href="#面临压力最大的一次是什么时候，你是用什么方法解决的？" class="headerlink" title="面临压力最大的一次是什么时候，你是用什么方法解决的？"></a>面临压力最大的一次是什么时候，你是用什么方法解决的？</h3><h3 id="你说你能吃苦，具体体现在什么方面？"><a href="#你说你能吃苦，具体体现在什么方面？" class="headerlink" title="你说你能吃苦，具体体现在什么方面？"></a>你说你能吃苦，具体体现在什么方面？</h3><h3 id="怎样看待加班，能接受什么程度的加班情况？"><a href="#怎样看待加班，能接受什么程度的加班情况？" class="headerlink" title="怎样看待加班，能接受什么程度的加班情况？"></a>怎样看待加班，能接受什么程度的加班情况？</h3><h3 id="自我介绍（中英文）"><a href="#自我介绍（中英文）" class="headerlink" title="自我介绍（中英文）"></a>自我介绍（中英文）</h3><h3 id="期望薪资"><a href="#期望薪资" class="headerlink" title="期望薪资"></a>期望薪资</h3><h3 id="有没有男朋友"><a href="#有没有男朋友" class="headerlink" title="有没有男朋友"></a>有没有男朋友</h3><h3 id="岗位前后端介意吗"><a href="#岗位前后端介意吗" class="headerlink" title="岗位前后端介意吗"></a>岗位前后端介意吗</h3><h3 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h3><h3 id="未来两三年的规划"><a href="#未来两三年的规划" class="headerlink" title="未来两三年的规划"></a>未来两三年的规划</h3><h3 id="月底交付，时间赶，怎么处理风险问题"><a href="#月底交付，时间赶，怎么处理风险问题" class="headerlink" title="月底交付，时间赶，怎么处理风险问题"></a>月底交付，时间赶，怎么处理风险问题</h3>]]></content>
+      <categories>
+        <category>面试题</category>
+      </categories>
   </entry>
   <entry>
     <title>计算机基础面试题</title>
