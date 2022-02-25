@@ -28,7 +28,7 @@
 <meta property="og:description" content="题目https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;shortest-unsorted-continuous-subarray&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-22T07:55:44.000Z">
-<meta property="article:modified_time" content="2022-02-22T08:44:25.760Z">
+<meta property="article:modified_time" content="2022-02-23T12:47:03.033Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="一次遍历">
 <meta name="twitter:card" content="summary">
@@ -221,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-02-22 15:55:44 / 修改时间：16:44:25" itemprop="dateCreated datePublished" datetime="2022-02-22T15:55:44+08:00">2022-02-22</time>
+              <time title="创建时间：2022-02-22 15:55:44" itemprop="dateCreated datePublished" datetime="2022-02-22T15:55:44+08:00">2022-02-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-23 20:47:03" itemprop="dateModified" datetime="2022-02-23T20:47:03+08:00">2022-02-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -248,14 +254,19 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/">https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/</a></p>
 <span id="more"></span>
+
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>根据题目，可以将数组分为三段：<code>numsA, numsB, numsC</code> ，其中 <code>numsA、numsC</code> 均为升序数组，计算最短子数组，即计算最短的 <code>numsB</code> 。</p>
 <h3 id="数组克隆"><a href="#数组克隆" class="headerlink" title="数组克隆"></a>数组克隆</h3><p>将原始数组克隆一份到新数组，对新数组排序，然后找出两个数组的最长前缀 <code>numsA</code> 和最长后缀 <code>numsC</code> ，数组的总个数减去头尾就是中间 <code>numsB</code> 的个数。</p>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findUnsortedSubarray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] sort_nums = nums.clone();</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = nums.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        Arrays.sort(sort_nums);</span><br><span class="line">        <span class="keyword">while</span>( i &lt; nums.length &amp;&amp; nums[i] == sort_nums[i] )</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( j &gt;= i &amp;&amp; nums[j] == sort_nums[j] )</span><br><span class="line">        &#123;</span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> j - i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="一次遍历"><a href="#一次遍历" class="headerlink" title="一次遍历"></a>一次遍历</h3><p>以 <code>numsA</code> 数组来看，其中的元素 <code>i</code> 应该都满足：</p>
-<script type="math/tex; mode=display">
-nums[i] <= min(nums[j]), nums[j]∈numsB + numsC</script><p>那么此时应该要获取 <code>numsA</code> 数组中最大的元素所在的下标为 <code>left</code>；</p>
-<p>相似的，也需要获取 <code>numsC</code> 数组中最小的元素所在的下标 <code>right</code> ，那么 <code>right - left + 1</code> 的结果就是 <code>numsB</code> 的长度。 </p>
+
+
+
+<h3 id="一次遍历"><a href="#一次遍历" class="headerlink" title="一次遍历"></a>一次遍历</h3><p>以 <code>numsA</code> 数组来看，其中的元素 <code>i</code> 应该都满足：<br>$$<br>nums[i] &lt;&#x3D; min(nums[j]), nums[j]∈numsB + numsC<br>$$<br>​        那么此时应该要获取 <code>numsA</code> 数组中最大的元素所在的下标为 <code>left</code>；可以很容易的发现，在 <code>numsA</code> 中的元素都是升序排列的，也就是如果存在一个元素i，使得当前最小的元素j比这个元素大（i &lt; j），那么当前元素肯定存在 <code>numsB + numsC</code> 数组中，此时需要置 <code>left = i</code>。</p>
+<p>​        相似的，可以得到 <code>numsC</code> 中的最小值。 </p>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findUnsortedSubarray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span> max = nums[len - <span class="number">1</span>], left = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> min = nums[<span class="number">0</span>], right = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( max &gt;= nums[len - i - <span class="number">1</span>] )</span><br><span class="line">            &#123;</span><br><span class="line">                max = nums[len - i - <span class="number">1</span>];</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                left = len - i - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( min &lt;= nums[i] )</span><br><span class="line">            &#123;</span><br><span class="line">                min = nums[i];</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                right = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left + right &lt; <span class="number">0</span> ? <span class="number">0</span> : right - left + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -287,7 +298,10 @@ nums[i] <= min(nums[j]), nums[j]∈numsB + numsC</script><p>那么此时应该�
     <a href="/2022/02/22/LeetCode-621-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%99%A8/" rel="prev" title="LeetCode - 621. 任务调度器">
       <i class="fa fa-chevron-left"></i> LeetCode - 621. 任务调度器
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/23/LeetCode-560-%E5%92%8C%E4%B8%BA-K-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" rel="next" title="LeetCode - 560. 和为 K 的子数组">
+      LeetCode - 560. 和为 K 的子数组 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -362,7 +376,7 @@ nums[i] <= min(nums[j]), nums[j]∈numsB + numsC</script><p>那么此时应该�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -375,7 +389,7 @@ nums[i] <= min(nums[j]), nums[j]∈numsB + numsC</script><p>那么此时应该�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
