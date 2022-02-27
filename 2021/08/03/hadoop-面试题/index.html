@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1. hadoop解决哪些问题，有哪些特性 主要用于解决海量数据的存储和分析计算的问题。  特性有如下四个： （1）高可靠性：hadoop底层维护多个数据副本，即使某个节点的计算出现问题或存储出现故障，数据也不会丢失； （2）高扩展性：天然支持分布式，可以方便地扩展出几千个节点； （3）高效性：在mapreduce的思想中，hadoop是并行工作的，这就提高了任务的处理效率； （4）高容错性：可以">
+  <meta name="description" content="hadoop解决哪些问题，有哪些特性 主要用于解决海量数据的存储和分析计算的问题。  特性有如下四个： （1）高可靠性：hadoop底层维护多个数据副本，即使某个节点的计算出现问题或存储出现故障，数据也不会丢失； （2）高扩展性：天然支持分布式，可以方便地扩展出几千个节点； （3）高效性：在mapreduce的思想中，hadoop是并行工作的，这就提高了任务的处理效率； （4）高容错性：可以自动将">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop - 面试题">
 <meta property="og:url" content="http://example.com/2021/08/03/hadoop-%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="往南">
-<meta property="og:description" content="1. hadoop解决哪些问题，有哪些特性 主要用于解决海量数据的存储和分析计算的问题。  特性有如下四个： （1）高可靠性：hadoop底层维护多个数据副本，即使某个节点的计算出现问题或存储出现故障，数据也不会丢失； （2）高扩展性：天然支持分布式，可以方便地扩展出几千个节点； （3）高效性：在mapreduce的思想中，hadoop是并行工作的，这就提高了任务的处理效率； （4）高容错性：可以">
+<meta property="og:description" content="hadoop解决哪些问题，有哪些特性 主要用于解决海量数据的存储和分析计算的问题。  特性有如下四个： （1）高可靠性：hadoop底层维护多个数据副本，即使某个节点的计算出现问题或存储出现故障，数据也不会丢失； （2）高扩展性：天然支持分布式，可以方便地扩展出几千个节点； （3）高效性：在mapreduce的思想中，hadoop是并行工作的，这就提高了任务的处理效率； （4）高容错性：可以自动将">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-03T14:41:25.000Z">
-<meta property="article:modified_time" content="2022-02-25T16:57:04.834Z">
+<meta property="article:modified_time" content="2022-02-26T17:19:39.154Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-26 00:57:04" itemprop="dateModified" datetime="2022-02-26T00:57:04+08:00">2022-02-26</time>
+                <time title="修改时间：2022-02-27 01:19:39" itemprop="dateModified" datetime="2022-02-27T01:19:39+08:00">2022-02-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="1-hadoop解决哪些问题，有哪些特性"><a href="#1-hadoop解决哪些问题，有哪些特性" class="headerlink" title="1. hadoop解决哪些问题，有哪些特性"></a>1. hadoop解决哪些问题，有哪些特性</h3><ol>
+        <h3 id="hadoop解决哪些问题，有哪些特性"><a href="#hadoop解决哪些问题，有哪些特性" class="headerlink" title="hadoop解决哪些问题，有哪些特性"></a>hadoop解决哪些问题，有哪些特性</h3><ol>
 <li><p>主要用于解决海量数据的存储和分析计算的问题。</p>
 </li>
 <li><p>特性有如下四个：</p>
@@ -264,9 +264,25 @@
 </ol>
 <span id="more"></span>
 
-<h3 id="2-hadoop的版本区别"><a href="#2-hadoop的版本区别" class="headerlink" title="2. hadoop的版本区别"></a>2. hadoop的版本区别</h3><p>1.x的版本包含辅助工具，hdfs和mapreduce。其中hdfs负责数据存储，mapreduce负责数据计算和资源调度。</p>
+<h3 id="hadoop的版本区别"><a href="#hadoop的版本区别" class="headerlink" title="hadoop的版本区别"></a>hadoop的版本区别</h3><p>1.x的版本包含辅助工具，hdfs和mapreduce。其中hdfs负责数据存储，mapreduce负责数据计算和资源调度。</p>
 <p>2.x的版本与1.x版本大致相同，唯一的区别在于将mapreduce的任务一分为二，mapreduce继续负责数据的运算，将资源调度的任务分配给yarn框架。</p>
-<h3 id="3-HDFS相关"><a href="#3-HDFS相关" class="headerlink" title="3. HDFS相关"></a>3. HDFS相关</h3><h4 id="组成架构"><a href="#组成架构" class="headerlink" title="组成架构"></a>组成架构</h4><ol>
+<h3 id="常用端口号"><a href="#常用端口号" class="headerlink" title="常用端口号"></a>常用端口号</h3><p>hadoop2：</p>
+<ol>
+<li>HDFS NameNode内部通信端口：8020、9000；</li>
+<li>HDFS NameNode的用户查询端口：50070；</li>
+<li>Yarn查询任务运行情况端口：8080；</li>
+<li>查看历史服务器：19888.</li>
+</ol>
+<p>hadoop3：</p>
+<ol>
+<li>NameNode内部通信端口：8020、9000、9820；</li>
+<li>NameNode对用户开放的查询端口：9870；</li>
+<li>Yarn查询任务运行情况端口：8080；</li>
+<li>查看历史服务器端口：19888.</li>
+</ol>
+<h3 id="常用的配置文件"><a href="#常用的配置文件" class="headerlink" title="常用的配置文件"></a>常用的配置文件</h3><p>2.x：hdfs-site.xml、mapred-site.xml、yarn-site.xml、core-site.xml、slaves；</p>
+<p>3.x：hdfs-site.xml、mapred-site.xml、core-site.xml、yarn-site.xml、workers。</p>
+<h3 id="HDFS相关"><a href="#HDFS相关" class="headerlink" title="HDFS相关"></a>HDFS相关</h3><h4 id="组成架构"><a href="#组成架构" class="headerlink" title="组成架构"></a>组成架构</h4><ol>
 <li>NameNode：用于存储文件的元数据，比如文件名、文件目录结构、文件的块列表以及块所在的datanode等，并处理客户端的读写请求。</li>
 <li>DataNode：存储实际的数据块，并执行数据块的读写操作。</li>
 <li>SecondaryNameNode：它不是NameNode的热备，不能在NameNode挂掉时进行替换，而是辅助NameNode，分担其工作量，比如定期合并fsimage和edits，在NameNode挂掉时辅助恢复NameNode。</li>
@@ -282,7 +298,7 @@
 <li><p>解决的方法：</p>
 <p>（1）har文件：将多个小文件打包为一个har文件，在HDFS中只会存储这个har文件的元数据信息，但是实际操作中，允许对里面的文件进行透明访问；</p>
 <p>（2）sequencefile：将文件名作为key，文件内容作为value存储，可以将多个kv形式的文件合并为一个大文件进行存储；</p>
-<p>（3）CombineTextInputFormat：是新的InputFormat的格式，是用于合并小文件的，同时也会考虑数据的存储位置。</p>
+<p>（3）CombineTextInputFormat：是新的InputFormat的格式，用于将多个小文件合并为一个split，同时也会考虑数据的存储位置。</p>
 </li>
 </ol>
 <h4 id="HDFS的读写过程"><a href="#HDFS的读写过程" class="headerlink" title="HDFS的读写过程"></a>HDFS的读写过程</h4><ol>
@@ -302,7 +318,55 @@
 <h4 id="为什么数据块不能设置太小也不能设置太大"><a href="#为什么数据块不能设置太小也不能设置太大" class="headerlink" title="为什么数据块不能设置太小也不能设置太大"></a>为什么数据块不能设置太小也不能设置太大</h4><p>HDFS文件在物理上是分块存储的，块的大小可以通过dfs.blocksize调整。默认情况下，hadoop1的块大小是64M，hadoop2的块大小是128M。</p>
 <p>（1）如果设置太小，会增加寻址时间，并且每个块都会在NameNode中存储元数据，也会增大NameNode的开销；</p>
 <p>（2）如果设置太大，以至于从磁盘获取数据的时间明显大于定位这个块开始位置的时间，会导致程序处理这块数据会非常慢。</p>
-<h3 id="4-MapReduce相关"><a href="#4-MapReduce相关" class="headerlink" title="4. MapReduce相关"></a>4. MapReduce相关</h3><h4 id="组成架构-1"><a href="#组成架构-1" class="headerlink" title="组成架构"></a>组成架构</h4><p>MapReduce使用主从架构，包含Client、JobTracker、TaskTracker和Task。</p>
+<h4 id="HDFS实现高可用"><a href="#HDFS实现高可用" class="headerlink" title="HDFS实现高可用"></a>HDFS实现高可用</h4><p>​        同时启动2个NameNode，一个处于活动状态，一个处于随时待命状态。这样可以保证运行状态的NameNode出现故障的时候，可以在数据不丢失的情况下，手动或自动将待命的NameNode切换到活动状态继续执行。</p>
+<p>​        为了使两个NameNode保持同步，两个NameNode会与一组名为JournalNode的守护程序进行通信。当活动的NameNode修改命名空间时，会定期将执行的操作记录到editlog中，并写入JN的多数节点，比如写入 2n + 1 个守护节点上，只要 n+1 个守护节点成功写入就表示写入成功，而待命的NameNode会一直监听守护节点上editlog的变化，如果出现改动就会读取这个日志并与当前的命名空间合并，保证活动的NameNode发生错误时，待命的NameNode能够与活动的NameNode的命名空间保持一致。</p>
+<p>​        为了让状态切换尽快完成，还需要保证待命的NameNode也实时保存了数据块的存储信息，这样在错误切换的时候，待命的NameNode就不需要等待所有数据块全部汇报完后再切换，而是直接切换到活动状态。我们只需要让DataNode同时向这两个NameNode发送块位置信息和心跳。</p>
+<h3 id="MapReduce相关"><a href="#MapReduce相关" class="headerlink" title="MapReduce相关"></a>MapReduce相关</h3><h4 id="组成架构-1"><a href="#组成架构-1" class="headerlink" title="组成架构"></a>组成架构</h4><p>MapReduce使用主从架构，包含JobClient、JobTracker、TaskTracker和Task。</p>
+<ol>
+<li>在用户端使用JobClient将打包好的jar文件存储到HDFS上，然后将路径提交给JobTracker，JobTracker会创建Task，分发给多个TaskTracker执行；</li>
+<li>JobTracker是主从结构中的主节点，会调度和监控每个Task的状态，如果某个Task执行失败，就会重新运行它；</li>
+<li>TaskTracker是主从结构中的从节点，运行在HDFS的DataNode上，会主动和JobTracker进行通信，接收并执行从JobTracker传过来的任务；</li>
+<li>Task分为Map Task和Reduce Task，由TaskTracker来启动，我们知道在HDFS中使用block为单位存储数据，在MapReduce中则使用split为单位处理数据，这个split是一个逻辑概念，只存储一些元数据信息，比如数据的起始位置、数据的长度、数据所在的节点等。它的划分方法由用户决定，一个split对应一个map task。</li>
+</ol>
+<h4 id="数据切片和Map-Task并行度"><a href="#数据切片和Map-Task并行度" class="headerlink" title="数据切片和Map Task并行度"></a>数据切片和Map Task并行度</h4><p>Split即数据切片，是逻辑存储，假设要切分130M的数据，数据块会将其切分为128M和2M使用两个数据块实现物理存储，想要切分为三片，需要记录 0-65、65-130的索引，这是数据切分的实现。切片的大小可以大于或小于一个数据块的大小，也可以等于一个数据块的大小，但是大于或小于数据块的时候，就比如刚刚的例子，将数据平分切片，就会涉及跨节点取数据的问题，效率肯定会比获取本地数据要低；如果按照数据块大小切片，在本地文件系统获取数据块，效率就会更高一些。切片不会考虑数据集整体，也就是如果有两个文件输入，不会将两个文件看成一个整体切分，而是每个文件单独切片。</p>
+<p>具体切片的逻辑是：</p>
+<p>首先需要获取 splitsize 一片的大小，涉及三个值：minsize默认1、maxsize默认Long类型的最大值和blocksize数据块的大小，依据max(minsize, min(maxsize, blocksize)) 的逻辑可以得到 一片的大小默认是数据块的大小，然后判断被切数据和splitsize的比值如果大于1.1，就切片，否则不再切片。</p>
+<p>从这个逻辑可以看出，如果控制了 minsize 和 maxsize 的值，就可以控制切片的大小，如果想要调大切片修改 minsize，调小切片修改 maxsize。</p>
+<h4 id="Job提交流程"><a href="#Job提交流程" class="headerlink" title="Job提交流程"></a>Job提交流程</h4><p>对待处理的文件进行切片划分，然后提交给RM，提交切片、jar包和job.xml，然后RM会让NM开启一个MrAppMaster。MrAppMaster启动之后计算Map Task的数量并开启对应的Map Task，进入Map Task阶段。</p>
+<h4 id="Map-Task工作机制"><a href="#Map-Task工作机制" class="headerlink" title="Map Task工作机制"></a>Map Task工作机制</h4><h3 id="Yarn相关"><a href="#Yarn相关" class="headerlink" title="Yarn相关"></a>Yarn相关</h3><h4 id="组成架构-2"><a href="#组成架构-2" class="headerlink" title="组成架构"></a>组成架构</h4><p>Yarn使用主从架构，包含ResourceManager、NodeManager、ApplicationMaster和Container。</p>
+<ol>
+<li><p>ResourceManager</p>
+<p>是全局资源管理器，负责整个系统资源的管理和分配，主要由两个组件构成：调度器和应用程序管理器。</p>
+<p><strong>（1）调度器：</strong></p>
+<p>​        仅负责资源的分配，分配的资源单位用抽象概念Container表示，它将CPU、网络、内存、磁盘等资源封装在一起，从而限定每个任务使用的资源量。</p>
+<p><strong>（2）应用程序管理器：</strong></p>
+<p>​        负责管理系统中所有的应用程序，包括程序的提交、与调度器协商资源启动ApplicationMaster、监控ApplicationMaster的状态并在它失败时重启等。</p>
+</li>
+<li><p>NodeManager：</p>
+<p>是RM和AM之间的桥梁，管理单个节点上的资源，并处理来自AM和RM的请求，会定时向RM报告本节点的资源使用情况和各个Container的状态，也会接收来自AM启动或停止Container的请求。</p>
+</li>
+<li><p>ApplicationMaster：每个应用程序都会有一个ApplicationMaster，用于监控任务的状态和申请任务的资源。</p>
+</li>
+</ol>
+<h4 id="调度器的种类"><a href="#调度器的种类" class="headerlink" title="调度器的种类"></a>调度器的种类</h4><p>调度器的种类有三种：</p>
+<ol>
+<li>FIFO调度器：所有作业被提交到一个队列中，然后先按照优先级高低、再按照作业提交时间选择被执行的作业。这种算法简单，但是如果前一个作业占用了全部的资源，会导致后面的任务一直无法处理。</li>
+<li>计算能力调度器：是hadoop的默认调度器，支持多个队列，每个队列使用FIFO算法调度，计算能力调度器会给每个队列分配资源，为了防止同一用户的作业独占队列的所有资源，为每个用户提交的作业所占资源量进行限定，调度时，先计算每个队列正在运行的任务数与其应分得的计算资源直接的比值，选择比值小的队列，然后根据优先级和提交时间顺序从该队列调度一个作业。</li>
+<li>公平调度器：也支持多个队列，尽可能保证所有作业都能获得等量的资源，系统中只有一个作业时，会独占所有资源，有其他作业提交时再将资源平分给其他任务。</li>
+</ol>
+<p><strong>计算能力调度器和公平调度器的比较：</strong></p>
+<p>二者核心的区别在于，提交任务到队列中，是采用公平调度还是FIFO调度。对于公平调度器，因为能够尽量保证任务获得等量的资源，所以能够避免因为长时间运行大任务而阻塞小任务；但是计算能力调度器也可以针对不同的任务创建不同的队列，然后由任务提交者根据任务的特点提交到不同队列中，也可以实现和公平调度器一样的效果。</p>
+<p>调度器的修改参数是 <code>yarn-site.xml</code> 中的 <code>yarn.resourcemanager.scheduler.class</code> 。</p>
+<h4 id="Yarn具体的提交作业流程（工作流程）"><a href="#Yarn具体的提交作业流程（工作流程）" class="headerlink" title="Yarn具体的提交作业流程（工作流程）"></a>Yarn具体的提交作业流程（工作流程）</h4><ol>
+<li>首先JobClient会向ResourceManager申请提交应用程序，包括AM程序、启动AM的命令、用户程序、环境变量等；</li>
+<li>然后RM会为这个程序分配第一个Container，并和对应的NM通信，让它在这个Container上启动AM；</li>
+<li>AM被启动后会首先向RM进行注册，目的是为了让用户能够随时查看应用程序的运行状态，然后AM会以轮询的方式向RM申请资源；</li>
+<li>成功申请到资源之后，AM会和对应的NM通信，让它启动任务；</li>
+<li>NM为任务配置好环境后，将启动任务的命令写入一个脚本，然后通过调用这个脚本来运行任务；</li>
+<li>各个任务会向AM汇报自己的运行状态和进度，方便AM随时掌握这些信息，并在任务执行失败时能够及时为它重新申请资源；</li>
+<li>等到所有任务执行完毕后，AM会向RM申请注销自己。</li>
+</ol>
+<h4 id="Yarn怎么保证高可用"><a href="#Yarn怎么保证高可用" class="headerlink" title="Yarn怎么保证高可用"></a>Yarn怎么保证高可用</h4><p>在hadoop2.4版本之前，Yarn框架的RM存在单点故障的问题，也就是如果RM挂掉了，恢复的时间会比较长，这就会导致正在运行的程序丢失，影响范围较大，所以从hadoop2.4版本开始，引入了RM高可用机制，典型的高可用集群中，默认会配置两个独立的ResourceManager，在任意时间，有且仅有一个RM处于运行状态，另一台处于待命状态，一旦运行状态的RM出现故障，就可以将待命状态的RM切换为运行状态继续执行任务。切换的方式可以是手动切换，也可以基于Zookeeper实现自动切换。</p>
 <h2 id="1-MapReduce优化"><a href="#1-MapReduce优化" class="headerlink" title="1. MapReduce优化"></a>1. MapReduce优化</h2><h3 id="1-跑得慢的原因"><a href="#1-跑得慢的原因" class="headerlink" title="1. 跑得慢的原因"></a>1. 跑得慢的原因</h3><p>Mapreduce的瓶颈在于两点：</p>
 <p>（1）计算机性能：CPU、内存、磁盘健康、网络等。</p>
 <p>（2）I&#x2F;O操作：数据倾斜、Map和Reduce数设置不合理、Map运行时间太长导致Reduce等待过久、小文件过多、大量的不可分块的超大文件、spill次数过多、Merge次数过多等。</p>
@@ -329,7 +393,6 @@
 <p>yarn中比如有 <code>yarn.scheduler.minimum-allocation-vcores </code> 设置每个Container申请的最小CPU核数，默认值：1；</p>
 <p>shuffle中比如有 <code>mapreduce.map.sort.spill.percent</code> 设置环形缓冲区溢出的阈值，默认80%；</p>
 <p>容错相关系数比如有 <code>mapreduce.map.maxattempts</code> 设置每个Map Task最大重试次数，一旦重试参数超过该值，则认为Map Task运行失败，默认值：4。</p>
-<h2 id="2-yarn怎么保证高可用？"><a href="#2-yarn怎么保证高可用？" class="headerlink" title="2. yarn怎么保证高可用？"></a>2. yarn怎么保证高可用？</h2><p>resourcemanager基于zookeeper实现高可用机制，避免单点故障；执行失败后，resourcemanager通过nodemanager告知applicationMaster任务失败，由applicationmaster决定如何处理失败的任务；然后resourcemanager负责重启，apllicationmaster负责处理内部的容错问题，并保存已经执行成功的任务重启之后不需要再运行。</p>
 <h2 id="4-Map-Join-和-Reduce-Join"><a href="#4-Map-Join-和-Reduce-Join" class="headerlink" title="4. Map Join 和 Reduce Join"></a>4. Map Join 和 Reduce Join</h2><p>reduce join是在map阶段完成数据的标记，在reduce阶段完成数据的合并；</p>
 <p>map join是直接在map阶段完成数据的合并，没有reduce阶段。</p>
 <p>Reduce Join的缺陷：</p>
@@ -371,24 +434,6 @@
 <p>客户端将任务提交到RM，RM到某个NM下启动一个container，并在该container内放置传输的AM；接着AM向RM申请资源，RM返回相应的资源列表，然后AM启动这些对应的资源，这些资源在对应的DN上处理相应的任务，这部分称为maptask，maptask处理完后，将所有maptask的结果传输到reduce端执行，最终将reduce端的结果对应的元数据信息传输到namenode中；2NN会每隔一段时间对NM的元数据进行备份。</p>
 </li>
 </ol>
-<h2 id="6-Yarn工作机制"><a href="#6-Yarn工作机制" class="headerlink" title="6. Yarn工作机制"></a>6. Yarn工作机制</h2><p>Yarn是典型的<code>master-slave</code>架构，<code>master</code>称为<code>ResourceManager(RM)</code>，<code>slave</code>称为<code>NodeManager(NM)</code>。<br>RM负责接收用户提交的任务，并且决定为任务分配多少资源和调度到哪个NM执行；NM是真正执行任务的节点，周期性地向RM汇报自己的资源使用情况并领取分配的任务，负责启动和停止任务相关的进程等工作。</p>
-<h3 id="具体工作流程如下："><a href="#具体工作流程如下：" class="headerlink" title="具体工作流程如下："></a>具体工作流程如下：</h3><p>（1）用户使用客户端向Yarn提交应用程序，其中包括ApplicationMaster(AM)程序、启动ApplicationMaster的命令、用户程序、环境变量、作业信息、文件位置等；<br>（2）ResourceManager(RM)为该应用程序分配第一个container，并与对应的NodeManager(NM)通过心跳的方式通信，要求它在这个container中启动应用程序的AM；<br>（3）AM首先向RM注册，这样用户之间可以通过RM查看应用程序的运行状态，然后它将为各个任务申请资源，并监控它的运行状态，直到运行结束；<br>（4）AM采用轮询的方式通过RPC协议向RM申请和领取资源；<br>（5）一旦AM领取到资源，便与对应的NM通信，要求它启动任务；<br>（6）NM为任务设置好运行环境，将任务启动命令写入脚本，通过运行该脚本启动任务；<br>（7）各个任务可以通过RPC协议向AM汇报自己的状态和进度，以让AM随时掌握各个任务的运行状态，从而可以在任务失败时重启任务，在应用程序运行过程中，用户可以随时通过RPC向AM查询应用程序的当前运行状态；<br>（8）应用程序运行完成后，AM向RM注销并关闭自己。</p>
-<h2 id="7-Yarn提交作业流程"><a href="#7-Yarn提交作业流程" class="headerlink" title="7. Yarn提交作业流程"></a>7. Yarn提交作业流程</h2><p><strong>1.1、客户端提交作业申请</strong></p>
-<p>1.1.1、客户端向ResourceManager（后续简称RM）提交作业申请。</p>
-<p>1.1.2、RM根据申请内容返回相关的信息（例如根据input的路径，返回对应的文件元数据，还有作业资源的提交路径）。</p>
-<p>1.1.3、客户端根据RM返回的信息生成资源文件（job.split、job.xml、app.jar）并将资源文件提交至提交路径（一般存放在hdfs上）</p>
-<p>1.14、资源文件提交完毕，向RM申请运行applicationMaster（后续简称AM）。</p>
-<p><strong>1.2、RM处理用户请求</strong></p>
-<p>1.2.1、RM将用户的请求打包为task，放置调度队列，根据当前yarn的调度模式进行调度（YARN提供的三种任务调度策略：FIFO Scheduler，Capacity Scheduler 和 Fair Scheduler）。</p>
-<p><strong>1.3、NodeManager（后续简称NM）从队列中获取task。</strong></p>
-<p>1.3.1、创建contianer容器启动AM。</p>
-<p>1.3.2、下载资源文件。</p>
-<p><strong>1.4、AM向RM申请运行mapTask容器，RM将请求再打包为task放置调度队列。</strong></p>
-<p>1.4.1、其它NM获取到task后会再创建contianer容器并下载资源文件，contianer中的mapTask任务由AM负责监控和调度。</p>
-<p><strong>1.5、AM向maptask发送程序启动命令。</strong></p>
-<p><strong>1.6、contianer运行mapTask</strong></p>
-<p>1.6.1、当各节点mapTask运行完毕后，AM重复3.4的步骤（这次申请运行reduceTask）。</p>
-<p><strong>1.7、程序运行完成后，AM向RM注销自己。</strong></p>
 <h3 id="9-请简述mapreduce中的combine、partition和shuffle的作用。"><a href="#9-请简述mapreduce中的combine、partition和shuffle的作用。" class="headerlink" title="9. 请简述mapreduce中的combine、partition和shuffle的作用。"></a>9. <strong>请简述mapreduce中的combine、partition和shuffle的作用。</strong></h3><ol>
 <li><p>combine</p>
 <p>​        combine分为map端和reduce端，作用是把同一个key的键值对合并在一起，可以自定义的。<br>​        combine函数把一个map函数产生的&lt;key,value&gt;对（多个key,value）合并成一个新的&lt;key2,value2&gt;.将新的&lt;key2,value2&gt;作为输入到reduce函数中，这个value2亦可称之为values，因为有多个。</p>
@@ -403,14 +448,13 @@
 <p>​        shuffle阶段的主要函数是fetchOutputs(),这个函数的功能就是将map阶段的输出，copy到reduce 节点本地。</p>
 </li>
 </ol>
-<h3 id="10-reduce和mapreduce中的reduce区别是什么"><a href="#10-reduce和mapreduce中的reduce区别是什么" class="headerlink" title="10. reduce和mapreduce中的reduce区别是什么"></a>10. reduce<strong>和map</strong>reduce<strong>中的</strong>reduce区别是什么</h3><p><strong>在mapreduce中，map多，reduce少。</strong><br><strong>在reduce中由于数据量比较多，所以干脆，我们先把自己map里面的数据归类，这样到了reduce的时候就减轻了压力。</strong></p>
-<p><strong>这里举个例子：</strong><br><strong>map与reduce的例子</strong><br><strong>map理解为销售人员，reduce理解为销售经理。</strong><br><strong>每个人（map）只管销售,赚了多少钱销售人员不统计，也就是说这个销售人员没有****Combine，那么这个销售经理就累垮了，因为每个人都没有统计，它需要统计所有人员卖了多少件，赚钱了多少钱。</strong><br><strong>这样是不行的，所以销售经理（reduce）为了减轻压力，每个人（map）都必须统计自己卖了多少钱，赚了多少钱（<strong><strong>Combine</strong></strong>），<strong><strong>然后经理所做的事情就是统计每个人统计之后的结果。这样经理就轻松多了。所以</strong></strong>Combine在map所做的事情，减轻了reduce的事情。</strong></p>
 <h3 id="11-MapTask工作机制"><a href="#11-MapTask工作机制" class="headerlink" title="11. MapTask工作机制"></a>11. <strong>MapTask工作机制</strong></h3><p>分为5个阶段：</p>
-<p>Read阶段：<br>对于待处理的文本，客户端submit()前，获取待处理数据的信息，然后根据参数配置，形成一个分配的规划（处理切片信息） ；之后提交信息（切片、jar包、xml信息）到集群，集群启动相应的MrAppMaster，计算出MapTask数量，开启相应的MapTask；默认用TextInputFormat去读待处理文本中一行行的数据；</p>
-<p>Map阶段：<br>读取完待处理文本中的数据后，返回相应的&lt;k,v&gt;数据，并将数据写入到Mapper里面进行业务逻辑运算；</p>
-<p>Collect阶段：<br>从Map阶段写出的&lt;k,v&gt;数据，调用partitioner进行分区和针对key进行排序（方法：快速排序，默认按照字典顺序排序），并写入到环形缓冲区（内存缓冲区）；</p>
+<p>Read阶段：<br>通过InputFormat调用RecorderReader的reader()方法读取数据，默认使用TextInputFormat，其中 k 对应偏移量，v对应一行内容。</p>
+<p>Map阶段：<br>将读取的数据返回给Map，并进入用户写的Mapper逻辑。</p>
+<p>Collect阶段：</p>
+<p>Mapper阶段的数据会输出到环形缓冲区，默认大小100M，其中所有的数据都是按照分区存储，存储的数据到达80%的阈值后反向溢写，一些之前会进行分区内的快速排序。</p>
 <p>溢写阶段：<br>从环形缓冲区不断溢出到本地磁盘文件；</p>
-<p>Combiner阶段：<br>可能会溢出多个文件（分区且区内有序），多个溢出文件会被合并（归并排序）成大的溢出文件，在溢出过程及合并的过程中，都要调用Partitioner进行分区和针对key进行排序。</p>
+<p>Merge阶段：<br>可能会溢出多个文件（分区且区内有序），多个溢出文件会被合并（归并排序）成大的溢出文件，在溢出过程及合并的过程中，都要调用Partitioner进行分区和针对key进行排序。</p>
 <h3 id="12-ReduceTask工作机制"><a href="#12-ReduceTask工作机制" class="headerlink" title="12. ReduceTask工作机制"></a>12. <strong>ReduceTask工作机制</strong></h3><p>包括4个阶段。</p>
 <p>Copy阶段：<br>MapTask结束后，Reduce Task需要拷贝根据自己的分区号对应Map Task机器上的结果分区数据；</p>
 <p>Merge阶段：<br>Reduce Task会取到同一个分区的来自不同MapTask的结果文件，Reduce Task会将这些文件再进行合并；</p>
@@ -517,7 +561,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-hadoop%E8%A7%A3%E5%86%B3%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">1. hadoop解决哪些问题，有哪些特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-hadoop%E7%9A%84%E7%89%88%E6%9C%AC%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">2. hadoop的版本区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HDFS%E7%9B%B8%E5%85%B3"><span class="nav-number">3.</span> <span class="nav-text">3. HDFS相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E6%9E%B6%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">组成架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%BA%E6%9E%B6%E6%84%9F%E7%9F%A5%E6%9C%BA%E5%88%B6%EF%BC%88%E5%89%AF%E6%9C%AC%E8%8A%82%E7%82%B9%E7%9A%84%E9%80%89%E6%8B%A9%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">机架感知机制（副本节点的选择）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NameNode%E5%92%8CSecondaryNameNode%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">3.3.</span> <span class="nav-text">NameNode和SecondaryNameNode运行机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS%E4%B8%AD%E5%B0%8F%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">3.4.</span> <span class="nav-text">HDFS中小文件的处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS%E7%9A%84%E8%AF%BB%E5%86%99%E8%BF%87%E7%A8%8B"><span class="nav-number">3.5.</span> <span class="nav-text">HDFS的读写过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%95%B0%E6%8D%AE%E5%9D%97%E4%B8%8D%E8%83%BD%E8%AE%BE%E7%BD%AE%E5%A4%AA%E5%B0%8F%E4%B9%9F%E4%B8%8D%E8%83%BD%E8%AE%BE%E7%BD%AE%E5%A4%AA%E5%A4%A7"><span class="nav-number">3.6.</span> <span class="nav-text">为什么数据块不能设置太小也不能设置太大</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-MapReduce%E7%9B%B8%E5%85%B3"><span class="nav-number">4.</span> <span class="nav-text">4. MapReduce相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E6%9E%B6%E6%9E%84-1"><span class="nav-number">4.1.</span> <span class="nav-text">组成架构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-MapReduce%E4%BC%98%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">1. MapReduce优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%B7%91%E5%BE%97%E6%85%A2%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">1. 跑得慢的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B7%E4%BD%93%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2. 具体的优化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">1）数据输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89Map%E9%98%B6%E6%AE%B5"><span class="nav-number">2.2.</span> <span class="nav-text">2）Map阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%BC%89Reduce%E9%98%B6%E6%AE%B5"><span class="nav-number">2.3.</span> <span class="nav-text">3）Reduce阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%BC%89IO%E4%BC%A0%E8%BE%93"><span class="nav-number">2.4.</span> <span class="nav-text">4）IO传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%EF%BC%89%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="nav-number">2.5.</span> <span class="nav-text">5）数据倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%EF%BC%89%E5%B8%B8%E8%A7%81%E7%9A%84%E8%B0%83%E4%BC%98%E5%8F%82%E6%95%B0"><span class="nav-number">2.6.</span> <span class="nav-text">6）常见的调优参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-yarn%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">2. yarn怎么保证高可用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Map-Join-%E5%92%8C-Reduce-Join"><span class="nav-number"></span> <span class="nav-text">4. Map Join 和 Reduce Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Hadoop%E7%BB%84%E6%88%90%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">5. Hadoop组成架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Yarn%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number"></span> <span class="nav-text">6. Yarn工作机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">具体工作流程如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Yarn%E6%8F%90%E4%BA%A4%E4%BD%9C%E4%B8%9A%E6%B5%81%E7%A8%8B"><span class="nav-number"></span> <span class="nav-text">7. Yarn提交作业流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E8%AF%B7%E7%AE%80%E8%BF%B0mapreduce%E4%B8%AD%E7%9A%84combine%E3%80%81partition%E5%92%8Cshuffle%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">9. 请简述mapreduce中的combine、partition和shuffle的作用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-reduce%E5%92%8Cmapreduce%E4%B8%AD%E7%9A%84reduce%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">10. reduce和mapreduce中的reduce区别是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-MapTask%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">11. MapTask工作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-ReduceTask%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">12. ReduceTask工作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-ETL%E7%9A%84%E5%87%A0%E4%B8%AA%E8%BF%87%E7%A8%8B%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">14. ETL的几个过程分别是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-hadoop%E7%9A%84%E4%BA%8C%E7%BA%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">6.</span> <span class="nav-text">15. hadoop的二级排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-shuffle%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3"><span class="nav-number">7.</span> <span class="nav-text">18. shuffle过程详解</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop%E8%A7%A3%E5%86%B3%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">hadoop解决哪些问题，有哪些特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop%E7%9A%84%E7%89%88%E6%9C%AC%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">hadoop的版本区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">3.</span> <span class="nav-text">常用端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">常用的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS%E7%9B%B8%E5%85%B3"><span class="nav-number">5.</span> <span class="nav-text">HDFS相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E6%9E%B6%E6%9E%84"><span class="nav-number">5.1.</span> <span class="nav-text">组成架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%BA%E6%9E%B6%E6%84%9F%E7%9F%A5%E6%9C%BA%E5%88%B6%EF%BC%88%E5%89%AF%E6%9C%AC%E8%8A%82%E7%82%B9%E7%9A%84%E9%80%89%E6%8B%A9%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">机架感知机制（副本节点的选择）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NameNode%E5%92%8CSecondaryNameNode%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">5.3.</span> <span class="nav-text">NameNode和SecondaryNameNode运行机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS%E4%B8%AD%E5%B0%8F%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">5.4.</span> <span class="nav-text">HDFS中小文件的处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS%E7%9A%84%E8%AF%BB%E5%86%99%E8%BF%87%E7%A8%8B"><span class="nav-number">5.5.</span> <span class="nav-text">HDFS的读写过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%95%B0%E6%8D%AE%E5%9D%97%E4%B8%8D%E8%83%BD%E8%AE%BE%E7%BD%AE%E5%A4%AA%E5%B0%8F%E4%B9%9F%E4%B8%8D%E8%83%BD%E8%AE%BE%E7%BD%AE%E5%A4%AA%E5%A4%A7"><span class="nav-number">5.6.</span> <span class="nav-text">为什么数据块不能设置太小也不能设置太大</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">5.7.</span> <span class="nav-text">HDFS实现高可用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MapReduce%E7%9B%B8%E5%85%B3"><span class="nav-number">6.</span> <span class="nav-text">MapReduce相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E6%9E%B6%E6%9E%84-1"><span class="nav-number">6.1.</span> <span class="nav-text">组成架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%87%E7%89%87%E5%92%8CMap-Task%E5%B9%B6%E8%A1%8C%E5%BA%A6"><span class="nav-number">6.2.</span> <span class="nav-text">数据切片和Map Task并行度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Job%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B"><span class="nav-number">6.3.</span> <span class="nav-text">Job提交流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-Task%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">6.4.</span> <span class="nav-text">Map Task工作机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yarn%E7%9B%B8%E5%85%B3"><span class="nav-number">7.</span> <span class="nav-text">Yarn相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E6%9E%B6%E6%9E%84-2"><span class="nav-number">7.1.</span> <span class="nav-text">组成架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">7.2.</span> <span class="nav-text">调度器的种类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Yarn%E5%85%B7%E4%BD%93%E7%9A%84%E6%8F%90%E4%BA%A4%E4%BD%9C%E4%B8%9A%E6%B5%81%E7%A8%8B%EF%BC%88%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%89"><span class="nav-number">7.3.</span> <span class="nav-text">Yarn具体的提交作业流程（工作流程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Yarn%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">7.4.</span> <span class="nav-text">Yarn怎么保证高可用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-MapReduce%E4%BC%98%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">1. MapReduce优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%B7%91%E5%BE%97%E6%85%A2%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">1. 跑得慢的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B7%E4%BD%93%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2. 具体的优化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">1）数据输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89Map%E9%98%B6%E6%AE%B5"><span class="nav-number">2.2.</span> <span class="nav-text">2）Map阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%BC%89Reduce%E9%98%B6%E6%AE%B5"><span class="nav-number">2.3.</span> <span class="nav-text">3）Reduce阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%BC%89IO%E4%BC%A0%E8%BE%93"><span class="nav-number">2.4.</span> <span class="nav-text">4）IO传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%EF%BC%89%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="nav-number">2.5.</span> <span class="nav-text">5）数据倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%EF%BC%89%E5%B8%B8%E8%A7%81%E7%9A%84%E8%B0%83%E4%BC%98%E5%8F%82%E6%95%B0"><span class="nav-number">2.6.</span> <span class="nav-text">6）常见的调优参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Map-Join-%E5%92%8C-Reduce-Join"><span class="nav-number"></span> <span class="nav-text">4. Map Join 和 Reduce Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Hadoop%E7%BB%84%E6%88%90%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">5. Hadoop组成架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E8%AF%B7%E7%AE%80%E8%BF%B0mapreduce%E4%B8%AD%E7%9A%84combine%E3%80%81partition%E5%92%8Cshuffle%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">9. 请简述mapreduce中的combine、partition和shuffle的作用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-MapTask%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">11. MapTask工作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-ReduceTask%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">12. ReduceTask工作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-ETL%E7%9A%84%E5%87%A0%E4%B8%AA%E8%BF%87%E7%A8%8B%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">14. ETL的几个过程分别是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-hadoop%E7%9A%84%E4%BA%8C%E7%BA%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">5.</span> <span class="nav-text">15. hadoop的二级排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-shuffle%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3"><span class="nav-number">6.</span> <span class="nav-text">18. shuffle过程详解</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
