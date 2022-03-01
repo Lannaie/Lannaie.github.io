@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>zookeeper面试题</title>
+      <link href="/2022/03/01/zookeeper%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+      <url>/2022/03/01/zookeeper%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Zookeeper-是做什么的（工作机制）"><a href="#Zookeeper-是做什么的（工作机制）" class="headerlink" title="Zookeeper 是做什么的（工作机制）"></a>Zookeeper 是做什么的（工作机制）</h3><p>​        从设计模式的角度看，Zookeeper是一个基于观察者模式设计的分布式服务管理框架，负责存储和管理大家都关心的数据，并接受观察者的注册，这样当数据的状态发生变化，Zookeeper就会通知这些观察者数据的状态变化。主要用于解决分布式系统一致性的问题。</p><p>​        Zookeeper的特点有：</p><ol><li>Zookeeper中存在多个服务器，这些服务器包含了一个Leader节点和多个Follower节点，Leader负责写， Follower负责读。</li><li>集群中只要有半数以上的节点存活，Zookeeper就可以正常服务，所以适合安装奇数台服务器。</li><li>每个服务器中都保存了相同的数据副本，可以保证客户端无论连接哪台服务器，数据都是一致的。</li><li>对于客户端的更新请求，会按照发送的顺序依次执行。</li><li>数据的更新具有原子性，要么成功，要么失败。</li><li>具有实时性，在一定的时间范围内，客户端能读到最新的数据，因为服务器中的同步操作肯定会有一定的延迟，但是由于Zookeeper中存储的数据量小，所以同步的时间很短。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 面试题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> zookeeper </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>LeetCode - 560. 和为 K 的子数组</title>
       <link href="/2022/02/23/LeetCode-560-%E5%92%8C%E4%B8%BA-K-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"/>
       <url>/2022/02/23/LeetCode-560-%E5%92%8C%E4%B8%BA-K-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</url>
