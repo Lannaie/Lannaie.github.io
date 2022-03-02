@@ -258,7 +258,6 @@
       
         <h3 id="ps-ef-和-ps-aux"><a href="#ps-ef-和-ps-aux" class="headerlink" title="ps -ef 和 ps aux"></a>ps -ef 和 ps aux</h3><p>都用来显示全部进程，<code>-ef</code> 显示标准格式，<code>aux</code> 显示BSD格式。</p>
 <span id="more"></span>
-
 <h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>查找输入的内容中符合指定内容的字符串。</p>
 <p><strong>grep [指定内容] [输入内容，一般此处放文件]</strong></p>
 <h4 id="ps-ef-grep-指定内容"><a href="#ps-ef-grep-指定内容" class="headerlink" title="ps -ef | grep [指定内容]"></a>ps -ef | grep [指定内容]</h4><p>显示所有进程中与指定内容相同的进程。</p>
@@ -280,7 +279,6 @@
 <p><strong>2. awk ‘{print NR}’ test.txt | tail -n1</strong></p>
 <p><code>awk &#39;&#123;print NR&#125;&#39; test.txt</code> 显示 <code>test.txt</code> 文件的行号，如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
 <p><code>tail -n 1</code> 最后一行。</p>
 <p><strong>3. awk ‘END{print NR}’ test.txt</strong></p>
 <p><code>END</code> 必须大写。</p>
@@ -291,49 +289,34 @@
 <p><code>awk -F &quot;:&quot; &#39;&#123;print $1&#125;&#39;</code> 将输入依照 <code>:</code> 分隔符切分，并输出第一列。</p>
 <h2 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h2><p>如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!bin/bash</span></span><br><span class="line">num=0</span><br><span class="line"><span class="keyword">while</span> (( num &lt;= 500 ))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="keyword">if</span> (( num % 7 == 0 ))</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$num</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">    ((num++))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> &#123;0..500..7&#125;; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$num</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
 <p>其中 <code>&#123;0..500..7&#125;</code> 的含义是输出 0 - 500 中 7 的倍数。</p>
 <h2 id="头n行和后n行"><a href="#头n行和后n行" class="headerlink" title="头n行和后n行"></a>头n行和后n行</h2><p>头n行：<code>head -n n</code></p>
 <p>后n行：<code>tail -n n</code></p>
 <h3 id="实现打印第五行"><a href="#实现打印第五行" class="headerlink" title="实现打印第五行"></a>实现打印第五行</h3><p><strong>1. head -n 5 test.txt | tail -n 1</strong></p>
 <p><strong>2. sed -n 5p</strong></p>
 <h2 id="SHELL5打印空行的行号"><a href="#SHELL5打印空行的行号" class="headerlink" title="SHELL5打印空行的行号"></a>SHELL5打印空行的行号</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;if(NF == 0) print NR&#125;&#x27;</span> nowcoder.txt</span><br></pre></td></tr></table></figure>
-
 <h3 id="awk内建变量"><a href="#awk内建变量" class="headerlink" title="awk内建变量"></a>awk内建变量</h3><p><code>NF</code> 和 <code>NR</code> 是内建变量，<code>NF</code> 计算一行内单词的总数，默认以空格为分隔符计算，<code>NR</code> 显示当前行数。</p>
 <p><code>RS</code> 指定行分隔符，使用 <code>awk &#39;BEGIN&#123;RS=&quot;|&quot;&#125;&#123;print $0&#125;&#39;</code> ，将一行按照分隔符 <code>|</code> 分割为多列并显示。</p>
 <h3 id="awk流程控制语句"><a href="#awk流程控制语句" class="headerlink" title="awk流程控制语句"></a>awk流程控制语句</h3><p>if语句：以奇偶数为例。</p>
 <p>判断偶数：<code>awk &#39;BEGIN &#123;num = 10; if (num % 2 == 0) printf &quot;%d 是偶数\n&quot;, num&#125;&#39;</code></p>
 <p>判断奇偶数：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;BEGIN &#123;</span></span><br><span class="line"><span class="string">num = 11;</span></span><br><span class="line"><span class="string">if (num % 2 == 0) printf &quot;%d 是偶数\n&quot;, num;</span></span><br><span class="line"><span class="string">else printf &quot;%d 是奇数\n&quot;, num</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
 <p>for语句：以打印字母数小于8的单词为例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># nowcoder.txt</span><br><span class="line">how they are implemented and applied in computer </span><br></pre></td></tr></table></figure>
-
 <p>解决：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;for(i=0;i&lt;NF;++i) if(length($i) &lt; 8) print $i&#125;&#x27;</span> nowcoder.txt</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="去掉空行"><a href="#去掉空行" class="headerlink" title="去掉空行"></a>去掉空行</h3><p>已知 <code>$0</code> 表示输出整行，可以这样写：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;if(NF != 0) print $0&#125;&#x27;</span> nowcoder.txt</span><br></pre></td></tr></table></figure>
-
 <p>也可以这样写：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat nowcoder.txt | awk NF</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="计算文件中所有行的第六列"><a href="#计算文件中所有行的第六列" class="headerlink" title="计算文件中所有行的第六列"></a>计算文件中所有行的第六列</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/fb24140bac154e5b99e44e0cee45dcaf?tpId=195&tqId=36218&rp=1&ru=/exam/oj&qru=/exam/oj&sourceUrl=/exam/oj?tab=SHELL%25E7%25AF%2587&topicId=195&difficulty=undefined&judgeStatus=undefined&tags=&title="><strong>SHELL8</strong> <strong>统计所有进程占用内存大小的和</strong></a></p>
+<h2 id="计算文件中所有行的第六列"><a href="#计算文件中所有行的第六列" class="headerlink" title="计算文件中所有行的第六列"></a>计算文件中所有行的第六列</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/fb24140bac154e5b99e44e0cee45dcaf?tpId=195&amp;tqId=36218&amp;rp=1&amp;ru=/exam/oj&amp;qru=/exam/oj&amp;sourceUrl=%2Fexam%2Foj%3Ftab%3DSHELL%25E7%25AF%2587%26topicId%3D195&amp;difficulty=undefined&amp;judgeStatus=undefined&amp;tags=&amp;title="><strong>SHELL8</strong> <strong>统计所有进程占用内存大小的和</strong></a></p>
 <p>整行获取：</p>
 <ol>
 <li>read p &lt; file</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> p</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		...</span><br><span class="line">	<span class="keyword">done</span> &lt; nowcode.txt</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>awk ‘{print $0}’</li>
 </ol>
 <p>累加第六列：</p>
@@ -341,48 +324,36 @@
 <li>awk的三种方式：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1</span></span><br><span class="line">sum=0</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `awk <span class="string">&#x27;&#123;print $6&#125;&#x27;</span> nowcode.txt`</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    	((sum+=<span class="variable">$i</span>))</span><br><span class="line">    <span class="keyword">done</span>    </span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line">awk <span class="string">&#x27;&#123;sum+=$6&#125;END&#123;print sum&#125;&#x27;</span> nowcode.txt</span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line">awk <span class="string">&#x27;BEGIN&#123;sum=0&#125;&#123;sum+=$6&#125;END&#123;print sum&#125;&#x27;</span> nowcode.txt</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>read p的两种方式，第二种性能最好：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1</span></span><br><span class="line">sum=0</span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> p</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		((sum+=$(<span class="built_in">echo</span> <span class="variable">$p</span>|awk <span class="string">&#x27;print $6&#x27;</span>)))</span><br><span class="line">	<span class="keyword">done</span> &lt; nowcode.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$sum</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line">sum=0</span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> p:</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		arr=(<span class="variable">$p</span>)</span><br><span class="line">		((sum+=arr[5]))</span><br><span class="line">	<span class="keyword">done</span> &lt; nowcode.txt</span><br><span class="line"><span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
-
 <p>没有使用 <code>awk</code> ，而是使用定义数组接收，性能最好。</p>
 <h2 id="SHELL9-统计每个单词出现的个数"><a href="#SHELL9-统计每个单词出现的个数" class="headerlink" title="SHELL9 统计每个单词出现的个数"></a><strong>SHELL9</strong> <strong>统计每个单词出现的个数</strong></h2><p>已知 <code>NF</code> 指的是一行中单词的总数，<code>$i</code> 指的是对应的字段。</p>
 <p>如果使用 <code>for(i in list) print i, list[i]</code> 表示遍历数组 <code>list</code> ，取出对应的下标 <code>i</code> 和 下标中的值。这里的下标 <code>i</code> 往往指的是实际的字段。</p>
 <p>具体代码是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;for(i=1;i&lt;=NF;i++) list[$i]+=1&#125;END&#123;for(i in list) print i, list[i]&#125;&#x27;</span> nowcoder.txt</span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="SHELL11-转置文件的内容（for语句和内建变量的详细理解）"><a href="#SHELL11-转置文件的内容（for语句和内建变量的详细理解）" class="headerlink" title="SHELL11 转置文件的内容（for语句和内建变量的详细理解）"></a><strong>SHELL11</strong> <strong>转置文件的内容</strong>（for语句和内建变量的详细理解）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">for(i=1;i&lt;=NF;i++)&#123;</span></span><br><span class="line"><span class="string">    if(NR==1)&#123;</span></span><br><span class="line"><span class="string">        row[i]=$i</span></span><br><span class="line"><span class="string">    &#125;else</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        row[i]=row[i]&quot; &quot;$i</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;END&#123;</span></span><br><span class="line"><span class="string">    for(i=1;i&lt;=NF;i++)&#123;</span></span><br><span class="line"><span class="string">        print row[i]</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> nowcoder.txt</span><br></pre></td></tr></table></figure>
-
 <p>已知文件内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释：nowcoder.txt</span></span><br><span class="line">job salary</span><br><span class="line">c++ 13</span><br><span class="line">java 14</span><br><span class="line">php 12</span><br></pre></td></tr></table></figure>
-
 <p>先看：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;print NF&#125;&#x27;</span> nowcode.txt</span><br></pre></td></tr></table></figure>
-
 <p>得到结果：</p>
 <blockquote>
 <p>2<br>2<br>2<br>2</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;print $NF&#125;&#x27;</span> nowcode.txt</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>salary<br>13<br>14<br>12</p>
 </blockquote>
 <p><strong>得到结论：内建变量NF本身用于计算一行的单词个数，使用 $ 符号后与 $2 得到的结果一致，都用于取文件中第二列的内容，所以 $ 符号可以用于取某一列的数据。</strong></p>
 <p>可以推出如下内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;for(i=1;i&lt;=NF;++i) print i,$i&#125;&#x27;</span> nowcode.txt</span><br></pre></td></tr></table></figure>
-
 <p>得到结果：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 job</span><br><span class="line">2 salary</span><br><span class="line">1 c++</span><br><span class="line">2 13</span><br><span class="line">1 java</span><br><span class="line">2 14</span><br><span class="line">1 php</span><br><span class="line">2 12</span><br></pre></td></tr></table></figure>
-
 <p>其中 <code>for(i=1;i&lt;=NF;++i)</code> 用于遍历每一行单词的个数，然后 <code>print i,$i</code> 用于取出每一行的列号及该列对应的单词。</p>
 <p>看第一个 <code>&#123;&#125;</code> 内的具体内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=1;i&lt;=NF;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(NR==1)&#123;</span><br><span class="line">        row[i]=<span class="variable">$i</span></span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        row[i]=row[i]<span class="string">&quot; &quot;</span><span class="variable">$i</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>外层的 <code>for循环</code> 用于遍历每一行的单词数目，也就是 <code>i∈[1, NF]</code> ，如果该行是第一行 <code>NR==1</code> ，第一行的该列转置为第一列的改行。也就是将</p>
 <blockquote>
 <p>job salary</p>
@@ -396,12 +367,8 @@
 <p>然后使用 <code>row[i]=row[i]&quot; &quot;$i</code> 拼接一列数据。</p>
 <p>最后在如下代码中将每一行输出即可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=1;i&lt;=NF;i++)&#123;</span><br><span class="line">    <span class="built_in">print</span> row[i]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="SHELL12-打印每一行出现的数字个数"><a href="#SHELL12-打印每一行出现的数字个数" class="headerlink" title="SHELL12 打印每一行出现的数字个数"></a><strong>SHELL12</strong> <strong>打印每一行出现的数字个数</strong></h2><p>具体代码如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">linecount=1</span><br><span class="line">sum=0</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    count=0</span><br><span class="line">    <span class="keyword">for</span> (( i=0; i&lt;<span class="variable">$&#123;#line&#125;</span>; ++i ))</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [[ <span class="variable">$&#123;line:$i:1&#125;</span> =~ [1-5] ]]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">            ((++count))</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;line<span class="variable">$linecount</span> number:<span class="variable">$count</span>&quot;</span></span><br><span class="line">    sum=$((<span class="variable">$sum</span> + <span class="variable">$count</span>))</span><br><span class="line">    ((++linecount))</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;sum is <span class="variable">$sum</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>说明：</p>
 <p>诸如 <code>linecount=1</code> 这种都是对变量的定义。这里对空格有严格的规定：</p>
 <p><strong>赋值语句等号两边不能有空格，而字符串比较，等号两边必须有空格</strong></p>
@@ -410,15 +377,10 @@
 <p><code>=~</code> 左侧的内容是否包含右侧<strong>正则匹配</strong>内容的模式。</p>
 <p><code>$(($sum + $count))</code> 两个变量相加，<code>((++linecount))</code> 变量自增。</p>
 <h2 id="SHELL14-求平均值（保留三位小数）"><a href="#SHELL14-求平均值（保留三位小数）" class="headerlink" title="SHELL14 求平均值（保留三位小数）"></a><strong>SHELL14</strong> <strong>求平均值</strong>（保留三位小数）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    if(NR == 1)</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        count=$1</span></span><br><span class="line"><span class="string">    &#125;else</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        sum+=$1</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;END&#123;</span></span><br><span class="line"><span class="string">    printf(&quot;%.3f&quot;, sum / count)</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> nowcoder.txt</span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="SHELL16-判断输入的是否为IP地址（指定分隔符，or）"><a href="#SHELL16-判断输入的是否为IP地址（指定分隔符，or）" class="headerlink" title="SHELL16 判断输入的是否为IP地址（指定分隔符，or）"></a><strong>SHELL16</strong> <strong>判断输入的是否为IP地址</strong>（指定分隔符，or）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">awk -F <span class="string">&#x27;.&#x27;</span> <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    if(NF==4)</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        for(i=1;i&lt;=NF;++i)</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">            if($i &lt; 0 || $i &gt; 255)</span></span><br><span class="line"><span class="string">            &#123;</span></span><br><span class="line"><span class="string">                print(&quot;no&quot;)</span></span><br><span class="line"><span class="string">                break</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        if(i == 5)</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">        print(&quot;yes&quot;)</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;else</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        print(&quot;error&quot;)</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> nowcoder.txt</span><br></pre></td></tr></table></figure>
-
 <p><code>awk -F &#39;.&#39;</code> 对一行数据指定 <code>.</code> 为分隔符，<code>awk</code> 中使用 <code>print</code> 相关作为输出，<code>echo</code> 不行。</p>
-<h2 id="数组计数并sort-r-排序"><a href="#数组计数并sort-r-排序" class="headerlink" title="数组计数并sort -r 排序"></a>数组计数并sort -r 排序</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/f076c0a3c1274cbe9d615e0f3fd965f1?tpId=195&tags=&title=&difficulty=0&judgeStatus=0&rp=1"><strong>SHELL18</strong> <strong>域名进行计数排序处理</strong></a></p>
+<h2 id="数组计数并sort-r-排序"><a href="#数组计数并sort-r-排序" class="headerlink" title="数组计数并sort -r 排序"></a>数组计数并sort -r 排序</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/f076c0a3c1274cbe9d615e0f3fd965f1?tpId=195&amp;tags=&amp;title=&amp;difficulty=0&amp;judgeStatus=0&amp;rp=1"><strong>SHELL18</strong> <strong>域名进行计数排序处理</strong></a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk -F <span class="string">&quot;/&quot;</span> <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    arr[$3] = arr[$3] + 1</span></span><br><span class="line"><span class="string">&#125;END&#123;for(a in arr)&#123;print(arr[a], a)&#125;&#125;&#x27;</span> | sort -r</span><br></pre></td></tr></table></figure>
-
 
     </div>
 

@@ -263,7 +263,6 @@
 </li>
 </ol>
 <span id="more"></span>
-
 <h3 id="hadoop的版本区别"><a href="#hadoop的版本区别" class="headerlink" title="hadoop的版本区别"></a>hadoop的版本区别</h3><p>1.x的版本包含辅助工具，hdfs和mapreduce。其中hdfs负责数据存储，mapreduce负责数据计算和资源调度。</p>
 <p>2.x的版本与1.x版本大致相同，唯一的区别在于将mapreduce的任务一分为二，mapreduce继续负责数据的运算，将资源调度的任务分配给yarn框架。</p>
 <h3 id="常用端口号"><a href="#常用端口号" class="headerlink" title="常用端口号"></a>常用端口号</h3><p>hadoop2：</p>
@@ -368,7 +367,7 @@
 <p>​        溢出后，会产生两个文件，一个是实际溢出的数据文件，一个是这个数据文件的索引文件，之后可以执行Combiner过程，可以看成是本地的reduce过程，将相同key的数据合并，这样能够减少reduce task拉取的次数。</p>
 <p>​        之后会对溢出文件执行归并排序，归并排序后，也可以执行Combiner操作，之后还可以执行压缩的操作，以减少网络传输的内容。最后写入本地磁盘，等待Reduce拉取。</p>
 <p>​        Reduce端拉取数据，会先尝试放到内存中，内存不够的情况下会溢写到磁盘。拉取完后会对内存和磁盘中的数据执行归并排序，最后将相同key的数据分配到一个reduce中执行。</p>
-<h4 id="Combiner-过程"><a href="#Combiner-过程" class="headerlink" title="Combiner 过程"></a>Combiner 过程</h4><p>​        Combiner不是MR程序默认的组件，可以看成是一个插件，父类是Reducer，所以会继承Reduce端的业务逻辑，但是实际上在每个Map Task所在的节点运行。它的目的是对每个Map Task的输出进行局部汇总，以减小网络传输量，比如一个Map Task中有100个 &lt;a,1&gt;，汇总以后变成 &lt;a,100&gt;，那么原来需要传100次，现在只需要传1次。但是Combiner应用的前提是不能影响最终的业务逻辑。假设Mapper端有两个Task，<code>3 5 7</code>和 <code>2 4</code> ，最终的业务逻辑是累加求平均值，这里如果使用Combiner，会分别计算 <code>(3+5+7)/3</code> 和 <code>(2+4)/2</code> ，这和最终的 <code>(2+5+7+2+4)/5</code> 的结果就不一致了。</p>
+<h4 id="Combiner-过程"><a href="#Combiner-过程" class="headerlink" title="Combiner 过程"></a>Combiner 过程</h4><p>​        Combiner不是MR程序默认的组件，可以看成是一个插件，父类是Reducer，所以会继承Reduce端的业务逻辑，但是实际上在每个Map Task所在的节点运行。它的目的是对每个Map Task的输出进行局部汇总，以减小网络传输量，比如一个Map Task中有100个 <a,1>，汇总以后变成 <a,100>，那么原来需要传100次，现在只需要传1次。但是Combiner应用的前提是不能影响最终的业务逻辑。假设Mapper端有两个Task，<code>3 5 7</code>和 <code>2 4</code> ，最终的业务逻辑是累加求平均值，这里如果使用Combiner，会分别计算 <code>(3+5+7)/3</code> 和 <code>(2+4)/2</code> ，这和最终的 <code>(2+5+7+2+4)/5</code> 的结果就不一致了。</a,100></a,1></p>
 <h4 id="序列化概述"><a href="#序列化概述" class="headerlink" title="序列化概述"></a>序列化概述</h4><p>​        假设机器 hadoop102 的内存中存储数据 abc，想要将其拷贝到机器 hadoop103 上，需要先将 hadoop102 内存中的数据转换为字节码的形式存储到磁盘，然后通过网络传输到 hadoop103 中，再转换到 hadoop103 的内存上。其中，hadoop102 将内存的数据转换为字节码格式的过程叫做序列化，hadoop103 将字节码加载到内存的过程叫做反序列化。</p>
 <p>​        Java中其实本身自带了序列化框架 Serializable，它大致的流程是在要传输数据的末尾再加上各种校验信息、头信息、继承体系等，然后一起打包传输到另一个机器后再序列化，这种机制比较复杂。对Hadoop来说，因为是在系统内部进行传输，所以只需要一个简单的校验。相比于Java的序列化机制，Hadoop序列化因为传输的信息更少，所以存储的空间更小，传输速度更快。</p>
 <p>​        如果想要自定义序列化可以继承 Writable 接口，此处就不过多赘述。</p>
@@ -377,10 +376,10 @@
 <p>Reduce Join的缺陷：</p>
 <p>1、合并的任务在reduce端执行，reduce端处理压力大，而map端默认情况下一次会处理一个数据块，负载比较低，那么资源利用率不高。<br>2、在Key值分布不均匀的情况下，很容易产生数据倾斜。</p>
 <p>所以如果是一张小表和一张大表执行Join操作，可以考虑将小表加载到内存，在Map端执行Join操作，也就是使用Map Join，Map Join由于没有Reduce阶段，可以极大的减少网络传输和IO的代价。</p>
-<h4 id="hadoop的二级排序"><a href="#hadoop的二级排序" class="headerlink" title="hadoop的二级排序"></a>hadoop的二级排序</h4><p>即对key和value双排序。默认情况下，Map输出的结果会对Key进行默认的排序，但是有时候需要对Key排序的同时还需要对Value进行排序，这时候就要用到二次排序了。<br>有两种方法进行二次排序，分别为：buffer and in memory sort和 value-to-key conversion。<br>1、buffer and in memory sort<br>在reduce()函数中，将某个key对应的所有value保存到内存中，然后进行排序。 这种方法最大的缺点是：可能会造成out of memory。<br>2、value-to-key conversion<br>MapReduce程序中，Mapper输出的键值对会经历shuffle过程再交给 Reducer。在shuffle阶段，Mapper输出的键值对会经过partition(分区)-&gt;sort(排序)-&gt;group(分组) 三个阶段。<br>将key和部分value拼接成一个组合key，这样reduce获取的结果便是先按key排序，后按value排序的结果，需要注意的是，用户需 要自己实现Paritioner，以便只按照key进行数据划分。Hadoop显式的支持二次排序，在Configuration类中有setSotComparatorClass()方法可以对key值进行处理，setGroupingComparatorClass()方法对相同key的value值进行处理。<br>shuffle 的 sort 过程会根据键值对&lt;key, value&gt;的 key 进行排序，但是二次排序中，value 也是需要排序的字段。因此需要将 value 字段合并到 key 中作为新的 key，形成新的键值对&lt;key#value, value&gt;。在排序时使其先根据 key 排序，如果相同，再根据 value 排序。</p>
+<h4 id="hadoop的二级排序"><a href="#hadoop的二级排序" class="headerlink" title="hadoop的二级排序"></a>hadoop的二级排序</h4><p>即对key和value双排序。默认情况下，Map输出的结果会对Key进行默认的排序，但是有时候需要对Key排序的同时还需要对Value进行排序，这时候就要用到二次排序了。<br>有两种方法进行二次排序，分别为：buffer and in memory sort和 value-to-key conversion。<br>1、buffer and in memory sort<br>在reduce()函数中，将某个key对应的所有value保存到内存中，然后进行排序。 这种方法最大的缺点是：可能会造成out of memory。<br>2、value-to-key conversion<br>MapReduce程序中，Mapper输出的键值对会经历shuffle过程再交给 Reducer。在shuffle阶段，Mapper输出的键值对会经过partition(分区)-&gt;sort(排序)-&gt;group(分组) 三个阶段。<br>将key和部分value拼接成一个组合key，这样reduce获取的结果便是先按key排序，后按value排序的结果，需要注意的是，用户需 要自己实现Paritioner，以便只按照key进行数据划分。Hadoop显式的支持二次排序，在Configuration类中有setSotComparatorClass()方法可以对key值进行处理，setGroupingComparatorClass()方法对相同key的value值进行处理。<br>shuffle 的 sort 过程会根据键值对<key, value>的 key 进行排序，但是二次排序中，value 也是需要排序的字段。因此需要将 value 字段合并到 key 中作为新的 key，形成新的键值对<key#value, value>。在排序时使其先根据 key 排序，如果相同，再根据 value 排序。</key#value,></key,></p>
 <h4 id="MapReduce优化"><a href="#MapReduce优化" class="headerlink" title="MapReduce优化"></a>MapReduce优化</h4><h5 id="跑得慢的原因"><a href="#跑得慢的原因" class="headerlink" title="跑得慢的原因"></a>跑得慢的原因</h5><p>Mapreduce的瓶颈在于两点：</p>
 <p>（1）计算机性能：CPU、内存、磁盘健康、网络等。</p>
-<p>（2）I&#x2F;O操作：数据倾斜、Map和Reduce数设置不合理、Map运行时间太长导致Reduce等待过久、小文件过多、大量的不可分块的超大文件、spill次数过多、Merge次数过多等。</p>
+<p>（2）I/O操作：数据倾斜、Map和Reduce数设置不合理、Map运行时间太长导致Reduce等待过久、小文件过多、大量的不可分块的超大文件、spill次数过多、Merge次数过多等。</p>
 <h5 id="具体的优化方法"><a href="#具体的优化方法" class="headerlink" title="具体的优化方法"></a>具体的优化方法</h5><p>主要从六个方面考虑：数据输入、Map阶段、Reduce阶段、IO传输、数据倾斜问题和常用的调优参数。</p>
 <p><strong>1）数据输入</strong></p>
 <p>（1）合并小文件：在执行MR任务前将小文件进行合并，大量的小文件会产生大量的Map任务，增大Map任务装载次数，而任务的装载比较耗时，从而导致MR运行较慢。</p>
@@ -398,7 +397,7 @@
 <p>（1）采用数据压缩的方式，减少网络Io的的时间。安装Snappy和LZo压缩编码器。</p>
 <p>（2）使用SequenceFile二进制文件。</p>
 <p><strong>5）数据倾斜</strong></p>
-<p>（1）数据倾斜现象<br>大量的相同key被分配到一个分区里，map &#x2F;reduce程序执行时，reduce节点大部分执行完毕，但是有一个或者几个reduce节点运行很慢，导致整个程序的处理时间很长。<br>（2）减少数据倾斜的方法</p>
+<p>（1）数据倾斜现象<br>大量的相同key被分配到一个分区里，map /reduce程序执行时，reduce节点大部分执行完毕，但是有一个或者几个reduce节点运行很慢，导致整个程序的处理时间很长。<br>（2）减少数据倾斜的方法</p>
 <p>方法一：将不均匀的key值打散。</p>
 <p>这种方式适用于绝大部分key对应10%的数据，而很少部分的key对应90%的数据。对于这种情况，可以给key值加上随机数，将数据量很大的key值打散到不同的reduce中计算。</p>
 <p>方法二：使用map join代替 reduce join。</p>
@@ -407,7 +406,7 @@
 <p>在统计数量的时候经常会用到 <code>select count(distinct name)</code> ，这样会将name的key值全都shuffle到一个reduce中处理，很容易产生数据倾斜。采用group by+聚合函数的方式可以将数据根据key值分配到不同的reduce中，避免数据倾斜。</p>
 <p><strong>6）常见的调优参数</strong></p>
 <p>mapreduce中比如有 <code>mapreduce.map.cpu.vcores</code> 设置每个MapTask可使用的最多cpu core数目，默认值: 1；</p>
-<p>yarn中比如有 <code>yarn.scheduler.minimum-allocation-vcores </code> 设置每个Container申请的最小CPU核数，默认值：1；</p>
+<p>yarn中比如有 <code>yarn.scheduler.minimum-allocation-vcores</code> 设置每个Container申请的最小CPU核数，默认值：1；</p>
 <p>shuffle中比如有 <code>mapreduce.map.sort.spill.percent</code> 设置环形缓冲区溢出的阈值，默认80%；</p>
 <p>容错相关系数比如有 <code>mapreduce.map.maxattempts</code> 设置每个Map Task最大重试次数，一旦重试参数超过该值，则认为Map Task运行失败，默认值：4。</p>
 <h3 id="Yarn相关"><a href="#Yarn相关" class="headerlink" title="Yarn相关"></a>Yarn相关</h3><h4 id="组成架构-2"><a href="#组成架构-2" class="headerlink" title="组成架构"></a>组成架构</h4><p>Yarn使用主从架构，包含ResourceManager、NodeManager、ApplicationMaster和Container。</p>

@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Zookeeper 是做什么的（工作机制）​        从设计模式的角度看，Zookeeper是一个基于观察者模式设计的分布式服务管理框架，负责存储和管理大家都关心的数据，并接受观察者的注册，这样当数据的状态发生变化，Zookeeper就会通知这些观察者数据的状态变化。主要用于解决分布式系统一致性的问题。 ​        Zookeeper的特点有：  Zookeeper中存在多个服务器，这">
+  <meta name="description" content="Zookeeper 是做什么的（工作机制）​        Zookeeper用于为分布式框架提供协调服务。从设计模式的角度看，Zookeeper是一个基于观察者模式设计的分布式服务管理框架，负责存储和管理一些重要的数据，并接受观察者的注册，这样当数据的状态发生变化，Zookeeper就会通知这些观察者数据的状态变化。 ​        Zookeeper的特点有：  Zookeeper中存在多个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="zookeeper面试题">
 <meta property="og:url" content="http://example.com/2022/03/01/zookeeper%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="往南">
-<meta property="og:description" content="Zookeeper 是做什么的（工作机制）​        从设计模式的角度看，Zookeeper是一个基于观察者模式设计的分布式服务管理框架，负责存储和管理大家都关心的数据，并接受观察者的注册，这样当数据的状态发生变化，Zookeeper就会通知这些观察者数据的状态变化。主要用于解决分布式系统一致性的问题。 ​        Zookeeper的特点有：  Zookeeper中存在多个服务器，这">
+<meta property="og:description" content="Zookeeper 是做什么的（工作机制）​        Zookeeper用于为分布式框架提供协调服务。从设计模式的角度看，Zookeeper是一个基于观察者模式设计的分布式服务管理框架，负责存储和管理一些重要的数据，并接受观察者的注册，这样当数据的状态发生变化，Zookeeper就会通知这些观察者数据的状态变化。 ​        Zookeeper的特点有：  Zookeeper中存在多个">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-01T15:32:29.000Z">
-<meta property="article:modified_time" content="2022-03-01T16:35:57.235Z">
+<meta property="article:modified_time" content="2022-03-02T14:19:15.081Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="zookeeper">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-02 00:35:57" itemprop="dateModified" datetime="2022-03-02T00:35:57+08:00">2022-03-02</time>
+                <time title="修改时间：2022-03-02 22:19:15" itemprop="dateModified" datetime="2022-03-02T22:19:15+08:00">2022-03-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,16 +252,148 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Zookeeper-是做什么的（工作机制）"><a href="#Zookeeper-是做什么的（工作机制）" class="headerlink" title="Zookeeper 是做什么的（工作机制）"></a>Zookeeper 是做什么的（工作机制）</h3><p>​        从设计模式的角度看，Zookeeper是一个基于观察者模式设计的分布式服务管理框架，负责存储和管理大家都关心的数据，并接受观察者的注册，这样当数据的状态发生变化，Zookeeper就会通知这些观察者数据的状态变化。主要用于解决分布式系统一致性的问题。</p>
+        <h3 id="Zookeeper-是做什么的（工作机制）"><a href="#Zookeeper-是做什么的（工作机制）" class="headerlink" title="Zookeeper 是做什么的（工作机制）"></a>Zookeeper 是做什么的（工作机制）</h3><p>​        Zookeeper用于为分布式框架提供协调服务。从设计模式的角度看，Zookeeper是一个基于观察者模式设计的分布式服务管理框架，负责存储和管理一些重要的数据，并接受观察者的注册，这样当数据的状态发生变化，Zookeeper就会通知这些观察者数据的状态变化。</p>
 <p>​        Zookeeper的特点有：</p>
 <ol>
-<li>Zookeeper中存在多个服务器，这些服务器包含了一个Leader节点和多个Follower节点，Leader负责写， Follower负责读。</li>
+<li>Zookeeper中存在多个服务器，这些服务器包含了一个Leader节点和多个Follower节点，Leader负责读写， Follower负责读，如果Follower接收到写请求，会提交给Leader。</li>
 <li>集群中只要有半数以上的节点存活，Zookeeper就可以正常服务，所以适合安装奇数台服务器。</li>
 <li>每个服务器中都保存了相同的数据副本，可以保证客户端无论连接哪台服务器，数据都是一致的。</li>
 <li>对于客户端的更新请求，会按照发送的顺序依次执行。</li>
 <li>数据的更新具有原子性，要么成功，要么失败。</li>
-<li>具有实时性，在一定的时间范围内，客户端能读到最新的数据，因为服务器中的同步操作肯定会有一定的延迟，但是由于Zookeeper中存储的数据量小，所以同步的时间很短。</li>
+<li>具有实时性，在一定的时间范围内，客户端能读到最新的数据。说是一定时间范围，是因为服务器中的同步操作肯定会有一定的延迟，但是由于Zookeeper中存储的数据量小，只能存储1M的数据，所以同步的时间不会很长。</li>
 </ol>
+<h3 id="数据结构（底层存储原理）"><a href="#数据结构（底层存储原理）" class="headerlink" title="数据结构（底层存储原理）"></a>数据结构（底层存储原理）</h3><p>​        Zookeeper的底层结构和Linux文件系统很像，整体可以看成一棵树，每个节点被称作一个znode，默认存储容量是1M，所以不适合存储海量的数据，只能存储一些简单的配置。每个znode都可以通过它的路径被唯一标识。</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>​        Zookeeper能提供的服务包括：统一命名服务、统一配置管理、统一集群管理、服务器动态上下线、分布式锁和软负载均衡等。</p>
+<h4 id="统一命名服务"><a href="#统一命名服务" class="headerlink" title="统一命名服务"></a>统一命名服务</h4><p>​        在分布式系统中，经常需要对应用或服务进行统一命名，以便于识别。比如IP地址不容易记住，但是域名可以。比如域名 www.123.com下可能部署多台服务器，客户端不需要知道这些服务器的IP地址，只需要输入对应的域名，Zookeeper就可以根据负载情况返回合适的服务器，这样就算其中有服务器挂掉，也不会造成什么影响。</p>
+<h4 id="统一配置管理"><a href="#统一配置管理" class="headerlink" title="统一配置管理"></a>统一配置管理</h4><p>​        一般要求一个集群中，所有的节点的配置信息必须是一致的，比如kafka集群。当某个节点上的配置信息发生更改，就希望能够快速的同步到其他的所有的节点上。Zookeeper会在一个znode上存储这个配置信息，然后kafka集群中的所有节点监听这个znode，当这个znode上的配置文件发生更改的时候，监听的节点就能马上接收到修改的信息，立刻同步。</p>
+<h4 id="统一集群管理"><a href="#统一集群管理" class="headerlink" title="统一集群管理"></a>统一集群管理</h4><p>​        在分布式系统中需要实时掌握每个节点的状态，可以将这些节点的信息写入一个znode中，然后集群可以通过注册和监听这个znode获取实时的状态变化。</p>
+<h4 id="服务器动态上下线"><a href="#服务器动态上下线" class="headerlink" title="服务器动态上下线"></a>服务器动态上下线</h4><p>​        为了让客户端能够实时监控服务器上下线的变化，服务器启动后会在Zookeeper上创建一个临时节点，并写入参数，如主机名称和目前已经连接的客户端个数，假设这些服务器都在servers节点下创建子节点存储信息。然后客户端可以监听这个servers节点，当这个节点下某个服务器断开连接，这个临时节点会被自动删除，这个节点的状态发生变化，就会发送给这个客户端这个服务器下线的通知，之后客户端要再次连接服务器就只知道哪些服务器可以连接了。</p>
+<h4 id="软负载均衡"><a href="#软负载均衡" class="headerlink" title="软负载均衡"></a>软负载均衡</h4><p>​        比如登录服务，在Zookeeper中记录这个登陆域名下每台服务器的访问数，然后让访问数最少的服务器去处理最新的客户端请求。</p>
+<h4 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h4><p>​        首先简单说明一下分布式锁的概念，假设有多个线程要对一个资源进行操作，为了保证数据的一致性，需要对这个资源上锁。只要取到这个锁的线程才能对资源进行访问，这个线程用完该资源后会释放锁，让其他线程来争取。通过锁机制可以保证在分布式情况下多线程能够有序的访问该资源。我们把分布式环境下的这个锁称为分布式锁。</p>
+<p>​        在Zookeeper中实现的思路是：接收到客户端请求后，会在父节点 /locks 下创建一个临时的顺序节点，使用顺序节点的目的是，让请求能够按照这个节点的顺序依次次获取锁执行业务；这些临时节点会判断自己当前是不是最小的节点，如果是就获取锁执行业务；否则就监听前一个节点；一个节点获取锁执行完业务被释放后，会通知监听它的节点，让他它去获取锁执行业务。</p>
+<h3 id="选举机制"><a href="#选举机制" class="headerlink" title="选举机制"></a>选举机制</h3><p>​        Zookeeper的选举机制在第一次启动和非第一次启动的情况是不一致的。</p>
+<p>​        首先说明选举机制的三个核心原则：</p>
+<ol>
+<li>Zookeeper集群的服务器数量必须是奇数个，只有超过半数以上的服务器启动，集群才算启动成功；</li>
+<li>服务器中myid小的服务器会给myid大的服务器投票，直到选出Leader；</li>
+<li>选出Leader之后，之前的服务器状态会从Looking转变为Following，之后的服务器状态也都会自动变为Following。</li>
+</ol>
+<h4 id="第一次启动的情况"><a href="#第一次启动的情况" class="headerlink" title="第一次启动的情况"></a>第一次启动的情况</h4><ol>
+<li>假设有3台服务器，第一台服务器启动，会给自己投一票，此时票数为1，不过半，处于Looking状态；</li>
+<li>接着第二台服务器启动，会给自己投一票，由于第二台服务器的myid比第一台的大，第一台服务器将票改投给第二胎，此时票数为2，过半了，第二台服务器的状态修改为Leading，同时第一台服务器状态从Looking转变为Following；</li>
+<li>最后第三台服务器启动，由于前两台的状态已经固定，票数不可更改，第三胎服务器的状态自动转变为Following。</li>
+</ol>
+<h4 id="非第一次启动的情况"><a href="#非第一次启动的情况" class="headerlink" title="非第一次启动的情况"></a>非第一次启动的情况</h4><p>首先需要简单介绍三个概念：</p>
+<ol>
+<li>zxid：每个写操作都有一个事务id，这个事务id被称为zxid，在某一时刻zxid不一定是一致的，因为只要超过半数的服务器执行成功，就算这个写操作成功了；</li>
+<li>sid：是服务器id，用来唯一标识一台服务器，和myid一致；</li>
+<li>epoch：每个leader任期时的代号，每投完一次票这个值会增加。</li>
+</ol>
+<p>​        当一台服务器在运行期间无法和Leader保持连接，会自动认为集群中的Leader已经挂掉了，就会触发选举。进入选举流程时，当前集群可能处于两种状态：</p>
+<ol>
+<li><p>集群中的Leader没有挂掉，只是这个服务器没有连上。</p>
+<p>​        在这个服务器视图去选举Leader的时候，会被告知Leader的信息，然后这个服务器只需要和Leader重新建立连接，并行状态同步即可。</p>
+</li>
+<li><p>Leader确实挂掉了。</p>
+<p>​        还是三台服务器，此时myid=2的Leader服务器挂掉了，剩下的服务器，假设SID分别是 1和 3，ZXID分别是 8和7，EPOCH都是 1，会先比较EPOCH值，EPOCH大的直接胜出；如果相等，ZXID大的胜出；如果还相等，SID大的胜出。</p>
+</li>
+</ol>
+<h3 id="节点类型"><a href="#节点类型" class="headerlink" title="节点类型"></a>节点类型</h3><p>有四种：</p>
+<ol>
+<li>持久节点：除非Zookeeper手动删除，否则就算客户端和服务器断开也不会被删掉。</li>
+<li>持久顺序节点：和持久节点的特性一样，只是给节点名称结尾增加了自增序号，这个序号由父节点维护。</li>
+<li>临时节点：当客户端和服务器断开连接，这个客户端创建的节点会被自动删除。</li>
+<li>临时顺序节点：和临时节点具有相同的特性，只是节点名后面会跟一个父节点维护的自增序号。</li>
+</ol>
+<p><strong>带序号和不带序号的区别：创建同名节点时，带序号创建不报错，不带序号创建回报已经存在节点的错。</strong></p>
+<p><strong>序号的作用：可以为所有事件做全局排序，方便客户端梳理事件的顺序。</strong></p>
+<p>持久节点的创建：create /abc “abc”</p>
+<p>持久顺序节点的创建：create -s /bcd “bcd”</p>
+<p>临时节点的创建：create -e /cdf “cdf”</p>
+<h3 id="监听器原理"><a href="#监听器原理" class="headerlink" title="监听器原理"></a>监听器原理</h3><ol>
+<li>首先在客户端创建一个main方法；</li>
+<li>然后在这个main方法中会创建一个zkClient，这个client会创建两个线程，一个用于连接对应的服务端，一个负责监听连接的服务器中数据的变化；</li>
+<li>其中，连接服务端的线程在连上后，会告诉服务端要监听哪些信息，当这些信息发生变化，就会回调给监听的线程，监听线程内部会调用 process 方法进行后续的处理。</li>
+</ol>
+<p>常见的监听内容包括：</p>
+<ol>
+<li>监听节点数据的变化。</li>
+<li>监听子节点增删的变化。</li>
+</ol>
+<p>监听的实现是注册一次监听一次，回调一次更新的变化后，想要再次监听，需要再次注册。</p>
+<h3 id="写数据流程"><a href="#写数据流程" class="headerlink" title="写数据流程"></a>写数据流程</h3><p>请求发送的目标有两种：发给Leader和发给Follower。</p>
+<h4 id="发给Leader"><a href="#发给Leader" class="headerlink" title="发给Leader"></a>发给Leader</h4><p>​        假设有三台服务器，Leader执行写请求，写完后将请求发送给其中一个Follower执行，这个Follower执行成功后会返回给Leader一个ack码，此时已经有超过半数的服务器完成了请求的操作，就被认为是执行成功了，Leader返回给客户端成功的ack码。之后再将请求发送到另一台服务器执行写操作，这台服务器执行成功后也会返回给Leader执行成功。</p>
+<p>​        因为不需要等到全部同步成功才返回结果，所以效率很高。</p>
+<h4 id="发给Follower"><a href="#发给Follower" class="headerlink" title="发给Follower"></a>发给Follower</h4><p>​        也是假设三台服务器，Follower接收到写请求，会将请求传给Leader，然后Leader执行完后将请求发送给Follower，Follower执行完后返回ack给Leader，此时超过半数执行完成，Leader会将ack码发送给接收客户端请求的Follower，由这个Follower将ack码发回给客户端。之后Leader再将请求传递给其他Follower执行。</p>
+<h3 id="数据一致性问题"><a href="#数据一致性问题" class="headerlink" title="数据一致性问题"></a>数据一致性问题</h3><h4 id="拜占庭将军问题"><a href="#拜占庭将军问题" class="headerlink" title="拜占庭将军问题"></a>拜占庭将军问题</h4><p>​        这个军队需要全体将军一致决定是否攻击某个敌军，但是这些将军在地理上是分开的，并且军中存在叛徒，如果这些叛徒从中作梗，促成了一个并不是所有将军都同意的决定，这个行动就会失败。</p>
+<h4 id="Paxos算法"><a href="#Paxos算法" class="headerlink" title="Paxos算法"></a>Paxos算法</h4><p>​        Paxos算法是一种基于消息传递机制且具有高度容错特性的一致性算法，这个算法会保证集群中不管出现什么意外，所有节点的数据都是一致的。</p>
+<p>​        这个算法将节点分为三种类型：提议者、接受者和学习者，每个节点都可以身兼数职。提议者是提出决议的人，接收者是参与投票的人，学习者弃权，只负责执行通过的决策。</p>
+<p>​        具体的算法流程通过一个例子简单说明。假设有五个节点 A1、A2、A3、A4、A5，需要A2~A5通过A1提出的税率降低10%的提议。</p>
+<ol>
+<li>A1会生成全局唯一且递增的ID号，并发送给A2~A5，此时发送的信息只包含一个ID号；</li>
+<li>然后A2~A5都会返回给A1同意接受的应答；</li>
+<li>A1收到两份回复时再次发出请求，此时带上了税率降低10%的提议内容和ID号；</li>
+<li>A2~A5返回同意的应答；</li>
+<li>超过半数接受，提议通过。</li>
+</ol>
+<p>这是只有一个提议者的场景，如果有两个提议者，比如A1提议税率降低10%，A5提议降低15%。</p>
+<ol>
+<li>A1和A5同时发决议，ID号分别是1和2；</li>
+<li>此时A2同意了A1，A4同意了A5，A3成为关键；</li>
+</ol>
+<p>接下来出现两种情况：</p>
+<p>第一种：</p>
+<ol>
+<li>如果A3先接收到A1的请求，会答应A1；</li>
+<li>这个时候A1收到半数以上的应答，开始发送实际的请求，A2和A3接受；</li>
+<li>之后A3又接收到A5的第一次请求，因为A5的ID号比A1的大，所以也接受了A5的请求；</li>
+<li>然后A5发出实际请求，A3、A4接受。</li>
+<li>最后A1、A5同时广播决议。</li>
+</ol>
+<p>第二种：</p>
+<ol>
+<li>A3接受了A1的第一次请求后，A1的实际请求还没发出，又接收到A5的第一次请求，因为A5的ID号比A1的大，所以也接受了A5的请求；</li>
+<li>接着A1发送实际的请求，但是没有足够的响应，就会重新发起只带ID号的请求，此时ID自增为3；这个时候A1的ID号比A5的大了，A3又接受来自A1的请求；</li>
+<li>那么A5又会由于接收不到足够的回应而开始下一次的新请求，最终A1和A5就会陷入死循环。</li>
+</ol>
+<p>​        造成这种问题的原因是系统中存在一个以上的提议者互相争夺接受者而无法达成一致的决策。针对这种情况，提出了ZAB协议：也就是从系统中选出一个节点作为Leader，只有Leader才能发起决议。</p>
+<h4 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h4><p>​        ZAB协议是特别为Zookeeper设计的支持崩溃恢复的原子广播协议，基于这种协议，Zookeeper设计为只有一个Leader负责处理写请求，然后由Leader将数据同步到其他的Follower节点。也就是只有Leader能发起决议。</p>
+<p>​        ZAB有两种模式：消息广播和崩溃恢复。</p>
+<p><strong>消息广播的流程：</strong></p>
+<ol>
+<li>客户端向Leader发送一个写数据的请求；</li>
+<li>Leader会将这个请求转换为一个事务提案，并同时为这个提案提供全局ID，也就是zxid；</li>
+<li>Leader会向每个Follower分配一个单独的FIFO队列，然后将需要广播的请求放到队列中；</li>
+<li>Follower会根据这个队列的顺序先将请求以事务日志的方式写入本地磁盘，写成功后向Leader返回ack响应；</li>
+<li>一旦Leader接收到半数以上的应答信息，就认为发送成功，开始广播commit信息，同时自身也完成事务的提交；Follower接收到commit信息后，也开始提交事务。</li>
+</ol>
+<p>这个过程可能会出现两个一致性问题：</p>
+<ol>
+<li>Leader发送提案后就宕机了，导致Follower接收不到；</li>
+<li>Leader接收到半数应答后宕机了，来不及发送commit。</li>
+</ol>
+<p>这就引入了崩溃恢复模式。</p>
+<p>这个模式要求满足两个条件：对于Leader已经发出的提案，Follower必须执行；必须丢弃Leader还没有发出的提案。</p>
+<p>这个模式主要包括两个部分：Leader选举和数据恢复。</p>
+<p>对于Leader选举，ZAB协议需要保证新选的Leader满足两个条件：</p>
+<ol>
+<li>新Leader不能包含未提交的事务；</li>
+<li>新Leader必须含有最新的zxid。</li>
+</ol>
+<p>这样是为了保证新Leader不会丢弃掉一些工作。</p>
+<p>数据同步的步骤是：</p>
+<ol>
+<li>选出新Leader后，需要先将之前未完成的事务完成；</li>
+<li>等到Follower将所有事务提交完毕，新Leader才会认为这个Follower是合法可用的，否则不会把这个Follower放到可用列表中继续使用。</li>
+</ol>
+<h3 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h3><p>即一致性、可用性和分区容错性。</p>
+<ol>
+<li>一致性：保证所有节点在同一时间数据是一致的；</li>
+<li>可用性：保证每个请求不管成功还是失败，在一定时间内都能返回响应；</li>
+<li>分区容错性：保证系统中任意信息的丢失或失败都不会影响系统的正常运行。</li>
+</ol>
+<p>三个条件最多只能同时满足两个，因为分布式系统必须要满足分区容错性，所以一般都是在一致性和可用性上做选择。</p>
+<p>Zookeeper保证的是一致性和分区容错。这就在一些极端情况下，可能会丢弃一些请求，消费者程序需要重新提交才能获得结果。并且在进行Leader选举时，集群不可用，因为此时没有Leader来发布请求。</p>
 
     </div>
 
@@ -352,7 +484,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper-%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84%EF%BC%88%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Zookeeper 是做什么的（工作机制）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper-%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84%EF%BC%88%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Zookeeper 是做什么的（工作机制）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E5%BA%95%E5%B1%82%E5%AD%98%E5%82%A8%E5%8E%9F%E7%90%86%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">数据结构（底层存储原理）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E5%91%BD%E5%90%8D%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.1.</span> <span class="nav-text">统一命名服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">统一配置管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">统一集群管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8A%A8%E6%80%81%E4%B8%8A%E4%B8%8B%E7%BA%BF"><span class="nav-number">3.4.</span> <span class="nav-text">服务器动态上下线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">3.5.</span> <span class="nav-text">软负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">3.6.</span> <span class="nav-text">分布式锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">选举机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%90%AF%E5%8A%A8%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">4.1.</span> <span class="nav-text">第一次启动的情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%90%AF%E5%8A%A8%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">4.2.</span> <span class="nav-text">非第一次启动的情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">节点类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E5%99%A8%E5%8E%9F%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">监听器原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">写数据流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E7%BB%99Leader"><span class="nav-number">7.1.</span> <span class="nav-text">发给Leader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E7%BB%99Follower"><span class="nav-number">7.2.</span> <span class="nav-text">发给Follower</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">数据一致性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98"><span class="nav-number">8.1.</span> <span class="nav-text">拜占庭将军问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paxos%E7%AE%97%E6%B3%95"><span class="nav-number">8.2.</span> <span class="nav-text">Paxos算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZAB%E5%8D%8F%E8%AE%AE"><span class="nav-number">8.3.</span> <span class="nav-text">ZAB协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP%E7%90%86%E8%AE%BA"><span class="nav-number">9.</span> <span class="nav-text">CAP理论</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
