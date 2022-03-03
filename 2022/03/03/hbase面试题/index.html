@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="概念​        HBase是一种分布式、可扩展、支持海量数据存储的NoSQL数据库，能够在HDFS上实现数据的增删改查。它在运行过程中需要不断切分和聚合，消耗的资源量让其在小数据集上不具有优势，但是对于大数据集能够做到亿万数据的秒级查询。并且Hbase是基于HDFS的，所以可以实现对hdfs存储数据做随机写操作。 ​        HDFS是不支持随机写的，如果要对里面的数据进行修改，需要先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hbase面试题">
+<meta property="og:url" content="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="往南">
+<meta property="og:description" content="概念​        HBase是一种分布式、可扩展、支持海量数据存储的NoSQL数据库，能够在HDFS上实现数据的增删改查。它在运行过程中需要不断切分和聚合，消耗的资源量让其在小数据集上不具有优势，但是对于大数据集能够做到亿万数据的秒级查询。并且Hbase是基于HDFS的，所以可以实现对hdfs存储数据做随机写操作。 ​        HDFS是不支持随机写的，如果要对里面的数据进行修改，需要先">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-03T07:47:49.000Z">
+<meta property="article:modified_time" content="2022-03-03T14:43:44.509Z">
+<meta property="article:author" content="Bonnie">
+<meta property="article:tag" content="hbase">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>hbase面试题 | 往南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">往南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hbase面试题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-03 15:47:49 / 修改时间：22:43:44" itemprop="dateCreated datePublished" datetime="2022-03-03T15:47:49+08:00">2022-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>​        HBase是一种分布式、可扩展、支持海量数据存储的NoSQL数据库，能够在HDFS上实现数据的增删改查。它在运行过程中需要不断切分和聚合，消耗的资源量让其在小数据集上不具有优势，但是对于大数据集能够做到亿万数据的秒级查询。并且Hbase是基于HDFS的，所以可以实现对hdfs存储数据做随机写操作。</p>
+<p>​        HDFS是不支持随机写的，如果要对里面的数据进行修改，需要先下载下来，改完以后再删掉原来的数据重新提交，这种方式非常不灵活。</p>
+<span id="more"></span>
+
+<h3 id="HBase-数据模型（重点应该是架构，这个可以先不看）"><a href="#HBase-数据模型（重点应该是架构，这个可以先不看）" class="headerlink" title="HBase 数据模型（重点应该是架构，这个可以先不看）"></a>HBase 数据模型（重点应该是架构，这个可以先不看）</h3><p>​        从逻辑上看，HBase的数据模型和关系型数据库很相似，都是存在一张表上，有行有列。但是HBase的底层是以键值对的形式存储的。模型中包括：</p>
+<ol>
+<li>namespace命名空间：类似于mysql的database的概念，hbase中有两个默认的命名空间，hbase存内置的表，default是用户默认使用的库；</li>
+<li>region：类似于mysql的表的概念，不同的是，HBase只需要声明到列族即可，因为列是可以动态、按需指定的，所以和mysql相比，HBase能够轻松应对列变更的场景，HBase最开始是只有一个region的，等到存储了一定的数据量后才会进行切分，也可以手动切分；</li>
+<li>row：每一行数据都包含一个rowkey和多个列，数据按照rowkey的字典序排序，查询时也只能根据rowkey进行检索，所以rowkey的设计非常重要；</li>
+<li>column：HBase中实际插入一列的时候，需要使用 <code>列族:列限定符</code> 来限定是在哪个列族插入的数据，其中列限定符可以看成是该列的列名；</li>
+<li>timestamp：用于标识数据的不同版本，每条数据写入时，如果不指定时间戳，系统会自动填入插入该条数据的时间；</li>
+<li>cell：是最小的单元，由 {行键, 列族:列名, 时间戳} 唯一确定，cell中存储的数据在底层都是以字节码的形式保存的，所以存放的数据实际上是没有类型的。</li>
+</ol>
+<h3 id="HBase架构"><a href="#HBase架构" class="headerlink" title="HBase架构"></a>HBase架构</h3><p>​        首先，HBase的底层存储依赖于hdfs，且使用Zookeeper分担了HMaster的和客户端交互的工作，所以在启动HBase的时候，这两个是必须要先启动的。然后，对于HBase来说，需要启动的有两大组件：HMaster和HRegionServer。</p>
+<p>​        HMaster负责命名空间的增删和表的增删改查，以及分配HRegion到某个RS下，并监控每个RS的状态。</p>
+<p>​        HRegionServer负责实际数据增删改查，以及HRegion的切分和聚合。</p>
+<p>​        在HRegionServer内，存在一个HLog，也就是预写入日志，和hdfs的edits文件的作用的一样的。因为HBase中的数据也会先存在内存，然后等到一定的条件再刷写到磁盘，所以避免刷写之前数据丢失，使用hlog存储数据的操作。之后，HRegionServer中还会存储一至多个HRegion。HRegion中包含了多个列族，这里称为store，一个store对应一个文件夹。</p>
+<p>​        store内部开始存储实际的数据，其中包括了 mem store 就是在内存的存储，和storeFile 磁盘的存储。因为每刷写一次会产生一个新文件，所以Store中也会存在很多的storefile，如果这些storefile的容量不大，也就是这些storefile会存在一些小文件，hbase会自动将同store的小文件合并；等到聚合到一定的大小，又会进行切分，这就是hregion的切分和聚合。storefile内有一个hfile是文件存储格式，指定了storefile中的实际数据应该以kv形式存储。</p>
+<p>​        最后会使用hdfs客户端将hlog和storefile的数据发送到datanode下存储。</p>
+<p><strong>Zookeeper在HBase中的作用：</strong></p>
+<p>HBase启动成功后，会在Zookeeper中注册：当前活动的HMaster信息、热备的HMaster信息和每个HRegionServer的信息。活动的HMaster会注册监听存储HRegionServer信息的znode，这样一旦某个HRegionServer出现问题，HMaster就能第一时间发现；同时，所有热备的HMaster也都会监听活动HMaster的状态，一旦出现故障，热备的HMaster会立刻开始抢Zookeeper中的资源，谁抢到谁就当Leader。</p>
+<h3 id="HBase写数据流程"><a href="#HBase写数据流程" class="headerlink" title="HBase写数据流程"></a>HBase写数据流程</h3><pre><code>    1. 客户端想要put一条数据，首先会向Zookeeper请求meta表所在的regionserver。meta表是hbase命名空间内默认存储的表，里面保存了集群中所有region的位置信息，zookeeper中存储了这个meta表的位置。
+    2. zookeeper会向客户端返回meta表所在的regionserver；
+    3. 客户端读取这个meta中的数据，并根据命名空间、表名、列族等返回对应的regionserver；
+    4. 客户端向这个regionserver发送put请求，会先写hlog，然后再写到memstore，到这里，对客户端来说，写的过程就结束了，这个regionserver会返回给客户端ack应答。
+</code></pre>
+<h3 id="HBase-flush过程"><a href="#HBase-flush过程" class="headerlink" title="HBase flush过程"></a>HBase flush过程</h3><p>​        刷写的过程其实很简单，到达某个条件就会触发flush过程。重要的是什么时候会触发刷写。有三个方面：regionserver、region和hlog。</p>
+<p>​        regionserver方面：</p>
+<ol>
+<li>默认regionserver中所有memstore的总大小超过堆内存的40%，会触发刷写；</li>
+<li>为了防止刷写过程中，写的速度比刷写的速度快，导致memstore的大小一直大于规定的值，所以在总大小超过 堆大小 * 0.4 * 0.95 的时候会阻塞客户端的读写操作，直到memstore的大小降到这个安全值内；</li>
+<li>为了防止数据由于长时间不写入而一直留在内存中，规定当最后一条数据写入后一小时内不再有新数据写入就会触发刷写；</li>
+</ol>
+<p>​        region方面：</p>
+<ol>
+<li>当region中数据量默认达到128M会触发刷写；</li>
+</ol>
+<p>​        hlog方面：</p>
+<ol>
+<li>默认当单个hlog大小达到hdfs的block大小时会写新的hlog，当hlog的数量达到32的时候会触发刷写。</li>
+</ol>
+<h3 id="HBase读数据流程"><a href="#HBase读数据流程" class="headerlink" title="HBase读数据流程"></a>HBase读数据流程</h3><ol>
+<li>客户端向zookeeper请求meta表所在的regionserver；</li>
+<li>zookeeper返回后，客户端向对应的regionserver请求meta读取数据，这个regionserver返回查询的结果；</li>
+<li>客户端会向存储实际数据的regionserver发送get请求；</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+	  
+	
+	 <div>
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	 </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hbase/" rel="tag"># hbase</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/03/LeetCode-10-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/" rel="prev" title="LeetCode - 10. 正则表达式匹配">
+      <i class="fa fa-chevron-left"></i> LeetCode - 10. 正则表达式匹配
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="next" title="flume面试题">
+      flume面试题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%EF%BC%88%E9%87%8D%E7%82%B9%E5%BA%94%E8%AF%A5%E6%98%AF%E6%9E%B6%E6%9E%84%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%8F%AF%E4%BB%A5%E5%85%88%E4%B8%8D%E7%9C%8B%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">HBase 数据模型（重点应该是架构，这个可以先不看）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E6%9E%B6%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">HBase架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">HBase写数据流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-flush%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">HBase flush过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E8%AF%BB%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">HBase读数据流程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bonnie"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Bonnie</p>
+  <div class="site-description" itemprop="description">每天都要做个人啊</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-05 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bonnie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
