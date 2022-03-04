@@ -28,7 +28,7 @@
 <meta property="og:description" content="概念​        HBase是一种分布式、可扩展、支持海量数据存储的NoSQL数据库，能够在HDFS上实现数据的增删改查。它在运行过程中需要不断切分和聚合，消耗的资源量让其在小数据集上不具有优势，但是对于大数据集能够做到亿万数据的秒级查询。并且Hbase是基于HDFS的，所以可以实现对hdfs存储数据做随机写操作。 ​        HDFS是不支持随机写的，如果要对里面的数据进行修改，需要先">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-03T07:47:49.000Z">
-<meta property="article:modified_time" content="2022-03-03T14:43:44.509Z">
+<meta property="article:modified_time" content="2022-03-04T16:53:41.017Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="hbase">
 <meta name="twitter:card" content="summary">
@@ -221,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-03 15:47:49 / 修改时间：22:43:44" itemprop="dateCreated datePublished" datetime="2022-03-03T15:47:49+08:00">2022-03-03</time>
+              <time title="创建时间：2022-03-03 15:47:49" itemprop="dateCreated datePublished" datetime="2022-03-03T15:47:49+08:00">2022-03-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-05 00:53:41" itemprop="dateModified" datetime="2022-03-05T00:53:41+08:00">2022-03-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -267,11 +273,12 @@
 <p>​        最后会使用hdfs客户端将hlog和storefile的数据发送到datanode下存储。</p>
 <p><strong>Zookeeper在HBase中的作用：</strong></p>
 <p>HBase启动成功后，会在Zookeeper中注册：当前活动的HMaster信息、热备的HMaster信息和每个HRegionServer的信息。活动的HMaster会注册监听存储HRegionServer信息的znode，这样一旦某个HRegionServer出现问题，HMaster就能第一时间发现；同时，所有热备的HMaster也都会监听活动HMaster的状态，一旦出现故障，热备的HMaster会立刻开始抢Zookeeper中的资源，谁抢到谁就当Leader。</p>
-<h3 id="HBase写数据流程"><a href="#HBase写数据流程" class="headerlink" title="HBase写数据流程"></a>HBase写数据流程</h3><pre><code>    1. 客户端想要put一条数据，首先会向Zookeeper请求meta表所在的regionserver。meta表是hbase命名空间内默认存储的表，里面保存了集群中所有region的位置信息，zookeeper中存储了这个meta表的位置。
-    2. zookeeper会向客户端返回meta表所在的regionserver；
-    3. 客户端读取这个meta中的数据，并根据命名空间、表名、列族等返回对应的regionserver；
-    4. 客户端向这个regionserver发送put请求，会先写hlog，然后再写到memstore，到这里，对客户端来说，写的过程就结束了，这个regionserver会返回给客户端ack应答。
-</code></pre>
+<h3 id="HBase写数据流程"><a href="#HBase写数据流程" class="headerlink" title="HBase写数据流程"></a>HBase写数据流程</h3><ol>
+<li>客户端想要put一条数据，首先会向Zookeeper请求meta表所在的regionserver。meta表是hbase命名空间内默认存储的表，里面保存了集群中所有region的位置信息，zookeeper中存储了这个meta表的位置。</li>
+<li>zookeeper会向客户端返回meta表所在的regionserver；</li>
+<li>客户端读取这个meta中的数据，并根据命名空间、表名、列族等返回对应的regionserver；</li>
+<li>客户端向这个regionserver发送put请求，会先写hlog，然后再写到memstore，到这里，对客户端来说，写的过程就结束了，这个regionserver会返回给客户端ack应答。</li>
+</ol>
 <h3 id="HBase-flush过程"><a href="#HBase-flush过程" class="headerlink" title="HBase flush过程"></a>HBase flush过程</h3><p>​        刷写的过程其实很简单，到达某个条件就会触发flush过程。重要的是什么时候会触发刷写。有三个方面：regionserver、region和hlog。</p>
 <p>​        regionserver方面：</p>
 <ol>
@@ -291,7 +298,35 @@
 <li>客户端向zookeeper请求meta表所在的regionserver；</li>
 <li>zookeeper返回后，客户端向对应的regionserver请求meta读取数据，这个regionserver返回查询的结果；</li>
 <li>客户端会向存储实际数据的regionserver发送get请求；</li>
+<li>这个regionserver会同时在memstore和storefile中查找数据，然后对查找到的数据进行一个合并，找到其中时间戳最大的结果返回。为了提高磁盘读的效率，在regionserver中会额外圈出一块内存来存放磁盘中读出来的数据，让regionserver在找磁盘前先查一下读缓存，但是读缓存中存的只是之前已经扫描过的文件的结果，所以如果读缓存中能找到数据，就不会在磁盘再扫描这个storefile，但是会在磁盘中扫描其他新刷写的文件，然后会对这三个找到的内容进行一个合并，返回时间戳最大的结果。所以无论如何读操作都是会经过磁盘的，所以HBase的读操作肯定会比写操作要慢。</li>
 </ol>
+<p>​        注：因为读缓存的容量肯定是远小于这个磁盘的，所以在存储到达上限就需要删掉一些数据，使用LRU算法，也就是将最近最久未使用的数据删掉。（一般没问也可以不用说，也没背其他的算法）</p>
+<h3 id="HBase-Compact过程（合并小文件）"><a href="#HBase-Compact过程（合并小文件）" class="headerlink" title="HBase Compact过程（合并小文件）"></a>HBase Compact过程（合并小文件）</h3><p>​        分为两种：minor compaction和 major compaction。minor compaction会将临近的若干个较小的hfile合并，但是不会清理过期和删除的数据；major compaction是将整个store的所有hfile进行合并，会清理掉过期和删除的数据。</p>
+<p>​        相关的参数有：</p>
+<ol>
+<li>hbase.hregion.majorcompaction：默认是7天合并一次，这个过程因为比较消耗资源，所以减一生产关闭，在应用空闲时手动触发。</li>
+<li>hbase.hstore.compactionThreshold：默认当store中的hfile个数超过3个，会合并重写为一个新文件，设置个数越大能够减少合并的次数，但是每次合并的事件也会相对延长。当然这里合并之后考虑到数据一致性的问题，不会立刻删除旧文件，而是等一会才删掉。</li>
+</ol>
+<h3 id="HBase-真正删除数据的时间"><a href="#HBase-真正删除数据的时间" class="headerlink" title="HBase 真正删除数据的时间"></a>HBase 真正删除数据的时间</h3><p>​        首先，HBase会在flush和major compaction阶段触发删除数据。</p>
+<p>​        对于flush阶段，如果数据存在同一个内存，就能知道这个数据是否过期，或者这个数据是否已经标记了delete，然后会删掉过期或被删除的数据，但是不会删除这个delete标记。</p>
+<p>​        对于major compaction，由于是整个store的文件合并，在重写到新文件时，就可以看到这个数据是否是过期的，或者是否已经被删除，然后就会删掉这部分数据，并且会删除delete标记。</p>
+<p>​        这个delete标记之所以在flush阶段不删掉，是因为flush阶段看到的只是这块内存中的内容，但是不确定之前刷写到磁盘的数据中是否有这个数据的其他版本，如果在flush阶段就删掉这个标记，那么系统中其他版本的数据还能够被查到；在major compaction阶段会删除这个标记是因为进行大合并的时候就会删掉这个表中所有的不合法的数据，那么这个delete标记的其他版本的数据也会被删掉。</p>
+<h3 id="HBase切分region"><a href="#HBase切分region" class="headerlink" title="HBase切分region"></a>HBase切分region</h3><p>​        HBase在最开始的时候只会有一个Region，等到数据量到达某个阈值才会切分这个region。这个阈值在0.94版本，指的是某个storefile的大小超过10G，它所在的region就会进行切分。在0.94版本后，除了这个值以外，还有一个将数据从内存刷写到磁盘的临界值，默认是hdfs一个块的大小，会将这个临界值乘以这个regionserver中属于这个表的region的个数，然后将这个乘积和10G的参数比较取较小值，这个较小值就是0.94版本之后触发切分的阈值。这样的操作越到后面region就会越大，很容易引起数据倾斜（热点）问题。</p>
+<h3 id="HBase优化"><a href="#HBase优化" class="headerlink" title="HBase优化"></a>HBase优化</h3><h4 id="预分区"><a href="#预分区" class="headerlink" title="预分区"></a>预分区</h4><p>​        为了解决自动切分导致的数据倾斜问题，引入了预分区。预分区就是，每个region会维护一个StartRow和EndRow，如果加入的数据的rowkey在这个region维护的范围内，就将这个数据交给这个region。依照这个原则，可以将数据需要投放的分区大致规划好，以提高hbase的性能。</p>
+<p>分区的代码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表 test，并为该表设置四个分区 [-∞, 1000], [1000, 2000], [2000, 3000], [3000, +∞]</span></span><br><span class="line"><span class="keyword">create</span> <span class="string">&#x27;test1&#x27;</span>, <span class="string">&#x27;info&#x27;</span>, <span class="string">&#x27;partition1&#x27;</span>, &#123;SPLITS <span class="operator">=</span><span class="operator">&gt;</span> [<span class="string">&#x27;1000&#x27;</span>, <span class="string">&#x27;2000&#x27;</span>, <span class="string">&#x27;3000&#x27;</span>]&#125;</span><br><span class="line"><span class="comment">-- 通过文件来指定分区，相对路径是将文件建在 hbase/ 目录下</span></span><br><span class="line"><span class="keyword">create</span> <span class="string">&#x27;test2&#x27;</span>, <span class="string">&#x27;info&#x27;</span>, <span class="string">&#x27;partition1&#x27;</span>, SPLITS_FILE <span class="operator">=</span><span class="operator">&gt;</span> <span class="string">&#x27;splits.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="RowKey设计"><a href="#RowKey设计" class="headerlink" title="RowKey设计"></a>RowKey设计</h4><p>RowKey的设计有三个原则：</p>
+<ol>
+<li>散列原则：让RowKey能够尽量均匀的分配到不同的分区中；</li>
+<li>唯一原则：HBase通过这个RowKey唯一的判断一条数据；</li>
+<li>长度原则：正常来说应该是在70~100位之间，因为要保证唯一，长度太短比较难实现，如果太长，假设是200字节，如果此时存储了100万的数据，那么仅rowkey就占了差不多1G的容量，极大的影响了存储的效率。</li>
+</ol>
+<p>​        在生产环境中，rowkey的唯一性和长度是一定要保证的，那么具体的优化内容其实就是围绕散列原则进行的。但是一个好的rowkey不应该只考虑散列性，还需要依据业务逻辑考虑rowkey的集中性，也就是应该将经常一起访问的内容放在一起，这样才能使用一个 [startrow, endrow] 将它们一起拿出来。</p>
+<p>​        首先是散列性，可以通过生成随机数、哈希值，也可以将时间戳反转。</p>
+<p>rowkey的设计在面试中常会结合示例来考：</p>
 
     </div>
 
@@ -385,7 +420,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%EF%BC%88%E9%87%8D%E7%82%B9%E5%BA%94%E8%AF%A5%E6%98%AF%E6%9E%B6%E6%9E%84%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%8F%AF%E4%BB%A5%E5%85%88%E4%B8%8D%E7%9C%8B%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">HBase 数据模型（重点应该是架构，这个可以先不看）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E6%9E%B6%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">HBase架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">HBase写数据流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-flush%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">HBase flush过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E8%AF%BB%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">HBase读数据流程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%EF%BC%88%E9%87%8D%E7%82%B9%E5%BA%94%E8%AF%A5%E6%98%AF%E6%9E%B6%E6%9E%84%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%8F%AF%E4%BB%A5%E5%85%88%E4%B8%8D%E7%9C%8B%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">HBase 数据模型（重点应该是架构，这个可以先不看）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E6%9E%B6%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">HBase架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">HBase写数据流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-flush%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">HBase flush过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E8%AF%BB%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">HBase读数据流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-Compact%E8%BF%87%E7%A8%8B%EF%BC%88%E5%90%88%E5%B9%B6%E5%B0%8F%E6%96%87%E4%BB%B6%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">HBase Compact过程（合并小文件）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase-%E7%9C%9F%E6%AD%A3%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%97%B6%E9%97%B4"><span class="nav-number">8.</span> <span class="nav-text">HBase 真正删除数据的时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E5%88%87%E5%88%86region"><span class="nav-number">9.</span> <span class="nav-text">HBase切分region</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase%E4%BC%98%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">HBase优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E5%88%86%E5%8C%BA"><span class="nav-number">10.1.</span> <span class="nav-text">预分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RowKey%E8%AE%BE%E8%AE%A1"><span class="nav-number">10.2.</span> <span class="nav-text">RowKey设计</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -27,11 +27,16 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="flume架构 Agent： 是一个JVM进程，它以事件Event的形式将数据从源头发送到目的地。Agent主要由三个部分组成：Source、Channel、Sink。  Event：是flume传输数据的基本单元，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142339540-581718439.png">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924143041975-1644651799.png">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924145106004-1719791353.png">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142628732-1732447063.png">
 <meta property="article:published_time" content="2022-03-03T14:37:34.000Z">
-<meta property="article:modified_time" content="2022-03-03T16:23:37.506Z">
+<meta property="article:modified_time" content="2022-03-04T09:30:23.367Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="flume">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142339540-581718439.png">
 
 <link rel="canonical" href="http://example.com/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
@@ -229,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-04 00:23:37" itemprop="dateModified" datetime="2022-03-04T00:23:37+08:00">2022-03-04</time>
+                <time title="修改时间：2022-03-04 17:30:23" itemprop="dateModified" datetime="2022-03-04T17:30:23+08:00">2022-03-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -295,6 +300,32 @@
 <p>对于故障转移，是对sink组里的sink配置优先级，优先级最高的先去拉取数据，当这个sink出现故障，再由下一个优先级最高的继续拉取。</p>
 </li>
 </ol>
+<h3 id="Flume拓扑结构"><a href="#Flume拓扑结构" class="headerlink" title="Flume拓扑结构"></a>Flume拓扑结构</h3><p>​        也就是多个Agent串联的结构。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jhxxb/p/11578150.html">图片借鉴</a></p>
+<h4 id="简单串联"><a href="#简单串联" class="headerlink" title="简单串联"></a>简单串联</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142339540-581718439.png"></p>
+<p>​        将多个Agent顺序串联为一条线路，这种模式不建议桥接过多的agent，因为数量过多不仅会影响传输的效率，而且一旦传输过程中某个flume宕机，会影响整个传输系统。</p>
+<p>​        此外，从Sink输出到另一个Source输入的过程，它们的数据类型要求是avro。avro是一个轻量级的通信框架，通过一个接口来实现接收数据和发送数据。</p>
+<h4 id="复制和多路复用"><a href="#复制和多路复用" class="headerlink" title="复制和多路复用"></a>复制和多路复用</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924143041975-1644651799.png"></p>
+<p>​        将Flume中的事件发送到多个目的地，也就是使用多个Channel，然后每个channel可以将相同的数据发送到不同的目的地，来实现备份的效果。</p>
+<h4 id="负载均衡和故障转移"><a href="#负载均衡和故障转移" class="headerlink" title="负载均衡和故障转移"></a>负载均衡和故障转移</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924145106004-1719791353.png"></p>
+<p>​        使用Sink组来实现，这个agent中只有一个channel，然后连接一个sink组，选择使用负载均衡或者故障转移的处理器来输出到对应的多个agent中，这些agent用于将分散的数据写入目的地，这种方式虽然没有降低要写入的数据量，但是增加了channel的个数，提高了缓冲的效率。比如要写入hdfs，但是写入磁盘的速度会比较慢，就可以使用负载均衡的策略将事件分别发送给多个sink传输，然后这些sink分别连接对应的agent去写入hdfs。</p>
+<h4 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142628732-1732447063.png"></p>
+<p>​        将多个agent的输出数据都发送到一个agent中合并为一条线路，发送到目的地。比如京东或者淘宝用于访问的服务器肯定不止一台，在不同服务器上访问的本地日志肯定是存在本地服务器的，可以在每台服务器启动一个agent把数据都传输到一个总的agent中，让这个总的agent将所有数据写入hdfs。</p>
+<h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><p>​        用于过滤脏数据、不合法的数据等，或者和channel的多路复用选择器结合，将不同的事件传给不同的channel。</p>
+<h4 id="实现的步骤"><a href="#实现的步骤" class="headerlink" title="实现的步骤"></a>实现的步骤</h4><ol>
+<li>创建实现类并实现 Intercept 接口；</li>
+<li>内部需要重写 initialize初始化、处理单个event的 intercept 方法、批处理event的intercept方法以及close方法；</li>
+<li>一般会在处理单个 event 的intercept方法中给事件的header添加选择的属性，然后在批处理intercept方法中调用处理；</li>
+<li>最后要定义一个静态内部类实现 Intercept.Builder 接口来调用外部这个实现类。</li>
+</ol>
+<h3 id="taildir"><a href="#taildir" class="headerlink" title="taildir"></a>taildir</h3><p>​        用于实时监控一批文件，并记录每个文件最新消费的位置，这样当agent宕机重启时就不会存在重复消费的问题。</p>
+<h3 id="Kafka-Channel"><a href="#Kafka-Channel" class="headerlink" title="Kafka Channel"></a>Kafka Channel</h3><p>​        除了Flume自带的两种channel，还有kafka channel。Source端将数据推送到kafka channel中，kafka channel会直接将数据传输到kafka集群等待进一步的消费，这个过程可以省略sink的使用，与memory channel相比能够避免数据的丢失，与file channel相比也提高了传输的速度，但是kafka中的消息是没有头信息的，所以传入kafka channel时事件的header会丢失。</p>
+<h3 id="怎么实现Flume数据传输的监控"><a href="#怎么实现Flume数据传输的监控" class="headerlink" title="怎么实现Flume数据传输的监控"></a>怎么实现Flume数据传输的监控</h3><p>​        具体没有实现，但是直到有这个懂。使用第三方框架Ganglia实时监控flume。里面有五个比较重要的图是：source尝试写入channel的event量、source成功写入的event、sink尝试拉取的event量、sink成功拉取的event量以及channel的容量。当尝试写入或拉取的量一直是远大于成功写入或拉取的量，就说明内存资源可能不够，需要增加agent的内存资源，在conf&#x2F;flume-env.sh里面有一个 java_opts 的变量，这个变量规定了-Xms是最小内存量，-Xmx是最大内存量，可以修改最大内存量来增加内存。</p>
+<h3 id="使用的Source、Channel、Sink是什么类型？为什么这么用？"><a href="#使用的Source、Channel、Sink是什么类型？为什么这么用？" class="headerlink" title="使用的Source、Channel、Sink是什么类型？为什么这么用？"></a>使用的Source、Channel、Sink是什么类型？为什么这么用？</h3><h3 id="参数调优"><a href="#参数调优" class="headerlink" title="参数调优"></a>参数调优</h3><p>​        在source中，有一个batchsize参数决定source一次批量运输到channel的event条数，可以适当的调大这个参数来提高搬运的效率。增大source的数量也可以提高source的读取能力。</p>
+<p>​        在channel中，使用memory channel的时候，会调整transectioncapacity，这个参数控制一个事务中，source最多推送的event数和sink最多拉取的event数，这个参数需要大于source和sink的batchsize。</p>
+<p>​        在sink中，也有一个batchsize参数决定sink拉取一次的event数，可以适当调大这个参数提高sink从channel拉取的效率。同时，增大sink的个数也可以增加sink消费event的能力，比如sink组的负载均衡和故障转移，但是也不是越多越好的，过多的sink会占用系统的资源，造成系统资源不必要的浪费。</p>
+<h3 id="Flume采集数据会丢失吗"><a href="#Flume采集数据会丢失吗" class="headerlink" title="Flume采集数据会丢失吗"></a>Flume采集数据会丢失吗</h3><p>​        由于Source到Channel的过程和Channel到Sink的过程都采取了事务机制，所以这两个阶段是不可能出现数据丢失的，唯一可能出现的地方在于使用memory channel的时候，一旦agent宕机或者channel存满了，导致source无法写入，这些未写入的数据也会丢失。</p>
+<p>​        Flume不会丢数据，但是有可能造成重复数据，例如数据已经从sink写出了，但是没有接收到应答，sink就会再次发送数据，此时有可能导致数据的重复。</p>
 
     </div>
 
@@ -388,7 +419,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#flume%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">flume架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flume-%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">Flume 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Put%E4%BA%8B%E5%8A%A1%E8%BF%87%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">Put事务过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Take%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.2.</span> <span class="nav-text">Take事务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Agent%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%EF%BC%88%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">Agent内部原理（详细架构）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#flume%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">flume架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flume-%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">Flume 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Put%E4%BA%8B%E5%8A%A1%E8%BF%87%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">Put事务过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Take%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.2.</span> <span class="nav-text">Take事务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Agent%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%EF%BC%88%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">Agent内部原理（详细架构）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flume%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">Flume拓扑结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%B8%B2%E8%81%94"><span class="nav-number">4.1.</span> <span class="nav-text">简单串联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%92%8C%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">复制和多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="nav-number">4.3.</span> <span class="nav-text">负载均衡和故障转移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E5%90%88"><span class="nav-number">4.4.</span> <span class="nav-text">聚合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.1.</span> <span class="nav-text">实现的步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#taildir"><span class="nav-number">6.</span> <span class="nav-text">taildir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-Channel"><span class="nav-number">7.</span> <span class="nav-text">Kafka Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0Flume%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%9A%84%E7%9B%91%E6%8E%A7"><span class="nav-number">8.</span> <span class="nav-text">怎么实现Flume数据传输的监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%9A%84Source%E3%80%81Channel%E3%80%81Sink%E6%98%AF%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">使用的Source、Channel、Sink是什么类型？为什么这么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="nav-number">10.</span> <span class="nav-text">参数调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flume%E9%87%87%E9%9B%86%E6%95%B0%E6%8D%AE%E4%BC%9A%E4%B8%A2%E5%A4%B1%E5%90%97"><span class="nav-number">11.</span> <span class="nav-text">Flume采集数据会丢失吗</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
