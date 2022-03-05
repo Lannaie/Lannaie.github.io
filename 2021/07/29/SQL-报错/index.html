@@ -254,15 +254,19 @@
       
         <p><strong>1. SQL_ERROR_INFO: ‘Operand should contain 1 column(s)’</strong></p>
 <span id="more"></span>
+
+
+
 <p>报错语句：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(salary) <span class="keyword">as</span> avg_salary</span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line"> <span class="keyword">where</span> salary </span><br><span class="line"><span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(salary)</span><br><span class="line">       ,<span class="built_in">max</span>(salary) </span><br><span class="line">  <span class="keyword">from</span> salaries</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
 <p>解决：</p>
 <p><code>in</code> 关键字只能对应一列数据。</p>
-<p><strong>2.FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number/types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns.</strong></p>
+<p><strong>2.FAILED: SemanticException [Error 10044]: Line 1:12 Cannot insert into target table because column number&#x2F;types are different ‘’813’’: Table insclause-0 has 7 columns, but query has 8 columns.</strong></p>
 <p>。。。仔细看 <code>values</code> 里面的内容，应该有多了。</p>
 <p><strong>3. Data source rejected establishment of connection, message from server: “Too</strong></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ljphhj/article/details/23804057">借鉴</a></p>
-<p><strong>4. SELECT list is not in GROUP BY clause and contains nonaggregated column ‘practice_record.submit_time’ which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by”</strong></p>
+<p><strong>4. SELECT list is not in GROUP BY clause and contains nonaggregated column ‘practice_record.submit_time’ which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode&#x3D;only_full_group_by”</strong></p>
 <p>这好像是mysql5.7以上版本默认 ONLY_FULL_GROUP_BY 模式的原因。<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chancy/p/10026097.html">解决</a></p>
 <p><strong>5. BIGINT UNSIGNED value is out of range in ‘(<code>A</code>.<code>rank2</code> - <code>A</code>.<code>rank1</code>)</strong></p>
 <p>问题出在两个 <code>bigint unsigned</code> 类型的元素相减必须是<strong>非负数</strong>，否则会报这个错。<code>rank()</code> 这种排名函数的结果就是 <code>bigint unsigned</code> 类型。</p>
@@ -388,7 +392,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

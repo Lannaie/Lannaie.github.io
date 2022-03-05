@@ -255,6 +255,7 @@
         <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>​        HBase是一种分布式、可扩展、支持海量数据存储的NoSQL数据库，能够在HDFS上实现数据的增删改查。它在运行过程中需要不断切分和聚合，消耗的资源量让其在小数据集上不具有优势，但是对于大数据集能够做到亿万数据的秒级查询。并且Hbase是基于HDFS的，所以可以实现对hdfs存储数据做随机写操作。</p>
 <p>​        HDFS是不支持随机写的，如果要对里面的数据进行修改，需要先下载下来，改完以后再删掉原来的数据重新提交，这种方式非常不灵活。</p>
 <span id="more"></span>
+
 <h3 id="HBase-数据模型（重点应该是架构，这个可以先不看）"><a href="#HBase-数据模型（重点应该是架构，这个可以先不看）" class="headerlink" title="HBase 数据模型（重点应该是架构，这个可以先不看）"></a>HBase 数据模型（重点应该是架构，这个可以先不看）</h3><p>​        从逻辑上看，HBase的数据模型和关系型数据库很相似，都是存在一张表上，有行有列。但是HBase的底层是以键值对的形式存储的。模型中包括：</p>
 <ol>
 <li>namespace命名空间：类似于mysql的database的概念，hbase中有两个默认的命名空间，hbase存内置的表，default是用户默认使用的库；</li>
@@ -282,7 +283,7 @@
 <p>​        regionserver方面：</p>
 <ol>
 <li>默认regionserver中所有memstore的总大小超过堆内存的40%，会触发刷写；</li>
-<li>为了防止刷写过程中，写的速度比刷写的速度快，导致memstore的大小一直大于规定的值，所以在总大小超过 堆大小 <em> 0.4 </em> 0.95 的时候会阻塞客户端的读写操作，直到memstore的大小降到这个安全值内；</li>
+<li>为了防止刷写过程中，写的速度比刷写的速度快，导致memstore的大小一直大于规定的值，所以在总大小超过 堆大小 * 0.4 * 0.95 的时候会阻塞客户端的读写操作，直到memstore的大小降到这个安全值内；</li>
 <li>为了防止数据由于长时间不写入而一直留在内存中，规定当最后一条数据写入后一小时内不再有新数据写入就会触发刷写；</li>
 </ol>
 <p>​        region方面：</p>
@@ -314,6 +315,9 @@
 <h3 id="HBase优化"><a href="#HBase优化" class="headerlink" title="HBase优化"></a>HBase优化</h3><h4 id="预分区"><a href="#预分区" class="headerlink" title="预分区"></a>预分区</h4><p>​        为了解决自动切分导致的数据倾斜问题，引入了预分区。预分区就是，每个region会维护一个StartRow和EndRow，如果加入的数据的rowkey在这个region维护的范围内，就将这个数据交给这个region。依照这个原则，可以将数据需要投放的分区大致规划好，以提高hbase的性能。</p>
 <p>分区的代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表 test，并为该表设置四个分区 [-∞, 1000], [1000, 2000], [2000, 3000], [3000, +∞]</span></span><br><span class="line"><span class="keyword">create</span> <span class="string">&#x27;test1&#x27;</span>, <span class="string">&#x27;info&#x27;</span>, <span class="string">&#x27;partition1&#x27;</span>, &#123;SPLITS <span class="operator">=</span><span class="operator">&gt;</span> [<span class="string">&#x27;1000&#x27;</span>, <span class="string">&#x27;2000&#x27;</span>, <span class="string">&#x27;3000&#x27;</span>]&#125;</span><br><span class="line"><span class="comment">-- 通过文件来指定分区，相对路径是将文件建在 hbase/ 目录下</span></span><br><span class="line"><span class="keyword">create</span> <span class="string">&#x27;test2&#x27;</span>, <span class="string">&#x27;info&#x27;</span>, <span class="string">&#x27;partition1&#x27;</span>, SPLITS_FILE <span class="operator">=</span><span class="operator">&gt;</span> <span class="string">&#x27;splits.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="RowKey设计"><a href="#RowKey设计" class="headerlink" title="RowKey设计"></a>RowKey设计</h4><p>RowKey的设计有三个原则：</p>
 <ol>
 <li>散列原则：让RowKey能够尽量均匀的分配到不同的分区中，不应该将时间戳</li>
@@ -337,7 +341,7 @@
 <p>…</p>
 <p>298|</p>
 </blockquote>
-<p>​        因为是300个分区，那么分区键的取值范围应该是 1~299 或 0~298 ，考虑到取模数值肯定存在0，设置 0 ~ 298 ，然后让一个值对299取模，就可以得到该分区的前三位。需要注意，第四位是 <code>|</code> ，因为这个符号在 ascii 码中是比较大的值，又因为hbase中数值是按照字典序比较的，使用 <code>|</code> 可以保证rowkey中前三位数的前缀相等的内容会写到一个分区。</p>
+<p>​        因为是300个分区，那么分区键的取值范围应该是 1<del>299 或 0</del>298 ，考虑到取模数值肯定存在0，设置 0 ~ 298 ，然后让一个值对299取模，就可以得到该分区的前三位。需要注意，第四位是 <code>|</code> ，因为这个符号在 ascii 码中是比较大的值，又因为hbase中数值是按照字典序比较的，使用 <code>|</code> 可以保证rowkey中前三位数的前缀相等的内容会写到一个分区。</p>
 <p>确定了分区后，接着看rowkey：</p>
 <p>​        RowKey为了保证写操作可以将相同手机号的数据写入一个分区，前缀会对手机号取299的模，然后拼接字符 <code>_</code> 。之所以使用 <code>_</code> 是为了因为 <code>_</code> 的ascii比 <code>|</code> 小，这样就能保证相同前三位数的rowkey能够进入一个分区。</p>
 <p>​        但是不同手机号的通话详情的数据肯定是不一致的，有些很多，有些很少，这种情况单用一个手机号也容易产生数据倾斜，而这种详情基本是按年、月、日来取的，可以加上日期，来让这个值更加散列。如果加上的日期是日或者更小，数据就太散了，如果想要取一年的数据会很复杂；如果使用年份数据依然会比较集中，所以取<strong>年月加上电话号的组合再取299的模</strong>最好。那么具体的rowkey前缀是：</p>
@@ -351,11 +355,11 @@
 <p>那么想要查 <strong>手机号为 12345678910 的机主在 2022年5月的通话详情</strong> ，应该怎么设置 startrow 和 endrow ：</p>
 <p>​        首先取rowkey前缀：<code>(12345678910 + 202205) % 299</code> ，这个值应该是 startrow 和 endrow 的共同前缀，接着因为手机号和年月相同，所以应该拼接手机号和年月，最后，endrow 的结尾应该会比 startrow多一位 <code>|</code> 来表示结束。具体如下：</p>
 <blockquote>
-<p>xxx = (12345678910 + 202205) % 299</p>
-<p>startrow = xxx_12345678910_202205</p>
-<p>endrow = xxx_12345678910_202205|</p>
+<p>xxx &#x3D; (12345678910 + 202205) % 299</p>
+<p>startrow &#x3D; xxx_12345678910_202205</p>
+<p>endrow &#x3D; xxx_12345678910_202205|</p>
 <p> 或者</p>
-<p>endrow = xxx_12345678910_202206</p>
+<p>endrow &#x3D; xxx_12345678910_202206</p>
 </blockquote>
 <p>因为是按位比较，那么 startrow 的值肯定是最小的，endrow 因为有 <code>|</code> 仅小于 <code>&#125;</code> 和 <code>~</code> 的值，所以可以说是 <code>xxx_12345678910_202205</code> 前缀中最大的值了，另一个 <code>6</code> 结尾的 endrow 是因为 5 的字典序肯定比6小，所以这样设计也是5月份中最大的值。</p>
 
@@ -480,7 +484,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

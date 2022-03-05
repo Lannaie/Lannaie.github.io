@@ -258,227 +258,222 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">https://leetcode-cn.com/problems/partition-equal-subset-sum/</a></p>
 <span id="more"></span>
+
+
+
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这与0-1背包问题大同小异，所以应该先了解0-1背包问题的原理。</p>
 <h3 id="一-0-1背包问题"><a href="#一-0-1背包问题" class="headerlink" title="一. 0-1背包问题"></a>一. 0-1背包问题</h3><p>0-1背包问题是典型的动态规划问题。问题如下：</p>
 <blockquote>
 <p>有n件物品，每件物品的重量为w[i]，价值为c[i]。现有一个容量为V的背包，问如何选取物品放入背包，使得背包内物品的总价值最大。其中每种物品都只有一件。</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
-<th style="text-align:center">编号i</th>
-<th style="text-align:center">重量w[i]</th>
-<th style="text-align:center">价格v[i]</th>
+<th align="center">编号i</th>
+<th align="center">重量w[i]</th>
+<th align="center">价格v[i]</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">3</td>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
 </tr>
 <tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">4</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
 </tr>
 <tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">5</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
 </tr>
 <tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">5</td>
-<td style="text-align:center">8</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">8</td>
 </tr>
 <tr>
-<td style="text-align:center">5</td>
-<td style="text-align:center">9</td>
-<td style="text-align:center">10</td>
+<td align="center">5</td>
+<td align="center">9</td>
+<td align="center">10</td>
 </tr>
-</tbody>
-</table>
-</div>
-<p>背包容量 V = 20。</p>
+</tbody></table>
+<p>背包容量 V &#x3D; 20。</p>
 </blockquote>
 <p>可以得到的过程表格如下：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
-<th style="text-align:center">capacity =&gt;</th>
+<th align="center">capacity &#x3D;&gt;</th>
 <th>0</th>
-<th style="text-align:center">1</th>
+<th align="center">1</th>
 <th>2</th>
 <th>3</th>
-<th style="text-align:center">4</th>
-<th style="text-align:center">5</th>
+<th align="center">4</th>
+<th align="center">5</th>
 <th>6</th>
 <th>7</th>
-<th style="text-align:center">8</th>
-<th style="text-align:center">9</th>
-<th style="text-align:center">10</th>
-<th style="text-align:center">11</th>
-<th style="text-align:center">12</th>
-<th style="text-align:center">13</th>
-<th style="text-align:center">14</th>
-<th style="text-align:center">15</th>
-<th style="text-align:center">16</th>
-<th style="text-align:center">17</th>
-<th style="text-align:center">18</th>
-<th style="text-align:center">19</th>
-<th style="text-align:center">20</th>
+<th align="center">8</th>
+<th align="center">9</th>
+<th align="center">10</th>
+<th align="center">11</th>
+<th align="center">12</th>
+<th align="center">13</th>
+<th align="center">14</th>
+<th align="center">15</th>
+<th align="center">16</th>
+<th align="center">17</th>
+<th align="center">18</th>
+<th align="center">19</th>
+<th align="center">20</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">no items</td>
+<tbody><tr>
+<td align="center">no items</td>
 <td>0</td>
-<td style="text-align:center">0</td>
-<td>0</td>
-<td>0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td align="center">0</td>
 <td>0</td>
 <td>0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td>0</td>
+<td>0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr>
-<td style="text-align:center">w=2,v=3</td>
+<td align="center">w&#x3D;2,v&#x3D;3</td>
 <td>0</td>
-<td style="text-align:center">0</td>
+<td align="center">0</td>
 <td>3</td>
 <td>3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
 <td>3</td>
 <td>3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">3</td>
 </tr>
 <tr>
-<td style="text-align:center">w=3,v=4</td>
+<td align="center">w&#x3D;3,v&#x3D;4</td>
 <td>0</td>
-<td style="text-align:center">0</td>
+<td align="center">0</td>
 <td>3</td>
 <td>4</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">7</td>
+<td align="center">4</td>
+<td align="center">7</td>
 <td>7</td>
 <td>7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
 </tr>
 <tr>
-<td style="text-align:center">w=4,v=5</td>
+<td align="center">w&#x3D;4,v&#x3D;5</td>
 <td>0</td>
-<td style="text-align:center">0</td>
+<td align="center">0</td>
 <td>3</td>
 <td>4</td>
-<td style="text-align:center">5</td>
-<td style="text-align:center">7</td>
+<td align="center">5</td>
+<td align="center">7</td>
 <td>8</td>
 <td>9</td>
-<td style="text-align:center">9</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">12</td>
+<td align="center">9</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
+<td align="center">12</td>
 </tr>
 <tr>
-<td style="text-align:center">w=5,v=8</td>
+<td align="center">w&#x3D;5,v&#x3D;8</td>
 <td>0</td>
-<td style="text-align:center">0</td>
+<td align="center">0</td>
 <td>3</td>
 <td>4</td>
-<td style="text-align:center">5</td>
-<td style="text-align:center">8</td>
+<td align="center">5</td>
+<td align="center">8</td>
 <td>8</td>
 <td>11</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">13</td>
-<td style="text-align:center">15</td>
-<td style="text-align:center">16</td>
-<td style="text-align:center">17</td>
-<td style="text-align:center">17</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">20</td>
+<td align="center">12</td>
+<td align="center">13</td>
+<td align="center">15</td>
+<td align="center">16</td>
+<td align="center">17</td>
+<td align="center">17</td>
+<td align="center">20</td>
+<td align="center">20</td>
+<td align="center">20</td>
+<td align="center">20</td>
+<td align="center">20</td>
+<td align="center">20</td>
+<td align="center">20</td>
 </tr>
 <tr>
-<td style="text-align:center">w=9,v=10</td>
+<td align="center">w&#x3D;9,v&#x3D;10</td>
 <td>0</td>
-<td style="text-align:center">0</td>
+<td align="center">0</td>
 <td>3</td>
 <td>4</td>
-<td style="text-align:center">5</td>
-<td style="text-align:center">8</td>
+<td align="center">5</td>
+<td align="center">8</td>
 <td>8</td>
 <td>11</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">13</td>
-<td style="text-align:center">15</td>
-<td style="text-align:center">16</td>
-<td style="text-align:center">17</td>
-<td style="text-align:center">17</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">21</td>
-<td style="text-align:center">22</td>
-<td style="text-align:center">23</td>
-<td style="text-align:center">25</td>
-<td style="text-align:center">26</td>
+<td align="center">12</td>
+<td align="center">13</td>
+<td align="center">15</td>
+<td align="center">16</td>
+<td align="center">17</td>
+<td align="center">17</td>
+<td align="center">20</td>
+<td align="center">20</td>
+<td align="center">21</td>
+<td align="center">22</td>
+<td align="center">23</td>
+<td align="center">25</td>
+<td align="center">26</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>表格说明如下：</p>
 <ol>
 <li>行表示前n个商品，列表示在容量为0~20的背包中是否放下；</li>
@@ -489,15 +484,21 @@
 </ol>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getValue1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> sum[]= <span class="keyword">new</span> <span class="keyword">int</span>[W];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;N;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=W-<span class="number">1</span>;j&gt;=<span class="number">1</span>;j--) &#123;</span><br><span class="line">			<span class="keyword">if</span>(weight[i]&lt;=j) &#123;</span><br><span class="line">				sum[j]=Math.max(sum[j], sum[j-weight[i]]+value[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	System.out.println(sum[<span class="number">20</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="二-本题思路"><a href="#二-本题思路" class="headerlink" title="二. 本题思路"></a>二. 本题思路</h3><p>分析题目：如果一个数组的元素可以分成两个子集，使得两个子集的元素和相等，那么就是说，数组中存在若干个元素，它们的和等于数组总和的一半，那么使用01背包的思想获取即可。</p>
 <p>因为此题中只有一个一维数组表示元素的值，可以考虑使用函数返回值，即 <code>boolean</code> 类型作为递推数组的值。</p>
 <ol>
 <li>首先考虑排除的数据，可以知道，当元素总和是奇数的时候是不可能等分的，可以排除这部分的数据；</li>
 <li>接着，以元素个数为行，总和的一半为列，构建递推数组，也可以使用一维数组来展示，那么省略行。先考虑初始值 <code>dp[0]</code> ，表示前0个元素，肯定包含，即 <code>dp[0] = true</code> ；</li>
-<li>递推公式为 <strong>dp[j] = dp[j] | dp[j - nums[i]]</strong> ：与01背包的解答相似，当前元素 <code>nums[i]</code> 如果选择使用，那么取 <code>dp[j - nums[i]]</code> 的结果，如果不选择使用，那么取 <code>dp[j]</code> ，即前 <code>i-1</code> 个元素的结果；只要两种选择有一个为 <code>true</code> ，那么当前这个元素就是 <code>true</code> 。</li>
+<li>递推公式为 <strong>dp[j] &#x3D; dp[j] | dp[j - nums[i]]</strong> ：与01背包的解答相似，当前元素 <code>nums[i]</code> 如果选择使用，那么取 <code>dp[j - nums[i]]</code> 的结果，如果不选择使用，那么取 <code>dp[j]</code> ，即前 <code>i-1</code> 个元素的结果；只要两种选择有一个为 <code>true</code> ，那么当前这个元素就是 <code>true</code> 。</li>
 </ol>
 <p>具体代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> n : nums )</span><br><span class="line">        &#123;</span><br><span class="line">            sum += n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( sum % <span class="number">2</span> == <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sum = sum / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">boolean</span>[] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[sum + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = sum; j &gt;= nums[i]; --j )</span><br><span class="line">            &#123;</span><br><span class="line">                dp[j] = dp[j] | dp[j - nums[i]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[sum];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="文章引用"><a href="#文章引用" class="headerlink" title="文章引用"></a>文章引用</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/achesong/article/details/88428895">01背包问题</a></p>
 
     </div>
@@ -621,7 +622,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

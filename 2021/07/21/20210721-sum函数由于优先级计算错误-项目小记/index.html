@@ -248,11 +248,17 @@
       
         <h2 id="摘自"><a href="#摘自" class="headerlink" title="摘自"></a>摘自</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a158123/article/details/91051636">传送门</a></p>
 <span id="more"></span>
+
+
+
 <h2 id="1-具体错误结果"><a href="#1-具体错误结果" class="headerlink" title="1. 具体错误结果"></a>1. 具体错误结果</h2><p>希望能通过 <code>sum</code> 函数累加表中某个字段的第一行 <code>limit 1</code>；</p>
 <p>期望结果是：<code>0.0</code>；</p>
 <p>得到结果是：<code>22178</code>。</p>
 <p> 下面给出错误代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    <span class="built_in">SUM</span>(`amount`)</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    `<span class="keyword">order</span>`</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> `id`</span><br><span class="line">LIMIT <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="2-问题所在"><a href="#2-问题所在" class="headerlink" title="2. 问题所在"></a>2. 问题所在</h2><p>没有意识到这个是优先级别的问题：</p>
 <ol>
 <li>FROM：FROM子句是最先执行的，确定了查询的是order这张表</li>
@@ -262,6 +268,9 @@
 </ol>
 <h2 id="3-具体解决"><a href="#3-具体解决" class="headerlink" title="3. 具体解决"></a>3. 具体解决</h2><p>使用子查询的方式：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    <span class="built_in">SUM</span>(o.amount)</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    (<span class="keyword">SELECT</span> </span><br><span class="line">        `amount`</span><br><span class="line">    <span class="keyword">FROM</span></span><br><span class="line">        `<span class="keyword">order</span>`</span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> `id`</span><br><span class="line">    LIMIT <span class="number">5</span>) <span class="keyword">AS</span> o;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="4-select语句的执行顺序"><a href="#4-select语句的执行顺序" class="headerlink" title="4. select语句的执行顺序"></a>4. select语句的执行顺序</h2><blockquote>
 <ol>
 <li>FROM <left_table></left_table></li>
@@ -398,7 +407,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

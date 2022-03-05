@@ -254,13 +254,15 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-sum-circular-subarray/">https://leetcode-cn.com/problems/maximum-sum-circular-subarray/</a></p>
 <span id="more"></span>
+
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>对于环形数组，一般解的思路是将数组分成三个部分：[max1,min,max2]。有以下的推导关系：</p>
 <blockquote>
-<p>max(前缀数组 + 后缀数组)<br>= max(数组总和 - 中间数组)<br>= 数组总和 + max(- 中间数组)<br>= 数组总和 - min(中间数组)</p>
+<p>max(前缀数组 + 后缀数组)<br>&#x3D; max(数组总和 - 中间数组)<br>&#x3D; 数组总和 + max(- 中间数组)<br>&#x3D; 数组总和 - min(中间数组)</p>
 </blockquote>
 <p>上述的 <code>min(中间数组)</code> 即取数组的最小值。</p>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubarraySumCircular</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxsum = nums[<span class="number">0</span>], curmax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minsum = nums[<span class="number">0</span>], curmin = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> num : nums )</span><br><span class="line">        &#123;</span><br><span class="line">            curmax = Math.max(curmax + num, num);</span><br><span class="line">            maxsum = Math.max(curmax, maxsum);</span><br><span class="line">            curmin = Math.min(curmin + num, num);</span><br><span class="line">            minsum = Math.min(curmin, minsum);</span><br><span class="line">            tot += num;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxsum &gt; <span class="number">0</span> ? Math.max(maxsum, tot - minsum) : maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -383,7 +385,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
