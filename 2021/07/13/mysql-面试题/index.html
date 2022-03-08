@@ -247,9 +247,8 @@
 
       
         <h2 id="1-on和where的区别"><a href="#1-on和where的区别" class="headerlink" title="1. on和where的区别"></a>1. on和where的区别</h2><span id="more"></span>
-
 <p>二者都是对临时表进行筛选，不同的是，on是在临时表创建的时候进行筛选，where是在临时表创建完以后进行的筛选。</p>
-<p>比如在一个 <code>on a.id=b.id</code> 的连接后面添加条件 <code>b.id = 20</code> ，添加后面的条件之前，可以知道a表的连接条件是<code> = b.id</code> ，b表的连接条件是 <code> = a.id</code>，如果 <code>b.id = 20</code> 的操作是在 <code>on</code> 中，那么a表的筛选是<code> = b.id</code> ，b表的筛选条件是<code> = a.id</code> 和<code>id = 20</code>；</p>
+<p>比如在一个 <code>on a.id=b.id</code> 的连接后面添加条件 <code>b.id = 20</code> ，添加后面的条件之前，可以知道a表的连接条件是<code>= b.id</code> ，b表的连接条件是 <code>= a.id</code>，如果 <code>b.id = 20</code> 的操作是在 <code>on</code> 中，那么a表的筛选是<code>= b.id</code> ，b表的筛选条件是<code>= a.id</code> 和<code>id = 20</code>；</p>
 <p>如果该条件在 <code>where</code> 中，操作就变成了首先将ab表通过前面的连接条件连接起来之后，对此临时表进行 <code>b.id = 20</code> 的筛选。</p>
 
     </div>
@@ -360,7 +359,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

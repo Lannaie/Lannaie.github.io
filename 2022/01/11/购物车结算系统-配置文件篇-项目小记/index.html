@@ -254,12 +254,8 @@
 </li>
 </ol>
 <span id="more"></span>
-
-
-
 <h3 id="获取Properties文件的内容"><a href="#获取Properties文件的内容" class="headerlink" title="获取Properties文件的内容"></a>获取Properties文件的内容</h3><p>参考如下代码使用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">      InputStream input;</span><br><span class="line">      String profile = <span class="string">&quot;jdbc.properties&quot;</span>;</span><br><span class="line">      <span class="comment">// 加载配置文件到输入流</span></span><br><span class="line">      input = DBUtil.class.getClassLoader().getResourceAsStream(profile);</span><br><span class="line">      <span class="comment">// 从输入流读取属性列表</span></span><br><span class="line">      pro.load(input);</span><br><span class="line">      <span class="comment">// 获取指定参数</span></span><br><span class="line">      String driver = pro.getProperty(<span class="string">&quot;driver&quot;</span>);</span><br><span class="line">      String url = pro.getProperty(<span class="string">&quot;url&quot;</span>);</span><br><span class="line">      String username = pro.getProperty(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">      String password = pro.getProperty(<span class="string">&quot;password&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>其中，需要将 <code>jdbc.properties</code> 文件放到 <code>resource</code> 目录下。</p>
 
     </div>
@@ -370,7 +366,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -254,36 +254,31 @@
       
         <h2 id="启动hive"><a href="#启动hive" class="headerlink" title="启动hive"></a>启动hive</h2><ol>
 <li><p>启动hadoop集群</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <span id="more"></span>
-
-
-
 <ol>
 <li><p>启动zookeeper集群</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start zoo1.cfg</span><br><span class="line">zkServer.sh start zoo2.cfg</span><br><span class="line">zkServer.sh start zoo3.cfg</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动hive</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive-services.sh start</span><br><span class="line">hive</span><br></pre></td></tr></table></figure>
-
 <p>有时候会遇到下述错误：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.SafeModeException): Cannot create directory /tmp/hive/hadoop/3a6e8cb6-9e44-45ce-8fc4-8d79f816f720. Name node is in safe mode.</span><br><span class="line">The reported blocks 609 needs additional 3 blocks to reach the threshold 0.9990 of total blocks 613.</span><br><span class="line">The minimum number of live datanodes is not required. Safe mode will be turned off automatically once the thresholds have been reached. NamenodeHostName:hadoop002</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.newSafemodeException(FSNamesystem.java:1498)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSNamesystem.java:1485)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.mkdirs(FSNamesystem.java:3191)</span><br><span class="line">        at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.mkdirs(NameNodeRpcServer.java:1157)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
 <p>解决：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <h2 id="使用sqoop将mysql数据导入hive"><a href="#使用sqoop将mysql数据导入hive" class="headerlink" title="使用sqoop将mysql数据导入hive"></a>使用sqoop将mysql数据导入hive</h2><p>执行如下命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop import -m 1 \</span><br><span class="line">--connect jdbc:mysql://192.168.186.100:3306/forum \</span><br><span class="line">--username root \</span><br><span class="line">--password niit1234 \</span><br><span class="line">--hive-import \</span><br><span class="line">--create-hive-table \</span><br><span class="line">--hive-database forum \</span><br><span class="line">--delete-target-dir;</span><br></pre></td></tr></table></figure>
-
 <p>其中：</p>
 <blockquote>
-<p>–create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
-<p>–hive-database ：指定将表放到某个数据库</p>
+<p>—create-hive-table ：使用mysql的表名和字段类型直接创建；</p>
+<p>—hive-database ：指定将表放到某个数据库</p>
 </blockquote>
 <h2 id="报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification"><a href="#报错：FAILED-ParseException-line-6-0-cannot-recognize-input-near-‘group’-‘by’-‘t’-in-expression-specification" class="headerlink" title="报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification"></a>报错：FAILED: ParseException line 6:0 cannot recognize input near ‘group’ ‘by’ ‘t’ in expression specification</h2><p>我是因为下面这句报错：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">on tmp.id=t.course_id and t.type_name=”选修课”</span><br></pre></td></tr></table></figure>
-
 <p>报错点：<code>&quot;&quot;</code>是中文的，我一开始直接在word文档中复制粘贴，但是就算是英文格式，在命令行也是中文的。</p>
 <p>解决方法：</p>
 <p>在命令行中敲出引号，在文档中进行修改，再将整个语句粘贴到命令行运行。</p>
@@ -397,7 +392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
