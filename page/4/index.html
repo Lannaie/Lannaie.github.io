@@ -195,6 +195,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/21/LeetCode-85-%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/21/LeetCode-85-%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/" class="post-title-link" itemprop="url">LeetCode - 85. 最大矩形</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-21 11:48:43" itemprop="dateCreated datePublished" datetime="2022-01-21T11:48:43+08:00">2022-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-28 17:17:27" itemprop="dateModified" datetime="2022-01-28T17:17:27+08:00">2022-01-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximal-rectangle/">https://leetcode-cn.com/problems/maximal-rectangle/</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/21/LeetCode-85-%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/18/LeetCode-84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -881,13 +962,19 @@
       
           <h3 id="JDBC连接数据库"><a href="#JDBC连接数据库" class="headerlink" title="JDBC连接数据库"></a>JDBC连接数据库</h3><p>参考以下代码实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String driver = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>;</span><br><span class="line">String url = <span class="string">&quot;jdbc:mysql://192.168.186.100:3306/goods_settlement&quot;</span>;</span><br><span class="line">String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">String password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line">Class.forName(driver);</span><br><span class="line">System.out.println(<span class="string">&quot;连接数据库 -----------------&quot;</span>);</span><br><span class="line">Connection conn = DriverManager.getConnection(url, username, password);</span><br><span class="line"><span class="keyword">return</span> conn;</span><br></pre></td></tr></table></figure>
+
 <p>需要导入 <code>mysql-connector-java-xxx.jar</code> 包，我从 <code>pom.xml</code> 导入：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="Java执行SQL语句"><a href="#Java执行SQL语句" class="headerlink" title="Java执行SQL语句"></a>Java执行SQL语句</h3><h4 id="有三种接口"><a href="#有三种接口" class="headerlink" title="有三种接口"></a>有三种接口</h4><p>Statement、PreparedStatement、CallableStatement 。常见的是前两种，下面说明前两种。</p>
 <p>其中Statement适用于普通不带参的语句，如</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Statement s = conn.createStatement();</span><br><span class="line">String sql = <span class="string">&quot;select * from User where username = &quot;</span>abc<span class="string">&quot;&quot;</span>;</span><br><span class="line">s.executeQuery(sql);</span><br></pre></td></tr></table></figure>
+
 <p>而PreparedStatement支持可变参数的语句，如  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String sql = <span class="string">&quot;select * from User where username = ?&quot;</span>;</span><br><span class="line">PreparedStatement ps = conn.preparedStatement(sql);</span><br><span class="line">ps.setString(<span class="number">1</span>, <span class="string">&quot;abc&quot;</span>);</span><br><span class="line">ps.executeQuery();</span><br></pre></td></tr></table></figure>
+
 <p><strong>SQL的执行需要编译和解析</strong></p>
 <p><strong>Statement每次的执行都需要编译SQL</strong></p>
 <p><strong>PreparedStatement会预编译，会被缓冲，在缓存区中可以发现预编译的命令，虽然会被再次解析，但不会被再次编译，能够有效提高系统性能</strong></p>
@@ -899,87 +986,6 @@
 <li><strong>batch</strong>：即批处理，此处不做详述。</li>
 </ol>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/09/LeetCode-42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/09/LeetCode-42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/" class="post-title-link" itemprop="url">LeetCode - 42. 接雨水</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-09 14:37:40" itemprop="dateCreated datePublished" datetime="2022-01-09T14:37:40+08:00">2022-01-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-28 00:09:45" itemprop="dateModified" datetime="2022-01-28T00:09:45+08:00">2022-01-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/trapping-rain-water/">https://leetcode-cn.com/problems/trapping-rain-water/</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/09/LeetCode-42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -1065,7 +1071,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

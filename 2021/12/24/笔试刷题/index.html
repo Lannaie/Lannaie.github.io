@@ -253,7 +253,9 @@
 
       
         <h3 id="1-阅读下面的程序："><a href="#1-阅读下面的程序：" class="headerlink" title="1. 阅读下面的程序："></a>1. 阅读下面的程序：</h3><span id="more"></span>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span> ; x &lt;=<span class="number">3</span> ; x++) &#123;</span><br><span class="line">         <span class="keyword">continue</span>;</span><br><span class="line">         System.out.print(x%<span class="number">2</span> + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>下列选项，哪个是结果：</p>
 <p>A. 0 1 2 3</p>
 <p>B. 0 1 2 1</p>
@@ -263,7 +265,7 @@
 <blockquote>
 <p>会报错：error: unreachable statement。</p>
 <p>原因一：</p>
-<p>下面的几种情况会出现 unreachable statement：<br>（1）在reutrn语句后写语句。<br>（2）在throw语句后写语句。<br>（3）break、continue语句之后定义语句。<br>（4）“\u10100”//合法，相当于‘\u1010’和字符串“0”。<br>（5）移位运算符可以用于long int char short byte。<br>（6）类的访问控制符可以是public或什么都不加。<br>（7）goto是保留字但不是关键字。then什么都不是。<br>（8）把超类的类型强制转换后赋给子类的对象时，编译无异常，但运行时会出现异常。</p>
+<p>下面的几种情况会出现 unreachable statement：<br>（1）在reutrn语句后写语句。<br>（2）在throw语句后写语句。<br>（3）break、continue语句之后定义语句。<br>（4）“\u10100”&#x2F;&#x2F;合法，相当于‘\u1010’和字符串“0”。<br>（5）移位运算符可以用于long int char short byte。<br>（6）类的访问控制符可以是public或什么都不加。<br>（7）goto是保留字但不是关键字。then什么都不是。<br>（8）把超类的类型强制转换后赋给子类的对象时，编译无异常，但运行时会出现异常。</p>
 <p>原因二：</p>
 <p>不可达语句的造成是因为：在此语句前面有一个返回操作，或者其他操作导致不管什么条件都无法执行到这一句。<br>最重要的是：检查前面语句是否有返回，并查看是否因为自己的疏忽，即使没有语法等错误，导致的任何条件都会在此语句前面返回。因为自己的疏忽，好几次在if 或for条件句后面加了; 导致下面的return语句不会执行之后的任何语句，就会返回1；</p>
 </blockquote>
@@ -276,6 +278,7 @@
 <p>注意B说的是 <code>总轮次</code>。</p>
 </blockquote>
 <h3 id="3-下列关于二维数组定义的选项中，错误的是（-）"><a href="#3-下列关于二维数组定义的选项中，错误的是（-）" class="headerlink" title="3. 下列关于二维数组定义的选项中，错误的是（ ）"></a>3. 下列关于二维数组定义的选项中，错误的是（ ）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A. int\[][] arr = new int\[3][4];</span><br><span class="line">B. int\[][] arr = new int\[3][];</span><br><span class="line">C. int\[][] arr = new int\[][4];</span><br><span class="line">D. int[][] arr = &#123;&#123;1,2&#125;,&#123;3,4,5&#125;,&#123;6&#125;&#125;;</span><br></pre></td></tr></table></figure>
+
 <p><strong>结果：C</strong></p>
 <blockquote>
 <p>可以省略列，不能省略行。</p>
@@ -297,6 +300,7 @@
 <p>注意看C，是 <code>类型</code> 排列顺序不同。</p>
 </blockquote>
 <h3 id="6-请阅读下面的程序："><a href="#6-请阅读下面的程序：" class="headerlink" title="6. 请阅读下面的程序："></a>6. 请阅读下面的程序：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">int</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">float</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">float</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">        System.out.println(“<span class="keyword">double</span>:” + (a+b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">long</span> b = <span class="number">20</span>;</span><br><span class="line">        sum(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>下列选项中，哪一个是程序的正确运行结果（ ）</p>
 <p>A. int:30<br>B. float:30.0<br>C. double:30.0<br>D. int:30.0</p>
 <p><strong>结果：B</strong></p>
@@ -314,6 +318,7 @@
 <p>this只能在类中的非静态方法中使用，静态方法和静态的代码块中绝对不能出现this。</p>
 </blockquote>
 <h3 id="9-以下代码执行后的结果是（-）"><a href="#9-以下代码执行后的结果是（-）" class="headerlink" title="9. 以下代码执行后的结果是（ ）"></a>9. 以下代码执行后的结果是（ ）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">        String name = “小芳”;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">            name = “小兰”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = “小翠”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Person p = <span class="keyword">new</span> Person(“小凤”);</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">    p.show();</span><br><span class="line">    System.out.println(p.name);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>A. 小兰小翠</p>
 <p>B.小凤小翠</p>
 <p>C. 小芳小翠</p>
@@ -449,7 +454,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
