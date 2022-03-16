@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="一. 引入整数快速幂">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.assets/1149206-20170603085219993-768167045.png">
+<meta property="og:image" content="http://example.com/2021/12/09/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/1149206-20170603085219993-768167045.png">
 <meta property="article:published_time" content="2021-12-09T13:06:19.000Z">
 <meta property="article:modified_time" content="2021-12-20T13:52:56.372Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="矩阵快速幂">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.assets/1149206-20170603085219993-768167045.png">
+<meta name="twitter:image" content="http://example.com/2021/12/09/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/1149206-20170603085219993-768167045.png">
 
 <link rel="canonical" href="http://example.com/2021/12/09/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/">
 
@@ -255,29 +255,62 @@
 
       
         <h2 id="一-引入整数快速幂"><a href="#一-引入整数快速幂" class="headerlink" title="一. 引入整数快速幂"></a>一. 引入整数快速幂</h2><span id="more"></span>
-
-<p>比如计算 **X <sup>19</sup>**。</p>
-<p>可以使用二进制运算：<code>19 = 1 0 0 1 1</code> ，可以得出：<strong>X <sup>19</sup> &#x3D; X <sup>16 + 2 + 1</sup> &#x3D; X <sup>16</sup> * X <sup>2</sup> * X <sup>1</sup></strong> 。</p>
+<p>比如计算 <strong>X <sup>19</sup></strong>。</p>
+<p>可以使用二进制运算：<code>19 = 1 0 0 1 1</code> ，可以得出：<strong>X <sup>19</sup> = X <sup>16 + 2 + 1</sup> = X <sup>16</sup> <em> X <sup>2</sup> </em> X <sup>1</sup></strong> 。</p>
 <p>这种计算方法可以减少循环的次数。</p>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">QuickPow</span><span class="params">( <span class="keyword">int</span> x, <span class="keyword">int</span> N )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = x;</span><br><span class="line">    <span class="keyword">while</span>( N &gt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>( (N &amp; <span class="number">1</span>) == <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            res = res * x;</span><br><span class="line">        &#125;</span><br><span class="line">        x *= x;</span><br><span class="line">        N &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>和上面的思想是一样的，只是整数的次幂变成了矩阵的次幂。</p>
 <p>回顾一下矩阵乘法的思想：</p>
-<p><img src="/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.assets/1149206-20170603085219993-768167045.png" alt="矩阵乘法"></p>
+<p><img src="/2021/12/09/LeetCode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/1149206-20170603085219993-768167045.png" alt="矩阵乘法"></p>
 <p>下面使用具体的情景。</p>
 <h3 id="具体实例分析-斐波那契数列"><a href="#具体实例分析-斐波那契数列" class="headerlink" title="具体实例分析 - 斐波那契数列"></a>具体实例分析 - 斐波那契数列</h3><p>已知递推序列：<code>F(n) = F(n-1) + F(n-2)</code> ，可以知道 <code>F(n-1) = F(n-1)</code> ，或者可以换算成：</p>
 <p><code>F(n) = 1 * F(n-1) + 1 * F(n-2)</code> ，</p>
 <p><code>F(n-1) = 1 * F(n-1) + 0 * F(n-2)</code> ，</p>
-<p>则可以逆推出矩阵序列：<br>$$<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>&#x3D;<br>\left(<br>\matrix{<br>  1 &amp; 1\<br>  1 &amp; 0<br>}<br>\right)<br>*<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>$$<br>根据上述矩阵公式，得到斐波那契数列的一般式：<br>$$<br>\left(<br>\matrix{<br>F(n)\<br>F(n-1)<br>}<br>\right)<br>&#x3D;<br>\left(<br>\matrix{<br>1 &amp; 1\<br>1 &amp; 0<br>}<br>\right) ^ {n-1}<br>*<br>\left(<br>\matrix{<br>F(1) &#x3D; 1\<br>F(0) &#x3D; 0<br>}<br>\right)<br>$$<br>得到具体代码如下：</p>
+<p>则可以逆推出矩阵序列：</p>
+<script type="math/tex; mode=display">
+\left(
+\matrix{
+F(n)\\
+F(n-1)
+}
+\right)
+=
+\left(
+\matrix{
+  1 & 1\\
+  1 & 0
+}
+\right)
+*
+\left(
+\matrix{
+F(n)\\
+F(n-1)
+}
+\right)</script><p>根据上述矩阵公式，得到斐波那契数列的一般式：</p>
+<script type="math/tex; mode=display">
+\left(
+\matrix{
+F(n)\\
+F(n-1)
+}
+\right)
+=
+\left(
+\matrix{
+1 & 1\\
+1 & 0
+}
+\right) ^ {n-1}
+*
+\left(
+\matrix{
+F(1) = 1\\
+F(0) = 0
+}
+\right)</script><p>得到具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] mat = &#123;&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] res = &#123;&#123;<span class="number">1</span>&#125;,&#123;<span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">        n -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( n != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( (n &amp; <span class="number">1</span>) == <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                matrixSquare(mat, res);</span><br><span class="line">            &#125;</span><br><span class="line">            matrixSquare(mat, mat);</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">matrixSquare</span><span class="params">(<span class="keyword">int</span>[][] mat1, <span class="keyword">int</span>[][] mat2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = mat2.length, m = mat2[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] new_mat = <span class="keyword">new</span> <span class="keyword">int</span>[n][m];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span>( <span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; ++k )</span><br><span class="line">                &#123;</span><br><span class="line">                    new_mat[i][j] += mat1[i][k] * mat2[k][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                mat2[i][j] = new_mat[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cmmdc/p/6936196.html">矩阵快速幂基础讲解</a></p>
 
     </div>
