@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="一. 排序算法介绍算法介绍排序算法分为比较类排序和非比较类排序，其中： 比较类排序有 冒泡排序、快速排序、插入排序、希尔排序、选择排序、堆排序、归并排序；">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2022/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/1024555-20161218163120151-452283750.png">
-<meta property="og:image" content="http://example.com/2022/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/1024555-20161218194508761-468169540.png">
+<meta property="og:image" content="http://example.com/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F.assets/1024555-20161218163120151-452283750.png">
+<meta property="og:image" content="http://example.com/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F.assets/1024555-20161218194508761-468169540.png">
 <meta property="article:published_time" content="2022-01-25T04:01:49.000Z">
 <meta property="article:modified_time" content="2022-01-27T16:13:30.094Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="归并排序">
 <meta property="article:tag" content="冒泡排序">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/1024555-20161218163120151-452283750.png">
+<meta name="twitter:image" content="http://example.com/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F.assets/1024555-20161218163120151-452283750.png">
 
 <link rel="canonical" href="http://example.com/2022/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
 
@@ -259,96 +259,91 @@
         <h3 id="一-排序算法介绍"><a href="#一-排序算法介绍" class="headerlink" title="一. 排序算法介绍"></a>一. 排序算法介绍</h3><h4 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h4><p>排序算法分为比较类排序和非比较类排序，其中：</p>
 <p>比较类排序有 冒泡排序、快速排序、插入排序、希尔排序、选择排序、堆排序、归并排序；</p>
 <span id="more"></span>
+
+
+
 <p>非比较类排序有 计数排序、桶排序、基数排序。</p>
 <p>算法复杂度如下：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
-<th style="text-align:center">比较类排序</th>
-<th style="text-align:center">时间复杂度</th>
-<th style="text-align:center">空间复杂度</th>
-<th style="text-align:center">稳定性</th>
+<th align="center">比较类排序</th>
+<th align="center">时间复杂度</th>
+<th align="center">空间复杂度</th>
+<th align="center">稳定性</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">插入排序</td>
-<td style="text-align:center">O(n2)</td>
-<td style="text-align:center">O(1)</td>
-<td style="text-align:center">稳定</td>
+<tbody><tr>
+<td align="center">插入排序</td>
+<td align="center">O(n2)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">希尔排序</td>
-<td style="text-align:center">O(n1.3)</td>
-<td style="text-align:center">O(1)</td>
-<td style="text-align:center">不稳定</td>
+<td align="center">希尔排序</td>
+<td align="center">O(n1.3)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">选择排序</td>
-<td style="text-align:center">O(n2)</td>
-<td style="text-align:center">O(1)</td>
-<td style="text-align:center">不稳定</td>
+<td align="center">选择排序</td>
+<td align="center">O(n2)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">堆排序</td>
-<td style="text-align:center">O(nlog2n)</td>
-<td style="text-align:center">O(1)</td>
-<td style="text-align:center">不稳定</td>
+<td align="center">堆排序</td>
+<td align="center">O(nlog2n)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">冒泡排序</td>
-<td style="text-align:center">O(n2)</td>
-<td style="text-align:center">O(1)</td>
-<td style="text-align:center">稳定</td>
+<td align="center">冒泡排序</td>
+<td align="center">O(n2)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">快速排序</td>
-<td style="text-align:center">O(nlog2n)</td>
-<td style="text-align:center">O(nlog2n)</td>
-<td style="text-align:center">不稳定</td>
+<td align="center">快速排序</td>
+<td align="center">O(nlog2n)</td>
+<td align="center">O(nlog2n)</td>
+<td align="center">不稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">归并排序</td>
-<td style="text-align:center">O(nlog2n)</td>
-<td style="text-align:center">O(n)</td>
-<td style="text-align:center">稳定</td>
+<td align="center">归并排序</td>
+<td align="center">O(nlog2n)</td>
+<td align="center">O(n)</td>
+<td align="center">稳定</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
+</tbody></table>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">非比较类排序</th>
-<th style="text-align:center">时间复杂度</th>
-<th style="text-align:center">空间复杂度</th>
-<th style="text-align:center">稳定性</th>
+<th align="center">非比较类排序</th>
+<th align="center">时间复杂度</th>
+<th align="center">空间复杂度</th>
+<th align="center">稳定性</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">计数排序</td>
-<td style="text-align:center">O(n+k)</td>
-<td style="text-align:center">O(n+k)</td>
-<td style="text-align:center">稳定</td>
+<tbody><tr>
+<td align="center">计数排序</td>
+<td align="center">O(n+k)</td>
+<td align="center">O(n+k)</td>
+<td align="center">稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">桶排序</td>
-<td style="text-align:center">O(n+k)</td>
-<td style="text-align:center">O(n+k)</td>
-<td style="text-align:center">稳定</td>
+<td align="center">桶排序</td>
+<td align="center">O(n+k)</td>
+<td align="center">O(n+k)</td>
+<td align="center">稳定</td>
 </tr>
 <tr>
-<td style="text-align:center">基数排序</td>
-<td style="text-align:center">O(n*k)</td>
-<td style="text-align:center">O(n+k)</td>
-<td style="text-align:center">稳定</td>
+<td align="center">基数排序</td>
+<td align="center">O(n*k)</td>
+<td align="center">O(n+k)</td>
+<td align="center">稳定</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h4 id="算法选择"><a href="#算法选择" class="headerlink" title="算法选择"></a>算法选择</h4><p>参考 <code>Java</code> 中的 <code>Arrays.sort()</code> 的使用，可以大致划分：</p>
 <ol>
 <li>元素个数 <strong>少于47</strong> 进行插入排序；</li>
@@ -369,7 +364,7 @@
 <p>4&gt;3 -&gt; 3,4 -&gt; [1,2,3,4,7,5]</p>
 <p>4&lt;7 ✔</p>
 <p>7&gt;5 -&gt; 5,7 -&gt; [1,2,3,4,5,7]</p>
-<p>第二次循环：[1,2,3,4,5]    //7是上次循环后得到的最大值，不再参与循环</p>
+<p>第二次循环：[1,2,3,4,5]    &#x2F;&#x2F;7是上次循环后得到的最大值，不再参与循环</p>
 <p>1&lt;2 ✔</p>
 <p>2&lt;3 ✔</p>
 <p>3&lt;4 ✔</p>
@@ -379,18 +374,22 @@
 <p>可以进行一个小优化：设置一个参数<code>flag=0</code>来判断该次循环是否存在交换，如果有，置<code>flag=1</code>，则继续进行循环；没有，则退出循环。</p>
 <p>具体代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] list = &#123;<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> temp = <span class="number">0</span>; <span class="comment">// 开辟一个临时空间, 存放交换的中间值</span></span><br><span class="line"><span class="comment">// 要遍历的次数</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.length-<span class="number">1</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">1</span>; <span class="comment">//设置一个标志位</span></span><br><span class="line">    <span class="comment">//依次的比较相邻两个数的大小，遍历一次后，把数组中第i小的数放在第i个位置上</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; list.length-<span class="number">1</span>-i; j++) &#123;</span><br><span class="line">        <span class="comment">// 比较相邻的元素，如果前面的数小于后面的数，交换</span></span><br><span class="line">        <span class="keyword">if</span> (list[j] &lt; list[j+<span class="number">1</span>]) &#123;</span><br><span class="line">            temp = list[j+<span class="number">1</span>];</span><br><span class="line">            list[j+<span class="number">1</span>] = list[j];</span><br><span class="line">            list[j] = temp;</span><br><span class="line">            flag = <span class="number">0</span>;  <span class="comment">//发生交换，标志位置0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.format(<span class="string">&quot;第 %d 遍最终结果：&quot;</span>, i+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> count:list) &#123;</span><br><span class="line">        System.out.print(count);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="number">1</span>) &#123;<span class="comment">//如果没有交换过元素，则已经有序</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="三-归并排序"><a href="#三-归并排序" class="headerlink" title="三. 归并排序"></a>三. 归并排序</h3><p>摘自 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/chengxiao/p/6194356.html">图解排序算法(四)之归并排序</a></p>
 <p>适用于元素个数比较多的数组。</p>
 <ol>
 <li><p>分治：将数组对半分开，直到区间内只剩一个元素，开始向上递归；</p>
-<p><img src="/2022/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/1024555-20161218163120151-452283750.png" alt="img"></p>
+<p><img src="/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F.assets/1024555-20161218163120151-452283750.png" alt="img"></p>
 </li>
 <li><p>合并：当区间内的元素大于1个时，可以进行合并。</p>
 </li>
 </ol>
-<p><img src="/2022/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/1024555-20161218194508761-468169540.png" alt="img"></p>
+<p><img src="/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%AF%94%E8%BE%83-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F.assets/1024555-20161218194508761-468169540.png" alt="img"></p>
 <p>具体代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[] tmp = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        devide(nums, <span class="number">0</span>, len - <span class="number">1</span>, tmp);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( nums[i] == nums[i+<span class="number">1</span>] )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">devide</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span>[] tmp)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">          <span class="keyword">if</span>( l &gt;= r )</span><br><span class="line">          &#123;</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">          devide(nums, l, mid, tmp);</span><br><span class="line">          devide(nums, mid+<span class="number">1</span>, r, tmp);</span><br><span class="line">          merge(nums, l, r, mid, tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> mid, <span class="keyword">int</span>[] tmp)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( mid &gt;= r + <span class="number">1</span> || mid &lt; <span class="number">0</span> || l &gt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = l, j = mid + <span class="number">1</span>, t = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>( i &lt;= mid &amp;&amp; j &lt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( nums[i] &lt;= nums[j] )</span><br><span class="line">            &#123;</span><br><span class="line">                tmp[t++] = nums[i++];</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                tmp[t++] = nums[j++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( i &lt;= mid )</span><br><span class="line">        &#123;</span><br><span class="line">            tmp[t++] = nums[i++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( j &lt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            tmp[t++] = nums[j++];</span><br><span class="line">        &#125;</span><br><span class="line">        t = <span class="number">0</span>;</span><br><span class="line">        i = l;</span><br><span class="line">        <span class="keyword">while</span>( l &lt;= r )</span><br><span class="line">        &#123;</span><br><span class="line">            nums[l++] = tmp[t++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 

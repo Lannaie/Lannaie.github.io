@@ -255,6 +255,9 @@
         <h3 id="1-spark是什么"><a href="#1-spark是什么" class="headerlink" title="1. spark是什么"></a>1. spark是什么</h3><p>spark是一种与hadoop相似的开源集群计算框架，是基于内存的快速、通用、可扩展的大数据分析计算引擎。</p>
 <p>基于内存：并不是说spark是内存计算，因为它的shuffle过程也是需要硬盘落地的，它的特点是多个任务之间的数据通信是通过内存进行的。</p>
 <span id="more"></span>
+
+
+
 <h3 id="2-spark的hadoop的对比"><a href="#2-spark的hadoop的对比" class="headerlink" title="2. spark的hadoop的对比"></a>2. spark的hadoop的对比</h3><p><strong>MapReduce框架局限性：</strong></p>
 <p>1）仅支持Map和Reduce两种操作；</p>
 <p>2）处理效率低效；</p>
@@ -262,7 +265,7 @@
 <p>3）不适合迭代计算(如机器学习、图计算等)，交互式处理（数据挖掘)）和流式处理(点击日志分析）。</p>
 <p><strong>Spark相比的优势：</strong><br>1.高性能：Spark采用内存计算引擎，允许用户将数据放到内存中以加快数据读取；同时，Spark提供了更加通用的DAG计算引擎，使得数据可通过本地磁盘或内存流向不同的计算单元。</p>
 <p>2.简单易用：Spark提供了丰富的高层次API，包括sortByKey、groupByKey等操作，并且提供了四种编程语言API：Scala、Python、Java和R，从代码量看，Spark比MapReduce少2~5倍。</p>
-<p>3.与Hadoop完好集成：Spark作为新型框架，可以部署在YARN集群上，读取和存储HDFS/HBase中的数据。</p>
+<p>3.与Hadoop完好集成：Spark作为新型框架，可以部署在YARN集群上，读取和存储HDFS&#x2F;HBase中的数据。</p>
 <p>经过上述比较可知，在绝大多数的数据计算场景下，spark比hadoop更具有优势，但是spark是基于内存的，在实际的生产环境中，由于内存的限制，可能会因为内存资源不够而导致job运行失败，此时，hadoop的mapreduce就是一个更好的选择，所以spark并不能完全替代hadoop。</p>
 <h3 id="3-spark核心模块简介"><a href="#3-spark核心模块简介" class="headerlink" title="3. spark核心模块简介"></a>3. spark核心模块简介</h3><p>即spark sql、spark streaming、spark mllib、spark graphx和spark core。</p>
 <p>其中，位于最底层的是spark core，它是整个spark框架的核心，其余的功能模块都是基于core来实现和完善的。</p>
@@ -285,7 +288,7 @@
 <li><p>DataFrame</p>
 <p>1、与RDD和Dataset不同，DataFrame每一行的类型固定为Row，只有通过解析才能获取各个字段的值，即每一列的值不能直接访问；</p>
 <p>2、DataFrame与Dataset一般与spark mllib同时使用；</p>
-<p>3、DataFrame与Dataset均支持sparksql的操作，比如select，groupby之类，还能注册临时表/视窗，进行sql语句操作；</p>
+<p>3、DataFrame与Dataset均支持sparksql的操作，比如select，groupby之类，还能注册临时表&#x2F;视窗，进行sql语句操作；</p>
 <p>4、DataFrame与Dataset支持一些特别方便的保存方式，比如保存成csv，可以带上表头，这样每一列的字段名一目了然，利用这样的保存方式，可以方便的获得字段名和列的对应，而且分隔符（delimiter）可以自由指定；</p>
 </li>
 <li><p>DataSet</p>
@@ -329,8 +332,9 @@
 <li>本地模式：该模式被称为local[N]模式，是利用本地的多个线程来模拟spark的分布式计算，便于调试；它有以下分类：local - 只运行一个线程；local[K] - 运行K个executor；local[*] - 运行和cpu数目相同的executor。</li>
 <li>standalone模式：是Spark自身的一个调度系统。 对集群性能要求非常高；分布式部署集群，自带完整的服务，其中资源管理和任务监控都由spark自己监控，该模式是其他模式的基础。</li>
 <li>spark on yarn模式：分布式部署集群，资源和任务监控交给yarn管理，它是粗粒度资源分配方式，包含cluster和client运行模式：cluster 适合生产，driver运行在集群子节点，具有容错功能；client 适合调试，dirver运行在客户端。</li>
-<li>spark on mesos模式：官方推荐这种模式（当然，原因之一是血缘关系）。正是由于Spark开发之初就考虑到支持Mesos，因此，目前而言，Spark运行在Mesos上会比运行在YARN上更加灵活，更加自然。用户可选择两种调度模式之一运行自己的应用程序：<br>  ①粗粒度模式（Coarse-grained Mode）：每个应用程序的运行环境由一个Dirver和若干个Executor组成，其中，每个Executor占用若干资源，内部可运行多个Task（对应多少个“slot”）。应用程序的各个任务正式运行之前，需要将运行环境中的资源全部申请好，且运行过程中要一直占用这些资源，即使不用，最后程序运行结束后，回收这些资源。<br>  ② 细粒度模式（Fine-grained Mode）：鉴于粗粒度模式会造成大量资源浪费，Spark On Mesos还提供了另外一种调度模式：细粒度模式，这种模式类似于现在的云计算，思想是按需分配。<br><strong>Spark 客户端直接连接 Mesos；不需要额外构建 Spark 集群。国内应用比较少，更多的是运用 yarn 调度。</strong></li>
+<li>spark on mesos模式：官方推荐这种模式（当然，原因之一是血缘关系）。正是由于Spark开发之初就考虑到支持Mesos，因此，目前而言，Spark运行在Mesos上会比运行在YARN上更加灵活，更加自然。用户可选择两种调度模式之一运行自己的应用程序：<br>  ①粗粒度模式（Coarse-grained Mode）：每个应用程序的运行环境由一个Dirver和若干个Executor组成，其中，每个Executor占用若干资源，内部可运行多个Task（对应多少个“slot”）。应用程序的各个任务正式运行之前，需要将运行环境中的资源全部申请好，且运行过程中要一直占用这些资源，即使不用，最后程序运行结束后，回收这些资源。<br>  ② 细粒度模式（Fine-grained Mode）：鉴于粗粒度模式会造成大量资源浪费，Spark On Mesos还提供了另外一种调度模式：细粒度模式，这种模式类似于现在的云计算，思想是按需分配。</li>
 </ol>
+<p><strong>Spark 客户端直接连接 Mesos；不需要额外构建 Spark 集群。国内应用比较少，更多的是运用 yarn 调度。</strong></p>
 <h3 id="9-Spark的常用端口号"><a href="#9-Spark的常用端口号" class="headerlink" title="9. Spark的常用端口号"></a>9. Spark的常用端口号</h3><p>（1）4040：spark shell任务端口；<br>（2）7077：内部通讯端口，类似于hadoop的8020；<br>（3）8080：查看任务执行情况的端口号，类似hadoop的8088；<br>（4）18080：历史服务器，类似于hadoop的19888。</p>
 <h3 id="10-SparkSQL中的三种join操作"><a href="#10-SparkSQL中的三种join操作" class="headerlink" title="10. SparkSQL中的三种join操作"></a>10. SparkSQL中的三种join操作</h3><p>用于小表join大表的 <code>broadcast join</code> 和 <code>shuffle join</code>，以及用于将两个大表连接的 <code>sort merge join</code>。</p>
 <ol>

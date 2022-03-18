@@ -254,10 +254,16 @@
       
         <h3 id="Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans"><a href="#Error-in-query-Detected-cartesian-product-for-INNER-join-between-logical-plans" class="headerlink" title="Error in query: Detected cartesian product for INNER join between logical plans"></a>Error in query: Detected cartesian product for INNER join between logical plans</h3><p>默认sparksql版本2.x不支持笛卡尔积操作，需要手动开启支持权限：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> spark.sql.crossJoin.enabled<span class="operator">=</span><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+
+
+
 <span id="more"></span>
+
+
+
 <h3 id="Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33"><a href="#Caused-by-org-apache-spark-SparkException-Job-aborted-due-to-stage-failure-ResultStage-98-sql-at-0-M-has-failed-the-maximum-allowable-number-of-M-times-4-M-Most-recent-failure-reason-org-apache-spark-shuffle-MetadataFetchFailedException-Missing-an-output-location-for-shuffle-33" class="headerlink" title="Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at :0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33"></a>Caused by: org.apache.spark.SparkException: Job aborted due to stage failure: ResultStage 98 (sql at <unknown>:0)^M has failed the maximum allowable number of^M times: 4.^M Most recent failure reason: org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 33</unknown></h3><p>不知道具体什么原因（热烈欢迎大佬教我如何深入查找具体原因），只能通过代码大致判断可能数据量太大造成内存溢出。</p>
 <p>解决方法：</p>
-<p>使用 <code>mapjoin</code> 将小表放到内存，减少reduce端的压力。</p>
+<p>使用 <code>mapjoin </code> 将小表放到内存，减少reduce端的压力。</p>
 <ol>
 <li><p>设置参数：<code>set hive.ignore.mapjoin.hint=true;</code></p>
 <p>true 注释方式不生效，false 注释方式生效 - 用于强行指定需要加入内存走mapjoin的表。</p>
@@ -269,9 +275,11 @@
 <p>具体代码：</p>
 <p>前：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
+
 <p>其中 <code>table_b</code> 为小表。</p>
 <p>后：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(table_b)*/</span> <span class="operator">*</span> <span class="keyword">from</span> table_a <span class="keyword">join</span> table_b;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
