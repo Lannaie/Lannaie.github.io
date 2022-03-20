@@ -255,7 +255,9 @@
         <h3 id="Sqoop-概念"><a href="#Sqoop-概念" class="headerlink" title="Sqoop 概念"></a>Sqoop 概念</h3><p>​        实现hdfs数据库与关系型数据库之间的数据传递。底层的导入导出使用mapreduce实现，主要是对inputformat和outputformat进行定制。 在Sqoop的概念中，导入指的是关系型数据库如mysql到hdfs，导出是hdfs到关系型数据库。</p>
 <p>​        Sqoop的2版本不用于生产环境，生产环境使用1版本。</p>
 <span id="more"></span>
+
 <h3 id="mysql-gt-hdfs-导入"><a href="#mysql-gt-hdfs-导入" class="headerlink" title="mysql -&gt; hdfs 导入"></a>mysql -&gt; hdfs 导入</h3><h4 id="全部导入"><a href="#全部导入" class="headerlink" title="全部导入"></a>全部导入</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop002:3306/database_name \</span><br><span class="line">--username user_name \</span><br><span class="line">--password passwd \</span><br><span class="line">--table table_name \</span><br><span class="line">--target-dir <span class="variable">$&#123;hdfs存储路径&#125;</span> \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>部分参数说明：</p>
 <ol>
 <li><code>--delete-target-dir</code> ：如果 <code>--target-dir</code> 指定的路径存在久删除，在生产环境一般不使用，防止误删，可以写一个hdfs api校验一下，如果存在手动删掉；</li>
@@ -264,26 +266,36 @@
 </ol>
 <h4 id="查询导入"><a href="#查询导入" class="headerlink" title="查询导入"></a>查询导入</h4><p>​        在全部导入的基础上，删除指定表的参数 <code>--table</code>，增加一个 <code>--query</code> 参数。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop002:3306/database_name \</span><br><span class="line">--username user_name \</span><br><span class="line">--password passwd \</span><br><span class="line">--target-dir <span class="variable">$&#123;hdfs存储路径&#125;</span> \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br><span class="line">--query <span class="string">&quot;select name, sex from test where id &lt; 1 and \$CONDITIONS&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p><code>$CONDITIONS</code> 的问题：</p>
 <p>​        首先对于单引号，直接使用，对于双引号，需要转义，即 <code>\$CONDITIONS</code> 。</p>
 <p>​        使用的原因是：是为了保证导入导出时数据的顺序不变，因为使用多个map执行操作，每个map的处理时长不同，会导致不同结果的顺序与导入导出前不同，$CONDITIONS 变量可以看成是一个序号，必须要等前面的内容写完才可以写它对应的数据。</p>
 <h4 id="指定列导入"><a href="#指定列导入" class="headerlink" title="指定列导入"></a>指定列导入</h4><p>在全部导入的基础上，指定 <code>--columns</code> 参数即可。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop002:3306/database_name \</span><br><span class="line">--username user_name \</span><br><span class="line">--password passwd \</span><br><span class="line">--table table_name \</span><br><span class="line">--columns name, sex \</span><br><span class="line">--target-dir <span class="variable">$&#123;hdfs存储路径&#125;</span> \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="指定条件导入"><a href="#指定条件导入" class="headerlink" title="指定条件导入"></a>指定条件导入</h4><p>在全部导入的基础上，指定 <code>--where</code> 参数即可。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop002:3306/database_name \</span><br><span class="line">--username user_name \</span><br><span class="line">--password passwd \</span><br><span class="line">--table table_name \</span><br><span class="line">--<span class="built_in">where</span> <span class="string">&quot;id &lt; 1&quot;</span> \</span><br><span class="line">--target-dir <span class="variable">$&#123;hdfs存储路径&#125;</span> \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>注意，<code>--where</code> 不能和 <code>--query</code> 一起使用，无法识别。</p>
 <h3 id="mysql-gt-hive-导入"><a href="#mysql-gt-hive-导入" class="headerlink" title="mysql -&gt; hive 导入"></a>mysql -&gt; hive 导入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop002:3306/database_name \</span><br><span class="line">--username user_name \</span><br><span class="line">--password passwd \</span><br><span class="line">--table table_name \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table hive_table_name</span><br></pre></td></tr></table></figure>
+
 <p>hive中指定的表，有久覆盖数据，没有就新建。</p>
 <h3 id="mysql-gt-hbase-导入"><a href="#mysql-gt-hbase-导入" class="headerlink" title="mysql -&gt; hbase 导入"></a>mysql -&gt; hbase 导入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop002:3306/database_name \</span><br><span class="line">--username user_name \</span><br><span class="line">--password passwd \</span><br><span class="line">--table table_name \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hbase-create-table \</span><br><span class="line">--hbase-row-key <span class="string">&quot;id&quot;</span> \</span><br><span class="line">--hbase-table <span class="string">&quot;hbase_table_name&quot;</span> \</span><br><span class="line">--column-family <span class="string">&quot;info&quot;</span> \</span><br><span class="line">--split-by id</span><br></pre></td></tr></table></figure>
+
 <p>​        sqoop1.4.6版本只支持hbase1.0.1版本之前的自动创建表的功能，后面的版本需要手动建表。其中，<code>split-by</code>  指定hbase的表按哪个列切分单元。</p>
 <h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>​        说是大数据集群向关系数据库传递数据，底层其实就是hdfs向关系型数据库传递数据。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop <span class="built_in">export</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop002:3306/database_name \</span><br><span class="line">--username user_name \</span><br><span class="line">--password passwd \</span><br><span class="line">--table table_name \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--export-dir <span class="variable">$&#123;存储数据的路径&#125;</span> \</span><br><span class="line">--input-fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>​        如果mysql中没有对应的表 <code>table_name</code> ，需要手动创建。</p>
 <p>​        <code>--input-fields-terminated-by</code> 指定切割符，因为导出的过程中会将hdfs的一行数据作为一个字段导出，指定切割符后才能分为多个字段存储。</p>
 <h3 id="脚本打包调用"><a href="#脚本打包调用" class="headerlink" title="脚本打包调用"></a>脚本打包调用</h3><p>​        使用 <code>.opt</code> 格式的脚本，具体脚本如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">export</span><br><span class="line">--connect</span><br><span class="line">jdbc:mysql://hadoop002:3306/database_name</span><br><span class="line">--username</span><br><span class="line">user_name</span><br><span class="line">--password</span><br><span class="line">passwd</span><br><span class="line">--table</span><br><span class="line">table_name</span><br><span class="line">--num-mappers</span><br><span class="line">1</span><br><span class="line">--export-dir</span><br><span class="line">$&#123;存储数据的路径&#125;</span><br><span class="line">--input-fields-terminated-by</span><br><span class="line">&quot;\t&quot;</span><br></pre></td></tr></table></figure>
+
 <p>执行脚本命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop --options-file test.opt</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="Sqoop导入导出-null-存储一致性的问题"><a href="#Sqoop导入导出-null-存储一致性的问题" class="headerlink" title="Sqoop导入导出 null 存储一致性的问题"></a>Sqoop导入导出 null 存储一致性的问题</h3>
     </div>
 
@@ -393,7 +405,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -406,7 +418,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-count">67</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
