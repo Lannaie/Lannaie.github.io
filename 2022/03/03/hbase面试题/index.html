@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321202358447.png">
 <meta property="og:image" content="http://example.com/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321222702447.png">
 <meta property="article:published_time" content="2022-03-03T07:47:49.000Z">
-<meta property="article:modified_time" content="2022-03-21T17:13:38.763Z">
+<meta property="article:modified_time" content="2022-03-22T04:05:19.265Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="hbase">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-22 01:13:38" itemprop="dateModified" datetime="2022-03-22T01:13:38+08:00">2022-03-22</time>
+                <time title="修改时间：2022-03-22 12:05:19" itemprop="dateModified" datetime="2022-03-22T12:05:19+08:00">2022-03-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -298,7 +298,7 @@
 <p>​        相关的参数有：</p>
 <ol>
 <li>hbase.hregion.majorcompaction：默认是7天合并一次，这个过程因为比较消耗资源，所以减一生产关闭，在应用空闲时手动触发。</li>
-<li>hbase.hstore.compactionThreshold：默认当store中的hfile个数超过3个，会合并重写为一个新文件，设置个数越大能够减少合并的次数，但是每次合并的事件也会相对延长。当然这里合并之后考虑到数据一致性的问题，不会立刻删除旧文件，而是等一会才删掉。</li>
+<li>hbase.hstore.compactionThreshold：默认当store中的hfile个数超过3个，会合并重写为一个新文件，设置个数越大能够减少合并的次数，但是每次合并的时间也会相对延长。当然这里合并之后考虑到数据一致性的问题，不会立刻删除旧文件，而是等一会才删掉。</li>
 </ol>
 <h3 id="HBase-真正删除数据的时间"><a href="#HBase-真正删除数据的时间" class="headerlink" title="HBase 真正删除数据的时间"></a>HBase 真正删除数据的时间</h3><p>​        首先，HBase会在flush和major compaction阶段触发删除数据。</p>
 <p>​        对于flush阶段，如果数据存在同一个内存，就能知道这个数据是否过期，或者这个数据是否已经标记了delete，然后会删掉过期或被删除的数据，但是不会删除这个delete标记。</p>
@@ -313,11 +313,11 @@
 
 <h4 id="RowKey设计"><a href="#RowKey设计" class="headerlink" title="RowKey设计"></a>RowKey设计</h4><p>RowKey的设计有三个原则：</p>
 <ol>
-<li>散列原则：让RowKey能够尽量均匀的分配到不同的分区中，不应该将时间戳</li>
-<li>唯一原则：HBase通过这个RowKey唯一的判断一条数据；</li>
+<li>散列原则：让RowKey能够尽量均匀的分配到不同的分区中，仅使用时间戳作为rowkey无法保证这个散列原则；</li>
+<li>唯一原则：这是RowKey设计必须满足的条件；</li>
 <li>长度原则：正常来说应该是在70~100个字节之间，因为要保证唯一，长度太短比较难实现，如果太长，假设是500字节，如果此时存储了1000万的数据，那么仅rowkey就占了差不多1G的容量，极大的影响了存储的效率。</li>
 </ol>
-<p>​        在生产环境中，rowkey的唯一性和长度是一定要保证的，那么具体的优化内容其实就是围绕散列原则进行的。但是一个好的rowkey不应该只考虑散列性，还需要依据业务逻辑考虑rowkey的集中性，也就是应该将经常一起访问的内容放在一起，这样才能使用一个 (startrow, endrow] 也就是查找尽量少的分区将它们一起拿出来。</p>
+<p>​        在生产环境中，rowkey的唯一性和长度是一定要保证的，那么具体的优化内容其实就是围绕散列原则进行的。但是一个好的rowkey不应该只考虑散列性，还需要依据业务逻辑考虑rowkey的集中性，也就是应该将经常一起访问的内容放在一起，这样才能在尽量少的区间获取更多的内容。</p>
 <p>​        <strong>rowkey的设计在面试中常会结合具体示例来考：</strong></p>
 <p>示例：电信业务的某一个项目中，会实时产生这样的数据：</p>
 <blockquote>
@@ -334,7 +334,7 @@
 <p>…</p>
 <p>298|</p>
 </blockquote>
-<p>​        因为是300个分区，那么分区键的取值范围应该是 1<del>299 或 0</del>298 ，考虑到取模数值肯定存在0，设置 0 ~ 298 ，然后让一个值对299取模，就可以得到该分区的前三位。需要注意，第四位是 <code>|</code> ，因为这个符号在 ascii 码中是比较大的值，又因为hbase中数值是按照字典序比较的，使用 <code>|</code> 可以保证rowkey中前三位数的前缀相等的内容会写到一个分区。</p>
+<p>​        因为是300个分区，那么分区键的取值范围应该是 1 - 299 或 0 - 298 ，考虑到取模数值肯定存在0，设置 0 ~ 298 ，然后让一个值对299取模，就可以得到该分区的前三位。需要注意，第四位是 <code>|</code> ，因为这个符号在 ascii 码中是比较大的值，又因为hbase中数值是按照字典序比较的，使用 <code>|</code> 可以保证rowkey中前三位数的前缀相等的内容会写到一个分区。</p>
 <p>确定了分区后，接着看rowkey：</p>
 <p>​        RowKey为了保证写操作可以将相同手机号的数据写入一个分区，前缀会对手机号取299的模，然后拼接字符 <code>_</code> 。之所以使用 <code>_</code> 是为了因为 <code>_</code> 的ascii比 <code>|</code> 小，这样就能保证相同前三位数的rowkey能够进入一个分区。</p>
 <p>​        但是不同手机号的通话详情的数据肯定是不一致的，有些很多，有些很少，这种情况单用一个手机号也容易产生数据倾斜，而这种详情基本是按年、月、日来取的，可以加上日期，来让这个值更加散列。如果加上的日期是日或者更小，数据就太散了，如果想要取一年的数据会很复杂；如果使用年份数据依然会比较集中，所以取<strong>年月加上电话号的组合再取299的模</strong>最好。那么具体的rowkey前缀是：</p>
