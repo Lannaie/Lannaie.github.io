@@ -246,51 +246,52 @@
         <p>Sqoop导出操作</p>
 <p>\1. 准备数据</p>
 <span id="more"></span>
+
 <p>CREATE TABLE student (</p>
 <p>id int(11) DEFAULT NULL,</p>
 <p>name varchar(100) DEFAULT NULL,</p>
 <p>class varchar(100) DEFAULT NULL,</p>
 <p>age int(11) DEFAULT NULL,</p>
 <p>high varchar(10) DEFAULT NULL</p>
-<p>) ENGINE=InnoDB DEFAULT CHARSET=latin1;</p>
+<p>) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;latin1;</p>
 <p>INSERT INTO student VALUES (‘1001’, ‘James’, ‘12’, ‘16’, ‘158’);</p>
 <p>INSERT INTO student VALUES (‘1002’, ‘Mark’, ‘34’, ‘17’, ‘169’);</p>
 <p>INSERT INTO student VALUES (‘1003’, ‘Henry’, ‘13’, ‘18’, ‘178’);</p>
 <p>INSERT INTO student VALUES (‘1004’, ‘Kitte’, ‘24’, ‘17’, ‘175’);</p>
 <p>INSERT INTO student VALUES (‘1005’, ‘Tom’, ‘23’, ‘20’, ‘180’);</p>
-<p>使用sqoop把部分数据导入到HDFS的 /MysqlToHDFS3 目录下,要求使用query sql语句查询，导入的字段为id,name,age,查询条件为age&gt;16,两个map，以id字段进行划分。语句是？</p>
-<p>A.  bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>使用sqoop把部分数据导入到HDFS的 &#x2F;MysqlToHDFS3 目录下,要求使用query sql语句查询，导入的字段为id,name,age,查询条件为age&gt;16,两个map，以id字段进行划分。语句是？</p>
+<p>A.  bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query “select id,name,age from student WHERE age &gt; 16 and $CONDITIONS”</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
-<p>—num-mappers 2</p>
-<p>B. bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>–num-mappers 2</p>
+<p>B. bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query ‘select id,name,age from student WHERE age &gt; 16’</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
-<p>—num-mappers 2</p>
-<p>C. bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>–num-mappers 2</p>
+<p>C. bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query ‘select id,name,age from student WHERE age &gt; 16 and $CONDITIONS’</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
 <p>–m 2</p>
-<p>D. bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>D. bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query “select id,name,age from student WHERE age &gt; 16 and $CONDITIONS”</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
@@ -304,7 +305,7 @@
 <p>C.A 对 B 对 </p>
 <p>D.A 对 B 错</p>
 <p>参考答案C</p>
-<p>3.<strong>__</strong>工具将文件从HDFS传输到RDBMS</p>
+<p>3.______工具将文件从HDFS传输到RDBMS</p>
 <p>A. export</p>
 <p>B. transfer</p>
 <p>C. import</p>
@@ -334,23 +335,23 @@
 <p>C. 以上都是</p>
 <p>D.使用错误的定界符解析记录</p>
 <p>参考答案C</p>
-<p>\8. Sqoop将导入或导出命令翻译成MapReduce程序，而MapReduce 中主要是对<strong>___</strong>和<strong>__</strong>进行定制</p>
+<p>\8. Sqoop将导入或导出命令翻译成MapReduce程序，而MapReduce 中主要是对_______和______进行定制</p>
 <p>A.以上都不对</p>
 <p>B. InputText, OutputText</p>
 <p>C. InputFormat, OutputFormat</p>
 <p>D. InputTextFormat, OutputTextFormat</p>
 <p>参考答案C</p>
 <p>9.在使用Sqoop导入数据到hive时，添加那个属性可以去掉数据中的\r\n\013\010这样的字符?</p>
-<p>A. —input-lines-terminated-by</p>
-<p>B. —hive-delims-replacement </p>
-<p>C. —hive-drop-import-delims</p>
-<p>D. —input-lines-terminated-by</p>
+<p>A. –input-lines-terminated-by</p>
+<p>B. –hive-delims-replacement </p>
+<p>C. –hive-drop-import-delims</p>
+<p>D. –input-lines-terminated-by</p>
 <p>参考答案C</p>
 <p>\10. 导入MySQL数据库dbtest下emp表数据到HDFS语句正确的是？</p>
-<p>A. sqoop-import —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —schema emp -m 1</p>
-<p>B. sqoop-import —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —table emp -m 1</p>
-<p>C. sqoop export —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —table emp -m 1</p>
-<p>D. sqoop export —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —schema emp -m 1</p>
+<p>A. sqoop-import –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –schema emp -m 1</p>
+<p>B. sqoop-import –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –table emp -m 1</p>
+<p>C. sqoop export –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –table emp -m 1</p>
+<p>D. sqoop export –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –schema emp -m 1</p>
 <p>参考答案B</p>
 <p>\11. 默认情况下，Sqoop将在导出过程中并行使用____个任务。</p>
 <p>A.4</p>
@@ -359,17 +360,17 @@
 <p>D.1</p>
 <p>参考答案A</p>
 <p>12.A. Sqoop可以保存作业反复执行</p>
-<p>B. sqoop在创建job时，使用—password-file参数，可以避免输入mysql密码, 而是从本地文件系统的指定文件获取密码</p>
+<p>B. sqoop在创建job时，使用–password-file参数，可以避免输入mysql密码, 而是从本地文件系统的指定文件获取密码</p>
 <p>A.A 错 B 错</p>
 <p>B.A 错 B 对 </p>
 <p>C.A 对 B 对 </p>
 <p>D.A 对 B 错</p>
 <p>参考答案D</p>
 <p>13.对于Sqoop导出控制参数，说明正确的是？</p>
-<p>A. —input-null-string 字符串列将被解释为null的字符串表示</p>
-<p>B. —input-null-non-string 非字符串列将被解释为null的字符串</p>
-<p>C. —table 可以不指定</p>
-<p>D. —export-dir 可以不指定</p>
+<p>A. –input-null-string 字符串列将被解释为null的字符串表示</p>
+<p>B. –input-null-non-string 非字符串列将被解释为null的字符串</p>
+<p>C. –table 可以不指定</p>
+<p>D. –export-dir 可以不指定</p>
 <p>参考答案C</p>
 <p>\14. Sqoop导出操作失败的原因可能是？</p>
 <p>A.以上都是</p>
@@ -384,7 +385,7 @@
 <p>D.可以使用命令 sqoop export实现导出</p>
 <p>参考答案A</p>
 <p>Sqoop介绍和导入操作</p>
-<p>1.Sqoop Import 命令中如果没有制定 -m 或者 —num-mappers 参数，则默认的mapper任务数量为？</p>
+<p>1.Sqoop Import 命令中如果没有制定 -m 或者 –num-mappers 参数，则默认的mapper任务数量为？</p>
 <p>A.4</p>
 <p>B.2</p>
 <p>C.3</p>
@@ -392,21 +393,21 @@
 <p>参考答案A</p>
 <p>\2. 哪个选项不会是下面这个命令执行失败的原因？</p>
 <p>sqoop import \</p>
-<p>—connect jdbc:mysql://192.168.186.100:3306/test \</p>
-<p>—username root \</p>
-<p>—password niit1234 \</p>
-<p>—table message \</p>
-<p>—delete-target-dir \</p>
-<p>—target-dir /sqoop/result \</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.186.100:3306&#x2F;test \</p>
+<p>–username root \</p>
+<p>–password niit1234 \</p>
+<p>–table message \</p>
+<p>–delete-target-dir \</p>
+<p>–target-dir &#x2F;sqoop&#x2F;result \</p>
 <p>-m 1</p>
 <p>A.导入的目标路径里面已经有文件存在</p>
 <p>B.没有配置环境变量</p>
 <p>C. Hadoop文件系统服务资源不足</p>
 <p>D. MySQL用户root没有配置远程访问</p>
 <p>参考答案A</p>
-<p>3.在sqoop导入命令中，中的有关—split-by参数的用途说法正确的是 ？</p>
+<p>3.在sqoop导入命令中，中的有关–split-by参数的用途说法正确的是 ？</p>
 <p>A:如果指定了主键，默认按照主键进行分片</p>
-<p>B:如果没有指定主键，则必须指定—split-by才能实现分片</p>
+<p>B:如果没有指定主键，则必须指定–split-by才能实现分片</p>
 <p>A.A对B对</p>
 <p>B.A对B错</p>
 <p>C.B对A错</p>
@@ -436,7 +437,7 @@
 <p>C. sqoop transport</p>
 <p>D. sqoop import</p>
 <p>参考答案D</p>
-<p>\8. Apache Sqoop 是一款<strong><strong>的工具，主要用于数据的</strong></strong>？</p>
+<p>\8. Apache Sqoop 是一款____的工具，主要用于数据的____？</p>
 <p>A.开源、采集</p>
 <p>B.开源、传输</p>
 <p>C.闭源、采集</p>
@@ -444,15 +445,15 @@
 <p>参考答案B</p>
 <p>9.如何使用Sqoop导入关系型数据库中某个表的满足某个条件下的记录中的部分列数据到HDFS中 ？</p>
 <p>A.以上都不对</p>
-<p>B.指定—where</p>
-<p>C.指定—query</p>
-<p>D.指定—columns</p>
+<p>B.指定–where</p>
+<p>C.指定–query</p>
+<p>D.指定–columns</p>
 <p>参考答案C</p>
 <p>10.Sqoop导入命令中，如何修改字段分隔符为制表符？</p>
-<p>A. —fields-terminated-by = ‘/t’</p>
-<p>B. —fields-terminated-by = ‘\t’</p>
-<p>C. —fields-terminated-by ‘\t’</p>
-<p>D. —fields-terminated-by ‘/t’</p>
+<p>A. –fields-terminated-by &#x3D; ‘&#x2F;t’</p>
+<p>B. –fields-terminated-by &#x3D; ‘\t’</p>
+<p>C. –fields-terminated-by ‘\t’</p>
+<p>D. –fields-terminated-by ‘&#x2F;t’</p>
 <p>参考答案C</p>
 <p>\11. 使用Sqoop还可以 ____ ?</p>
 <p>A.连接关系型数据库并执行SQL语句</p>
@@ -461,8 +462,8 @@
 <p>D.列出关系型数据库的所有数据库</p>
 <p>参考答案C</p>
 <p>\12. 关于增量导入：</p>
-<p>说法A：只能由一个列作为检查列 —check-column</p>
-<p>说法B：必须指定 —last-value</p>
+<p>说法A：只能由一个列作为检查列 –check-column</p>
+<p>说法B：必须指定 –last-value</p>
 <p>A.A对B对</p>
 <p>B.A错B错</p>
 <p>C.A错B对</p>
@@ -475,14 +476,14 @@
 <p>D.”,”</p>
 <p>参考答案B</p>
 <p>14.在Linux系统中配置Sqoop环境变量的方式正确的是 ？</p>
-<p>A. export $SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export PATH=$PATH:$SQOOP_HOME/bin</p>
-<p>B. export SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export PATH=$PATH:$SQOOP_HOME/bin</p>
-<p>C. export SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export $PATH=$PATH:$SQOOP_HOME/bin</p>
-<p>D. export SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export PATH=PATH:$SQOOP_HOME/bin</p>
+<p>A. export $SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export PATH&#x3D;$PATH:$SQOOP_HOME&#x2F;bin</p>
+<p>B. export SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export PATH&#x3D;$PATH:$SQOOP_HOME&#x2F;bin</p>
+<p>C. export SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export $PATH&#x3D;$PATH:$SQOOP_HOME&#x2F;bin</p>
+<p>D. export SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export PATH&#x3D;PATH:$SQOOP_HOME&#x2F;bin</p>
 <p>参考答案B</p>
 <p>15.下面哪个选项是属于Sqoop import ？</p>
 <p>A.将Oracle数据库中的数据保存到Hive表中</p>
@@ -497,10 +498,10 @@
 <p>D.增量导入</p>
 <p>参考答案A</p>
 <p>\17. 如何使用sqoop import 导入部分记录？</p>
-<p>A. —columns</p>
-<p>B. —where</p>
+<p>A. –columns</p>
+<p>B. –where</p>
 <p>C以上都是</p>
-<p>D. —query</p>
+<p>D. –query</p>
 <p>参考答案C</p>
 <p>18.sqoop导入到HDFS中的所有记录存储为____格式。</p>
 <p>A.以上都不对</p>
@@ -508,17 +509,17 @@
 <p>C.二进制</p>
 <p>D.十六进制</p>
 <p>参考答案B</p>
-<p>\1. 根据时间上晚于某列来进行数据增量导入，应使用<strong><strong>类型的增量模式配合_</strong></strong>属性</p>
-<p>A.append —last-value</p>
-<p>B.append —last-time</p>
-<p>C.lastmodified —last-value</p>
-<p>D.lastmodified —last-time</p>
+<p>\1. 根据时间上晚于某列来进行数据增量导入，应使用____类型的增量模式配合_____属性</p>
+<p>A.append –last-value</p>
+<p>B.append –last-time</p>
+<p>C.lastmodified –last-value</p>
+<p>D.lastmodified –last-time</p>
 <p>参考答案C</p>
-<p>2.根据自增数值型主键进行增量导入，应使用<strong><strong>类型的增量模式配合_</strong></strong>属性</p>
-<p>A.append —last-value</p>
-<p>B.append —last-time</p>
-<p>C.lastmodified —last-value</p>
-<p>D.lastmodified —last-time</p>
+<p>2.根据自增数值型主键进行增量导入，应使用____类型的增量模式配合_____属性</p>
+<p>A.append –last-value</p>
+<p>B.append –last-time</p>
+<p>C.lastmodified –last-value</p>
+<p>D.lastmodified –last-time</p>
 <p>参考答案A</p>
 <p>3.增量导入的check-colume参数是指？</p>
 <p>A.设置作为增量导入检查依据的列，只能指定1列</p>
@@ -526,13 +527,13 @@
 <p>C.指定增量导入的实际列，只能指定1列</p>
 <p>D.指定增量导入的实际列，可以指定多列</p>
 <p>参考答案B</p>
-<p>4.Sqoop从MySQL到HDFS传输数据属于<strong><strong>___</strong></strong>, 使用Sqoop从HDFS到MySQL传输数据属于<strong>____</strong></p>
+<p>4.Sqoop从MySQL到HDFS传输数据属于___________, 使用Sqoop从HDFS到MySQL传输数据属于________</p>
 <p>A.导入，导出    </p>
 <p>B.导出，导入</p>
 <p>回答正确，得分 2</p>
 <p>参考答案A</p>
 <p>\5. A. Sqoop可以保存作业反复执行</p>
-<p>B. sqoop在创建job时，使用—password-file参数，可以避免输入mysql密码, 而是从本地文件系统的指定文件获取密码</p>
+<p>B. sqoop在创建job时，使用–password-file参数，可以避免输入mysql密码, 而是从本地文件系统的指定文件获取密码</p>
 <p>A.A 对 B 错</p>
 <p>B.A 错 B 对 </p>
 <p>C.A 错 B 错</p>
@@ -545,49 +546,49 @@
 <p>class varchar(100) DEFAULT NULL,</p>
 <p>age int(11) DEFAULT NULL,</p>
 <p>high varchar(10) DEFAULT NULL</p>
-<p>) ENGINE=InnoDB DEFAULT CHARSET=latin1;</p>
+<p>) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;latin1;</p>
 <p>INSERT INTO student VALUES (‘1001’, ‘James’, ‘12’, ‘16’, ‘158’);</p>
 <p>INSERT INTO student VALUES (‘1002’, ‘Mark’, ‘34’, ‘17’, ‘169’);</p>
 <p>INSERT INTO student VALUES (‘1003’, ‘Henry’, ‘13’, ‘18’, ‘178’);</p>
 <p>INSERT INTO student VALUES (‘1004’, ‘Kitte’, ‘24’, ‘17’, ‘175’);</p>
 <p>INSERT INTO student VALUES (‘1005’, ‘Tom’, ‘23’, ‘20’, ‘180’);</p>
-<p>使用sqoop把部分数据导入到HDFS的 /MysqlToHDFS3 目录下,要求使用query sql语句查询，导入的字段为id,name,age,查询条件为age&gt;16,两个map，以id字段进行划分。语句是？</p>
-<p>A.bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>使用sqoop把部分数据导入到HDFS的 &#x2F;MysqlToHDFS3 目录下,要求使用query sql语句查询，导入的字段为id,name,age,查询条件为age&gt;16,两个map，以id字段进行划分。语句是？</p>
+<p>A.bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query ‘select id,name,age from student WHERE age &gt; 16 and $CONDITIONS’</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
 <p>–m 2</p>
-<p>B.bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>B.bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query “select id,name,age from student WHERE age &gt; 16 and $CONDITIONS”</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
 <p>–m 2</p>
-<p>C.bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>C.bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query “select id,name,age from student WHERE age &gt; 16 and $CONDITIONS”</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
-<p>—num-mappers 2</p>
-<p>D.bin/sqoop import</p>
-<p>–connect jdbc:mysql://192.168.10.10:3306/userdb</p>
+<p>–num-mappers 2</p>
+<p>D.bin&#x2F;sqoop import</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.10.10:3306&#x2F;userdb</p>
 <p>–username root</p>
 <p>–delete-target-dir</p>
-<p>–target-dir /MysqlToHDFS3</p>
+<p>–target-dir &#x2F;MysqlToHDFS3</p>
 <p>–query ‘select id,name,age from student WHERE age &gt; 16’</p>
 <p>–split-by id</p>
 <p>–fields-terminated-by ‘\t’</p>
-<p>—num-mappers 2</p>
+<p>–num-mappers 2</p>
 <p>参考答案A</p>
 <p>\7. 关于Sqoop说法正确的是？</p>
 <p>A.可以列出关系型数据库的所有数据库</p>
@@ -604,16 +605,16 @@
 <p>D.A 错B 错</p>
 <p>参考答案C</p>
 <p>\9. 在使用Sqoop导入数据到hive时，添加那个属性可以去掉数据中的\r\n\013\010这样的字符?</p>
-<p>A.—hive-delims-replacement </p>
-<p>B.—hive-drop-import-delims</p>
-<p>C.—input-lines-terminated-by</p>
-<p>D.—input-lines-terminated-by</p>
+<p>A.–hive-delims-replacement </p>
+<p>B.–hive-drop-import-delims</p>
+<p>C.–input-lines-terminated-by</p>
+<p>D.–input-lines-terminated-by</p>
 <p>参考答案B</p>
 <p>10.导入MySQL数据库dbtest下emp表数据到HDFS语句正确的是？</p>
-<p>A.sqoop export —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —table emp -m 1</p>
-<p>B.sqoop-import —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —table emp -m 1</p>
-<p>C.sqoop-import —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —schema emp -m 1</p>
-<p>D.sqoop export —connect jdbc:mysql://node01:3306/dbtest —password 123456 —username root —schema emp -m 1</p>
+<p>A.sqoop export –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –table emp -m 1</p>
+<p>B.sqoop-import –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –table emp -m 1</p>
+<p>C.sqoop-import –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –schema emp -m 1</p>
+<p>D.sqoop export –connect jdbc:mysql:&#x2F;&#x2F;node01:3306&#x2F;dbtest –password 123456 –username root –schema emp -m 1</p>
 <p>参考答案B</p>
 <p>\11. 下面哪个场景适合使用Sqoop？</p>
 <p>A.将服务器日志传输到Kafka消息中间件中</p>
@@ -621,7 +622,7 @@
 <p>C.将HDFS数据传输到Oracle数据库中</p>
 <p>D.将Kafka主题的消息传输到HDFS</p>
 <p>参考答案C</p>
-<p>\12. Sqoop将导入或导出命令翻译成MapReduce程序，而MapReduce 中主要是对<strong>___</strong>和<strong>__</strong>进行定制</p>
+<p>\12. Sqoop将导入或导出命令翻译成MapReduce程序，而MapReduce 中主要是对_______和______进行定制</p>
 <p>A.InputText, OutputText</p>
 <p>B.InputTextFormat, OutputTextFormat</p>
 <p>C.InputFormat, OutputFormat</p>
@@ -646,10 +647,10 @@
 <p>D.4</p>
 <p>参考答案D</p>
 <p>\16. 对于Sqoop导出控制参数，说明正确的是？</p>
-<p>A.—input-null-string 非字符串列将被解释为null的字符串</p>
-<p>B.—input-null-non-string 字符串列将被解释为null的字符串表示</p>
-<p>C.—export-dir 可以不指定</p>
-<p>D.—table 可以不指定</p>
+<p>A.–input-null-string 非字符串列将被解释为null的字符串</p>
+<p>B.–input-null-non-string 字符串列将被解释为null的字符串表示</p>
+<p>C.–export-dir 可以不指定</p>
+<p>D.–table 可以不指定</p>
 <p>参考答案D</p>
 <p>\17. 关于sqoop的导出操作说法错误的是？</p>
 <p>A.导出的目标表必须已经存在于数据库中</p>
@@ -657,7 +658,7 @@
 <p>C.可以使用命令 sqoop-export实现导出</p>
 <p>D.默认导出操作是转换为UPDATE语句实现的</p>
 <p>参考答案D</p>
-<p>\18. <strong>__</strong>工具将文件从HDFS传输到RDBMS</p>
+<p>\18. ______工具将文件从HDFS传输到RDBMS</p>
 <p>A.import</p>
 <p>B.export</p>
 <p>C.output</p>
@@ -665,28 +666,28 @@
 <p>参考答案B</p>
 <p>\19. 关于增量导入：</p>
 <p>说法A：</p>
-<p>只能由一个列作为检查列 —check-column</p>
+<p>只能由一个列作为检查列 –check-column</p>
 <p>说法B：</p>
-<p>必须指定 —last-value</p>
+<p>必须指定 –last-value</p>
 <p>A.A对B错</p>
 <p>B.A错B对</p>
 <p>C.A对B对</p>
 <p>D.A错B错</p>
 <p>参考答案B</p>
 <p>\20. 如何使用sqoop import 导入部分记录？</p>
-<p>A.—query</p>
-<p>B.—where</p>
-<p>C.—columns</p>
+<p>A.–query</p>
+<p>B.–where</p>
+<p>C.–columns</p>
 <p>D.以上都是</p>
 <p>参考答案D</p>
 <p>\21. 哪个选项不会是下面这个命令执行失败的原因？</p>
 <p>sqoop import \</p>
-<p>—connect jdbc:mysql://192.168.186.100:3306/test \</p>
-<p>—username root \</p>
-<p>—password niit1234 \</p>
-<p>—table message \</p>
-<p>—delete-target-dir \</p>
-<p>—target-dir /sqoop/result \</p>
+<p>–connect jdbc:mysql:&#x2F;&#x2F;192.168.186.100:3306&#x2F;test \</p>
+<p>–username root \</p>
+<p>–password niit1234 \</p>
+<p>–table message \</p>
+<p>–delete-target-dir \</p>
+<p>–target-dir &#x2F;sqoop&#x2F;result \</p>
 <p>-m 1</p>
 <p>A.没有配置环境变量</p>
 <p>B.MySQL用户root没有配置远程访问</p>
@@ -694,14 +695,14 @@
 <p>D.Hadoop文件系统服务资源不足</p>
 <p>参考答案C</p>
 <p>22.如何使用Sqoop导入关系型数据库中某个表的满足某个条件下的记录中的部分列数据到HDFS中 ？</p>
-<p>A.指定—where</p>
-<p>B.指定—query</p>
-<p>C.指定—columns</p>
+<p>A.指定–where</p>
+<p>B.指定–query</p>
+<p>C.指定–columns</p>
 <p>D.以上都不对</p>
 <p>参考答案B</p>
-<p>\23. 在sqoop导入命令中，中的有关—split-by参数的用途说法正确的是 ？</p>
+<p>\23. 在sqoop导入命令中，中的有关–split-by参数的用途说法正确的是 ？</p>
 <p>A:如果指定了主键，默认按照主键进行分片</p>
-<p>B:如果没有指定主键，则必须指定—split-by才能实现分片</p>
+<p>B:如果没有指定主键，则必须指定–split-by才能实现分片</p>
 <p>A.A对B错</p>
 <p>B.B对A错</p>
 <p>C.A对B对</p>
@@ -726,10 +727,10 @@
 <p>D.”\001”</p>
 <p>参考答案D</p>
 <p>\27. Sqoop导入命令中，如何修改字段分隔符为制表符？</p>
-<p>A.—fields-terminated-by = ‘\t’</p>
-<p>B.—fields-terminated-by ‘\t’</p>
-<p>C.—fields-terminated-by = ‘/t’</p>
-<p>D.—fields-terminated-by ‘/t’</p>
+<p>A.–fields-terminated-by &#x3D; ‘\t’</p>
+<p>B.–fields-terminated-by ‘\t’</p>
+<p>C.–fields-terminated-by &#x3D; ‘&#x2F;t’</p>
+<p>D.–fields-terminated-by ‘&#x2F;t’</p>
 <p>参考答案B</p>
 <p>\28. Sqoop导入数据的方式有？</p>
 <p>A.全量导入</p>
@@ -743,7 +744,7 @@
 <p>C.文本格式</p>
 <p>D.以上都不对</p>
 <p>参考答案C</p>
-<p>\30. Sqoop Import 命令中如果没有制定 -m 或者 —num-mappers 参数，则默认的mapper任务数量为？</p>
+<p>\30. Sqoop Import 命令中如果没有制定 -m 或者 –num-mappers 参数，则默认的mapper任务数量为？</p>
 <p>A.1</p>
 <p>B.2</p>
 <p>C.3</p>
@@ -756,14 +757,14 @@
 <p>D.以上都是</p>
 <p>参考答案D</p>
 <p>\32. 在Linux系统中配置Sqoop环境变量的方式正确的是 ？</p>
-<p>A.export SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export $PATH=$PATH:$SQOOP_HOME/bin</p>
-<p>B.export $SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export PATH=$PATH:$SQOOP_HOME/bin</p>
-<p>C.export SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export PATH=PATH:$SQOOP_HOME/bin</p>
-<p>D.export SQOOP_HOME=/home/soft/sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
-<p>export PATH=$PATH:$SQOOP_HOME/bin</p>
+<p>A.export SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export $PATH&#x3D;$PATH:$SQOOP_HOME&#x2F;bin</p>
+<p>B.export $SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export PATH&#x3D;$PATH:$SQOOP_HOME&#x2F;bin</p>
+<p>C.export SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export PATH&#x3D;PATH:$SQOOP_HOME&#x2F;bin</p>
+<p>D.export SQOOP_HOME&#x3D;&#x2F;home&#x2F;soft&#x2F;sqoop-1.4.6.bin_hadoop-2.0.4-alpha</p>
+<p>export PATH&#x3D;$PATH:$SQOOP_HOME&#x2F;bin</p>
 <p>回答错误，得分 0</p>
 <p>参考答案D</p>
 <p>\33. 关于Apache Sqoop 的版本说法正确的是 ？</p>
@@ -784,7 +785,7 @@
 <p>C.将MongoDB数据库中的数据传输到HDFS文件系统</p>
 <p>D.将Oracle数据库中的数据保存到Hive表中</p>
 <p>参考答案D</p>
-<p>\36. Apache Sqoop 是一款<strong><strong>的工具，主要用于数据的</strong></strong>？</p>
+<p>\36. Apache Sqoop 是一款____的工具，主要用于数据的____？</p>
 <p>A.闭源、采集</p>
 <p>B.开源、采集</p>
 <p>C.闭源、传输</p>
@@ -796,13 +797,13 @@
 <p>C.Redis</p>
 <p>D.HBase</p>
 <p>参考答案BCD</p>
-<p>\38. sqoop import 包括从<strong><strong>到</strong></strong></p>
+<p>\38. sqoop import 包括从____到____</p>
 <p>A.HBase -&gt; HDFS</p>
 <p>B.Hive -&gt; HDFS</p>
 <p>C.MySQL -&gt; HIVE</p>
 <p>D.Oracle -&gt; HDFS</p>
 <p>参考答案CD</p>
-<p>\39. Sqoop工具中最核心的是<strong><strong>和_</strong></strong></p>
+<p>\39. Sqoop工具中最核心的是____和_____</p>
 <p>A.import</p>
 <p>B.export</p>
 <p>C.job</p>
@@ -821,7 +822,7 @@
 <p>错</p>
 <p>参考答案错</p>
 <p>\43. 使用sqoop job工具，命令如下，可以立即执行一个导入操作。</p>
-<p>sqoop job —create sqoopimport1 — import —connect jdbc:mysql:</p>
+<p>sqoop job –create sqoopimport1 – import –connect jdbc:mysql:</p>
 <p>对</p>
 <p>错</p>
 <p>参考答案错</p>
@@ -833,18 +834,18 @@
 <p>对</p>
 <p>错</p>
 <p>参考答案错</p>
-<p>\46. Sqoop导入命令中使用<strong><strong><strong>___</strong></strong></strong>属性可以修改字段分隔符</p>
-<p>参考答案—fields-terminated-by</p>
-<p>\47. HIVE表的默认字段分隔符是”_”，Hive表的默认记录分隔符是”_”</p>
+<p>\46. Sqoop导入命令中使用_______________属性可以修改字段分隔符</p>
+<p>参考答案–fields-terminated-by</p>
+<p>\47. HIVE表的默认字段分隔符是”<em>“，Hive表的默认记录分隔符是”</em>“</p>
 <p>47.1</p>
 <p>参考答案\001;CTRL+A;SOH;^A</p>
 <p>47.2</p>
 <p>参考答案\012;\N;\n</p>
-<p>\48. Sqoop import 工具指定数据传输到HDFS的目标路径用<strong><strong>_</strong></strong>属性。</p>
-<p>参考答案—target-dir</p>
-<p>49.SQOOP传输数据到HDFS时，如果需要预先清空目标路径再执行数据传输可以使用<strong><strong>__</strong></strong>属性</p>
-<p>参考答案—delete-target-dir</p>
-<p>\50. Apache Sqoop 是一款<strong><strong>的工具，主要用于数据的</strong></strong></p>
+<p>\48. Sqoop import 工具指定数据传输到HDFS的目标路径用_________属性。</p>
+<p>参考答案–target-dir</p>
+<p>49.SQOOP传输数据到HDFS时，如果需要预先清空目标路径再执行数据传输可以使用__________属性</p>
+<p>参考答案–delete-target-dir</p>
+<p>\50. Apache Sqoop 是一款____的工具，主要用于数据的____</p>
 <p>50.1</p>
 <p>参考答案开源;开放源代码</p>
 <p>50.2</p>
