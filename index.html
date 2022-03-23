@@ -325,7 +325,6 @@
 <p>​        基于上述思想，可以对原数组先进行一个排序，但是不应该是从小到大的执行升序排序，而是按照 <code>nums[i] == i + 1</code> 进行排序，也就是对数组 <code>[3,-1,2]</code> ，排序的结果应该为 <code>[-1, 2, 3]</code> ，这样我们遍历排序后的数组，当 <code>num[i] != i + 1</code> 就表示 <code>i + 1</code> 是当前最小的未出现的正整数。</p>
 <p>​        具体的代码是：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">firstMissingPositive</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>( nums[i] &gt;= <span class="number">1</span> &amp;&amp; nums[i] &lt;= len &amp;&amp; nums[nums[i] - <span class="number">1</span>] != nums[i] )</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums, i, nums[i] - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( nums[i] != i + <span class="number">1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> i + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> len + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = nums[i];</span><br><span class="line">        nums[i] = nums[j];</span><br><span class="line">        nums[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        代码中存在一个 for 循环中嵌套一个 while 循环，这种情况是如何保证 O(n) 的时间复杂度的呢？因为满足 <code>num[i] == i + 1</code> 的结果只会有一个，那么如果在某一个 while 中经过n次循环，就意味着肯定会有n个元素存放到对应的下标中，之后的while肯定不会在这些下标遍历，是互相抵消的。</p>
 
       
@@ -475,7 +474,7 @@
       
           <p>报错内容：</p>
 <blockquote>
-<p>CMDOUT (&#x2F;bin&#x2F;sh: &#x2F;opt&#x2F;data&#x2F;time1.sh: 权限不够)</p>
+<p>CMDOUT (/bin/sh: /opt/data/time1.sh: 权限不够)</p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
@@ -967,15 +966,15 @@
 <p>实现一个算法，确定一个字符串 s 的所有字符是否全都不同。</p>
 <p>示例 1：</p>
 <blockquote>
-<p>输入: s &#x3D; “leetcode”<br>输出: false </p>
+<p>输入: s = “leetcode”<br>输出: false </p>
 </blockquote>
 <p>示例 2：</p>
 <blockquote>
-<p>输入: s &#x3D; “abc”<br>输出: true</p>
+<p>输入: s = “abc”<br>输出: true</p>
 </blockquote>
 <p>限制：</p>
 <blockquote>
-<p>0 &lt;&#x3D; len(s) &lt;&#x3D; 100<br>如果你不使用额外的数据结构，会很加分。</p>
+<p>0 &lt;= len(s) &lt;= 100<br>如果你不使用额外的数据结构，会很加分。</p>
 </blockquote>
 </blockquote>
           <!--noindex-->
