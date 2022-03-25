@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="概念​        HBase是一种分布式、可扩展、支持海量数据存储的NoSQL数据库，能够在HDFS上实现数据的增删改查。它在运行过程中需要不断切分和聚合，消耗的资源量让其在小数据集上不具有优势，但是对于大数据集能够做到亿万数据的秒级查询。并且Hbase是基于HDFS的，所以可以实现对hdfs存储数据做随机写操作。 ​        HDFS是不支持随机写的，如果要对里面的数据进行修改，需要先">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220321192758965.png">
-<meta property="og:image" content="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220321202358447.png">
-<meta property="og:image" content="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220321222702447.png">
+<meta property="og:image" content="http://example.com/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321192758965.png">
+<meta property="og:image" content="http://example.com/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321202358447.png">
+<meta property="og:image" content="http://example.com/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321222702447.png">
 <meta property="article:published_time" content="2022-03-03T07:47:49.000Z">
 <meta property="article:modified_time" content="2022-03-22T04:05:19.265Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="hbase">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220321192758965.png">
+<meta name="twitter:image" content="http://example.com/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321192758965.png">
 
 <link rel="canonical" href="http://example.com/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
@@ -259,11 +259,12 @@
         <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>​        HBase是一种分布式、可扩展、支持海量数据存储的NoSQL数据库，能够在HDFS上实现数据的增删改查。它在运行过程中需要不断切分和聚合，消耗的资源量让其在小数据集上不具有优势，但是对于大数据集能够做到亿万数据的秒级查询。并且Hbase是基于HDFS的，所以可以实现对hdfs存储数据做随机写操作。</p>
 <p>​        HDFS是不支持随机写的，如果要对里面的数据进行修改，需要先下载下来，改完以后再删掉原来的数据重新提交，这种方式非常不灵活。</p>
 <span id="more"></span>
+
 <h3 id="HBase-数据模型"><a href="#HBase-数据模型" class="headerlink" title="HBase 数据模型"></a>HBase 数据模型</h3><p>​        从逻辑上看，HBase的数据模型和关系型数据库很相似，都是存在一张表上，有行有列。但是HBase的底层是以键值对的形式存储的。</p>
 <h4 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h4><p>​        首先类似mysql的database，HBase会存在多个命名空间namespace用于存储表，hbase中有两个默认的namespace：hbase存内置的表，default是用户默认使用的库。进入namespace，一张表中包含一列 rowkey，就和mysql中的主键是一样的，不同的是rowkey是必须要带的，表中的数据会根据rowkey的字典序升序排列；还有一至多个列族，列族中至少包含一个列，一般创建表的时候，指定表名和列族就可以成功创建一张表。因为HBase是存储海量数据的，那么当数据量很大的时候就需要对数据进行横向切分，横切之后的每个部分就称为一个region，一张表会包含多个region。将表依据列族竖切，再依据数据量横切，得到的就是一个一个的store，store是实际存储的单位。</p>
-<p><img src="/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220321192758965.png" alt="image-20220321192758965"></p>
+<p><img src="/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321192758965.png" alt="image-20220321192758965"></p>
 <h4 id="物理结构"><a href="#物理结构" class="headerlink" title="物理结构"></a>物理结构</h4><p>​        对于store中的一行记录，在物理上是按列分行存的，一行中会包括rowkey、列族名、列名、时间戳、类型和实际的value。时间戳用于标识数据的不同版本，一条数据写入时如果不指定时间戳，系统会自动将插入该数据的时间设定为时间戳。类型有两种：put和delete，表明该数据的状态。这一条数据就是HBase中最小的单元cell，一个cell由行键、列族:列名和时间戳唯一确定。cell中存储的数据在底层以字节码的形式保存，所以实际上HBase中的数据是没有类型的。</p>
-<p><img src="/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220321202358447.png" alt="image-20220321202358447"></p>
+<p><img src="/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321202358447.png" alt="image-20220321202358447"></p>
 <h3 id="HBase架构"><a href="#HBase架构" class="headerlink" title="HBase架构"></a>HBase架构</h3><p>​        首先，HBase的底层存储依赖于hdfs，且使用Zookeeper分担了HMaster的和客户端交互的工作，所以在启动HBase的时候，这两个是必须要先启动的。然后，对于HBase来说，需要启动的有两大组件：HMaster和HRegionServer。</p>
 <p>​        HMaster负责命名空间的增删和表的增删改查，以及分配HRegion到某个RS下，并监控每个RS的状态。</p>
 <p>​        HRegionServer负责实际数据增删改查，以及HRegion的切分和聚合。</p>
@@ -271,7 +272,7 @@
 <p>​        store内部开始存储实际的数据，其中包括了 mem store 就是在内存的存储，和storeFile 磁盘的存储。因为每刷写一次会产生一个新文件，所以Store中也会存在很多的storefile，如果这些storefile的容量不大，也就是这些storefile会存在一些小文件，hbase会自动将同store的小文件合并；等到聚合到一定的大小，又会进行切分，这就是hregion的切分和聚合。storefile内包含一个hfile。hfile和hlog都在hdfs上。</p>
 <p><strong>Zookeeper在HBase中的作用：</strong></p>
 <p>HBase启动成功后，会在Zookeeper中注册：当前活动的HMaster信息、热备的HMaster信息和每个HRegionServer的信息。活动的HMaster会注册监听存储HRegionServer信息的znode，这样一旦某个HRegionServer出现问题，HMaster就能第一时间发现；同时，所有热备的HMaster也都会监听活动HMaster的状态，一旦出现故障，热备的HMaster会立刻开始抢Zookeeper中的资源，谁抢到谁就当Leader。</p>
-<p><img src="/2022/03/03/hbase%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220321222702447.png" alt="image-20220321222702447"></p>
+<p><img src="/hbase%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220321222702447.png" alt="image-20220321222702447"></p>
 <h3 id="HBase写数据流程"><a href="#HBase写数据流程" class="headerlink" title="HBase写数据流程"></a>HBase写数据流程</h3><ol>
 <li>客户端想要put一条数据，首先会向Zookeeper请求meta表所在的regionserver。meta表是hbase命名空间内默认存储的表，里面保存了集群中所有region的位置信息，zookeeper中存储了这个meta表的位置。</li>
 <li>zookeeper会向客户端返回meta表所在的regionserver；</li>
@@ -281,10 +282,10 @@
 <h3 id="HBase-flush过程"><a href="#HBase-flush过程" class="headerlink" title="HBase flush过程"></a>HBase flush过程</h3><p>​        刷写的过程其实很简单，到达某个条件就会触发flush过程。重要的是什么时候会触发刷写。</p>
 <ol>
 <li>默认某个regionserver中memstore的总大小超过堆内存的40%会触发刷写，参数是 hbase.regionserver.global.memstore.flush.size；</li>
-<li>为了防止刷写过程中，写的速度比刷写的速度快，导致memstore的大小一直大于规定的值，所以在总大小超过 堆大小 <em> 0.4 </em> 0.95 的时候会阻塞客户端的读写操作，直到memstore的大小降到这个安全值内，这个0.95由参数 hbase.regionserver.global.memstore.size.lower.limit 控制；</li>
+<li>为了防止刷写过程中，写的速度比刷写的速度快，导致memstore的大小一直大于规定的值，所以在总大小超过 堆大小 * 0.4 * 0.95 的时候会阻塞客户端的读写操作，直到memstore的大小降到这个安全值内，这个0.95由参数 hbase.regionserver.global.memstore.size.lower.limit 控制；</li>
 <li>如果内存中的数据长时间没有到达阈值，那么默认最后一条数据写入后1h内不再有新数据写入就会触发刷写，参数是 hbase.regionserver.optionalcacheflushinterval；</li>
 <li>默认单个region中memstore的大小超过 hbase.hregion.memstore.flush.size 参数设置的128M时，这个hregion会触发刷写；</li>
-<li>还有两个针对hlog的不可更改的参数：hbase.regionserver.maxlogs = 32和 hbase.regionserver.hlog.blocksize = block大小，默认当单个hlog大小达到hdfs的block大小时会写新的hlog，当hlog的数量达到32的时候会触发刷写。</li>
+<li>还有两个针对hlog的不可更改的参数：hbase.regionserver.maxlogs &#x3D; 32和 hbase.regionserver.hlog.blocksize &#x3D; block大小，默认当单个hlog大小达到hdfs的block大小时会写新的hlog，当hlog的数量达到32的时候会触发刷写。</li>
 </ol>
 <h3 id="HBase读数据流程"><a href="#HBase读数据流程" class="headerlink" title="HBase读数据流程"></a>HBase读数据流程</h3><ol>
 <li>客户端向zookeeper请求meta表所在的regionserver；</li>
@@ -307,6 +308,9 @@
 <h3 id="HBase优化"><a href="#HBase优化" class="headerlink" title="HBase优化"></a>HBase优化</h3><h4 id="预分区"><a href="#预分区" class="headerlink" title="预分区"></a>预分区</h4><p>​        为了解决自动切分导致的数据倾斜问题，引入了预分区。预分区就是，每个region会维护一个StartRow和EndRow，如果加入的数据的rowkey在这个region维护的范围内，就将这个数据交给这个region。依照这个原则，可以将数据需要投放的分区大致规划好，以提高hbase的性能。</p>
 <p>分区的代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表 test，并为该表设置四个分区 [-∞, 1000], [1000, 2000], [2000, 3000], [3000, +∞]</span></span><br><span class="line"><span class="keyword">create</span> <span class="string">&#x27;test1&#x27;</span>, <span class="string">&#x27;info&#x27;</span>, <span class="string">&#x27;partition1&#x27;</span>, &#123;SPLITS <span class="operator">=</span><span class="operator">&gt;</span> [<span class="string">&#x27;1000&#x27;</span>, <span class="string">&#x27;2000&#x27;</span>, <span class="string">&#x27;3000&#x27;</span>]&#125;</span><br><span class="line"><span class="comment">-- 通过文件来指定分区，相对路径是将文件建在 hbase/ 目录下</span></span><br><span class="line"><span class="keyword">create</span> <span class="string">&#x27;test2&#x27;</span>, <span class="string">&#x27;info&#x27;</span>, <span class="string">&#x27;partition1&#x27;</span>, SPLITS_FILE <span class="operator">=</span><span class="operator">&gt;</span> <span class="string">&#x27;splits.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="RowKey设计"><a href="#RowKey设计" class="headerlink" title="RowKey设计"></a>RowKey设计</h4><p>RowKey的设计有三个原则：</p>
 <ol>
 <li>散列原则：让RowKey能够尽量均匀的分配到不同的分区中，仅使用时间戳作为rowkey无法保证这个散列原则；</li>
@@ -344,11 +348,11 @@
 <p>那么想要查 <strong>手机号为 12345678910 的机主在 2022年5月的通话详情</strong> ，应该怎么设置 startrow 和 endrow ：</p>
 <p>​        首先取rowkey前缀：<code>(12345678910 + 202205) % 299</code> ，这个值应该是 startrow 和 endrow 的共同前缀，接着因为手机号和年月相同，所以应该拼接手机号和年月，最后，endrow 的结尾应该会比 startrow多一位 <code>|</code> 来表示结束。具体如下：</p>
 <blockquote>
-<p>xxx = (12345678910 + 202205) % 299</p>
-<p>startrow = xxx_12345678910_202205</p>
-<p>endrow = xxx_12345678910_202205|</p>
+<p>xxx &#x3D; (12345678910 + 202205) % 299</p>
+<p>startrow &#x3D; xxx_12345678910_202205</p>
+<p>endrow &#x3D; xxx_12345678910_202205|</p>
 <p> 或者</p>
-<p>endrow = xxx_12345678910_202206</p>
+<p>endrow &#x3D; xxx_12345678910_202206</p>
 </blockquote>
 <p>因为是按位比较，那么 startrow 的值肯定是最小的，endrow 因为有 <code>|</code> 仅小于 <code>&#125;</code> 和 <code>~</code> 的值，所以可以说是 <code>xxx_12345678910_202205</code> 前缀中最大的值了，另一个 <code>6</code> 结尾的 endrow 是因为 5 的字典序肯定比6小，所以这样设计也是5月份中最大的值。</p>
 
