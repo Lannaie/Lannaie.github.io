@@ -254,16 +254,15 @@
       
         <h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>常用的选择器如下：</p>
 <span id="more"></span>
-
 <ol>
-<li><code>.exam</code> ：选择所有class&#x3D;”exam”的元素；</li>
-<li><code>#exam</code> ：选择所有id&#x3D;”exam”的元素；</li>
+<li><code>.exam</code> ：选择所有class=”exam”的元素；</li>
+<li><code>#exam</code> ：选择所有id=”exam”的元素；</li>
 <li><code>*</code> ：选择所有元素；</li>
-<li><code>div</code> ：选择所有&lt;div&gt;元素；</li>
-<li><code>div,p</code> ：选择所有&lt;div&gt;元素和&lt;p&gt;元素；</li>
-<li><code>div p</code> ：选择&lt;div&gt;元素内的所有&lt;p&gt;元素；</li>
-<li><code>div&gt;p</code> ：选择所有父级是 &lt;div&gt; 元素的 &lt;p&gt; 元素；</li>
-<li><code>[input=text]</code> ：选择所有 &lt;input type&#x3D;”text”&gt; 元素；</li>
+<li><code>div</code> ：选择所有\<div>元素；</div></li>
+<li><code>div,p</code> ：选择所有\<div>元素和\<p>元素；</p></div></li>
+<li><code>div p</code> ：选择\<div>元素内的所有\<p>元素；</p></div></li>
+<li><code>div&gt;p</code> ：选择所有父级是 \<div> 元素的 \<p> 元素；</p></div></li>
+<li><code>[input=text]</code> ：选择所有 \<input type="text"> 元素；</li>
 <li><code>a:link</code>：选择所有未访问链接；</li>
 <li><code>a:visited</code>：选择所有访问过的链接；</li>
 <li><code>a:active</code>：选择点击后的链接；</li>
@@ -275,35 +274,40 @@
 <p><strong>用处：实现水平垂直居中。</strong></p>
 <h3 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h3><p>设置一个或多个下拉阴影的框。</p>
 <p>语法：<code>box-shadow: h-shadow v-shadow blur spread color inset;</code></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center"><em>h-shadow</em></th>
-<th align="center">必需的。水平阴影的位置。允许负值</th>
+<th style="text-align:center"><em>h-shadow</em></th>
+<th style="text-align:center">必需的。水平阴影的位置。允许负值</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><em>v-shadow</em></td>
-<td align="center">必需的。垂直阴影的位置。允许负值</td>
+<tbody>
+<tr>
+<td style="text-align:center"><em>v-shadow</em></td>
+<td style="text-align:center">必需的。垂直阴影的位置。允许负值</td>
 </tr>
 <tr>
-<td align="center"><em>blur</em></td>
-<td align="center">可选。模糊距离</td>
+<td style="text-align:center"><em>blur</em></td>
+<td style="text-align:center">可选。模糊距离</td>
 </tr>
 <tr>
-<td align="center"><em>spread</em></td>
-<td align="center">可选。阴影的大小</td>
+<td style="text-align:center"><em>spread</em></td>
+<td style="text-align:center">可选。阴影的大小</td>
 </tr>
 <tr>
-<td align="center"><em>color</em></td>
-<td align="center">可选。阴影的颜色。</td>
+<td style="text-align:center"><em>color</em></td>
+<td style="text-align:center">可选。阴影的颜色。</td>
 </tr>
 <tr>
-<td align="center">inset</td>
-<td align="center">可选。从外层的阴影（开始时）改变阴影内侧阴影</td>
+<td style="text-align:center">inset</td>
+<td style="text-align:center">可选。从外层的阴影（开始时）改变阴影内侧阴影</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><p>规定元素的定位类型。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -311,7 +315,8 @@
 <th>生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>fixed</td>
 <td>生成绝对定位的元素，相对于浏览器窗口进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。</td>
 </tr>
@@ -327,7 +332,9 @@
 <td>inherit</td>
 <td>规定应该从父元素继承 position 属性的值。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
     </div>
 
@@ -437,7 +444,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -450,7 +457,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
