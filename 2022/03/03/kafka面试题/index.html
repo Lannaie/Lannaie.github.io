@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="Kafka 的概念定义​        做缓冲。正常情况下，网站的行为日志传输到hdfs会使用flume。当flume传输的速率大于hdfs上传的速率，就容易产生数据丢失，于是引入了kafka来做中间的缓存。它是分布式基于发布订阅模式的消息队列，主要用于处理流数据。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/kafka%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220322230050201.png">
+<meta property="og:image" content="http://example.com/2022/03/03/kafka%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220322230050201.png">
 <meta property="article:published_time" content="2022-03-03T14:37:42.000Z">
 <meta property="article:modified_time" content="2022-03-27T12:39:57.678Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/kafka%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220322230050201.png">
+<meta name="twitter:image" content="http://example.com/2022/03/03/kafka%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220322230050201.png">
 
 <link rel="canonical" href="http://example.com/2022/03/03/kafka%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
@@ -256,7 +256,6 @@
       
         <h3 id="Kafka-的概念"><a href="#Kafka-的概念" class="headerlink" title="Kafka 的概念"></a>Kafka 的概念</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>​        做缓冲。正常情况下，网站的行为日志传输到hdfs会使用flume。当flume传输的速率大于hdfs上传的速率，就容易产生数据丢失，于是引入了kafka来做中间的缓存。它是分布式基于发布订阅模式的消息队列，主要用于处理流数据。</p>
 <span id="more"></span>
-
 <h4 id="应用场景（使用消息队列的原因，应该也可以看成是使用kafka的原因）"><a href="#应用场景（使用消息队列的原因，应该也可以看成是使用kafka的原因）" class="headerlink" title="应用场景（使用消息队列的原因，应该也可以看成是使用kafka的原因）"></a>应用场景（使用消息队列的原因，应该也可以看成是使用kafka的原因）</h4><ol>
 <li>缓冲和削峰：就是用于解决发布和消费的处理速度不一致的情况。</li>
 <li>解耦：假设发布者有三个，消费者也有三个，如果不使用消息队列，那么每个发布者都需要写三个接口发往不同的目的地；如果使用消息队列，就可以让发布者将消息统一发给队列，然后消费者再根据需要到队列获取特定的消息，两边的处理过程可以独立扩展或修改。</li>
@@ -308,8 +307,8 @@
 <p>​        当应答为-1，也就是producer发送数据后，会等待leader和所有的follower接收到后返回应答，才会继续发送数据，效率查，但是可靠性高，适合传输钱相关的数据。</p>
 <p><strong>应答为-1会产生一个问题，如果有一个follower在同步之前出现故障，迟迟不能与leader进行同步，leader会一直等待这个follower。</strong></p>
 <p>解决：Leader维护一个动态的ISR队列，也就是和Leader保持同步的follower+leader的集合，如果这个集合中的某个follower长时间未向leader发送请求或同步数据，这个follower就会被踢出这个isr队列，这样就不用等待长时间联系不上的节点了。这个时间由参数replica.lag.time.max.ms控制，默认是30s。</p>
-<p>​        但是应答为-1的机制也不能完全保证数据的可靠性，如果副本数为1，或者这个isr队列的最小应答数为1，那么当follower全挂的时候，和ack&#x3D;1的效果就是一样的了，仍然会有丢数的风险。</p>
-<p>​        如果想要保证数据的完全可靠，在ack&#x3D;-1的情况下，还需要设置分区副本数要大于等于2，isr队列里最小应答数量大于等于2。</p>
+<p>​        但是应答为-1的机制也不能完全保证数据的可靠性，如果副本数为1，或者这个isr队列的最小应答数为1，那么当follower全挂的时候，和ack=1的效果就是一样的了，仍然会有丢数的风险。</p>
+<p>​        如果想要保证数据的完全可靠，在ack=-1的情况下，还需要设置分区副本数要大于等于2，isr队列里最小应答数量大于等于2。</p>
 <h3 id="Kafka-数据重复"><a href="#Kafka-数据重复" class="headerlink" title="Kafka 数据重复"></a>Kafka 数据重复</h3><p>​        应答为-1除了可靠性的问题，还有数据重复的问题：如果leader在发送ack之前故障了，生产者由于接收不到应答会重发数据，就会导致数据重复。</p>
 <p>​        为了解决这个问题，kafka0.11版本后，引入了<strong>幂等性和事务</strong>的特性。</p>
 <p>​        幂等性指的是无论生产者向broker发送多少重复的数据，broker只会持久化一条，来保证不重复。这里判断重复的标准是具有相同主键的数据就是重复的，这个主键由三部分组成：pid是生产者的id号，kafka重启一次会给producer分配一个新的id；分区号；sequence number，是一个单调自增的数值。这个方法只能保证在kafka没有挂掉之前的这一次运行过程中，一个分区内不会有重复数据产生。</p>
@@ -321,23 +320,23 @@
 <li>事务协调器会将提交请求持久化到特殊主题，持久化后会给生产者返回应答；</li>
 <li>接着，事务协调器会向leader发送提交请求，leader将数据接收完后会向协调器返回ack，协调器就会将提交成功的信息持久化到特殊主题。</li>
 </ol>
-<p><img src="/kafka%E9%9D%A2%E8%AF%95%E9%A2%98.assets/image-20220322230050201.png" alt="image-20220322230050201"></p>
+<p><img src="/2022/03/03/kafka%E9%9D%A2%E8%AF%95%E9%A2%98/image-20220322230050201.png" alt="image-20220322230050201"></p>
 <h3 id="生产者如何提高吞吐量"><a href="#生产者如何提高吞吐量" class="headerlink" title="生产者如何提高吞吐量"></a>生产者如何提高吞吐量</h3><ol>
 <li>设置参数 batch.size 和 linger.ms ，调整每批次拉取的数据量和多久拉取一次的时间来提高吞吐量，一般会将 linger.ms 设置为5~100ms，因为太小可能每次拉取的时候都不到一批次的大小，如果太大，那么拉去一次的延时就高了；</li>
 <li>设置 compression.type 参数为压缩 snappy，压缩之后一个批次拉取的数据量会更大；</li>
-<li>当分区数较多，比如1万的时候，可以增大缓冲区大小，来增大存储的批次数量，默认 buffer.memory &#x3D; 32M 。</li>
+<li>当分区数较多，比如1万的时候，可以增大缓冲区大小，来增大存储的批次数量，默认 buffer.memory = 32M 。</li>
 </ol>
 <h3 id="生产者发布的数据乱序的问题（面试重点）"><a href="#生产者发布的数据乱序的问题（面试重点）" class="headerlink" title="生产者发布的数据乱序的问题（面试重点）"></a>生产者发布的数据乱序的问题（面试重点）</h3><h4 id="数据乱序的产生"><a href="#数据乱序的产生" class="headerlink" title="数据乱序的产生"></a>数据乱序的产生</h4><p>​        因为brober默认可以连存5个请求而不需要应答，假设1和2成功发送3发送失败了，此时4就顺位继续发送，然后重发3的时候，就会出现乱序，应该是1234的，结果变成1243。</p>
 <h4 id="数据乱序的解决"><a href="#数据乱序的解决" class="headerlink" title="数据乱序的解决"></a>数据乱序的解决</h4><ol>
 <li>在kafka1版本之前，设置分区内的请求数量为1，只能等到当前请求成功发送才能接收下一个请求；</li>
-<li>1版本之后引入了幂等性，开启幂等性enable.idempotence &#x3D; true，并设置缓存数小于等于5，此时broker会缓存生产者发来的最近5个请求的元数据，能够保证最近5个数据都是有序的。具体实现有序的步骤是：broker中请求落盘的顺序是按照seqnumber的自增顺序进行的，例子中当number不为3的时候，哪怕到了4、5也会继续等待，直到请求3到达，会对broker中未落盘的请求按照sqnumber排序，再一次落盘。</li>
+<li>1版本之后引入了幂等性，开启幂等性enable.idempotence = true，并设置缓存数小于等于5，此时broker会缓存生产者发来的最近5个请求的元数据，能够保证最近5个数据都是有序的。具体实现有序的步骤是：broker中请求落盘的顺序是按照seqnumber的自增顺序进行的，例子中当number不为3的时候，哪怕到了4、5也会继续等待，直到请求3到达，会对broker中未落盘的请求按照sqnumber排序，再一次落盘。</li>
 </ol>
 <p><strong>设置缓存数不能大于5的原因是：</strong></p>
 <p>​        因为broker上的ProducerStateManager实例会缓存每个pid在每个分区上发送的最近5个批次的数据，这个5是写死的，所以如果 max.in.flight.requests.per.connection 这个参数如果设置超过5，producerStateManager就会把最旧的批次数据删除。</p>
 <h3 id="Broker-ZK存储内容"><a href="#Broker-ZK存储内容" class="headerlink" title="Broker ZK存储内容"></a>Broker ZK存储内容</h3><ol>
 <li>在线的brokerid；</li>
 <li>每个分区对应的副本所在的brokerid；</li>
-<li>在某个分区的leader挂掉后，帮助选举新leader。leader的信息存储在&#x2F;kafka&#x2F;controller目录下，每个broker上都有一个controller模块，旧leader挂掉后，现有节点中的controller都会去注册zookeeper上的controller节点，第一个注册上的Controller负责进行选举。</li>
+<li>在某个分区的leader挂掉后，帮助选举新leader。leader的信息存储在/kafka/controller目录下，每个broker上都有一个controller模块，旧leader挂掉后，现有节点中的controller都会去注册zookeeper上的controller节点，第一个注册上的Controller负责进行选举。</li>
 </ol>
 <h3 id="Broker工作流程"><a href="#Broker工作流程" class="headerlink" title="Broker工作流程"></a>Broker工作流程</h3><ol>
 <li>启动一台服务器会向ZK注册brokerid；</li>
@@ -360,12 +359,12 @@
 <li>leader.imbalance.per.broker.percentage，默认是10%，当一个broker的不平衡率到达10%会触发自平衡；</li>
 <li>leader.imbalance.check.interval.seconds，默认300s，每过300s检查一次不平衡率。</li>
 </ol>
-<p>​        不平衡率的计算是，假设一个分区中，leader的brokerid是0，ar队列是 [1,0,2,3]，那么不平衡数会依次比较ar队列和leader的id，如果不相等不平衡数会加一，然后再除以副本总数，也就是这里面的 1&#x2F;4&gt;10% ，那么就会触发自平衡。</p>
+<p>​        不平衡率的计算是，假设一个分区中，leader的brokerid是0，ar队列是 [1,0,2,3]，那么不平衡数会依次比较ar队列和leader的id，如果不相等不平衡数会加一，然后再除以副本总数，也就是这里面的 1/4&gt;10% ，那么就会触发自平衡。</p>
 <p>​        在生产环境中，这个自平衡不建议开，或者也可以把不平衡率调高，因为自平衡的过程回暂停这个分区的运行，直到平衡完，效率不高。</p>
 <h3 id="Broker-文件存储机制"><a href="#Broker-文件存储机制" class="headerlink" title="Broker 文件存储机制"></a>Broker 文件存储机制</h3><p>​        Kafka中，topic只是一个逻辑概念，实际存储的是partition。每个partition对应一个log文件，这个log用于存储发布的数据，生产者会将生产的数据不断追加到log文件的结尾，为了避免log文件过大导致定位效率低下，将一个log文件切分为多个segment存储，一个segment是1G，里面主要包含的文件有.log存储实际的文件、.index存储.log中数据的索引、.timeindex存储索引进入的时间戳，因为数据默认是保存7天，这个时间戳文件用于在规定时间到后删除数据。</p>
 <p>​        一个partition的数据会存在一个文件夹下，以 topic名称-分区号 命名，其中每个segment下的文件以当前segment的第一条消息的offset命名。</p>
 <p>​        其中，index是稀疏索引，大约每往log中插入4k的数据会写入一条索引，这个4k可以通过 log.index.interval.bytes 修改。index文件中存放的offset是相对的offset，这样能够确保offset的值所占空间不会太大，因此能将offset控制在固定大小。</p>
-<p>​        比如想要在log中定位 offset &#x3D; 600 的数据，会先比较index文件的文件名，找到小于600的最大的值，定位到这个index文件，然后在index文件中找到绝对offset中小于600的最大的offset，因为文件中存的是相对offset，那么绝对offset旧等于文件名对应的值加上这个相对offset，然后取出这个offset对应的position，也就是log文件中这个offset的起始位置，就能得到log中offset为600的数据了。</p>
+<p>​        比如想要在log中定位 offset = 600 的数据，会先比较index文件的文件名，找到小于600的最大的值，定位到这个index文件，然后在index文件中找到绝对offset中小于600的最大的offset，因为文件中存的是相对offset，那么绝对offset旧等于文件名对应的值加上这个相对offset，然后取出这个offset对应的position，也就是log文件中这个offset的起始位置，就能得到log中offset为600的数据了。</p>
 <h3 id="文件清理策略"><a href="#文件清理策略" class="headerlink" title="文件清理策略"></a>文件清理策略</h3><p>​        Kafka中默认的日志保存时间是7天，可以通过调整如下参数来修改保存时间：</p>
 <ol>
 <li>log.retention.hours，设置保存的小时数，默认7天；</li>
@@ -374,7 +373,7 @@
 <li>log.retention.check.intervals.ms，设置检查的周期，默认是5分钟，这个值应该要比保存时间要小。</li>
 </ol>
 <p>​        一旦数据超过了保存的时间，就会触发清理。清理的策略有delete和compact。默认的策略是删除。</p>
-<p>​        删除就是当一个segment中最新写入的数据超过这个保存的时间，就会把这个segment删掉。压缩是对相同key的不同value值，只保留最新版本的数据。压缩后的offset实际是不连续的，只适用于一些特殊场景，比如key是用户id，value是用户资料，可以只保留用户最近的资料。如果想要设置清理策略为compact，可以修改参数 log.cleanup.policy &#x3D; compact 。</p>
+<p>​        删除就是当一个segment中最新写入的数据超过这个保存的时间，就会把这个segment删掉。压缩是对相同key的不同value值，只保留最新版本的数据。压缩后的offset实际是不连续的，只适用于一些特殊场景，比如key是用户id，value是用户资料，可以只保留用户最近的资料。如果想要设置清理策略为compact，可以修改参数 log.cleanup.policy = compact 。</p>
 <h3 id="Kafka怎么实现高效读写（高频面试）"><a href="#Kafka怎么实现高效读写（高频面试）" class="headerlink" title="Kafka怎么实现高效读写（高频面试）"></a>Kafka怎么实现高效读写（高频面试）</h3><ol>
 <li>Kafka本身是分布式集群，采用分区技术，并行度高；</li>
 <li>读数据采用稀疏索引，可以快速定位要消费的数据；</li>
@@ -398,10 +397,10 @@
 <li>每个consumer都会和coordinator保持默认3秒的心跳通信，也就是会定期汇报自己还活着，一旦超过 session.timeout.ms 参数默认的时间45s，该消费者就会被移除出组，并触发再平衡，或者这个消费者处理消息的时间超过 max.poll.interval.ms 默认是5分钟，也会触发再平衡。</li>
 </ol>
 <h3 id="消费者组具体消费流程"><a href="#消费者组具体消费流程" class="headerlink" title="消费者组具体消费流程"></a>消费者组具体消费流程</h3><p>​        首先会创建一个消费者网络连接客户端，这个客户端主要用于和kafka集群进行交互。consumer会像这个客户端通过sendFetches方法发送消费请求，然后客户端通过send方法将这个请求发送给对应的leader，然后通过回调函数onSuccess()拉取数据到completedFetches队列中，然后消费者就可以调用fetchedRecords方法到这个队列中拉取数据，拉取到的数据回先经过反序列和拦截器对数据进行转换和加工，之后就可以处理数据了。</p>
-<p>​        其中涉及到几个参数：对于每批次能够拉取的数据量，最小拉取量为 fetch.min.bytes &#x3D; 1字节，最大拉取量为 fetch.max.bytes&#x3D;50M，如果参数 fetch.max.wait.ms &#x3D; 500ms 这个时间内一个批次的数据量没有到达最小拉取量，这个批次也会被拉取。对于消费者从队列中拉取的记录数由参数 max.poll.records 设置，默认是500条。</p>
+<p>​        其中涉及到几个参数：对于每批次能够拉取的数据量，最小拉取量为 fetch.min.bytes = 1字节，最大拉取量为 fetch.max.bytes=50M，如果参数 fetch.max.wait.ms = 500ms 这个时间内一个批次的数据量没有到达最小拉取量，这个批次也会被拉取。对于消费者从队列中拉取的记录数由参数 max.poll.records 设置，默认是500条。</p>
 <h3 id="分区的分配和再平衡"><a href="#分区的分配和再平衡" class="headerlink" title="分区的分配和再平衡"></a>分区的分配和再平衡</h3><h4 id="分区的分配"><a href="#分区的分配" class="headerlink" title="分区的分配"></a>分区的分配</h4><p>​        也就是如何规定哪个consumer消费哪个分区。kafka提供了四种分配策略：range、rangeRobin、Sticky、CooporativeSticky。默认使用的是rage+CooporativeSticky策略，配置的参数是 partition.assignment.strategy 。可以同时使用多个策略。</p>
 <h5 id="Range分配"><a href="#Range分配" class="headerlink" title="Range分配"></a>Range分配</h5><p>​        Range是针对每个topic来说的。会将这个topic中的分区按照序号排序，然后将consumer按照字母顺序排序。将分区数除以消费者数，得到每个消费者消费的分区数，如果除不尽就交由前面的消费者分别处理一个分区。</p>
-<p>​        比如有8个分区，3个消费者，8 &#x2F; 3 &#x3D; 2 …… 2，那么第一个消费者消费0-2的分区，第二个消费者消费3-5的分区，第三个消费者消费6-7的分区。</p>
+<p>​        比如有8个分区，3个消费者，8 / 3 = 2 …… 2，那么第一个消费者消费0-2的分区，第二个消费者消费3-5的分区，第三个消费者消费6-7的分区。</p>
 <p>​        这种模式如果在消费多topic的情况下，前面的消费者处理的内容就会很多，那么就容易造成数据倾斜。</p>
 <p>​        这种模式下，如果消费者组的某个消费者出现故障，那么这个消费者负责的分区正在处理的操作会全部分配到另一个消费者上，等到处理完这一波，下一次接收数据的时候，再根据range策略重新分配分区。</p>
 <h5 id="RangeRobin分配以及再平衡"><a href="#RangeRobin分配以及再平衡" class="headerlink" title="RangeRobin分配以及再平衡"></a>RangeRobin分配以及再平衡</h5><p>​        RangeRobin是针对所有topic来说的。会将所有topic的分区和所有consumer都列出来，按照hashcode排序，最后通过轮询算法来分配分区。</p>
@@ -422,12 +421,12 @@
 <li>none：如果没有找到消费者组之前消费的位置，会向消费者抛出异常。</li>
 </ol>
 <p>​        如果既不想从开始的位置消费，也不想从最新的位置消费，而是想从中间的某个指定位置开始消费，可以在代码中手动指定：consumer.seek(partition, offset) 。因为消费者组的初始化过程会消耗一定时间，而在代码中因为是顺序执行，可能在还没有分配完分区就已经执行到这个代码，就会导致获取不到数据。为了避免这个错误，可以指定消费之前使用 while 循环，在还没有制定好分配方案时不往下进行，并在循环中频繁获取分区信息，一旦分配完毕就立刻退出。</p>
-<h3 id="消费者事务"><a href="#消费者事务" class="headerlink" title="消费者事务"></a>消费者事务</h3><h4 id="重复消费和漏消费"><a href="#重复消费和漏消费" class="headerlink" title="重复消费和漏消费"></a>重复消费和漏消费</h4><p>​        重复消费一般是由自动提交引起的。具体的过程是：consumer默认会5s提交一次offset，并且在发送完这个提交请求后继续拉取数据。假设提交这个offset &#x3D; 2 的请求完成后，这个consumer消费到offset &#x3D; 4的时候挂掉了，此时因为还没到5s，所以还没有发送请求，再次重启就会从offset&#x3D;2的位置继续消费，那么offset&gt;2&amp;&amp;offset&lt;&#x3D;4的位置的数据就被重复消费了。</p>
+<h3 id="消费者事务"><a href="#消费者事务" class="headerlink" title="消费者事务"></a>消费者事务</h3><h4 id="重复消费和漏消费"><a href="#重复消费和漏消费" class="headerlink" title="重复消费和漏消费"></a>重复消费和漏消费</h4><p>​        重复消费一般是由自动提交引起的。具体的过程是：consumer默认会5s提交一次offset，并且在发送完这个提交请求后继续拉取数据。假设提交这个offset = 2 的请求完成后，这个consumer消费到offset = 4的时候挂掉了，此时因为还没到5s，所以还没有发送请求，再次重启就会从offset=2的位置继续消费，那么offset&gt;2&amp;&amp;offset&lt;=4的位置的数据就被重复消费了。</p>
 <p>​        漏消费的场景是：假设offset设置为手动提交，当consumer拉取数据，并向系统主题提交offset的时候，当offset提交完成，但是数据还没有完全落盘的时候，这个消费者挂掉了，这个时候就会导致还未落盘的这部分数据丢失。</p>
 <h4 id="消费者事务解决重复消费和漏消费"><a href="#消费者事务解决重复消费和漏消费" class="headerlink" title="消费者事务解决重复消费和漏消费"></a>消费者事务解决重复消费和漏消费</h4><p>​        想要完成consumer端的一次性精准消费，就需要将消费的过程和提交offset的过程作为一个事务进行处理，同时消费者需要支持事务，比如mysql，如果是hbase这种不支持事务回滚的消费者，所以是会存在问题的。</p>
-<p>​        想要完全做到整条路线的精确一次消费，除了消费端要使用事务，生产者也需要采用幂等性+事务的特性，同时也需要做到ack&#x3D;-1、副本数大于等于2、isr最小应答数大于等于2。</p>
+<p>​        想要完全做到整条路线的精确一次消费，除了消费端要使用事务，生产者也需要采用幂等性+事务的特性，同时也需要做到ack=-1、副本数大于等于2、isr最小应答数大于等于2。</p>
 <h3 id="数据积压（消费者如何提高吞吐量）（重要）"><a href="#数据积压（消费者如何提高吞吐量）（重要）" class="headerlink" title="数据积压（消费者如何提高吞吐量）（重要）"></a>数据积压（消费者如何提高吞吐量）（重要）</h3><ol>
-<li>如果是kafka的topic数据量大，导致消费速度慢，可以考虑增加分区，但是多个分区使用一个消费者消费也不会很快，于是需要同时提升二者的数量，保证消费者数 &#x3D;&#x3D; 分区数。</li>
+<li>如果是kafka的topic数据量大，导致消费速度慢，可以考虑增加分区，但是多个分区使用一个消费者消费也不会很快，于是需要同时提升二者的数量，保证消费者数 == 分区数。</li>
 <li>如果是批次拉取的数据量过少，导致处理的数据小于生产的数据，也会造成数据积压，对于这种情况可以提高每批次拉取的数据量。</li>
 </ol>
 
