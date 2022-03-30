@@ -249,17 +249,10 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/">剑指 Offer 39. 数组中出现次数超过一半的数字</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="排序求众数"><a href="#排序求众数" class="headerlink" title="排序求众数"></a>排序求众数</h3><p>​        常规的解法，按升序排列，因为个数超过半数，那么在 <code>nums[nums.length / 2]</code> 处的值肯定是众数值。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">return</span> nums[nums.length / <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="摩尔投票法"><a href="#摩尔投票法" class="headerlink" title="摩尔投票法"></a>摩尔投票法</h3><p>​        核心思想是：正负票抵消。即众数票 +1，非众数票 -1，那么可以肯定的是，最终的投票结果是大于0的。可以推导出，当前a个投票的票数 &#x3D; 0，那么肯定会存在后 n - a 的票数肯定大于0，最终只要票数大于0对应的票值就是众数票。</p>
+<h3 id="摩尔投票法"><a href="#摩尔投票法" class="headerlink" title="摩尔投票法"></a>摩尔投票法</h3><p>​        核心思想是：正负票抵消。即众数票 +1，非众数票 -1，那么可以肯定的是，最终的投票结果是大于0的。可以推导出，当前a个投票的票数 = 0，那么肯定会存在后 n - a 的票数肯定大于0，最终只要票数大于0对应的票值就是众数票。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> votes = <span class="number">0</span>, x = nums[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( nums[i] == x )</span><br><span class="line">            &#123;</span><br><span class="line">                votes += <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                votes -= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( votes == <span class="number">0</span> &amp;&amp; i + <span class="number">1</span> &lt; nums.length )</span><br><span class="line">            &#123;</span><br><span class="line">                x = nums[i + <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -289,8 +282,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/26/switch%E9%97%AE%E9%A2%98/" rel="prev" title="switch问题">
-      <i class="fa fa-chevron-left"></i> switch问题
+    <a href="/2022/03/26/%E7%AC%94%E8%AF%95%E9%94%99%E9%A2%98-switch%E9%97%AE%E9%A2%98/" rel="prev" title="笔试错题 - switch问题">
+      <i class="fa fa-chevron-left"></i> 笔试错题 - switch问题
     </a></div>
       <div class="post-nav-item">
     <a href="/2022/03/26/LeetCode-480-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E4%B8%AD%E4%BD%8D%E6%95%B0/" rel="next" title="LeetCode - 480. 滑动窗口中位数">
@@ -370,7 +363,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-count">116</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -383,7 +376,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

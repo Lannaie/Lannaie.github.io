@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="题目https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;course-schedule&#x2F;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/LeetCode-207-%E8%AF%BE%E7%A8%8B%E8%A1%A8.assets/20190904123849168.png">
+<meta property="og:image" content="http://example.com/2022/02/01/LeetCode-207-%E8%AF%BE%E7%A8%8B%E8%A1%A8/20190904123849168.png">
 <meta property="article:published_time" content="2022-02-01T06:20:05.000Z">
 <meta property="article:modified_time" content="2022-02-01T07:00:02.169Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="拓扑排序">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/LeetCode-207-%E8%AF%BE%E7%A8%8B%E8%A1%A8.assets/20190904123849168.png">
+<meta name="twitter:image" content="http://example.com/2022/02/01/LeetCode-207-%E8%AF%BE%E7%A8%8B%E8%A1%A8/20190904123849168.png">
 
 <link rel="canonical" href="http://example.com/2022/02/01/LeetCode-207-%E8%AF%BE%E7%A8%8B%E8%A1%A8/">
 
@@ -254,11 +254,8 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/course-schedule/">https://leetcode-cn.com/problems/course-schedule/</a></p>
 <span id="more"></span>
-
-
-
-<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>**借鉴：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigsai/p/11489260.html">拓扑排序详解与实现</a>**，这个文章已经解释的很详细，下面简单总结一下自己的理解。</p>
-<p><img src="/LeetCode-207-%E8%AF%BE%E7%A8%8B%E8%A1%A8.assets/20190904123849168.png" alt="侵删"></p>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p><strong>借鉴：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigsai/p/11489260.html">拓扑排序详解与实现</a></strong>，这个文章已经解释的很详细，下面简单总结一下自己的理解。</p>
+<p><img src="/2022/02/01/LeetCode-207-%E8%AF%BE%E7%A8%8B%E8%A1%A8/20190904123849168.png" alt="侵删"></p>
 <p>​        首先存储所有节点以及该节点指向的所有节点，可以使用 <code>ArrayList</code> 存储所有被指向的节点。</p>
 <p>​        其次遍历获取没有被指向的节点，也就是图中的 1、2，将这些节点存入队列或栈。可以使用数组来存放每个节点被指向的次数，如果指向它的前驱节点被删除，就将次数减一，当次数为0就存入队列或栈。</p>
 <p>​        重复上述过程，直到最后一个节点被删除，表示这个图遍历完成，或者不存在环。</p>
@@ -272,7 +269,6 @@
 </ol>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canFinish</span><span class="params">(<span class="keyword">int</span> numCourses, <span class="keyword">int</span>[][] prerequisites)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( numCourses == <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] precoursesize = <span class="keyword">new</span> <span class="keyword">int</span>[numCourses];</span><br><span class="line">        Map&lt;Integer, List&lt;Integer&gt;&gt; courses = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Queue&lt;Integer&gt; curcourses = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化 map 和 precoursesize</span></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; prerequisites.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( courses.containsKey(prerequisites[i][<span class="number">1</span>]) )</span><br><span class="line">            &#123;</span><br><span class="line">                courses.get(prerequisites[i][<span class="number">1</span>]).add(prerequisites[i][<span class="number">0</span>]);</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                courses.put(prerequisites[i][<span class="number">1</span>], <span class="keyword">new</span> ArrayList&lt;Integer&gt;(Arrays.asList(prerequisites[i][<span class="number">0</span>])));</span><br><span class="line">            &#125;</span><br><span class="line">            ++precoursesize[prerequisites[i][<span class="number">0</span>]];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 初始化 curcourses</span></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numCourses; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( precoursesize[i] == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                curcourses.offer(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>( !curcourses.isEmpty() )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> curcourse = curcourses.poll();</span><br><span class="line">            <span class="keyword">if</span>( !courses.containsKey(curcourse) )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            List&lt;Integer&gt; course = courses.get(curcourse);</span><br><span class="line">            courses.remove(curcourse);</span><br><span class="line">            <span class="comment">// 对当前被连接的课程减1</span></span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> c : course )</span><br><span class="line">            &#123;</span><br><span class="line">                --precoursesize[c];</span><br><span class="line">                <span class="keyword">if</span>( precoursesize[c] == <span class="number">0</span> )</span><br><span class="line">                &#123;</span><br><span class="line">                    curcourses.offer(c);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( courses.size() != <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -382,7 +378,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-count">116</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -395,7 +391,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
