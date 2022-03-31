@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="flume架构 Agent： 是一个JVM进程，它以事件Event的形式将数据从源头发送到目的地。Agent主要由三个部分组成：Source、Channel、Sink。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924142339540-581718439.png">
-<meta property="og:image" content="http://example.com/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924143041975-1644651799.png">
-<meta property="og:image" content="http://example.com/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924145106004-1719791353.png">
-<meta property="og:image" content="http://example.com/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924142628732-1732447063.png">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142339540-581718439.png">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924143041975-1644651799.png">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924145106004-1719791353.png">
+<meta property="og:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142628732-1732447063.png">
 <meta property="article:published_time" content="2022-03-03T14:37:34.000Z">
 <meta property="article:modified_time" content="2022-03-23T14:17:34.758Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="flume">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924142339540-581718439.png">
+<meta name="twitter:image" content="http://example.com/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142339540-581718439.png">
 
 <link rel="canonical" href="http://example.com/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
@@ -263,7 +263,8 @@
 </li>
 </ol>
 <span id="more"></span>
-<ol>
+
+<ol start="2">
 <li><p>Event：</p>
 <p>是Flume传输数据的单元，分为两部分：header和body，body部分使用字节数组存储实际传输的数据，header存储一些event的属性，比如说想要将不同类型的输入数据传到不同的channel中处理，可以让source通过header来区分并发送到不同的channel。</p>
 </li>
@@ -299,14 +300,14 @@
 </ol>
 <h3 id="Flume拓扑结构"><a href="#Flume拓扑结构" class="headerlink" title="Flume拓扑结构"></a>Flume拓扑结构</h3><p>​        也就是多个Agent串联的结构。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jhxxb/p/11578150.html">图片借鉴</a></p>
-<h4 id="简单串联"><a href="#简单串联" class="headerlink" title="简单串联"></a>简单串联</h4><p><img src="/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924142339540-581718439.png" alt></p>
+<h4 id="简单串联"><a href="#简单串联" class="headerlink" title="简单串联"></a>简单串联</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142339540-581718439.png"></p>
 <p>​        将多个Agent顺序串联为一条线路，这种模式不建议桥接过多的agent，因为数量过多不仅会影响传输的效率，而且一旦传输过程中某个flume宕机，会影响整个传输系统。</p>
 <p>​        此外，从Sink输出到另一个Source输入的过程，它们的数据类型要求是avro。avro是一个轻量级的通信框架，通过一个接口来实现接收数据和发送数据。</p>
-<h4 id="复制和多路复用"><a href="#复制和多路复用" class="headerlink" title="复制和多路复用"></a>复制和多路复用</h4><p><img src="/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924143041975-1644651799.png" alt></p>
+<h4 id="复制和多路复用"><a href="#复制和多路复用" class="headerlink" title="复制和多路复用"></a>复制和多路复用</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924143041975-1644651799.png"></p>
 <p>​        将Flume中的事件发送到多个目的地，也就是使用多个Channel，然后每个channel可以将相同的数据发送到不同的目的地，来实现备份的效果。</p>
-<h4 id="负载均衡和故障转移"><a href="#负载均衡和故障转移" class="headerlink" title="负载均衡和故障转移"></a>负载均衡和故障转移</h4><p><img src="/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924145106004-1719791353.png" alt></p>
+<h4 id="负载均衡和故障转移"><a href="#负载均衡和故障转移" class="headerlink" title="负载均衡和故障转移"></a>负载均衡和故障转移</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924145106004-1719791353.png"></p>
 <p>​        使用Sink组来实现，这个agent中只有一个channel，然后连接一个sink组，选择使用负载均衡或者故障转移的处理器来输出到对应的多个agent中，这些agent用于将分散的数据写入目的地，这种方式虽然没有降低要写入的数据量，但是增加了channel的个数，提高了缓冲的效率。比如要写入hdfs，但是写入磁盘的速度会比较慢，就可以使用负载均衡的策略将事件分别发送给多个sink传输，然后这些sink分别连接对应的agent去写入hdfs。</p>
-<h4 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h4><p><img src="/2022/03/03/flume%E9%9D%A2%E8%AF%95%E9%A2%98/1595409-20190924142628732-1732447063.png" alt></p>
+<h4 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h4><p><img src="/flume%E9%9D%A2%E8%AF%95%E9%A2%98.assets/1595409-20190924142628732-1732447063.png"></p>
 <p>​        将多个agent的输出数据都发送到一个agent中合并为一条线路，发送到目的地。比如京东或者淘宝用于访问的服务器肯定不止一台，在不同服务器上访问的本地日志肯定是存在本地服务器的，可以在每台服务器启动一个agent把数据都传输到一个总的agent中，让这个总的agent将所有数据写入hdfs。</p>
 <h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><p>​        用于过滤脏数据、不合法的数据等，或者和channel的多路复用选择器结合，将不同的事件传给不同的channel。</p>
 <h4 id="实现的步骤"><a href="#实现的步骤" class="headerlink" title="实现的步骤"></a>实现的步骤</h4><ol>
@@ -317,7 +318,7 @@
 </ol>
 <h3 id="taildir"><a href="#taildir" class="headerlink" title="taildir"></a>taildir</h3><p>​        用于实时监控一批文件，并记录每个文件最新消费的位置，这样当agent宕机重启时就不会存在重复消费的问题。</p>
 <h3 id="Kafka-Channel"><a href="#Kafka-Channel" class="headerlink" title="Kafka Channel"></a>Kafka Channel</h3><p>​        除了Flume自带的两种channel，还有kafka channel。Source端将数据推送到kafka channel中，kafka channel会直接将数据传输到kafka集群等待进一步的消费，这个过程可以省略sink的使用，与memory channel相比能够避免数据的丢失，与file channel相比也提高了传输的速度，但是kafka中的消息是没有头信息的，所以传入kafka channel时事件的header会丢失。</p>
-<h3 id="怎么实现Flume数据传输的监控"><a href="#怎么实现Flume数据传输的监控" class="headerlink" title="怎么实现Flume数据传输的监控"></a>怎么实现Flume数据传输的监控</h3><p>​        具体没有实现，但是直到有这个懂。使用第三方框架Ganglia实时监控flume。里面有五个比较重要的图是：source尝试写入channel的event量、source成功写入的event、sink尝试拉取的event量、sink成功拉取的event量以及channel的容量。当尝试写入或拉取的量一直是远大于成功写入或拉取的量，就说明内存资源可能不够，需要增加agent的内存资源，在conf/flume-env.sh里面有一个 java_opts 的变量，这个变量规定了-Xms是最小内存量，-Xmx是最大内存量，可以修改最大内存量来增加内存。</p>
+<h3 id="怎么实现Flume数据传输的监控"><a href="#怎么实现Flume数据传输的监控" class="headerlink" title="怎么实现Flume数据传输的监控"></a>怎么实现Flume数据传输的监控</h3><p>​        具体没有实现，但是直到有这个懂。使用第三方框架Ganglia实时监控flume。里面有五个比较重要的图是：source尝试写入channel的event量、source成功写入的event、sink尝试拉取的event量、sink成功拉取的event量以及channel的容量。当尝试写入或拉取的量一直是远大于成功写入或拉取的量，就说明内存资源可能不够，需要增加agent的内存资源，在conf&#x2F;flume-env.sh里面有一个 java_opts 的变量，这个变量规定了-Xms是最小内存量，-Xmx是最大内存量，可以修改最大内存量来增加内存。</p>
 <h3 id="使用的Source、Channel、Sink是什么类型？为什么这么用？"><a href="#使用的Source、Channel、Sink是什么类型？为什么这么用？" class="headerlink" title="使用的Source、Channel、Sink是什么类型？为什么这么用？"></a>使用的Source、Channel、Sink是什么类型？为什么这么用？</h3><h3 id="参数调优"><a href="#参数调优" class="headerlink" title="参数调优"></a>参数调优</h3><p>​        在source中，有一个batchsize参数决定source一次批量运输到channel的event条数，可以适当的调大这个参数来提高搬运的效率。增大source的数量也可以提高source的读取能力。</p>
 <p>​        在channel中，使用memory channel的时候，会调整transectioncapacity，这个参数控制一个事务中，source最多推送的event数和sink最多拉取的event数，这个参数需要大于source和sink的batchsize。</p>
 <p>​        在sink中，也有一个batchsize参数决定sink拉取一次的event数，可以适当调大这个参数提高sink从channel拉取的效率。同时，增大sink的个数也可以增加sink消费event的能力，比如sink组的负载均衡和故障转移，但是也不是越多越好的，过多的sink会占用系统的资源，造成系统资源不必要的浪费。</p>
