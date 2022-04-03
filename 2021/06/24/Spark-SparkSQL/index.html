@@ -326,7 +326,7 @@
 
 <h3 id="RDD和DataSet的转换"><a href="#RDD和DataSet的转换" class="headerlink" title="RDD和DataSet的转换"></a>RDD和DataSet的转换</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> rdd = sc.makeRDD(<span class="type">List</span>(<span class="type">Person</span>(<span class="string">&quot;zhangsan&quot;</span>, <span class="number">30</span>), <span class="type">Person</span>(<span class="string">&quot;lisi&quot;</span>, <span class="number">40</span>)))</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Person</span>] = <span class="type">ParallelCollectionRDD</span>[<span class="number">29</span>] at makeRDD at &lt;console&gt;:<span class="number">26</span></span><br><span class="line"></span><br><span class="line">scala&gt; rdd.toDS</span><br><span class="line">res11: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> ds = rdd.toDS</span><br><span class="line">ds: org.apache.spark.sql.<span class="type">Dataset</span>[<span class="type">Person</span>] = [name: string, age: bigint]</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> rdd = ds.rdd</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Person</span>] = <span class="type">MapPartitionsRDD</span>[<span class="number">32</span>] at rdd at &lt;console&gt;:<span class="number">25</span></span><br></pre></td></tr></table></figure>
 
-<h4 id><a href="#" class="headerlink" title></a></h4><h3 id="RDD、DataFrame、DataSet的联系"><a href="#RDD、DataFrame、DataSet的联系" class="headerlink" title="RDD、DataFrame、DataSet的联系"></a>RDD、DataFrame、DataSet的联系</h3>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h3 id="RDD、DataFrame、DataSet的联系"><a href="#RDD、DataFrame、DataSet的联系" class="headerlink" title="RDD、DataFrame、DataSet的联系"></a>RDD、DataFrame、DataSet的联系</h3>
     </div>
 
     
@@ -435,7 +435,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -448,7 +448,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
