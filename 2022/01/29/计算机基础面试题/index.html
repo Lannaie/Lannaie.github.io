@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98.assets/bVcLtDW">
 <meta property="og:image" content="http://example.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98.assets/bVcLtDX">
 <meta property="article:published_time" content="2022-01-29T11:20:07.000Z">
-<meta property="article:modified_time" content="2022-04-04T14:03:17.143Z">
+<meta property="article:modified_time" content="2022-04-04T17:03:54.727Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="mysql">
 <meta property="article:tag" content="linux">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-04 22:03:17" itemprop="dateModified" datetime="2022-04-04T22:03:17+08:00">2022-04-04</time>
+                <time title="修改时间：2022-04-05 01:03:54" itemprop="dateModified" datetime="2022-04-05T01:03:54+08:00">2022-04-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -613,7 +613,7 @@
 <p>TCP&#x2F;IP四层模型从上往下是：</p>
 <ol>
 <li>应用层：当不同设备的应用进行通信的时候，会将应用数据传给下一层；</li>
-<li>传输层：将数据分块，套一个协议头，这里出现两个协议：tcp协议和udp协议；</li>
+<li>传输层：将数据分块，套一个tcp头，这里出现两个协议：tcp协议和udp协议；</li>
 <li>网络层：将数据传输到另一个设备，这一层会给传输层的数据套一个ip头，这一层出现ip协议用于寻址；</li>
 <li>网络接口层：在ip头前加一个max头部，并封装成数据帧发送到网络上，这一层主要为网络层提供链路级别的传输服务。</li>
 </ol>
@@ -680,7 +680,7 @@
 <p>​        TIME_WAIT状态也叫2MSL等待状态，MSL叫做最长报文段寿命，TCP允许不同的实现可以根据具体的情况设置实际的MSL值，A会等待2倍的MSL时间后才会进入CLOSED状态。</p>
 <p>​        等待这段时间的原因有两个：</p>
 <p>（1）保证A发给B的ACK报文B能够成功接收，如果ACK报文在传输过程中丢失，导致B在规定时间内无法得到响应，B就会超时重传FIN报文，A接收到重传报文后会重发一次ACK报文，并重新等待2MSL时间。</p>
-<p>（2）在等待的这段时间内，可以让本次连接中产生的所有报文段都从网络中消失，这样下一个新的连接中就不会出现旧的连接请求报文段。</p>
+<p>（2）在等待的这段时间内，可以让本次连接中产生的所有报文段都因为过期而消失，这样下一个新的连接中就不会出现旧的连接请求报文段。</p>
 <h3 id="9-事实表与维度表？事实表有哪些种类？"><a href="#9-事实表与维度表？事实表有哪些种类？" class="headerlink" title="9. 事实表与维度表？事实表有哪些种类？"></a>9. 事实表与维度表？事实表有哪些种类？</h3><p>维度表一般是对事实的描述信息，一张维表对应了现实世界的一个对象或概念。维表的特征是范围广、内容相对固定。比如地域维表就包含省份名称、省份编码、地市编码等。</p>
 <p>事实表的每行数据都代表了一个业务事件，如下单、退款等。事实表的特征是内容相对较窄、数据量会很大、内容更新频繁。</p>
 <p>事实表包括事务型事实表、周期型快照事实表和累积型快照事实表。</p>
