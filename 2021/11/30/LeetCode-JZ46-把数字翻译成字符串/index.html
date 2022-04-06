@@ -248,18 +248,16 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/046a55e6cd274cffb88fc32dba695668?tpId=13&amp;tqId=1024831&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking">https://www.nowcoder.com/practice/046a55e6cd274cffb88fc32dba695668?tpId=13&amp;tqId=1024831&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking</a></p>
 <span id="more"></span>
-
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>数字转变为字母的可能是一位数和两位数，可以联想到 <a href="%5Bhttp://lannaie.top/2021/07/09/LeetCode-NC68-%E8%B7%B3%E5%8F%B0%E9%98%B6/%5D(http://lannaie.top/2021/07/09/LeetCode-NC68-%E8%B7%B3%E5%8F%B0%E9%98%B6/)">爬楼梯相关题目</a> ，只是多了一些筛选条件，接下来，按照这个思路解决该题。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>数字转变为字母的可能是一位数和两位数，可以联想到 <a href="[http://lannaie.top/2021/07/09/LeetCode-NC68-%E8%B7%B3%E5%8F%B0%E9%98%B6/](http://lannaie.top/2021/07/09/LeetCode-NC68-跳台阶/">爬楼梯相关题目</a>) ，只是多了一些筛选条件，接下来，按照这个思路解决该题。</p>
 <p>已知爬楼梯的递归条件是 <code>f[n] = f[n-1] + f[n-2]</code> ，此处也同样适用，前提条件是当前数值是合法的两位数才能这样计算，如果不合法，只能取 <code>f[n] = f[n-1]</code> 的结果。</p>
 <p>除此之外，本题的难点在于对 <code>0</code> 的处理：</p>
 <ol>
-<li>涉及到 <code>0</code> 的数值仅有 <code>10</code> 和 <code>20</code> ，如果存在诸如 <code>002 </code>、<code>200</code> 、<code>603</code> 等都是不合法的数值，返回 <code>0</code> ；</li>
+<li>涉及到 <code>0</code> 的数值仅有 <code>10</code> 和 <code>20</code> ，如果存在诸如 <code>002</code>、<code>200</code> 、<code>603</code> 等都是不合法的数值，返回 <code>0</code> ；</li>
 <li>不过在循环中不需要考虑为0的情况，只需要考虑 <strong>当前元素是否在一位数区间</strong> 和 <strong>与前一元素构成的两位数是否在两位数的区间内</strong> 的情况，其余情况都是不合法的情况，为 <code>0</code> 即可；</li>
 <li>在两位数的区间判断中，还有一个小的判断，如果当前元素下标为 <code>1</code> ，没有 <code>f[n-2]</code> ，只需要在原来的 <code>f[n] = f[n-1]</code> 上 <code>+1</code> 即可，否则 <code>f[n] = f[n-1] + f[n-2]</code> 。</li>
 </ol>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> nums string字符串 数字串</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solve</span> <span class="params">(String nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( nums == <span class="keyword">null</span> || nums.charAt(<span class="number">0</span>) == <span class="string">&#x27;0&#x27;</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//         char[] num = nums.toCharArray();</span></span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length()];</span><br><span class="line">        </span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length(); ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( nums.charAt(i) != <span class="string">&#x27;0&#x27;</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                dp[i] = dp[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> tmp_num = (nums.charAt(i - <span class="number">1</span>) - <span class="string">&#x27;0&#x27;</span>) * <span class="number">10</span> + (nums.charAt(i) - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            <span class="keyword">if</span>( tmp_num &gt;= <span class="number">10</span> &amp;&amp; tmp_num &lt;= <span class="number">26</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>( i == <span class="number">1</span> )</span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i] += <span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i] += dp[i - <span class="number">2</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[nums.length() - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -369,7 +367,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -382,7 +380,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

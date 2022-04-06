@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机基础面试题">
+<meta property="og:url" content="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="往南">
+<meta property="og:description" content="MySQL">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/计算机基础面试题.assets/bVcLtDW">
+<meta property="og:image" content="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/计算机基础面试题.assets/bVcLtDX">
+<meta property="article:published_time" content="2022-01-29T11:20:07.000Z">
+<meta property="article:modified_time" content="2022-04-06T07:31:10.163Z">
+<meta property="article:author" content="Bonnie">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="计算机基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/计算机基础面试题.assets/bVcLtDW">
+
+<link rel="canonical" href="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机基础面试题 | 往南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">往南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机基础面试题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-29 19:20:07" itemprop="dateCreated datePublished" datetime="2022-01-29T19:20:07+08:00">2022-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-06 15:31:10" itemprop="dateModified" datetime="2022-04-06T15:31:10+08:00">2022-04-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><span id="more"></span>
+<h3 id="什么是MySQL"><a href="#什么是MySQL" class="headerlink" title="什么是MySQL"></a>什么是MySQL</h3><p>​        首先简单说明一下关系数据库，关系数据库中存放的是实体之间的关系，比如订单和商品两个实体之间会存在包含的关系。关系数据库将数据保存在不同的表中，而不是存在一个大仓库，这样就提高了速度和灵活性。MySQL就是一种RDBMS，即关系数据库管理系统。MySQL使用的SQL语言是用于访问数据库的最常用标准化语言。MySQL采用双授权政策，分为社区版和商业版，由于体积小、速度快、总体成本低，尤其是开放源码的特点，一般中小型网站的开发都会选择MySQL作为网站数据库。</p>
+<p>​        MySQL存储的方式是，一台电脑如果安装了MySQL，这台电脑可以称为MySQL数据库服务器。在服务器内部，通过数据库存储数据，通常一个应用创建一个数据库；在数据库中，用表存储数据，在一个系统中，通常为一个实体创建一张表；在一个表中，往往会有很多记录，一个实体的实例，会创建一条记录。</p>
+<hr>
+<p>上面的太复杂，应该也不需要说的这么复杂，简短答一下就好：</p>
+<p>MySQL是关系型数据库管理系统，将数据存放在不同的表中，而不是一个大仓库，提高了速度和灵活性。</p>
+<h3 id="SQL和NoSQL的区别"><a href="#SQL和NoSQL的区别" class="headerlink" title="SQL和NoSQL的区别"></a>SQL和NoSQL的区别</h3><p>​        实际上就是关系型数据库和非关系型数据库的区别。</p>
+<p>​        关系型数据库最大的特点就是事务的一致性，传统的关系型数据库的操作都是事务的，都需要具有ACID特性，这个特性使得关系型数据库能够应用在绝大多数对一致性有要求的系统中，典型的有银行系统。但是这个特性在网络应用，尤其是社交网络应用中显得不那么重要，两个用户看到同一好友更新的内容差那么几秒是可以容忍的。对于诸如微博、facebook这类社交网络应用，对读写性能具有极高的要求，但是关系型数据库为了维护一致性所付出的代价就是读写性能比较差，这是社交应用不能容忍的。</p>
+<p>​        关系型数据库还有一个特点就是它具有固定的表结构，这就导致扩展性极差。而系统的升级和功能的增加，往往会导致数据结构进行大幅更改，这对关系型数据库也非常不友好。</p>
+<p>​        针对这些问题，就提出了nosql，泛指非关系型数据库。nosql的存储格式多样，可以是json，也可以是哈希表或者其他形式，并且由于nosql不支持事务，不需要具备ACID的特性，所以读写性能极高。</p>
+<h3 id="数据库和数据仓库的区别"><a href="#数据库和数据仓库的区别" class="headerlink" title="数据库和数据仓库的区别"></a>数据库和数据仓库的区别</h3><p>​        以银行业务为例，数据库是事务系统的数据平台，客户在银行做的每笔交易都会写入数据库；数据仓库是分析系统的数据平台，它从事务系统获取数据，并作汇总和加工，为决策者提供决策的依据。比如，银行一个月发生多少交易等。显然，银行的交易量是巨大的，通常以百万甚至千万计数，事务系统需要具有时效性，因为客户存入一笔钱需要十几秒是无法忍受的，这就要求数据库只能存储很短一段时间的数据。而分析系统是事后的，它提供所关注的时间段内的所有有效数据，这些数据是海量的，计算起来也会慢一些，但只要能够提供最终的结果就可以。</p>
+<h3 id="主从复制原理、作用"><a href="#主从复制原理、作用" class="headerlink" title="主从复制原理、作用"></a>主从复制原理、作用</h3><p>​        主从复制是指将主库的DDL和DML操作写入本地的binlog日志，并拷贝到从库，然后从库会对日志执行重做，从而使主库和从库的数据保持一致。MySQL支持一台主库同时给多个从库进行拷贝，从库也可以作为其他从库的主库，实现链式复制。</p>
+<p>​        主从复制的作用是：</p>
+<ol>
+<li>当主库出现问题，可以迅速切换到从库继续执行；</li>
+<li>实现读写分离，减轻主库的处理压力；</li>
+<li>可以在从库执行备份，这样在备份期间不会影响主库的服务，只是从库会出现一些延时。</li>
+</ol>
+<p>​        主从复制的基本原理是：主库在事务提交时，将数据变更的记录写入本地的binlog日志；从库使用IO线程读取binlog日志并写入本地的中继日志relay log中；最后从库调用SQL线程重做中继日志中的事件，来保证主从数据的一致。</p>
+<p>​        复制的方式有三种：异步复制、半同步复制和组复制。</p>
+<p>​        异步复制是默认的复制方式，在主库的事务提交后，不会等待从库的响应就直接返回结果给客户端，这种方式不会影响主库的效率，但是一旦主库宕机，而从库还没来得及拷贝数据的话，就会有一部分数据丢失。</p>
+<p>​        半同步复制是在事务提交后，会等待至少有一个从库拷贝binlog到中继日志并返回确定应答后，才会将结果返回给客户端。这种方式提高了数据的一致性，但是与异步复制相比多了一个等待的延迟，降低了主库的读写效率。</p>
+<p>​        组复制基于Paxos算法，将多个节点共同组成一个复制组，在执行读写事务的时候，需要经过组内半数以上的节点统一才能提交事务，而对于只读事务则不需要经过组内同意，可以直接提交。</p>
+<h3 id="连接查询与子查询的比较"><a href="#连接查询与子查询的比较" class="headerlink" title="连接查询与子查询的比较"></a>连接查询与子查询的比较</h3><p>​        子查询是进行select语句的嵌套查询，可以一次完成很多逻辑上需要多个步骤才能完成的操作，但是每执行一个子查询都要创建一个临时表，等到查询完毕才会将这个临时表销毁，创建和销毁临时表的过程会消耗很多实际，所以效率不高。</p>
+<p>​        连接查询不需要创建临时表，所以效率会比子查询快。</p>
+<h3 id="drop、delete、truncate-比较"><a href="#drop、delete、truncate-比较" class="headerlink" title="drop、delete、truncate 比较"></a>drop、delete、truncate 比较</h3><p>其中，delete和truncate用于删除数据，drop用于删表。</p>
+<p>delete是DML数据操纵语言，结合where使用可以删除部分满足条件的数据，逐行删除，并将该行的删除操作记录到日志中以便进行回滚；</p>
+<p>truncate和drop是DDL数据定义语言，不能进行回滚，所以执行速度比delete要快。</p>
+<h3 id="视图的作用，以及什么情况下能更新视图"><a href="#视图的作用，以及什么情况下能更新视图" class="headerlink" title="视图的作用，以及什么情况下能更新视图"></a>视图的作用，以及什么情况下能更新视图</h3><p>​        视图是由一个或几个基本表或视图导出的结果集，是一个虚拟表，不存储实际的数据。</p>
+<p>​        视图的作用有两个：其一是简化用户的操作，对于经常使用的查询可以被定义为视图，这也就不需要每次都定义除全部的条件；其二是对一些机密信息提供保护作用，只显示希望用户访问的内容。</p>
+<p>​        更新视图指的是，在MySQL中，可以通过视图来Insert、Update、Delete表中的数据，因为视图是虚拟表，所以通过视图实际更新的是基本表中的真实数据。但是通过视图能更新的数据必须是基本表中原始的数据，不能经过任何操作，比如聚合、去重、子查询这些都会造成更新视图失败。所以不建议通过视图更新数据，如果没有全面考虑到视图中更新数据的限制，可能会导致更新失败。</p>
+<p>​        在我的理解，视图保存的是sql查询的语句，每次查询这个视图，都会去执行一遍这个sql，和存储过程其实有点像，但是视图可以当成一个表和其他的操作一起使用，而存储过程类似于函数，可以有输入输出的参数，并且可以执行增删改的操作，而视图的创建其实就是对查询结果的一个引用。</p>
+<h3 id="理解存储过程、存储函数和触发器的作用。"><a href="#理解存储过程、存储函数和触发器的作用。" class="headerlink" title="理解存储过程、存储函数和触发器的作用。"></a>理解存储过程、存储函数和触发器的作用。</h3><p><strong>存储过程 procedure：</strong></p>
+<p>SQL语句需要先编译再执行，存储过程就是编译好了的一些SQL语句的集合，应用程序需要用的时候就可以直接调用，而不需要重复编译，所以效率会比较高。</p>
+<p><strong>存储函数 function：</strong></p>
+<p>就是必须要返回值的存储过程，并且输入参数只能为 in。一般来说，因为存储函数实现的内容存储过程都能实现，并且存储过程的视线范围比存储函数大，所以一般是直接实现存储过程而不使用存储函数。</p>
+<p><strong>触发器 trigger：</strong></p>
+<p>如果想要某条或某些语句在事件发生时自动执行，就可以创建触发器来实现。触发器在响应Insert、Delete、Update语句的时候会被自动执行。</p>
+<h3 id="ACID-的作用以及实现原理"><a href="#ACID-的作用以及实现原理" class="headerlink" title="ACID 的作用以及实现原理"></a>ACID 的作用以及实现原理</h3><p>​        首先简单说明一下什么是事务：事务可以看成是一个处理单元，可以包含一条或一组sql，或是整个程序，只有将包含的这些操作全都执行成功，这个事务才算执行成功。比如现在有一个需求，需要对商品表中的数据进行更新，将T恤的单价提高10块钱，并将裤子的单价降低10元，因为这两个更新操作之间的关系是且的关系，所以需要放到一个事务中解决，只有当二者都执行成功，这个事务才算执行成功。</p>
+<p>​        事务的ACID特性有四个：</p>
+<ol>
+<li><p>原子性：将事务中的所有操作看成一个整体，要么全部成功，要么全部失败。</p>
+<p>​        实现的原理主要是基于回滚日志undo log，当事务中有一条sql语句出现错误，就会回滚撤销这个事务报错之前进行的所有操作，这是原子性实现的关键。</p>
+</li>
+<li><p>持久性：事务一旦提交，对数据库的更改就是永久的，之后其他的操作或者异常都不应该对其产生影响。</p>
+<p>​        持久性的实现原理基于redo log重做日志。InnoDB作为MySQL1.5之后的存储引擎，数据存在磁盘上，但是每次读写数据都通过磁盘IO，效率会很低，所有使用Buffer Pool缓存来作为访问数据库的缓冲。当读取时，会先读取缓存，缓存中没有再从数据库读取到缓存；当写入时，会首先写入缓存，之后再定期加写入的数据刷到磁盘中，这一过程也被称为刷脏。</p>
+<p>​        这种方式提高了效率，但是如果MySQL宕机，没有刷到磁盘的数据就会丢失，此时持久性就无法得到保障。于是引入了重做日志，redo log采用的是预写式日志，所有对数据的更改，会先将修改的操作写入日志，再更新到缓存，这样就算MySQL宕机，重启时也可以根据日志对数据库进行恢复，从而满足持久性的要求。</p>
+</li>
+<li><p>隔离性：保证不同事务之间互不干扰。</p>
+<p>​        仅考虑写操作和读操作，那么隔离性可以分为两个方面：写操作通过锁机制保证隔离性；读操作通过MVCC保证隔离性。</p>
+<p>​        锁机制为事务在修改数据前需要获得相应的锁，等到当前事务提交或回滚后才释放锁。</p>
+<p>​        MVCC是多版本并发控制，不同事务同一时刻读取到的数据可能是不同的，也就是多版本的，对MVCC来说最大的优点是读不加锁，因此读写不冲突，并发性能好。</p>
+</li>
+<li><p>一致性：指的是事务中包含的处理要满足数据库中提前设定好的约束，如主键、not null等。</p>
+<p>​        一致性是事务追求的最终目标，保证原子性、持久性和隔离性都是为了保证一致性；此外，数据库底层需要提供保障，例如不允许向整形列插入字符串值等；应用层面也需要得到保证，例如转账操作不能只扣除转账者的余额，不增加接收者的余额。</p>
+</li>
+</ol>
+<h3 id="四大隔离级别，以及不可重复读和幻影读的出现原因"><a href="#四大隔离级别，以及不可重复读和幻影读的出现原因" class="headerlink" title="四大隔离级别，以及不可重复读和幻影读的出现原因"></a>四大隔离级别，以及不可重复读和幻影读的出现原因</h3><p><strong>出现隔离级别的原因是：并发情况下事务引发的问题。</strong></p>
+<p>一般情况下，多个事务并发执行，会出现以下问题：</p>
+<ol>
+<li>脏读：A事务还未提交，B事务就读取到了A事务的结果，破坏了隔离性；</li>
+<li>不可重复读：假设A事务两次读取同一个数据，一次读取后，B事务修改了这个数据，这导致A事务两次读取到的结果不一致，主要在update和delete操作；</li>
+<li>幻读：假设A事务删除了某一条数据，紧接着B事务插入了相同的数据，当A事务检查的时候就会发现删除的数据还在，仿佛产生了幻觉，主要在insert操作。</li>
+</ol>
+<p>为了权衡隔离和并发之间的矛盾，引入了隔离级别。</p>
+<ol>
+<li>未提交读RU：是最低的级别，只能保证持久性，三个问题都会出现；</li>
+<li>已提交读RC：语句级别，只能解决脏读的问题；</li>
+<li>可重复读RR：事务级别，是MySQL的默认隔离级别，能够解决脏读和可重复读的问题；</li>
+<li>串行化SE：是最高级别，事务与事务之间串行处理，毫无并发可言，性能极低，但能解决三个问题。</li>
+</ol>
+<p>这四个级别只是一个标准，在实际情况中并不是完全按照这个情况实现。</p>
+<p>常见的实现有两种：锁机制和MVCC机制。</p>
+<ol>
+<li><p>锁机制：阻止其他事务对数据进行操作，不同隔离级别主要体现在读取数据时加锁以及释放锁的时机。</p>
+<p>1.1 RU：事务读取的时候不加锁；</p>
+<p>1.2 RC：事务提交的时候加行级共享锁（读到才加锁），一旦读完，立刻释放；</p>
+<p>1.3 RR：事务提交加行级共享锁，直到事务结束才释放；</p>
+<p>1.4 SE：事务提交时加表级共享锁，直到事务结束才释放。</p>
+</li>
+<li><p>MVCC机制：生成一个数据快照，并用这个快照来提供一定级别的一致性的读取，也称为多版本数据控制。</p>
+<p>实际上就是CAS版本控制和读写分离的思想。主要作用于RC和RR级别。</p>
+</li>
+</ol>
+<h3 id="9-乐观锁与悲观锁"><a href="#9-乐观锁与悲观锁" class="headerlink" title="9. 乐观锁与悲观锁"></a>9. 乐观锁与悲观锁</h3><h4 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h4><p>​        乐观锁是每次读取数据的时候都认为不会发生任何问题，也就不会上锁，只是在更新数据的时候判断一下这个数据有没有被其他线程更改。如果没有被修改，更新成功；如果已经被修改，则事务回滚并提示错误。</p>
+<p>​        判断更新的常见机制为版本号控制，读取数据时获取这个数据当前的版本号，更新时比较这个数据现在的版本号与获取的是否一致，如果不一致就说明有其他线程修改过数据。</p>
+<h4 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h4><p>​        总是假设最坏的情况，认为每次读取数据都会有其他线程在同步修改数据，所以每次读取都会加锁。一旦加锁，同一时刻只会有一个线程执行，其他线程被阻塞等待。</p>
+<p>​        常见的应用有MySQL的读写锁、行锁等，或者是Java语言的synchronized关键字。</p>
+<p>​        使用悲观锁的时候需要确定使用了索引，而不是全表扫描，否则会将整个表锁住。</p>
+<h3 id="10-MVCC-原理，当前读以及快照读，Next-Key-Locks-解决幻影读。"><a href="#10-MVCC-原理，当前读以及快照读，Next-Key-Locks-解决幻影读。" class="headerlink" title="10. MVCC 原理，当前读以及快照读，Next-Key Locks 解决幻影读。"></a>10. MVCC 原理，当前读以及快照读，Next-Key Locks 解决幻影读。</h3><p>​        首先简单了解为什么要是有MVCC。因为通过锁机制实现的隔离，读和写无法并发操作，降低了数据库的性能，于是引入了MVCC机制。它是通过保存数据的历史版本，根据比较版本号来判断这个数据是否可以显示，目的是想达到读取数据时不需要加锁也能实现数据隔离性。</p>
+<h4 id="MVCC原理"><a href="#MVCC原理" class="headerlink" title="MVCC原理"></a>MVCC原理</h4><p>​        MVCC实现的核心在于：事务版本号、表的隐藏列、undo log、read_view。</p>
+<ol>
+<li><p>事务版本号：每次事务开启都会从数据库获取一个自增的事务id，可以通过这个事务id来判断事务执行的先后顺序。</p>
+</li>
+<li><p>表的隐藏列：DB_TRX_ID记录本地操作该行的事务id，DB_ROLL_PTR记录上一个版本数据在undo log中的位置指针，DB_ROW_ID是一个隐藏id，当表中没有合适的索引作为聚集索引时，会用这个id作为聚集索引。</p>
+</li>
+<li><p>undo log：用于记录事务开启前的数据的版本，便于当前事务操作错误进行回滚。</p>
+</li>
+<li><p>read_view：</p>
+<p>​        快照读的数据就是从readview中提取的，用于记录当前还未提交的事务id列表。这个视图包含四个字段：m_ids保存当前未提交事务的id列表；min_trx_id保存当前最小的未提交的事务id；max_trx_id保存预分配的事务id，也就是当前的最大事务id+1；creator_trx_id保存创建这个视图的事务id。</p>
+<p>​        获取快照读的规则是，首先确定当前获取这个快照读的事务id为trx_id，会先比较当前事务id和creator_trx_id是否相等，如果相等就说明数据是在当前这个事务中更改的，刚刚更新的数据肯定是可以读到的，可以访问该版本；否则会比较trx_id是否小于最小事务id，如果是，说明数据已经提交了，可以访问该版本；否则看trx_id是否在id列表中，如果不在，判断是否大于最大事务id，如果不大于，就说明数据已经提交，可以访问该版本。</p>
+<p>​        在RC级别下，事务每次执行快照读都会生成一次readview；在RR级别下，仅在事务第一次执行快照读时生成readview，后续都复用这个readview。</p>
+</li>
+</ol>
+<p>​        当要对一行数据进行操作的时候，先获取一个事务id，然后把这行数据拷贝到undo log中，接着开始修改数据，修改结束后将该数据的DB_TRX_ID设置为当前这个事务的事务id，并将DB_ROLL_PTR指向undo log中对应数据的地址。</p>
+<p>​        MVCC只能在RR和RC隔离级别下使用，其他两个隔离级别与MVCC不兼容，RU级别总是读取最新数据行，而不是当前事务的行；SE级别会给所有读取到的行都上锁。</p>
+<h4 id="当前读和快照读"><a href="#当前读和快照读" class="headerlink" title="当前读和快照读"></a>当前读和快照读</h4><p>​        快照读是单纯的select语句，在RC级别下，事务开启就生成一个快照读；在RR级别下，事务开启后遇到第一个select语句才会生成快照读。实现的方式是undo log + mvcc机制。先使用排它锁住当前行，然后将该行的值写入undolog中，然后结合mvcc机制真正开始更新值。最后填写事务ID和回滚指针，事务ID指的是最后更新的事务的ID，回滚指针指向前一个版本的undo log记录。</p>
+<p>​        当前读读取的是最新版本的数据，会对读取的记录加锁，阻塞其他想要同时修改记录的线程，避免出现安全问题。当前读的实现方式是next-key锁。</p>
+<h4 id="Next-Key-Locks-解决幻影读"><a href="#Next-Key-Locks-解决幻影读" class="headerlink" title="Next-Key Locks 解决幻影读"></a>Next-Key Locks 解决幻影读</h4><p>​        next-key结合了行锁和间隙锁。行锁对表中一行记录加锁。间隙锁的含义是，举一个例子，比如 a、b、c站成一排，想要新来的d不能站在b的旁边，就需要对a和b以及b和c之间的空隙加锁，这就是间隙锁。还是这个例子，间隙锁锁定的范围就是根据索引条件b向左寻找最靠近条件的值a，作为左区间，然后向右寻找最靠近b的值c，作为右区间，即该间隙锁的锁定范围是 (a, c)。</p>
+<p>​        使用间隙锁的目的是防止间隙内有新数据插入或已有的数据被更新为间隙内的数据，这就避免了幻读的问题。</p>
+<p>​        next-key锁结合行锁和间隙锁，就是锁定一个范围，并且还锁定这个记录本身。next-key锁是InnoDB默认的加锁方式。</p>
+<h3 id="11-数据库的三大范式？"><a href="#11-数据库的三大范式？" class="headerlink" title="11. 数据库的三大范式？"></a>11. 数据库的三大范式？</h3><p>第一范式（1NF）：要求数据库表中的每一列数据都是不可分割的原子数据项，比如有一列名为家庭信息的数据为几口人、住哪里，就不是原子    数据项，需要将其拆分为家庭人口和户籍。</p>
+<p>第二范式（2NF）：在1NF的基础上消除非码属性对候选码的部份依赖，也就是要求数据库表中的每一列都和主键相关，而不是只与部分主键相关。比如一张表中有订单号、产品号、产品数量、订单金额，可以将订单号和产品号看成一个主键，产品数量依赖于这个主键，但是订单金额只与订单号有关，可以将它拆成两张表，一张表以订单号和产品号为主键，一张表以订单号为主键。</p>
+<p>第三范式（3NF）：在2NF的基础上消除传递依赖，也就是确保数据库表的每一列都与主键直接相关，而不是间接相关。比如一张表中的列为学号、姓名、班主任姓名、班主任性别，此时班主任性别与学号就是间接相关，可以拆分成两张表存储。</p>
+<h3 id="12-redo、undo、binlog-日志的作用"><a href="#12-redo、undo、binlog-日志的作用" class="headerlink" title="12. redo、undo、binlog 日志的作用"></a>12. redo、undo、binlog 日志的作用</h3><ol>
+<li>redo log是重做日志，用于保证事务的持久性。在MySQL宕机的时候，缓存中如果存在还没有写入到磁盘的数据，这些数据就会丢失；redo log保存事务对数据页的更改，这样在重启MySQL的时候，就可以读取redo log进行重做，从而保证事务的持久性；</li>
+<li>undo log是回滚日志，用于保存事务开始之前的数据的一个版本，方便回滚；</li>
+<li>bin log是二进制日志，在主从复制中，从库会通过主库的bin log进行重播，来实现主从同步。</li>
+</ol>
+<p>redo log和bin log有点相似，都是用于还原，但是redo log是事务级别的还原，存储的是物理日志，也就是事务对数据页的更改；而bin log是还原整个数据库，存储的是逻辑日志，也就是sql语句。</p>
+<h3 id="13-存储过程和存储函数的区别"><a href="#13-存储过程和存储函数的区别" class="headerlink" title="13. 存储过程和存储函数的区别"></a>13. 存储过程和存储函数的区别</h3><p>存储过程没有返回值，存储函数有返回值。存储过程可以通过 out 关键字来输出内容，但是本质是对 out 关键字指定的参数赋值。</p>
+<h3 id="14-B-Tree-原理，与其它查找树的比较。"><a href="#14-B-Tree-原理，与其它查找树的比较。" class="headerlink" title="14. B+ Tree 原理，与其它查找树的比较。"></a>14. B+ Tree 原理，与其它查找树的比较。</h3><p>说到B+树，就需要先了解B树。一棵m阶B树的特点是：</p>
+<ol>
+<li>每个节点最多只有m个子节点；</li>
+<li>除了根节点和叶子节点，每个节点最少有m/2个子节点，这里的m/2向上取整；</li>
+<li>如果根节点不是叶子节点，根节点至少包含两个子节点；</li>
+<li>所有叶子节点都在同一层；</li>
+<li>每个节点都包含k个元素，k的取值范围是 [m/2, m)，这里的 m/2 向下取整；</li>
+<li>每个元素左节点的值都小于或等于该元素，右节点的值都大于或等于该元素。</li>
+</ol>
+<p>以网上找到的3阶B树为例：</p>
+<p><img src="计算机基础面试题.assets/bVcLtDW" alt=""></p>
+<p><em><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038445697">图片来源</a></em></p>
+<p>假设将数组 [0,1,2,3,4,5,6] 插入3阶B树，具体的过程是：</p>
+<ol>
+<li>在根节点插入元素0；</li>
+<li>因为 m/2 向下取整为1，所以每个节点可以包含1-2个元素，可以在根节点元素0的右侧插入元素1；</li>
+<li>在根节点元素1的右侧插入元素2后，根节点的元素个数超过两个，于是根节点发生裂变，将元素1的左右元素0和2转变为左右子节点，元素1独占根节点，此时满足根节点不是叶子节点，则根节点至少包含两个子节点的特性；</li>
+<li>接着在元素2所在的右节点插入元素3；</li>
+<li>在元素3的右侧插入元素4的时候该右节点元素的个数超过2个，发生裂变，将中间的元素3插入根节点中，此时构成元素1和3在根节点，元素0、2、4独立为子节点分别成为左子节点、中间子节点和右子节点;</li>
+<li>同理，当元素5和6插入元素4的右侧，他们所在的节点的元素个数超过2，向上发生裂变，会将中间元素5插入父节点，也就是根节点中，但是此时根节点已经有2个元素了，插入5后超过了2，于是根节点向下发生裂变，元素3独占根节点，元素0和5转变为根节点的左右子节点。</li>
+</ol>
+<p><strong>（如果阶数是双数，就取中间偏左的元素向上分裂）</strong></p>
+<p>B+树是B树的一种优化，也是mysql的索引机制。B+树与B树很像，区别在于：</p>
+<ol>
+<li><p>所有非叶子节点只存主键信息，具体的数据都存到叶子节点；</p>
+</li>
+<li><p>所有叶子节点包含全部元素的信息；</p>
+</li>
+<li><p>所有叶子节点之间都有链指针。因为mysql的innodb以页作为存储单位，B+树的叶子节点都是一个页的大小的整倍数，而每页都有两个页指针，一个指向上一页，一个指向下一页，所以叶子节点之间可以看成是一个双向链表。</p>
+<p><strong>注意：B+树的叶子节点间正常来说应该是一个单向链表，双向链表是mysql的索引结构中做的优化。</strong></p>
+</li>
+</ol>
+<p><img src="计算机基础面试题.assets/bVcLtDX" alt=""></p>
+<p><em><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038445697">图片来源</a></em></p>
+<p>最后是与其他查找树的比较：首先二叉搜索树在升序插入时容易导致偏科，甚至一棵树很可能会退化为线性链表的结构；而对于平衡二叉树，假设将100w条数据插入，那么树的高度在20左右，也就是在100w条数据中查找一个数据，最坏的情况需要经过20次磁盘IO（因为mysql是将数据存在磁盘上的），性能也会构成很大的问题。所以主要比较的还是B树和B+树。</p>
+<ol>
+<li>由于B树在非叶子节点也会存储具体数据，所以查到即可返回，而B+树必须查到叶子节点，在同等高度下，B树的查找效率更高；</li>
+<li>由于B+树的所有数据都在叶子节点，且叶子节点间使用双向链表，所以在查找大于或小于某个元素的数据时B+树只需要沿着链表遍历，而B树还需要遍历节点搜索；</li>
+<li>由于页的大小是有限的，B树的每个节点都存主键和具体数据，B+树只需要存储主键，那么B+树每个节点能够存储的主键信息肯定会比B树要多，这样同样数据量的情况下，B树的深度会更大，这回增大查询时的磁盘IO数，进而影响到查询效率。</li>
+</ol>
+<h3 id="15-MySQL索引结构？为什么使用这种数据结构？"><a href="#15-MySQL索引结构？为什么使用这种数据结构？" class="headerlink" title="15. MySQL索引结构？为什么使用这种数据结构？"></a>15. MySQL索引结构？为什么使用这种数据结构？</h3><p>​        首先简单了解索引这个东西。索引是一种有序的数据结构，它的作用就是用来快速查询数据。可以看成是书的目录，关键字是指定列的数据值，页码是指向这个数据值对应的行数据。</p>
+<p>​        索引能够提高查询的效率，但是也会占用一部分空间，并且在对数据进行增删改操作的时候也需要对索引数据进行相应的修改。</p>
+<p>​        MySQL使用B+树的索引结构。使用这种数据结构的原因是：</p>
+<p>​        先说明一下为什么不使用其他的数据结构。首先如果是二叉树，在顺序插入的时候就会形成链表结构，此时就相当于是在全表扫描了，并且二叉树的结构一次最多只有两个子节点，那么在大数据量中层级也会比较深。红黑树可以解决顺序插入的问题，但是它本质也是一个二叉树，大数据量的层级依然会比较深。为了解决层级的问题，于是引入了B树索引，使用多个子节点来存储数据。B树和B+树的结构很相似，主要的区别只在于B+树将实际数据都放到叶子节点存储，并且叶子节点间使用双向链表连接。下面简单比较B树和B+树索引的取舍：</p>
+<ol>
+<li>由于B树在非叶子节点也会存储具体数据，所以查到即可返回，而B+树必须查到叶子节点，在同等高度下，B树的查找效率更高；</li>
+<li>由于B+树的所有数据都在叶子节点，且叶子节点间使用双向链表，所以在查找大于或小于某个元素的数据时B+树只需要沿着链表遍历，而B树还需要遍历节点搜索；</li>
+<li>由于页的大小是有限的，B树的每个节点都存主键和具体数据，B+树只需要存储主键，那么B+树每个节点能够存储的主键信息肯定会比B树要多，这样同样数据量的情况下，B树的深度会更大，这回增大查询时的磁盘IO数，进而影响到查询效率。</li>
+</ol>
+<p>​        索引分为主键索引、唯一索引、普通索引和全文索引。主键索引是依据表中的主键自动创建的，只能有一个，其他的非主键索引可以有多个。在InnoDB中，依据索引的存储形式，可以分为两种：聚集索引和二级索引，聚集索引将数据和索引存放在一起，也就是聚集索引的叶子节点存放的是行数据，这个索引有且仅有一个；二级索引将数据与索引分开存储，叶子节点存的是对应的聚集索引的数据。所以很显然，如果是在二级索引上查找数据，会查两次，一次查二级索引，一次查聚集索引，效率相比于直接查聚集索引要慢一些。</p>
+<p>​        聚集索引的选取是如果有主键就选主键，如果没有就选第一个唯一索引，如果都没有，InnoDB会自动创建一个隐藏的rowid聚集索引。</p>
+<p><strong>思考题：InnoDB中主键索引的B+树高度有多高？</strong></p>
+<blockquote>
+<p>​        假设：一行数据有1k，一页可以存16k的数据。InnoDB中指针固定占6字节，主键依据类型的不同，如果是bigint占8字节。设一页中，主键的数量为n，则指针的数量为 n+1，可以得到公式：</p>
+<blockquote>
+<p>n <em> 8 + (n + 1) </em> 6 = 16 * 1024</p>
+<p>解得：n ≈ 1170</p>
+</blockquote>
+<p>​        则一页中最多可以存1170个主键，1171个指针，如果高度为2，那么叶子节点存储的数据量为：1171 <em> 16；如果高度为3，数据量为 1171 </em> 1171 * 16。</p>
+</blockquote>
+<p><strong>面试题：mysql的索引有哪些数据结构？分别适用于什么场景？</strong></p>
+<p>B+树是mysql默认的索引结构，适用于处理排序和范围查找；Hash表把数据的索引以Hash的形式存储，适用于精确查找。</p>
+<h3 id="16-垂直切分与水平切分"><a href="#16-垂直切分与水平切分" class="headerlink" title="16. 垂直切分与水平切分"></a>16. 垂直切分与水平切分</h3><p>​        首先，如果使用单数据库进行数据存储，在大数据量下会出现如下瓶颈：</p>
+<ol>
+<li>IO瓶颈：用户大量请求导致热点数据过多，数据库的缓存不足，就会产生大量的磁盘IO，降低访问的效率；并且大量的请求会产生大量的网络带宽，也会出现网络IO的瓶颈。</li>
+<li>CPU瓶颈：排序、分组、聚合等SQL会耗费大量的CPU资源，如果请求数过多，会出现CPU瓶颈。</li>
+</ol>
+<p>​        所以我们需要对数据进行切分。从维度上说，有垂直切分和水平切分；从拆分的力度看，又分为分库和分表。</p>
+<p>​        对于垂直分库，是根据实际业务，将不同业务的表拆分到不同数据库中存储；而垂直分表是根据字段的属性，将不同类型的字段拆分到不同的表中。垂直切分后，不同库或表的结构是不一样的，存储的数据也不一样，将所有库或所有表的数据合并才是全量数据。</p>
+<p>​        对于水平分库和分表，都是根据字段的某种规则将数据拆分到多个库或多张表中，此时不同库或不同表之间的结构是一样的，只有数据不一样，所有数据合并才算全量数据。</p>
+<p>​        将数据库进行切分后会产生一个问题，原本应用程序只需要连接一个数据库或一张表，切分以后就需要连接多个数据库或多张表，就给应用端产生了一定的处理压力。可以使用MyCat来解决。它是一个数据库中间件，应用程序只需要使用mysql一样取使用mycat，里面具体需要连哪个库到哪里取数据就由mycat来处理。</p>
+<h3 id="17-MyISAM和InnoDB的区别"><a href="#17-MyISAM和InnoDB的区别" class="headerlink" title="17. MyISAM和InnoDB的区别"></a>17. MyISAM和InnoDB的区别</h3><ol>
+<li><p>InnoDB支持事务，MyISAM不支持。InnoDB默认每一条SQL语句都是一个事务，自动提交，这样会影响速度，可以使用 <code>begin... commit</code> 将多条sql语句组成一个事务。</p>
+</li>
+<li><p>InnoDB支持外键，MyISAM不支持，对一个包含外键的InnoDB的表转换为MyISAM会失败。</p>
+</li>
+<li><p>InnoDB和MyISAM都使用B+树作为索引的结构，不同的是，InnoDB使用聚集索引，MyISAM使用非聚集索引。</p>
+<p>​        InnoDB的数据文件与主键索引是绑在一起的，B+树的叶子节点用于存储实际的数据文件，主键索引是必须创建的，且应该是自增的。如果主键不是有序增加的，那么当插入一条ID小于已经存在的ID的记录时，就会进行排序，那么后面的值都会在数据区移动，这个移动过程会消耗IO，移动的数据越大，消耗的就越多。所以如果不创建主键，系统会自动寻找一个可以作为主键的列，否则会隐性的创建一个作为主键的列。InnoDB的普通索引的叶子节点用于存放主键ID，这些ID会在进行普通索引搜索时返回，返回后再到主键索引中进行查询。所以如果InnoDB不使用主键索引进行查询，就会出现二次遍历，第一次遍历普通索引，第二次遍历主键索引。</p>
+<p>​        MyISAM的数据文件与索引是分离的，主键索引和普通索引的叶子节点都存储实际数据文件的地址指针。二者的区别在于，主键索引不可重复，普通索引可以重复。</p>
+</li>
+<li><p>InnoDB不保存表的具体行数，执行 <code>select count(*)</code> 操作会扫描全表；MyISAM使用一个变量保存具体的行数，执行 <code>select count(*)</code> 操作会直接返回该变量，速度很快。</p>
+</li>
+<li><p>InnoDB支持表级锁和行级锁，默认为行级锁；MyISAM仅支持表级锁。但是InnoDB的行级锁是实现在索引上而不受物理记录上，所以如果访问没有命中索引，也无法使用行级锁。</p>
+</li>
+<li><p>InnoDB必须要有唯一索引，比如主键；MyISAM可以没有。</p>
+</li>
+<li><p>InnoDB存储的文件有 <code>frm</code> 表定义文件和 <code>ibd</code> 数据文件；MyISAM有 <code>frm</code> 表定义文件、<code>myd</code> 数据文件和 <code>myi</code> 索引文件。</p>
+</li>
+</ol>
+<p>如何选择：</p>
+<ol>
+<li>如果需要支持事务，肯定选择InnoDB；</li>
+<li>如果表中绝大部分只是读查询，可以考虑MyISAM；如果读写都有，还是使用InnoDB；因为MyISAM的动态表包含变长字段，频繁更新和删除容易产生碎片，需要定期清理，并且出现故障时恢复困难。</li>
+</ol>
+<h3 id="18-on、where和having的用法区别"><a href="#18-on、where和having的用法区别" class="headerlink" title="18. on、where和having的用法区别"></a>18. on、where和having的用法区别</h3><p>都用于筛选。不同的是，having用于对聚合函数进行条件查询，放在group by后面；on是在多表进行连接时，指定连接的条件；where是对查询的结果进行过滤，不能用在group by后面。</p>
+<h3 id="19-常用的增删改查命令"><a href="#19-常用的增删改查命令" class="headerlink" title="19. 常用的增删改查命令"></a>19. 常用的增删改查命令</h3><ol>
+<li>增：create表，insert、replace数据；</li>
+<li>删：delete数据，truncate、drop表；</li>
+<li>改：update数据，alter修改数据结构；</li>
+<li>查：select数据，show、desc。</li>
+</ol>
+<h3 id="20-sql语句的执行顺序"><a href="#20-sql语句的执行顺序" class="headerlink" title="20. sql语句的执行顺序"></a>20. sql语句的执行顺序</h3><p>from -&gt; on -&gt; join -&gt; where -&gt; group by -&gt; with -&gt; having -&gt; select -&gt; distinct -&gt; order by -&gt; limit</p>
+<h3 id="21-MySQL跑得慢的优化"><a href="#21-MySQL跑得慢的优化" class="headerlink" title="21. MySQL跑得慢的优化"></a>21. MySQL跑得慢的优化</h3><p>​        对于数据量不大的表，一般是索引的原因。</p>
+<p>​        如果没有建索引，可以在对应where语句中涉及的列做索引。MySQL的索引结构是B+树。如果where中包括多个列，可以使用组合索引，但是组合索引必须按照最左前缀的方式使用才能起效。</p>
+<p>​        但是如果创建索引还慢，就可能是索引失效了，可以explain语句的执行计划来分析。常见的原因有：</p>
+<ol>
+<li>where中使用!=或or或者等号的左侧使用表达式或函数。表达式或函数失效的原因是，加锁字段a是varchar类型且有索引，使用where length(a) = 6，6这个值在a索引的第一层就找不到了，肯定旧没有用了。</li>
+<li>like语句使用%开头，或者字符串未加引号。mysql认为这两种情况会破坏索引的有序性，于是就将索引优化掉了。</li>
+<li>索引字段的区分度过低，比如性别字段。对于非聚集索引，是要回表的，加入有100条数据，在sex字段上建索引，一次扫到51个male，那么就需要回表51次，效率还不如全表扫描高，mysql会将这种情况下的索引优化掉。</li>
+<li>未匹配最左前缀。</li>
+</ol>
+<p>​        对于大表的优化，可以进行分库分表和读写分离。</p>
+<p>​        对于分库分表，如果是读写请求多，可以执行分库和垂直分表；如果是数据量过大导致的查询效率慢，可以执行水平分表。</p>
+<p>​        对于读写分离，如果表的查询效率低，且读远大于写，可以考虑在主从模式下将读写进行分离，来实现负载均衡。</p>
+<h3 id="22-InnoDB的结构"><a href="#22-InnoDB的结构" class="headerlink" title="22. InnoDB的结构"></a>22. InnoDB的结构</h3><h4 id="逻辑存储空间"><a href="#逻辑存储空间" class="headerlink" title="逻辑存储空间"></a>逻辑存储空间</h4><p>从大到小分为：</p>
+<ol>
+<li>表空间：以ibd结尾的文件，一个mysql实例可以对于多个表空间，存储记录、索引等数据；</li>
+<li>segment（段）：一个表空间会包含多个segment，分为数据段、索引段和回滚段，索引段是B+树的非叶子节点，数据段是叶子节点；</li>
+<li>Extent（区）：一个segment管理多个区，区是表空间的单元结构，大小为1M，区中存放多个连续的页，页的默认大小是16k，所以会存64个连续的页；</li>
+<li>页：是磁盘管理的最小单元，为了保证页的连续性，InnoDB每次申请都会以区为单位，一次申请4-5个区；</li>
+<li>行：页中会存放多个实际的行数据。</li>
+</ol>
+<h4 id="内存架构"><a href="#内存架构" class="headerlink" title="内存架构"></a>内存架构</h4><ol>
+<li><p>缓冲池：</p>
+<p>​        是主内存中的一个区域，执行增删改操作会先在缓冲池执行，如果没有才会从磁盘加载并缓存，之后再定期将更新的数据刷写到磁盘，这样能够避免每次都和磁盘直接交互，减少磁盘IO，提高效率。</p>
+<p>​        缓冲池以页为单位，底层使用链表管理，根据状态，页可以分为三种类型：free page未被使用过；clean pag被使用过，但数据与磁盘一致；dirty page被使用过，且数据与磁盘不一致。</p>
+</li>
+<li><p>更改缓冲区：</p>
+<p>​        是针对于非唯一的二级索引页，在执行增删改操作时，如果缓冲池没有对应的数据，不会直接到磁盘加载，而是先将这些操作缓存到更改缓冲区中，等到所需的数据被读取时再将数据合并到缓冲池中。</p>
+<p>​        更改缓冲区的作用是避免直接从磁盘读取二级索引到缓冲池，因为二级索引通常不是唯一的，并且是以相对随机的顺序进行增删改操作，可能会影响到所引述中不相邻的二级索引，这会导致大量的随机IO。</p>
+</li>
+<li><p>自适应hash索引：</p>
+<p>​        用于优化缓冲池数据的查询，InnoDB会监控表中索引页的查询，如果观察到hash索引可以提升速度，就建立hash索引解决。这个过程不需要人工干预，由系统自动完成。</p>
+<p>​        hash索引的结构是数组+链表的形式，只能提供等值查询，无法进行范围或模糊查询，但是查询的速度快，一般就是O(1)的时间复杂度。</p>
+</li>
+<li><p>日志缓冲区：</p>
+<p>​        保存redo log和undo log的缓冲区，默认是16M，日志缓冲区的内容会定期刷到磁盘中，如果需要增删改多行的事务，增大日志缓冲区的大小可以降低磁盘IO。</p>
+<p>​        涉及两个参数：innodb_log_buffer_size设置日志缓冲区大小；innodb_flush_log_at_trx_commit设置日志缓冲区刷写的时机，有三个值，0表示每秒刷一次，1表示每次事务提交时写入并刷一次，2表示每次事务提交后写入，并每秒刷一次。</p>
+</li>
+</ol>
+<h3 id="23-MySQL索引的优缺点"><a href="#23-MySQL索引的优缺点" class="headerlink" title="23. MySQL索引的优缺点"></a>23. MySQL索引的优缺点</h3><p>​        索引可以帮助我们快速查找记录，而不需要扫描全表；但是索引的存储也会消耗一定的磁盘空间，并且对于更新数据的操作，因为不仅要修改数据文件，还需要修改索引文件，索引更新的速度会慢一些。</p>
+<h3 id="24-联合索引的创建和使用的顺序"><a href="#24-联合索引的创建和使用的顺序" class="headerlink" title="24. 联合索引的创建和使用的顺序"></a>24. 联合索引的创建和使用的顺序</h3><p>创建的公式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> index idx_name <span class="keyword">on</span> table_name(a, b, c);</span><br></pre></td></tr></table></figure>
+<p>这就相当于创建了三个索引，(a), (a, b), (a, b, c)，联合索引是按照最左匹配法的顺序来使用的，也就是如果是 (a,c), (c,b), (b,c), (b) 这种是不行的。</p>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="1-僵尸进程与孤儿进程的区别，从-SIGCHLD-分析产生僵尸进程的原因。"><a href="#1-僵尸进程与孤儿进程的区别，从-SIGCHLD-分析产生僵尸进程的原因。" class="headerlink" title="1.  僵尸进程与孤儿进程的区别，从 SIGCHLD 分析产生僵尸进程的原因。"></a>1.  僵尸进程与孤儿进程的区别，从 SIGCHLD 分析产生僵尸进程的原因。</h3><p>​        孤儿进程就是当父进程退出，它的子进程还在运行，这些子进程就被称为孤儿进程，这些孤儿进程会被init进程，也就是进程号为1的进程收养，并由init进程完成对它们的状态收集工作；孤儿进程不会对系统造成影响。</p>
+<p>​        僵尸进程是当子进程退出，父进程没有调用wait或waipid方法时，这些子进程的进程描述符就会一直存在系统中，持续占用该进程号，这是僵尸进程。</p>
+<p>以下再减：</p>
+<p>为什么要有僵尸进程<br>unix 提供了一种机制可以保证只要父进程想知道子进程结束时的状态信息，就可以得到。这种机制就是: 在每个进程退出的时候,内核释放该进程所有的资源,包括打开的文件,占用的内存等。 但是仍然为其保留一定的信息(包括进程号 the process ID ,退出状态 the termination status of the process, 运行时间 the amount of CPU time taken by the process 等)。直到父进程通过 wait / waitpid 来取时才释放。父进程调用 wait 或 waitpid 时就可以得到这些信息。</p>
+<p>僵尸进程的危害<br>一个进程如果只 fork 子进程而不负责对子进程进行 wait() 或是 waitpid() 调用来释放其所占有资源的话，那么就会产生很多的僵死进程。保留的那段信息不会释放，其进程号会一直被占用，但是系统所能使用的进程号是有限的，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。</p>
+<h3 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2. 常用命令"></a>2. 常用命令</h3><h4 id="文件和文件内容"><a href="#文件和文件内容" class="headerlink" title="文件和文件内容"></a>文件和文件内容</h4><ol>
+<li><strong>find</strong>：指定路径搜索文件，不指定路径默认是当前目录下查找，<code>find -name &quot;*1*&quot;</code> 查找当前目录下文件名含 <code>1</code> 的文件 ；</li>
+<li>cp：拷贝文件；</li>
+<li>mv：移动文件或改名；</li>
+<li>cat：一次显示文件所有内容，适用于小文件；</li>
+<li>more：分屏查看文件内容，每次只显示一页，适用于大文件；</li>
+<li>grep：查找文件里符合条件的字符串；</li>
+</ol>
+<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><p><strong>ln</strong>：默认创建的是硬链接，使用 <code>-s</code> 创建软链接，软链接类似于浅拷贝，<code>-s</code> ，硬链接相当于深拷贝；</p>
+<h4 id="打包压缩"><a href="#打包压缩" class="headerlink" title="打包压缩"></a>打包压缩</h4><p>经常做的是对 tar 包进行解压和打包。</p>
+<p>打包：<code>tar -zjcvf tar_name.tar path</code> ；</p>
+<p>解包：<code>tar -zjxvf tar_name.tar</code> 。</p>
+<h4 id="软件安装、卸载和更新"><a href="#软件安装、卸载和更新" class="headerlink" title="软件安装、卸载和更新"></a>软件安装、卸载和更新</h4><p>安装：<code>apt install 软件包</code> ；</p>
+<p>卸载：<code>apt remove 软件包</code> ；</p>
+<p>更新：<code>apt upgrade</code> 。</p>
+<h4 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h4><ol>
+<li>ls：列出目录内容；</li>
+<li>cd：切换目录；</li>
+<li>touch：创建文件，如果文件不存在新建，否则修改文件的最后一次修改时间；</li>
+<li>mkdir：创建新目录；</li>
+<li>rm：删除文件或目录，-f 强制删除，忽略不存在的文件，-r递归删除，会将整个文件夹删除；</li>
+<li>tree：以树状图列出文件目录结构；</li>
+</ol>
+<h4 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h4><ol>
+<li>echo：在中断显示文字，通常和重定向合用；</li>
+<li>重定向：一个箭头是覆盖，两个箭头是追加；</li>
+<li>|：管道，前一个命令的输出是后一个命令的输入；</li>
+<li>awk：是用于文本分析的工具；</li>
+</ol>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><p>date：查看系统时间；</p>
+<h4 id="磁盘信息"><a href="#磁盘信息" class="headerlink" title="磁盘信息"></a>磁盘信息</h4><ol>
+<li>df -h：显示磁盘剩余空间；</li>
+<li>du -h [目录名]：显示目录下的文件大小；</li>
+</ol>
+<h4 id="进程信息"><a href="#进程信息" class="headerlink" title="进程信息"></a>进程信息</h4><ol>
+<li>ps aux：查看进程的详细状况；</li>
+<li>top：动态显示运行中的进程；</li>
+<li>kill [-9] 进程号：终止指定进程，-9表示强行终止；</li>
+</ol>
+<h4 id="用户权限相关"><a href="#用户权限相关" class="headerlink" title="用户权限相关"></a>用户权限相关</h4><ol>
+<li>groupadd 组名：添加组；</li>
+<li>groupdel 组名：删除组；</li>
+<li>cat /etc/group：查看组信息；</li>
+<li>chgrp -R 组名 文件or目录名：递归修改文件或目录的所属组；</li>
+<li>useradd -m -g 组名 用户名：添加新用户，-m自动创建用户家目录，-g指定组名，否则会建立一个同名的组；</li>
+<li>passwd 用户名：设置用户密码；</li>
+<li>userdel 用户名：删除用户，-r会自动删除用户家目录；</li>
+<li>cat /etc/passwd | grep 用户名：查看用户信息；</li>
+<li>id [用户名]：查看用户uid和gid信息；</li>
+<li>who：查看当前所有登录的用户列表；</li>
+<li>whoami：显示当前登录的用户名；</li>
+<li>su 用户名：切换用户；</li>
+<li>exit：退出当前用户</li>
+</ol>
+<h4 id="which"><a href="#which" class="headerlink" title="which"></a>which</h4><p>查看执行命令所在的位置，如 <code>which ls</code> ；</p>
+<h4 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h4><ol>
+<li>chown：修改拥有者；</li>
+<li>chgrp：修改组；</li>
+<li>chmod：修改权限，4r是读，2w是写，1x是执行；</li>
+</ol>
+<h4 id="网卡信息"><a href="#网卡信息" class="headerlink" title="网卡信息"></a>网卡信息</h4><ol>
+<li>ipconfig：查看计算机当前的网卡配置信息；</li>
+<li>ping ip：检测主机和目标ip是否连接正常；</li>
+</ol>
+<h4 id="远程登陆"><a href="#远程登陆" class="headerlink" title="远程登陆"></a>远程登陆</h4><ol>
+<li>ssh 用户名@ip：远程登录；</li>
+<li>scp 用户名@ip:原文件名或路径 用户名@ip:目标文件名或路径：远程拷贝文件。</li>
+</ol>
+<h2 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h2><h3 id="1-介绍下LRU？"><a href="#1-介绍下LRU？" class="headerlink" title="1. 介绍下LRU？"></a>1. 介绍下LRU？</h3><p>​        它的机制和accessOrder为true（访问顺序）的LinkedHashMap的机制是一样的。</p>
+<h3 id="2-OSI七层网络模型、TCP-IP分层模型、五层网络模型（每一层解决什么问题）"><a href="#2-OSI七层网络模型、TCP-IP分层模型、五层网络模型（每一层解决什么问题）" class="headerlink" title="2. OSI七层网络模型、TCP/IP分层模型、五层网络模型（每一层解决什么问题）"></a>2. OSI七层网络模型、TCP/IP分层模型、五层网络模型（每一层解决什么问题）</h3><p>首先了解OSI七层模型：</p>
+<p>从下往上分别为：</p>
+<ol>
+<li>物理层：传输的单位是比特，用于解决两个硬件之间的通信，比如双绞线、网线等；</li>
+<li>数据链路层：解决物理层和网络层之间的通信，并提供纠错功能保证数据的可靠传输，比如WiFi； </li>
+<li>网络层：将网络地址转换为物理地址，并决定数据如何从发送方路由到接收方，这一层解决了寻址和优化传输路径的问题，定义了IP地址，通过IP地址寻址，所以产生了IP协议；</li>
+<li>运输层：如果发送大量数据，比如一个视频格式，可能需要很长时间，中间很容易产生网络中断，想要保证传输大文件时的准确性，需要对数据进行封装，然后像发快递一样，一个一个发，这就是运输层，比如tcp、udp协议；</li>
+<li>会话层：建立和管理应用程序之间的通信；</li>
+<li>表示层：解决不同系统之间的通信语法问题；</li>
+<li>应用层：通过应用程序之间的交互来完成特定的网络应用，定义的是应用进程间通信和交互的规则，比如HTTP、FTP协议。</li>
+</ol>
+<p>TCP/IP四层模型从上往下是：</p>
+<ol>
+<li>应用层：当不同设备的应用进行通信的时候，会将应用数据传给下一层；</li>
+<li>传输层：将数据分块，套一个tcp头，这里出现两个协议：tcp协议和udp协议；</li>
+<li>网络层：将数据传输到另一个设备，这一层会给传输层的数据套一个ip头，这一层出现ip协议用于寻址；</li>
+<li>网络接口层：在ip头前加一个max头部，并封装成数据帧发送到网络上，这一层主要为网络层提供链路级别的传输服务。</li>
+</ol>
+<p>五层协议模型综合了OSI和TCP/IP的优点，既简洁又能将概念阐述清晰。它从下往上分别是：</p>
+<ol>
+<li>物理层；</li>
+<li>数据链路层；</li>
+<li>网络层；</li>
+<li>运输层；</li>
+<li>应用层，将OSI中的会话层、表示层和应用层都包含进去。</li>
+</ol>
+<h3 id="3-TCP和UDP的区别"><a href="#3-TCP和UDP的区别" class="headerlink" title="3. TCP和UDP的区别"></a>3. TCP和UDP的区别</h3><p>1）TCP是面向连接的，而UDP是面向无连接即发送数据前不需要建立连接；<br>2）TCP提供可靠的服务，而UDP是尽最大努力交付；<br>3）TCP面向字节流，UDP面向报文；<br>4）TCP的连接是点到点的，UDP支持一对一、一对多和多对多的交互通信；</p>
+<p>5）TCP首部开销有20字节，UDP的首部开销仅有8字节。</p>
+<h3 id="5-http和https的区别"><a href="#5-http和https的区别" class="headerlink" title="5. http和https的区别"></a>5. http和https的区别</h3><p>​        http协议是超文本传输协议，数据是明文传输的，用来传隐私信息非常不安全，于是引入了SSL协议，用于对http协议传输的数据进行加密，这就是https协议。所以二者主要的区别就在于对数据的安全性不同。</p>
+<ol>
+<li>http协议是超文本传输协议，是明文传输的，数据不安全；https协议是具有安全性的ssl加密传输协议；</li>
+<li>http的端口是80，https的端口号是443；</li>
+<li>http是无状态连接，https是ssl和http协议共同构建的可进行加密传输、身份认证的网络协议，比http安全。</li>
+</ol>
+<h3 id="6-HTTP状态码"><a href="#6-HTTP状态码" class="headerlink" title="6. HTTP状态码"></a>6. HTTP状态码</h3><p>常见的状态码有：</p>
+<p>200 - 请求成功、301 - 资源被永久转移到其他url、404 - 请求的资源不存在、500 - 内部服务器错误。</p>
+<h3 id="7-TCP怎么流量控制？怎么拥塞控制？"><a href="#7-TCP怎么流量控制？怎么拥塞控制？" class="headerlink" title="7. TCP怎么流量控制？怎么拥塞控制？"></a>7. TCP怎么流量控制？怎么拥塞控制？</h3><h4 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h4><p>​        所谓流量控制，就是让发送端不要发送的太快，让接收端能够来得及接收。假设没有流量控制，发送端会根据实际的情况发送数据，然后接收端使用接受数据缓存区来接收数据。当发送的速度太快，导致缓存区很快被占满了，这时候发送端继续发送数据，接收端处理不过来，就会将这些还没有被接收的数据全都丢弃，这就会触发发送端的重发机制，造成网络流量的无端浪费。</p>
+<p>​        所以TCP提出了流量控制机制，让发送端根据接收端的接收能力控制发送的数据量。TCP利用滑动窗口实现流量控制机制，而窗口的大小通过TCP首部的16位窗口大小字段来传输。这个窗口大小实际上指的是缓冲区中剩余的空间，发送端会根据接收端传过来的窗口大小来灵活控制发送的数据量。</p>
+<p>​        具体的操作流程是：A向B发送数据，接收端在确认应答发送ACK报文时，将窗口大小填入，跟随ACK报文一起被传送给发送端，而发送端接收到窗口值后灵活改变自己的发送速度。当接收端缓冲区为0，发送端不再发送数据，直到接收端重新发送新的窗口值为止。</p>
+<p>​        这里会产生一个问题：当发送零窗口后，缓冲区有了多余的缓存空间，然后接收端会向发送端发送新的窗口值，如果这个报文在发送过程中丢失了，就会进入死锁局面：即发送端一直等待接收端发送非零窗口值，接收端也一直等待发送端发送数据，如果没有其他措施，就会一直互相等待下去。</p>
+<p>​        为了解决这个问题，TCP为每个连接设置一个持续计时器，只要发送端接收到零窗口通知，就会启动持续计时器，当设置的时间到了，就发送一个零窗口探测字段，这个字段仅携带一个字节的数据，当接收端确认这个探测字段时给出当前的窗口值，如果窗口仍为0，发送端会重新设置持续计时器，否则开始发送数据。</p>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><p>​        在某段时间，若<strong>对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变坏</strong>，这种情况就叫做<strong>网络拥塞</strong>。若<strong>出现拥塞而不进行控制</strong>，整个网络的<strong>吞吐量将随输入负荷的增大而下降</strong>。当前网络正朝着高速化的方向发展，很容易出现缓存不够大而造成分组的丢失，分组的丢失就是网络发生拥塞的征兆。也因为网络拥塞时路由器就会丢失分组，因此只要发送方没有按时收到确认报文，也就是只要超时了，就可以猜想网络可能出现了拥塞，即判断网络拥塞的依据就是出现了超时。</p>
+<p>​        TCP提供了四种网络拥塞算法：慢开始、拥塞避免、快重传、快恢复。我们先假定：</p>
+<ol>
+<li>数据的单向传递的，反方向只传送确认报文；</li>
+<li>接收方总是有足够大的缓存空间，保证发送窗口的大小由网络拥塞的程度决定。</li>
+</ol>
+<h5 id="1-慢开始算法"><a href="#1-慢开始算法" class="headerlink" title="1. 慢开始算法"></a>1. 慢开始算法</h5><p>​        慢开始算法的思路是由小到大逐渐增大拥塞窗口（cwnd）的数值。下面使用报文段的个数作为窗口大小的单位，具体说明一个简单的慢开始算法的过程。</p>
+<p>​        一开始发送方先设置 <code>cwnd=1</code>，发送第一个报文段M1，接收方收到后确认M1；发送方收到对M1的确认后，cwnd增大到2，于是发送方接着发送M2、M3两个报文段，接收方收到后发回对M2、M3的确认。以此类推，发送方每收到一个对新报文段的确认就会给cwnd增加1，因此发送方收到两个确认后将cwnd从2增加到4，并可发送M4~M7四个报文段。每经过一个传输轮次，拥塞窗口cwnd就会加倍。一个传输轮次经历的时间指的就是往返时间。当然实际运行中是不需要等这个轮次中所有的确认都受到才能发送新的报文段的。</p>
+<h5 id="2-拥塞避免算法"><a href="#2-拥塞避免算法" class="headerlink" title="2. 拥塞避免算法"></a>2. 拥塞避免算法</h5><p>​        为了防止拥塞窗口增长过大引起网络拥塞，设置一个慢开始门限值，当cwnd小于这个值就使用慢开始算法，大于这个值就使用拥塞避免算法，等于这个值两个算法都可以用。</p>
+<p>​        拥塞避免算法的思路是线性加一，也就是每经过一个传输轮次才会给cwnd加一。相比于慢开始算法的倍数递增，拥塞避免算法的线性递增使网络比较不容易出现拥塞。假设cwnd到16开始执行拥塞避免算法，直到cwnd=24，出现了超时的现象，发送方判断出现网络拥塞，于是调整门限值为当前cwnd的一半，并设置cwnd为1，执行慢开始算法。</p>
+<h5 id="3-快重传算法"><a href="#3-快重传算法" class="headerlink" title="3. 快重传算法"></a>3. 快重传算法</h5><p>​        有时，个别报文段在网络丢失，但实际上并没有发生网络拥塞，如果发送方迟迟没有收到确认就会产生超时，就会被误认为发生了拥塞。就会导致发送方错误的开启慢开始算法，把拥塞窗口置1，因而降低了传输的效率。</p>
+<p>​        快重传可以让发送方尽早知道发生个别报文段的丢失。下面简单说明一下过程：发送方发送M1，接收方接收到M1后发回对M1的确认，在收到M1的确认前，发送方可以将M2发送出去，接收方接收到M2后确认M2，在M2的确认到达之前发送方可以发送M3。假设发送M3的报文丢失，接收方就不会发送M3的确认报文给发送方，此时发送方发送M4，接收方收到后发现不是按序到达的报文段M3，就会发回给发送方M2的重复确认，表明现在希望收到的是M3，而不是未按序到达的报文段，发送方还可以将M5发送，接收方收到后发现不是M3，又会发回M2的重复确认，发送方还可以将发送窗口的最后一个报文段M6发送，然后接收方又发回一个M2的重复确认。此时，发送方已经收到累计3个M2的重复确认，快重传算法规定，发送方只要一连收到3个重复确认，就要立刻重传，因此发送方会立刻重传M3，接收方收到后发回M6的确认，表明到M6为止的报文都收到了，这样就不会出现超时。</p>
+<h5 id="4-快恢复算法"><a href="#4-快恢复算法" class="headerlink" title="4. 快恢复算法"></a>4. 快恢复算法</h5><p>​        发送方知道现在只是丢失了个别报文段，于是不启动慢开始算法，而是快恢复算法。也就是将门限值和cwnd都设置为当前cwnd的一半，并开始执行拥塞避免算法。有的快恢复实现会将cwnd在扩大一些，比如上面的例子就扩大了3个报文段的长度。因为发送方既然收到三个重复确认，就表示已经有三个分组离开了网络，不再消耗网络资源而是停留在接收方的缓存中，可见现在网络病逝堆积了分组而是减少了三个分组，因此可以适当把拥塞窗口扩大一些。</p>
+<p>​        拥塞避免阶段，cwnd线性增大，被称为加法增大AI，快恢复阶段设置门限值为当前cwnd的一半，被称为乘法减小MD，二者合在一起就是所谓的<strong>AIMD算法</strong>。</p>
+<h3 id="8-三次握手（建立TCP的链接）、四次挥手（释放TCP的链接）"><a href="#8-三次握手（建立TCP的链接）、四次挥手（释放TCP的链接）" class="headerlink" title="8. 三次握手（建立TCP的链接）、四次挥手（释放TCP的链接）"></a>8. 三次握手（建立TCP的链接）、四次挥手（释放TCP的链接）</h3><p>建立TCP连接需要三次握手，而断开连接则需要四次握手。</p>
+<h4 id="三次握手："><a href="#三次握手：" class="headerlink" title="三次握手："></a>三次握手：</h4><p>​        最开始主机A处于closed状态，主机B处于listen状态。</p>
+<p>​        第一次握手：主机A向主机B发送一个SYN报文，报文中指定主机A的初始序列号ISN，此时主机A处于SYN_Send状态。</p>
+<p>​        第二次握手：主机B接收到主机A发送的SYN报文后，也会返回一个自己的SYN报文作为应答，报文中指定主机B的初始序列号，和一个ACK，这个ACK的值是主机A的ISN+1，此时主机B处于SYN_Received状态。</p>
+<p>​        第三次握手：主机A接收到主机B发送的SYN报文后，返回一个ACK报文，ACK的值是主机B的ISN+1，此时主机A处于established状态，主机B接收到ACK以后也会处于established状态。</p>
+<p><strong>作用：</strong></p>
+<ol>
+<li>确认双方的接收数据和发送数据的能力是正常的；</li>
+<li>指定自己的初始序列号，为可靠传输做准备。</li>
+</ol>
+<p><strong>ISN是固定的吗：</strong></p>
+<p>​        ISN是动态生成的，如果是固定的，那么只要攻击者取到其中一个ISN，就能推出后续的ISN，容易受到攻击。</p>
+<p><strong>什么是半连接队列：</strong></p>
+<p>​        主机B会把处于SYN_Received状态的请求连接放入一个队列，这个队列就叫做半连接队列，如果已经完成了三次握手，建立起连接后会放入全连接队列，如果队列满了会出现丢包的现象。</p>
+<p><strong>SYN-ACK重传次数：</strong></p>
+<p>​        主机B发送完SYN-ACK报文后，如果没有收到主机A发来的ACK报文，会进行重传，如果重传的次数超过了限定的最大重传次数，系统就将该连接信息从半连接队列中删除。每次等待重传的时间不一定相同，一般会以指数的形式增长，如1s、2s、4s、8s等。</p>
+<p><strong>三次握手的过程是否可以携带数据：</strong></p>
+<p>​        只有第三次握手可以携带具体的数据，因为前两次连接，通道还没有建立成功，携带的数据如果丢失没有对应的机制来处理。</p>
+<p><strong>为什么需要三次握手，两次不行吗：</strong></p>
+<p>​        第二次握手只是主机A确定了自己和主机B的发送和接收数据的能力正常，但是主机B不知道，所以需要第三次握手，主机A返回给主机B一个确认报文，让主机B能够确定自己和主机A的发送和接收数据的能力是正常的。</p>
+<h4 id="四次挥手："><a href="#四次挥手：" class="headerlink" title="四次挥手："></a>四次挥手：</h4><p>​        主机A和主机B都可以主动发起挥手。假设是主机A先发起的挥手。</p>
+<p>​        第一次挥手：主机A发送一个FIN报文，报文中会指定一个序列号，此时主机A处于FIN_WAIT1的状态，会停止再发送数据，主动关闭TCP连接，并等待主机B的确认；<br>​        第二次挥手：主机B接收到FIN报文后，会返回一个ACK报文，并将A的序列号加一作为ACK的序列号，表示已经接收到A的报文了，此时B处于CLOSE_WAIT的状态，A收到B发来的确认报文后，就会处于FIN_WAIT2的状态，等待B发出关闭连接的报文。这个时候的TCP是处于半关闭的状态，也就是A到B的连接已经关闭了，B到A的还没有，此时A还可以接收来自B发送的数据；<br>​        第三次挥手：B想要关闭连接，就会和A第一次挥手一样，发给A一个FIN报文，并指定一个序列号，此时B处于LAST_ACK的状态；<br>​        第四次挥手：A接收到FIN报文后，返回一个ACK报文，并将B发来的序列号加一作为ACK报文的序列号，此时A处于TIME_WAIT的状态，会主动等待一段时间以确保B成功接收到ACK报文后才会进入CLOSED状态，B接收到ACK报文后直接就会是CLOSED状态。</p>
+<p><strong>TIME_WAIT状态持续的时间：</strong></p>
+<p>​        TIME_WAIT状态也叫2MSL等待状态，MSL叫做最长报文段寿命，TCP允许不同的实现可以根据具体的情况设置实际的MSL值，A会等待2倍的MSL时间后才会进入CLOSED状态。</p>
+<p>​        等待这段时间的原因有两个：</p>
+<p>（1）保证A发给B的ACK报文B能够成功接收，如果ACK报文在传输过程中丢失，导致B在规定时间内无法得到响应，B就会超时重传FIN报文，A接收到重传报文后会重发一次ACK报文，并重新等待2MSL时间。</p>
+<p>（2）在等待的这段时间内，可以让本次连接中产生的所有报文段都因为过期而消失，这样下一个新的连接中就不会出现旧的连接请求报文段。</p>
+<h3 id="9-事实表与维度表？事实表有哪些种类？"><a href="#9-事实表与维度表？事实表有哪些种类？" class="headerlink" title="9. 事实表与维度表？事实表有哪些种类？"></a>9. 事实表与维度表？事实表有哪些种类？</h3><p>维度表一般是对事实的描述信息，一张维表对应了现实世界的一个对象或概念。维表的特征是范围广、内容相对固定。比如地域维表就包含省份名称、省份编码、地市编码等。</p>
+<p>事实表的每行数据都代表了一个业务事件，如下单、退款等。事实表的特征是内容相对较窄、数据量会很大、内容更新频繁。</p>
+<p>事实表包括事务型事实表、周期型快照事实表和累积型快照事实表。</p>
+<ol>
+<li>事务型事实表以每个事务或时间为单位，比如一条销售记录、订单记录等，数据被提交就不能再被更改，更新方式为增量更新；</li>
+<li>周期快照事实表存储固定时间间隔的 数据，例如每天或每月的销售额；</li>
+<li>累积型快照事实表存储不确定周期的数据，会完全覆盖一个事务或产品的生命周期，通常具有多个日期字段，用来记录整个生命周期中的关键时间点。在加载完数据后依然可以更新数据，来补充之后才能知道的信息。比如存储购物交货的信息，一般会有购买日期、预定交货日期、实际发货日期等，其中实际发货日期是不能马上确定的，可以用表示未知的代理关键字代替，直到能够确定结果。</li>
+</ol>
+<h3 id="10-操作系统死锁？死锁条件？怎么破坏？"><a href="#10-操作系统死锁？死锁条件？怎么破坏？" class="headerlink" title="10. 操作系统死锁？死锁条件？怎么破坏？"></a>10. 操作系统死锁？死锁条件？怎么破坏？</h3><h4 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a>死锁的概念</h4><p>当有两个或两个以上的进程运行时，因为争夺资源而导致互相等待，如果没有外力作用，这些进程无法继续推进下去，就会导致斯通出现死锁状态。</p>
+<h4 id="死锁的必要条件"><a href="#死锁的必要条件" class="headerlink" title="死锁的必要条件"></a>死锁的必要条件</h4><p>有四个。</p>
+<ol>
+<li>互斥条件：只有对必须互斥使用的资源的争夺才会产生死锁；</li>
+<li>不剥夺条件：当一个进程占用资源的时候，其他进程不能强行剥夺，只能主动释放；</li>
+<li>请求和保持条件：一个进程占用一个资源，同时它想请求另一个资源，这个资源正被其他进程占用，这个进程无法成功获得这个资源，但是也不会释放已经占用的资源；</li>
+<li>循环等待条件：存在一种进程资源的循环等待链，其中的每一个进程都占有下一个进程所需的资源。</li>
+</ol>
+<h4 id="破坏死锁的条件"><a href="#破坏死锁的条件" class="headerlink" title="破坏死锁的条件"></a>破坏死锁的条件</h4><ol>
+<li>想要破坏互斥条件，可以将互斥资源转换为共享资源，但是不是所有的资源都能共享使用，在更多情况下还需要保证这些资源的互斥性；</li>
+<li>想要破坏不剥夺条件，有两种方式，第一种是如果进程无法成功获取资源，它要立刻释放自己所持有的所有资源；第二种是当进程想要请求的资源被其他进程占用，操作系统可以帮助这个进程强行剥夺这个资源。这两种方式实现起来会比较复杂，而且释放已经占有的进程可能会导致之前的工作运行失败，频繁的获取和释放资源也会造成很大的系统开销；</li>
+<li>想要破坏请求和保持条件，可以使用静态分配的方式，在进程执行之前给他分配好所有需要的资源，这样在整个程序运行的期间都不需要再获取资源了。但是如果进程的整个生命周期很长，但是对某些资源只使用很短的一段时间，那么很容易造成资源的浪费；</li>
+<li>想要破坏循环等待条件，可以使用顺序分配法，也就是给每个资源分配编号，让所有进程按照编号递增的顺序来获取资源。但是这种方式如果想要新增资源就需要重新分配编号，并且无法保证进程使用资源的顺序会与编号的顺序一致，也很容易导致资源的浪费。</li>
+</ol>
+<h3 id="11-页面置换算法"><a href="#11-页面置换算法" class="headerlink" title="11. 页面置换算法"></a>11. 页面置换算法</h3><p>​        首先需要了解缺页中断的概念，就是在执行一条指令的时候，发现它要访问的页不在内存，就会出现缺页中断，这个时候需要将该页从磁盘加载到内存。缺页的情况有时候并不是没有加载，而是曾经加载过，但是出于对内存存储的考虑，需要将一些页淘汰掉，这个淘汰的算法就是页面置换算法。页面置换算法的目的是减少缺页的概率。</p>
+<p>​        常见的页面置换算法有四种：</p>
+<ol>
+<li>FIFO：当需要淘汰一个页面的时候，会淘汰留在内存最久的页面；</li>
+<li>LRU：淘汰最长时间没有被使用过的页面，强调使用的时间；</li>
+<li>LFU：淘汰访问次数最少的页面，强调使用的频率；</li>
+<li>最优置换算法：在理想情况下，可以给页面作一个标记，淘汰未来最长时间不会被访问的页面，但是这个方法不可能实现，因为无法预知页面会在什么时候被使用；</li>
+<li>时钟页面置换算法：使用一个环形链表存储页面，一个指针指向最老的页面，并给这些页面设置访问位为1，当要淘汰页面时，从当前指针开始查第一个访问为0的页面淘汰，查找的过程中会将遍历过的页面的访问位置0；</li>
+</ol>
+<h3 id="12-CPU调度算法（进程调度）"><a href="#12-CPU调度算法（进程调度）" class="headerlink" title="12. CPU调度算法（进程调度）"></a>12. CPU调度算法（进程调度）</h3><ol>
+<li>先来先服务：哪个任务先来，先调度哪个；</li>
+<li>短作业优先：哪个任务运行时间短，先调度哪个；</li>
+<li>高响应比优先：权衡了短作业和长作业，优先级大的先调度，优先级 = (等待时间 + 要求服务时间) / 要求服务时间；</li>
+<li>时间片轮转：每个任务执行一个时间片后就切换到下一个任务执行。</li>
+</ol>
+<h3 id="13-磁盘调度算法"><a href="#13-磁盘调度算法" class="headerlink" title="13. 磁盘调度算法"></a>13. 磁盘调度算法</h3><p>​        目的是提高磁盘的访问性能。</p>
+<ol>
+<li>先来先服务：先来的请求先被访问；</li>
+<li>最短寻道时间优先：和磁头的距离最短的优先；</li>
+<li>扫描算法：磁头在一个方向扫描完再换另一个方向扫描；</li>
+<li>循环扫描算法：磁头只按一个方向扫，先按该方向扫描到头，再移动到未被扫描的请求中最小或最大的请求处，再以这个方向继续扫描。</li>
+</ol>
+<h3 id="14-TCP如何实现可靠传输"><a href="#14-TCP如何实现可靠传输" class="headerlink" title="14. TCP如何实现可靠传输"></a>14. TCP如何实现可靠传输</h3><ol>
+<li>三次握手和四次挥手：确认应答和序列号；</li>
+<li>流量控制和拥塞控制。</li>
+</ol>
+<h2 id="一些面经-中兴"><a href="#一些面经-中兴" class="headerlink" title="一些面经 - 中兴"></a>一些面经 - 中兴</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/660801?type=2&amp;order=0&amp;pos=2&amp;page=1&amp;source_id=discuss_tag_nctrack&amp;channel=-1&amp;ncTraceId=44b95a713e9442b19e190965da36ad9c.406.16434563011824714&amp;gio_id=E30D9748681AD7BB6D8E8BBBB13EBA9E-1643456301844">中兴 java岗 社招 面筋</a>3</p>
+
+    </div>
+
+    
+    
+    
+	  
+	
+	 <div>
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	 </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" rel="tag"># 计算机基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/28/LeetCode-160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" rel="prev" title="LeetCode - 160. 相交链表">
+      <i class="fa fa-chevron-left"></i> LeetCode - 160. 相交链表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/29/%E9%9D%9E%E4%B8%93%E4%B8%9A%E7%BB%BC%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="next" title="非专业综合面试题">
+      非专业综合面试题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMySQL"><span class="nav-number">1.1.</span> <span class="nav-text">什么是MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E5%92%8CNoSQL%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.2.</span> <span class="nav-text">SQL和NoSQL的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">数据库和数据仓库的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E3%80%81%E4%BD%9C%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">主从复制原理、作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.5.</span> <span class="nav-text">连接查询与子查询的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#drop%E3%80%81delete%E3%80%81truncate-%E6%AF%94%E8%BE%83"><span class="nav-number">1.6.</span> <span class="nav-text">drop、delete、truncate 比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E8%83%BD%E6%9B%B4%E6%96%B0%E8%A7%86%E5%9B%BE"><span class="nav-number">1.7.</span> <span class="nav-text">视图的作用，以及什么情况下能更新视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%A7%A3%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E3%80%81%E5%AD%98%E5%82%A8%E5%87%BD%E6%95%B0%E5%92%8C%E8%A7%A6%E5%8F%91%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%82"><span class="nav-number">1.8.</span> <span class="nav-text">理解存储过程、存储函数和触发器的作用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.9.</span> <span class="nav-text">ACID 的作用以及实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%A4%A7%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E5%BD%B1%E8%AF%BB%E7%9A%84%E5%87%BA%E7%8E%B0%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.10.</span> <span class="nav-text">四大隔离级别，以及不可重复读和幻影读的出现原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">1.11.</span> <span class="nav-text">9. 乐观锁与悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">1.11.1.</span> <span class="nav-text">乐观锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">1.11.2.</span> <span class="nav-text">悲观锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-MVCC-%E5%8E%9F%E7%90%86%EF%BC%8C%E5%BD%93%E5%89%8D%E8%AF%BB%E4%BB%A5%E5%8F%8A%E5%BF%AB%E7%85%A7%E8%AF%BB%EF%BC%8CNext-Key-Locks-%E8%A7%A3%E5%86%B3%E5%B9%BB%E5%BD%B1%E8%AF%BB%E3%80%82"><span class="nav-number">1.12.</span> <span class="nav-text">10. MVCC 原理，当前读以及快照读，Next-Key Locks 解决幻影读。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MVCC%E5%8E%9F%E7%90%86"><span class="nav-number">1.12.1.</span> <span class="nav-text">MVCC原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E8%AF%BB%E5%92%8C%E5%BF%AB%E7%85%A7%E8%AF%BB"><span class="nav-number">1.12.2.</span> <span class="nav-text">当前读和快照读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Next-Key-Locks-%E8%A7%A3%E5%86%B3%E5%B9%BB%E5%BD%B1%E8%AF%BB"><span class="nav-number">1.12.3.</span> <span class="nav-text">Next-Key Locks 解决幻影读</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%EF%BC%9F"><span class="nav-number">1.13.</span> <span class="nav-text">11. 数据库的三大范式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-redo%E3%80%81undo%E3%80%81binlog-%E6%97%A5%E5%BF%97%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.14.</span> <span class="nav-text">12. redo、undo、binlog 日志的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%AD%98%E5%82%A8%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.15.</span> <span class="nav-text">13. 存储过程和存储函数的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-B-Tree-%E5%8E%9F%E7%90%86%EF%BC%8C%E4%B8%8E%E5%85%B6%E5%AE%83%E6%9F%A5%E6%89%BE%E6%A0%91%E7%9A%84%E6%AF%94%E8%BE%83%E3%80%82"><span class="nav-number">1.16.</span> <span class="nav-text">14. B+ Tree 原理，与其它查找树的比较。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-MySQL%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E8%BF%99%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9F"><span class="nav-number">1.17.</span> <span class="nav-text">15. MySQL索引结构？为什么使用这种数据结构？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-%E5%9E%82%E7%9B%B4%E5%88%87%E5%88%86%E4%B8%8E%E6%B0%B4%E5%B9%B3%E5%88%87%E5%88%86"><span class="nav-number">1.18.</span> <span class="nav-text">16. 垂直切分与水平切分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-MyISAM%E5%92%8CInnoDB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.19.</span> <span class="nav-text">17. MyISAM和InnoDB的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-on%E3%80%81where%E5%92%8Chaving%E7%9A%84%E7%94%A8%E6%B3%95%E5%8C%BA%E5%88%AB"><span class="nav-number">1.20.</span> <span class="nav-text">18. on、where和having的用法区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E5%91%BD%E4%BB%A4"><span class="nav-number">1.21.</span> <span class="nav-text">19. 常用的增删改查命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-sql%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.22.</span> <span class="nav-text">20. sql语句的执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-MySQL%E8%B7%91%E5%BE%97%E6%85%A2%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">1.23.</span> <span class="nav-text">21. MySQL跑得慢的优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-InnoDB%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.24.</span> <span class="nav-text">22. InnoDB的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.24.1.</span> <span class="nav-text">逻辑存储空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%9E%B6%E6%9E%84"><span class="nav-number">1.24.2.</span> <span class="nav-text">内存架构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-MySQL%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.25.</span> <span class="nav-text">23. MySQL索引的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.26.</span> <span class="nav-text">24. 联合索引的创建和使用的顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux"><span class="nav-number">2.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%8E-SIGCHLD-%E5%88%86%E6%9E%90%E4%BA%A7%E7%94%9F%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8E%9F%E5%9B%A0%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">1.  僵尸进程与孤儿进程的区别，从 SIGCHLD 分析产生僵尸进程的原因。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">2. 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">2.2.1.</span> <span class="nav-text">文件和文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">2.2.2.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.2.3.</span> <span class="nav-text">打包压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E3%80%81%E5%8D%B8%E8%BD%BD%E5%92%8C%E6%9B%B4%E6%96%B0"><span class="nav-number">2.2.4.</span> <span class="nav-text">软件安装、卸载和更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">2.2.5.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA"><span class="nav-number">2.2.6.</span> <span class="nav-text">显示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%B6%E9%97%B4"><span class="nav-number">2.2.7.</span> <span class="nav-text">时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="nav-number">2.2.8.</span> <span class="nav-text">磁盘信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">2.2.9.</span> <span class="nav-text">进程信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%9B%B8%E5%85%B3"><span class="nav-number">2.2.10.</span> <span class="nav-text">用户权限相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#which"><span class="nav-number">2.2.11.</span> <span class="nav-text">which</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">2.2.12.</span> <span class="nav-text">修改文件权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E5%8D%A1%E4%BF%A1%E6%81%AF"><span class="nav-number">2.2.13.</span> <span class="nav-text">网卡信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86"><span class="nav-number">2.2.14.</span> <span class="nav-text">远程登陆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">3.</span> <span class="nav-text">计算机基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%8B%E7%BB%8D%E4%B8%8BLRU%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">1. 介绍下LRU？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-OSI%E4%B8%83%E5%B1%82%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E3%80%81TCP-IP%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B%E3%80%81%E4%BA%94%E5%B1%82%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%EF%BC%88%E6%AF%8F%E4%B8%80%E5%B1%82%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">2. OSI七层网络模型、TCP&#x2F;IP分层模型、五层网络模型（每一层解决什么问题）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TCP%E5%92%8CUDP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.3.</span> <span class="nav-text">3. TCP和UDP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-http%E5%92%8Chttps%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.4.</span> <span class="nav-text">5. http和https的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-HTTP%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">3.5.</span> <span class="nav-text">6. HTTP状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-TCP%E6%80%8E%E4%B9%88%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%EF%BC%9F%E6%80%8E%E4%B9%88%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%EF%BC%9F"><span class="nav-number">3.6.</span> <span class="nav-text">7. TCP怎么流量控制？怎么拥塞控制？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">3.6.1.</span> <span class="nav-text">流量控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">3.6.2.</span> <span class="nav-text">拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%85%A2%E5%BC%80%E5%A7%8B%E7%AE%97%E6%B3%95"><span class="nav-number">3.6.2.1.</span> <span class="nav-text">1. 慢开始算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.6.2.2.</span> <span class="nav-text">2. 拥塞避免算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%BF%AB%E9%87%8D%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="nav-number">3.6.2.3.</span> <span class="nav-text">3. 快重传算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%BF%AB%E6%81%A2%E5%A4%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.6.2.4.</span> <span class="nav-text">4. 快恢复算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%88%E5%BB%BA%E7%AB%8BTCP%E7%9A%84%E9%93%BE%E6%8E%A5%EF%BC%89%E3%80%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%88%E9%87%8A%E6%94%BETCP%E7%9A%84%E9%93%BE%E6%8E%A5%EF%BC%89"><span class="nav-number">3.7.</span> <span class="nav-text">8. 三次握手（建立TCP的链接）、四次挥手（释放TCP的链接）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9A"><span class="nav-number">3.7.1.</span> <span class="nav-text">三次握手：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9A"><span class="nav-number">3.7.2.</span> <span class="nav-text">四次挥手：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E4%BA%8B%E5%AE%9E%E8%A1%A8%E4%B8%8E%E7%BB%B4%E5%BA%A6%E8%A1%A8%EF%BC%9F%E4%BA%8B%E5%AE%9E%E8%A1%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E7%A7%8D%E7%B1%BB%EF%BC%9F"><span class="nav-number">3.8.</span> <span class="nav-text">9. 事实表与维度表？事实表有哪些种类？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81%EF%BC%9F%E6%AD%BB%E9%94%81%E6%9D%A1%E4%BB%B6%EF%BC%9F%E6%80%8E%E4%B9%88%E7%A0%B4%E5%9D%8F%EF%BC%9F"><span class="nav-number">3.9.</span> <span class="nav-text">10. 操作系统死锁？死锁条件？怎么破坏？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">3.9.1.</span> <span class="nav-text">死锁的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.9.2.</span> <span class="nav-text">死锁的必要条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E6%AD%BB%E9%94%81%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.9.3.</span> <span class="nav-text">破坏死锁的条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">3.10.</span> <span class="nav-text">11. 页面置换算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-CPU%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%EF%BC%89"><span class="nav-number">3.11.</span> <span class="nav-text">12. CPU调度算法（进程调度）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.12.</span> <span class="nav-text">13. 磁盘调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-TCP%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">3.13.</span> <span class="nav-text">14. TCP如何实现可靠传输</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%9D%A2%E7%BB%8F-%E4%B8%AD%E5%85%B4"><span class="nav-number">4.</span> <span class="nav-text">一些面经 - 中兴</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bonnie"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Bonnie</p>
+  <div class="site-description" itemprop="description">每天都要做个人啊</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-05 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bonnie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

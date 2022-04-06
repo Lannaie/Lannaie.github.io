@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="往南">
 <meta property="og:description" content="题目https:&#x2F;&#x2F;www.nowcoder.com&#x2F;practice&#x2F;e69148f8528c4039ad89bb2546fd4ff8?tpId&#x3D;13&amp;tqId&#x3D;1375424&amp;ru&#x3D;&#x2F;ta&#x2F;coding-interviews&amp;qru&#x3D;&#x2F;ta&#x2F;coding-interviews&#x2F;question-ranking">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2.assets/1423760-20180929170016855-451855187.jpg">
-<meta property="og:image" content="http://example.com/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2.assets/1423760-20180929171549048-2112081040.png">
+<meta property="og:image" content="http://example.com/2021/12/04/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/LeetCode-JZ20-表示数值的字符串.assets/1423760-20180929170016855-451855187.jpg">
+<meta property="og:image" content="http://example.com/2021/12/04/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/LeetCode-JZ20-表示数值的字符串.assets/1423760-20180929171549048-2112081040.png">
 <meta property="article:published_time" content="2021-12-04T07:19:50.000Z">
 <meta property="article:modified_time" content="2022-01-28T09:15:24.123Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="有限状态自动机">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2.assets/1423760-20180929170016855-451855187.jpg">
+<meta name="twitter:image" content="http://example.com/2021/12/04/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/LeetCode-JZ20-表示数值的字符串.assets/1423760-20180929170016855-451855187.jpg">
 
 <link rel="canonical" href="http://example.com/2021/12/04/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
@@ -261,19 +261,16 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/e69148f8528c4039ad89bb2546fd4ff8?tpId=13&amp;tqId=1375424&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking">https://www.nowcoder.com/practice/e69148f8528c4039ad89bb2546fd4ff8?tpId=13&amp;tqId=1375424&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="有限状态自动机-知识简单介绍"><a href="#有限状态自动机-知识简单介绍" class="headerlink" title="有限状态自动机 - 知识简单介绍"></a>有限状态自动机 - 知识简单介绍</h2><p>一般用于字符串匹配问题。（应该）</p>
 <p>有限状态自动机分为确定有限（DFA）和不确定有限（NFA）。</p>
 <ol>
 <li><p>确定有限状态自动机DFA</p>
-<p><img src="/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2.assets/1423760-20180929170016855-451855187.jpg"></p>
+<p><img src="LeetCode-JZ20-表示数值的字符串.assets/1423760-20180929170016855-451855187.jpg" alt=""></p>
 <p>设初始态为 <code>0</code> ，终止态为 <code>2</code> ，当进行一系列操作，使得状态机的状态不断变化，只要最后一个输入使得状态机处于终止态，就表明当前输入可以被状态机接收。</p>
 <p>比如，<code>abab</code> 的状态变化是 <code>&#123;0,1,2,2&#125;</code> ，由于最后一个状态是终止态 <code>2</code> ，所以该字符串可以被接收；如果字符串为 <code>bbab</code> ，状态变化是 <code>&#123;0,1,0,1&#125;</code> ，最后一个状态为 <code>1</code> ，不符合终止态，不会被接收。</p>
 </li>
 <li><p>不确定有限状态自动机NFA</p>
-<p><img src="/LeetCode-JZ20-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2.assets/1423760-20180929171549048-2112081040.png"></p>
+<p><img src="LeetCode-JZ20-表示数值的字符串.assets/1423760-20180929171549048-2112081040.png" alt=""></p>
 <p>在上面这个状态转换形式中，从 <code>0</code> 开始，读取 <code>a</code> ，可以原地，也可以到 <code>1</code> ，状态不唯一，但都合法，这种状态就是不确定的。这种状态下的路径不会只有一个，只要其中一个能走到终止态，就算成功，所以会涉及到回溯内容。</p>
 </li>
 </ol>
@@ -336,11 +333,10 @@
 <p>⑥ 整数：⑧、正负号：⑦；</p>
 <p>⑦ 整数：⑧；</p>
 <p>⑧ 整数：⑧、后导空格：⑧。</p>
-<p>**注意：上面的步骤多了一个 ⑦ 的步骤，这是因为此处必须出现的整数与 ④ 的整数不同，前一个是小数点后，后一个是e|E以及正负号后。 **</p>
+<p><strong>注意：上面的步骤多了一个 ⑦ 的步骤，这是因为此处必须出现的整数与 ④ 的整数不同，前一个是小数点后，后一个是e|E以及正负号后。 </strong></p>
 <p>将所有的 <code>str</code> 字符串都添加一个后导空格，最后只需要判断最终的 <code>end</code> 是否是 ⑧ 结尾就可以了。</p>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> str string字符串 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> bool布尔型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNumeric</span> <span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        Map[] maps = </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27; &#x27;</span>, <span class="number">0</span>); put(<span class="string">&#x27;s&#x27;</span>, <span class="number">1</span>); put(<span class="string">&#x27;d&#x27;</span>, <span class="number">4</span>); put(<span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>);&#125;&#125;,</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27;d&#x27;</span>, <span class="number">4</span>); put(<span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>);&#125;&#125;,</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27;d&#x27;</span>, <span class="number">3</span>);&#125;&#125;,</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27;d&#x27;</span>, <span class="number">3</span>); put(<span class="string">&#x27;e&#x27;</span>, <span class="number">5</span>); put(<span class="string">&#x27; &#x27;</span>, <span class="number">7</span>);&#125;&#125;,</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27;d&#x27;</span>, <span class="number">4</span>); put(<span class="string">&#x27;.&#x27;</span>, <span class="number">3</span>); put(<span class="string">&#x27;e&#x27;</span>, <span class="number">5</span>); put(<span class="string">&#x27; &#x27;</span>, <span class="number">7</span>);&#125;&#125;,</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27;s&#x27;</span>, <span class="number">6</span>); put(<span class="string">&#x27;d&#x27;</span>, <span class="number">7</span>);&#125;&#125;,</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27;d&#x27;</span>, <span class="number">7</span>);&#125;&#125;,</span><br><span class="line">            <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() &#123;&#123;put(<span class="string">&#x27;d&#x27;</span>, <span class="number">7</span>); put(<span class="string">&#x27; &#x27;</span>, <span class="number">7</span>);&#125;&#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        str += <span class="string">&quot; &quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length(); ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">char</span> c = str.charAt(i);</span><br><span class="line">            <span class="keyword">if</span>( c == <span class="string">&#x27;+&#x27;</span> || c == <span class="string">&#x27;-&#x27;</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                c = <span class="string">&#x27;s&#x27;</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>( c &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; c &lt;= <span class="string">&#x27;9&#x27;</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                c = <span class="string">&#x27;d&#x27;</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>( c == <span class="string">&#x27;e&#x27;</span> || c == <span class="string">&#x27;E&#x27;</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                c = <span class="string">&#x27;e&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( !maps[end].containsKey(c) )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            end = (<span class="keyword">int</span>)maps[end].get(c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> end == <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -450,7 +446,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -463,7 +459,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
