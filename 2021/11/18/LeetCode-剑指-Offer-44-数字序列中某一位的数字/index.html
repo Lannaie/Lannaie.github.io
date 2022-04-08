@@ -258,9 +258,6 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/">https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h2><p>插值查找是二分查找的变种。</p>
 <p>二分查找是：有三个变量，<code>low = 0， high = num.length, mid = (low + high)/2</code>，这三个变量是固定的，插值查找的这三个变量是可变。</p>
 <p>将 <code>low</code> 和 <code>high</code> 当成是上限和下限， <code>mid</code> 是一个灵活的具有规律的指定元素，可以分析该题：</p>
@@ -271,14 +268,11 @@
 <li>因为是一维一维降的，所以不符合if条件的肯定会降下第一维：<code>n -= 9</code> ；</li>
 <li>之后从第二维开始：<code>start = 10, end = 99, digit = 2</code> ；</li>
 <li>开始一维一维的减，直到<code>n</code> 在某一维区间内，退出循环；</li>
-<li>计算该区间的该 <code>n</code> 对应的实际数字：<code>(start + (n - 1) / digit)</code> ，该区间从 <code>start</code> 开始，<code>n - 1</code> 是因为每次以 <code>0</code> 为首个下标，所以需要 <code> - 1</code> ，为了方便取数，<code>+&quot;&quot;</code> 变成字符串；</li>
+<li>计算该区间的该 <code>n</code> 对应的实际数字：<code>(start + (n - 1) / digit)</code> ，该区间从 <code>start</code> 开始，<code>n - 1</code> 是因为每次以 <code>0</code> 为首个下标，所以需要 <code>- 1</code> ，为了方便取数，<code>+&quot;&quot;</code> 变成字符串；</li>
 <li>之后 <code>(n - 1) % digit</code> 取哪一位上的数。</li>
 </ol>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n int整型 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findNthDigit</span> <span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">9</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> start = <span class="number">10</span>, end = <span class="number">99</span>;</span><br><span class="line">        <span class="keyword">long</span> digit = <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        n -= <span class="number">9</span>;</span><br><span class="line">        <span class="keyword">while</span>( n &gt; end )</span><br><span class="line">        &#123;</span><br><span class="line">            n -= end;</span><br><span class="line">            start *= <span class="number">10</span>;</span><br><span class="line">            digit += <span class="number">1</span>;</span><br><span class="line">            end = start * <span class="number">9</span> * digit;</span><br><span class="line">        &#125;</span><br><span class="line">        String num = (start + (n - <span class="number">1</span>) / digit) + <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> idx = (<span class="keyword">int</span>)((n - <span class="number">1</span>) % digit);</span><br><span class="line">        <span class="keyword">return</span> Integer.parseInt(num.charAt(idx)+<span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 
     </div>
 
@@ -388,7 +382,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

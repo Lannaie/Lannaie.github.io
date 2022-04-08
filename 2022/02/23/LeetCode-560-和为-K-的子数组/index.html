@@ -250,20 +250,17 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/subarray-sum-equals-k/">https://leetcode-cn.com/problems/subarray-sum-equals-k/</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="枚举（暴力）"><a href="#枚举（暴力）" class="headerlink" title="枚举（暴力）"></a>枚举（暴力）</h3><p>遍历每个元素，以当前元素为最后一个必取的元素，往前计算，如果结果与 <code>k</code> 相等则 <code>count++</code> 。</p>
 <p>具体代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">subarraySum</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = i; j &gt;= <span class="number">0</span>; --j )</span><br><span class="line">            &#123;</span><br><span class="line">                sum += nums[j];</span><br><span class="line">                <span class="keyword">if</span>( sum == k )</span><br><span class="line">                &#123;</span><br><span class="line">                    ++res;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="前缀和-哈希表"><a href="#前缀和-哈希表" class="headerlink" title="前缀和 - 哈希表"></a>前缀和 - 哈希表</h3><p>使用前缀和的思想，可以得到如下式子：<br>$$<br>preSum[i] - preSum[j] &#x3D;&#x3D; k \<br>&#x3D;&gt;\<br>preSum[i] - k &#x3D;&#x3D; preSum[j]\<br>$$<br>式子中，preSum存储 <code>从 0 到 i </code> 的累加，<code>i &lt;= j</code> 。</p>
+<h3 id="前缀和-哈希表"><a href="#前缀和-哈希表" class="headerlink" title="前缀和 - 哈希表"></a>前缀和 - 哈希表</h3><p>使用前缀和的思想，可以得到如下式子：</p>
+<script type="math/tex; mode=display">
+preSum[i] - preSum[j] == k \\
+=>\\
+preSum[i] - k == preSum[j]\\</script><p>式子中，preSum存储 <code>从 0 到 i</code> 的累加，<code>i &lt;= j</code> 。</p>
 <p>那么我们可以在哈希表中存储 <code>preSum[j]</code> 的值和出现的次数，这样能够保证一个前缀值出现多次的情况下能够一次获取所有的个数。需要默认，表中存在 <code>(0, 1)</code> ，因为其他的 <code>preSum[i] - k</code> 需要对应的 <code>preSum[j]</code> ，但是 <code>preSum[i] - k == 0</code> 的情况是肯定不用的。</p>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">subarraySum</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        map.put(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> num : nums )</span><br><span class="line">        &#123;</span><br><span class="line">            sum += num;</span><br><span class="line">            <span class="keyword">if</span>( map.containsKey(sum - k) )</span><br><span class="line">            &#123;</span><br><span class="line">                count += map.get(sum - k);</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(sum, map.getOrDefault(sum, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -375,7 +372,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -263,7 +263,6 @@
 </li>
 </ol>
 <span id="more"></span>
-
 <h3 id="hadoop的版本区别"><a href="#hadoop的版本区别" class="headerlink" title="hadoop的版本区别"></a>hadoop的版本区别</h3><p>1.x的版本包含辅助工具，hdfs和mapreduce。其中hdfs负责数据存储，mapreduce负责数据计算和资源调度。</p>
 <p>2.x的版本与1.x版本大致相同，唯一的区别在于将mapreduce的任务一分为二，mapreduce继续负责数据的运算，将资源调度的任务分配给yarn框架。</p>
 <h3 id="常用端口号"><a href="#常用端口号" class="headerlink" title="常用端口号"></a>常用端口号</h3><p>hadoop2：</p>
@@ -311,7 +310,7 @@
 <p>（5）输出流以packet为单位将数据传输到dn1，dn1接收完后再传给dn2，dn再传给dn3；</p>
 <p>（6）输出流在发送packet的同时，会创建一个ack队列，这个队列主要用于接收是否应答成功，确保数据是在应答成功后才会删除，如果没有应答成功，ack队列会将数据再放回缓冲队列中等待再次传输；</p>
 <p>（7）输出流发送的数据先由dn1接收，接收后会向dn2发送，然后dn2向dn3发送，等到dn3接收完毕会向dn2发回应答成功的响应，dn2向dn1发回响应，dn1返回给流对象，流对象接收到响应后才会删除ack队列的数据。</p>
-<ol start="2">
+<ol>
 <li>读过程：</li>
 </ol>
 <p>（1）客户端创建一个分布式文件系统对象，由这个对象向NameNode请求下载文件，NameNode先判断这个对象是否有权限查看文件，再判断是否存在这个文件，然后将文件的元数据返回给对象；</p>
@@ -362,16 +361,16 @@
 <p>对于ReduceTask的个数，可以直接手动设置：job.setNumReduceTasks(num)，默认是1。ReduceTask的数量与分区数有关。</p>
 <ol>
 <li>当num(Partition) &lt; num(ReduceTask)：因为一个分区对应一个reducetask，所以会有闲置的reducetask，进而生成一些空文件；</li>
-<li>当num(Partition) &#x3D;&#x3D; num(ReduceTask)：刚好一一对应，能够正常执行；</li>
+<li>当num(Partition) == num(ReduceTask)：刚好一一对应，能够正常执行；</li>
 <li>当num(Partition) &gt; num(ReduceTask)：会报错illegal partition。</li>
-<li>当 num(ReduceTask) &#x3D; 1：会正常执行，所以分区数据都进入一个task处理。</li>
+<li>当 num(ReduceTask) = 1：会正常执行，所以分区数据都进入一个task处理。</li>
 </ol>
 <h4 id="shuffle过程详解"><a href="#shuffle过程详解" class="headerlink" title="shuffle过程详解"></a>shuffle过程详解</h4><p>​        Map方法之后，Reduce方法之前的混洗的过程就叫做Shuffle。</p>
 <p>​        从Map方法出来之后，会先进入 getPartition() 方法，标记数据是哪个分区的，然后进入环形缓冲区。这个缓冲区默认100M，左侧存索引，右侧存实际的数据，存储的数据量到达80%的阈值后开始反向溢写，这样就可以让缓冲区一直高效运转，不至于在缓冲区满了以后阻塞等待。在溢写之前，还需要对数据中的key的索引，按照字典序进行快排。</p>
 <p>​        溢出的时候，可以通过调用Combiner进行局部汇总，Combiner的过程可以看成是本地的reduce过程，目的是为了减少网络传输的数据量。溢出后，会产生两个文件，一个是实际溢出的数据文件，一个是这个数据文件的索引文件。</p>
 <p>​        之后会对溢出文件执行归并排序。之后也可以执行Combiner操作，之后还可以执行压缩的操作。最终磁盘会产生两个文件，一个存储实际数据，一个存储索引数据，后续reducetask会通过索引文件定位拉取相应分区的数据。</p>
 <p>​        ReduceTask会获取相应分区的数据，先将数据存到内存，等到内存不足再写入磁盘，最终将内存和磁盘的数据进行归并排序，并传给reduce端执行用户逻辑。</p>
-<h4 id="Combiner-过程"><a href="#Combiner-过程" class="headerlink" title="Combiner 过程"></a>Combiner 过程</h4><p>​        Combiner不是MR程序默认的组件，可以看成是一个插件，父类是Reducer，使用reduce方法编写combiner的逻辑，在每个Map Task所在的节点运行。它的目的是对每个Map Task的输出进行局部汇总，以减小网络传输量，比如一个Map Task中有100个 &lt;a,1&gt;，汇总以后变成 &lt;a,100&gt;，那么原来需要传100次，现在只需要传1次。但是Combiner应用的前提是不能影响最终的业务逻辑。假设最终逻辑是求中位数，那么就不能使用combiner来解决了。</p>
+<h4 id="Combiner-过程"><a href="#Combiner-过程" class="headerlink" title="Combiner 过程"></a>Combiner 过程</h4><p>​        Combiner不是MR程序默认的组件，可以看成是一个插件，父类是Reducer，使用reduce方法编写combiner的逻辑，在每个Map Task所在的节点运行。它的目的是对每个Map Task的输出进行局部汇总，以减小网络传输量，比如一个Map Task中有100个 <a,1>，汇总以后变成 <a,100>，那么原来需要传100次，现在只需要传1次。但是Combiner应用的前提是不能影响最终的业务逻辑。假设最终逻辑是求中位数，那么就不能使用combiner来解决了。</p>
 <p>​        编写完Combiner后，需要指定执行它：job.setCombinerClass() 。</p>
 <h4 id="压缩的配置"><a href="#压缩的配置" class="headerlink" title="压缩的配置"></a>压缩的配置</h4><p>​        数据压缩可以在三个地方进行配置：输入端、Mapper输出端以及Reducer输出端。</p>
 <p>​        首先输入端是配置 core-site.xml 的 io.compression.codecs 参数，默认不填写内容；</p>
@@ -389,7 +388,7 @@
 <p>​        二次排序的具体步骤是：会实现WritableComparable接口，然后在 compareTo 方法中对key和value自定义排序的规则即可。</p>
 <h4 id="MapReduce优化"><a href="#MapReduce优化" class="headerlink" title="MapReduce优化"></a>MapReduce优化</h4><h5 id="跑得慢的原因"><a href="#跑得慢的原因" class="headerlink" title="跑得慢的原因"></a>跑得慢的原因</h5><p>Mapreduce的瓶颈在于两点：</p>
 <p>（1）计算机性能：CPU是否充足、内存够用、磁盘的速度是否达到了最佳、网络上的带宽是否够用等。</p>
-<p>（2）I&#x2F;O操作：数据倾斜、Map运行时间太长导致Reduce等待过久、小文件过多。</p>
+<p>（2）I/O操作：数据倾斜、Map运行时间太长导致Reduce等待过久、小文件过多。</p>
 <h5 id="具体的优化方法"><a href="#具体的优化方法" class="headerlink" title="具体的优化方法"></a>具体的优化方法</h5><p><strong>1）数据输入</strong></p>
 <p>​        可以通过合并小文件来减少maptask的个数。MR提供了一种新的输入格式CombineTextInputFormat，这个格式会在逻辑上将多个小文件合并为一个split，交由一个maptask执行。</p>
 <p><strong>2）Map端的Shuffle过程</strong></p>
@@ -412,7 +411,7 @@
 <p>（8）设置超时时间 <code>mapreduce.task.timeout</code> 默认10分钟，如果一个task在这个时间内既不读取也不输出，就认为这个task被卡住了，那么10分钟以后这个task会被强制停止执行；</p>
 <p>（9）因为reduce端肯定会涉及到shuffle过程，效率就会比较低，所以可以不使用reduce，就别用了。</p>
 <p><strong>4）数据倾斜</strong></p>
-<p>（1）数据倾斜现象<br>大量的相同key被分配到一个分区里，map &#x2F;reduce程序执行时，reduce节点大部分执行完毕，但是有一个或者几个reduce节点运行很慢，导致整个程序的处理时间很长。<br>（2）减少数据倾斜的方法</p>
+<p>（1）数据倾斜现象<br>大量的相同key被分配到一个分区里，map /reduce程序执行时，reduce节点大部分执行完毕，但是有一个或者几个reduce节点运行很慢，导致整个程序的处理时间很长。<br>（2）减少数据倾斜的方法</p>
 <p>方法一：将不均匀的key值打散。</p>
 <p>这种方式适用于绝大部分key对应10%的数据，而很少部分的key对应90%的数据。对于这种情况，可以给key值加上随机数，将数据量很大的key值打散到不同的reduce中计算。</p>
 <p>方法二：使用map join代替 reduce join。</p>
@@ -574,7 +573,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
