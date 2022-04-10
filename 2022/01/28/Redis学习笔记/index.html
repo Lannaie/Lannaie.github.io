@@ -28,7 +28,7 @@
 <meta property="og:description" content="概念​        Redis是一款基于键值对的NoSQL数据库，它的值支持多种数据结构：字符串(strings)、哈希(hashes)、列表(lists)、集合(sets)、有序集合(sorted sets)等。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-27T16:17:35.000Z">
-<meta property="article:modified_time" content="2022-04-09T18:32:31.930Z">
+<meta property="article:modified_time" content="2022-04-10T17:19:44.950Z">
 <meta property="article:author" content="Bonnie">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-10 02:32:31" itemprop="dateModified" datetime="2022-04-10T02:32:31+08:00">2022-04-10</time>
+                <time title="修改时间：2022-04-11 01:19:44" itemprop="dateModified" datetime="2022-04-11T01:19:44+08:00">2022-04-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,6 +238,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
                 </span>
             </span>
 
@@ -370,16 +374,80 @@
 <h3 id="redis使用场景"><a href="#redis使用场景" class="headerlink" title="redis使用场景"></a>redis使用场景</h3><ol>
 <li>做缓存。</li>
 </ol>
-<h3 id="AOF持久化的实现"><a href="#AOF持久化的实现" class="headerlink" title="AOF持久化的实现"></a>AOF持久化的实现</h3><p>​        具体就是，当客户端发送写命令，第一步执行到内存，第二步记录命令到日志，这就是AOF持久化，只会记录写操作。先执行命令再写入的好处有两个：</p>
+<h3 id="持久化方式"><a href="#持久化方式" class="headerlink" title="持久化方式"></a>持久化方式</h3><p>​        有两种：AOF持久化和RDB快照。</p>
+<h4 id="RDB快照"><a href="#RDB快照" class="headerlink" title="RDB快照"></a>RDB快照</h4><p>​        rdb快照就是记录某一时刻内存中的全量数据。rdb快照的持久化就是将这个快照生成rdb文件写入磁盘。有两种生成方式：</p>
 <ol>
-<li>避免额外的检查开销，如果能够正确执行到内存，就说明语法没有问题；</li>
-<li>不会阻塞当前写操作命令的执行。因为当写命令执行成功后才会将命令记录到日志。</li>
+<li>save，在主进程生成，这种方式因为和执行操作的命令在同一进程，如果快照生成的速度比较慢，就会阻塞主进程；</li>
+<li>bgsave，在子进程生成，这种方式就不会阻塞主进程的执行，是redis默认的生成方式。</li>
 </ol>
-<p>​        但是也会存在风险。</p>
+<p>​        由于在生成快照期间，主进程依然可以执行，那么也可以对数据进行修改的，这就是引入了写时复制技术。具体的实现过程是：首先执行bgsave命令时，会通过fork()创建一个子进程，这个子进程会复制主进程的页表，所以它们共享同一块内存。在生成rdb的期间，如果主进程要修改共享内存中的数据，就会将要修改的这一块内存复制一个副本，在副本中进行修改，原本的数据会保持原样写入rdb文件，在本次快照生成过程中进行的修改，会到下次生成快照时再被写入。</p>
+<p>​        这就会存在一个风险：如果在下次快照之前服务器宕机了，那么在快照生成期间修改的这部分数据就会丢失。并且在极端情况下，如果生成快照期间所有的共享数据都被修改了，那么此时内存的占用就会是原来的两倍，很容易出现内存溢出的情况。而且由于rdb是全量快照，所以快照的频率不能太高，否则redis的性能会下降；但是也不能太低，否则一旦故障，丢失的数据量就很大了。通常会设置5分钟进行一次快照。</p>
+<h4 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h4><p>​        aof持久化就是将redis的写操作命令以追加的方式写入aof文件，然后在redis故障重启的时候只需要重做一次文件的操作就可以恢复数据。具体的执行流程是：当客户端提交写操作时，会先执行这个操作到内存，然后再写入文件。先执行再写入的目的是为了保证写入的命令是正确的，但是如果写操作执行后还没写入日志服务器就宕机，就会出现数据丢失。</p>
+<p>​        redis写入日志的过程是：首先会将命令追加到aof缓冲区，然后aof缓冲区会根据写回策略将操作sync同步到磁盘的aof文件中，当磁盘中的aof文件超过指定大小或手动触发重写时，aof文件就会执行rewrite重写，来压缩aof文件，最后当redis重启时，会重做aof文件中的命令来恢复数据。</p>
+<p>​        其中，写回策略有三个：always是每次写操作执行完后就会立刻同步写入磁盘，所以可以保证高可靠，但是因为频繁写入，肯定会产生一定的性能消耗；no是将写入的时机交给操作系统决定，是不可预测的，所以当服务器宕机而系统还没写回，就会出现数据丢失；everysec是执行完操作以后会先写入aof缓冲区，每隔一秒将缓冲区的数据写入磁盘，这种方式比较折中，在减少性能开销的同时，能保证就算出现数据丢失，也只是一秒的数据。</p>
+<p>​        重写策略是为了避免aof文件过大，导致redis重启时执行的时间过长而产生的。当aof文件默认超过64M，就会触发重写。重写就是读取redis中现有的数据，将这些数据转换为命令写入一个新的aof文件中，等到全部写完，再将新的aof文件替换掉现有的aof文件。之所以使用新的文件而不复用原文件，是防止重写过程失败，污染现有的日志，让它无法用于恢复。</p>
+<p>​        由于这个重写的过程是针对整个数据库的，所以会比较耗时。于是redis调用fork()创建一个子进程来专门执行这个操作。但是这就会产生一个问题：和rdb一样，主进程在子进程执行写入的时候，也是可以修改数据的，那么修改之后数据就不一致了。为了解决这个问题，redis设置了一个aof重写缓冲区。在重写过程中，redis执行了一个写命令，会同时将这个命令写入aof缓冲区和aof重写缓冲区。当子进程完成重写之后，会向主进程发送一条信号，主进程接收到信号后会调用一个信号处理函数，将重写缓冲区的记录追加到新的aof文件中，使得新旧数据库的状态保持一致，然后再将新的aof文件覆盖为当前的aof文件。</p>
+<p><strong>面试题：如果AOF和RDB同时开启怎么办？</strong></p>
+<p>​        如果AOF和RDB同时开启，redis默认会取AOF中的数据，但是数据不会存在丢失，RDB文件依然存在。</p>
+<p><strong>面试题：AOF怎么开启</strong></p>
+<p>​        AOF默认是不开启的，可以通过修改redis.conf配置文件中的appendonly为true开启AOF，AOF日志保存的路径，和RDB的路径是一致的，都在redis的启动路径下。</p>
+<h3 id="淘汰机制（内存回收策略）"><a href="#淘汰机制（内存回收策略）" class="headerlink" title="淘汰机制（内存回收策略）"></a>淘汰机制（内存回收策略）</h3><p>​        首先需要了解淘汰机制出现的原因，因为缓存的容量是有限的，当缓存容量达到上限，就需要删除一些数据来挪空间放新数据。基于这个思想，redis定义了淘汰机制来解决内存被写满的问题。</p>
+<p>​        淘汰机制主要考虑两个问题：淘汰哪些数据，以及如何处理淘汰的数据。</p>
+<p>​        redis定义了8中内存淘汰的策略：</p>
 <ol>
-<li>当执行成功后，写入日志之前宕机，这部分数据就会丢失；</li>
-<li>可能会给下一个写操作带来阻塞风险，因为执行命令和写入日志的操作都是在主进程执行，也就是说这两个操作是同步的，</li>
+<li>noeviction：不会淘汰任何数据，当内存满了就报错；</li>
+<li>volatile-ttl：筛选设置过期时间的键值对，删除最早过期的数据；</li>
+<li>volatile-random：筛选设置过期时间的键值对，进行随机删除；</li>
+<li>volatile-lru：筛选设置过期时间的键值对，使用lru算法删除；</li>
+<li>volatile-lfu：筛选设置过期时间的键值对，使用lfu算法删除；</li>
+<li>allkeys-random：对所有键值对进行随即删除；</li>
+<li>allkeys-lru：对所有键值对使用lru算法删除；</li>
+<li>allkeys-lfu：对所有键值对使用lfu算法删除。</li>
 </ol>
+<p>​        其中，noeviction是redis默认的淘汰策略，但是实际项目中一般不会使用这种策略。因为业务量通常都是会超过缓存容量的，这个策略步淘汰数据，就失去了使用缓存的初衷。</p>
+<p>​        针对volatile相关的四种淘汰策略，设置了过期时间的数据会有两种情况被清理：要么是到了过期时间被删除，要么就是还没有到过期的时间，但是被规则选中，也会被删除。</p>
+<p>​        对于allkeys相关的三种策略，与volatile相关的淘汰策略相比，它的范围是所有数据。</p>
+<p>​        对于有明显冷热区分的业务数据，建议使用allkeys-lru，可以充分利用lru算法的优势，把最近最常访问的数据留在缓存，提高应用的访问性能；如果数据访问的频率都相差不大，建议使用allkeys-random进行随机淘汰；如果存在置顶需求，可以使用volatile相关的策略，不给置顶的内容设置过期时间，只对其他非置顶的数据进行淘汰。</p>
+<p>​        接下来简单的聊一下LRU和LFU算法。</p>
+<p>​        LRU是依据最近最少被使用的规则来筛选最不常用的数据进行删除。它将数据组成一个双向链表，然后依照访问顺序排序，也就是每访问一个数据，都会将这个数据移动到表头，那么最近最少被用到的数据就会集中在表尾。Redis中使用一个24bit的lru字段来标明这个数据的访问时间戳，在淘汰数据的时候，第一次会随机选择N个数据，把它们作为一个候选集合，然后比较这N个数据的lru字段，把最小的数据淘汰。这个N由参数maxmemory-samples来设置。然后后续再淘汰的时候，redis会选择lru值小于当前集合中最小lru的数据进入集合。这样，redis缓存不需要为所有数据维护一个链表，也不需要移动链表项，提高了缓存的性能。</p>
+<p>​        LFU是在LRU的基础上，给数据增加了一个计时器，来统计数据的访问次数。具体的筛选规则是，先根据访问次数筛选，把访问次数最小的淘汰；如果访问次数相等，再根据访问时间筛选，把访问时间最久的淘汰。Redis中将lru字段切分为两个部分，前16bit存储访问时间戳，后8bit存访问次数。但是8bit的最大值是255，所以如果单纯使用这8个字节来计数最多只能记255次就无法区分了，于是引入一个配置项lfu_log_factor来辅助计数。</p>
+<p>​        具体的计数规则是：当数据被访问一次，先用当前的值乘以lfu_log_factor，并加一，再取其倒数，得到一个p值，然后将p值和一个取值范围在(0, 1) 之间的随机数r值比大小，当p&gt;r时，计数器才加一。其中计数器的初始值是5而不是0，可以避免数据刚被写入缓存就因为访问次数少而被淘汰。使用这个规则，就可以通过设置不同的配置项来控制计数器增加的速度。通过redis官网的统计，配置项设置为10的时候，十万级的访问次数对应的计数依然存在明显区分，所以一般可以将配置项设置为10。</p>
+<p>​        应用负载的情况是很复杂的，某些业务场景中，有些数据可能在短时间内被大量访问就不会再被访问了。为了避免这些数据的长时间缓存，redis设计了计数器的衰减机制。</p>
+<p>​        LFU通过衰减因子配置项lfu_decay_time来控制计数器的衰减。先计算当前时间和数据最近一次被访问的时间的差值，将这个差值换算成分钟除以这个衰减因子，所得结果就是计数器要衰减的值。因为衰减因子是分母，所以值越大，衰减的效果就越弱，所以当业务中存在大量短时高频的数据时，建议设置为1。</p>
+<p>​        LFU通常用于解决缓存污染的问题。缓存污染指的是在一些场景下，有些数据被访问的次数很少，当这些数据被访问完后，如果嗐继续留在缓存中，就会白白占用内存空间。缓存污染变得严重，就会有大量不再被访问的数据滞留在缓存，所以引入了LFU算法以访问次数为首要条件对数据进行淘汰。</p>
+<p>​        最后说一下如何处理被淘汰的数据。redis选定了淘汰的数据，不会管这个数据是否是脏数据都会删除，那么当这个数据是脏数据时，淘汰就会导致数据丢失。脏数据指的是内存中的这个值于后端数据库对应的数据不一致，因为内存中的值被更新过但是还没被刷到库上。所以使用redis缓存时，一旦修改数据，就需要立刻同步到数据库中，避免数据丢失。</p>
+<h3 id="缓存雪崩、穿透、击穿"><a href="#缓存雪崩、穿透、击穿" class="headerlink" title="缓存雪崩、穿透、击穿"></a>缓存雪崩、穿透、击穿</h3><h4 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h4><p>​        当大量数据同时过期，或redis宕机时，刚好出现大量请求，此时无法在redis处理，就会全部去访问数据库，造成库的压力过大，导致数据库宕机，从而形成一连串连锁反应，造成整个系统崩溃，就是缓存雪崩。</p>
+<p>​        对于大量数据同时过期的场景，可以均匀设置过期时间，给数据的过期时间添加一个随机数，保证数据不会在同一时间过期；也可以设置互斥锁，当线程处理用户请求，发现缓存没有对应数据，需要先获取对应的锁才能访问数据库读取，保证同一时间只会有一个线程构建缓存，不过最好给这个锁设置一个超时时间，否则如果一个请求拿到锁以后因为某种以外一直被阻塞，这个锁一直不释放，会造成整个系统的无响应；也可以使用双key策略，就是给数据设置两个key，主key设置过期时间，备key不设置过期时间，它们只是key不同，value相同，相当于给数据作一个副本，当业务线程访问不到主key的数据，就获取备key的数据，然后在更新缓存的时候，同时更新主key和备key的数据。</p>
+<p>​        对于redis宕机的场景，可以设置服务熔断或请求限流机制，服务熔断是在redis宕机时暂停业务对缓存的访问，直接返回错误，等到redis恢复后再允许访问。但是这种方式会导致所有业务都无法正常执行，为了减少对业务的影响，可以使用请求限流机制，只将少部分请求发送到数据库进行处理，再多的请求就在入口处直接拒绝服务，直到redis恢复后在解除请求限流机制。</p>
+<p>​        也可以设置redis的高可用集群，当主节点宕机，可以切换到从节点继续执行。</p>
+<h4 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h4><p>​        业务场景中通常会有几个数据被频繁访问，这些数据就是热点数据，当热点数据过期，此时大量请求访问该热点数据的线程就会直接访问数据库，数据库很容易就被这些请求冲垮，这就是缓存击穿。它和缓存雪崩很像，可以看成是缓存雪崩的一个子集。</p>
+<p>​        解决的方法有两个。可以设置互斥锁，保证同一时间只有一个线程访问数据库更新缓存，其余线程要么等待锁释放再重新读取缓存，要么返回空值或默认值；也可以不给热点数据设置过期时间，由后台异步更新缓存，或者在热点数据即将过期前，提前通知后台线程更新缓存并重新设置过期时间。</p>
+<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>​        当大量线程请求获取缓存和数据库中都不存在的数据，造成数据库的压力骤增，就会出现缓存穿透。出现缓存穿透的原因有两种：</p>
+<ol>
+<li>缓存和数据库中对应的数据都被误删了，导致这个数据不存在；</li>
+<li>黑客恶意攻击，故意大量访问某些不存在的数据。</li>
+</ol>
+<p>​        常见的应对方案有三种：</p>
+<ol>
+<li>非法请求的限制。在API的入口处判断请求参数是否合理、是否含非法值、以及请求字段是否存在，如果判断出是而已请求就直接返回错误，避免进一步访问缓存和数据库。</li>
+<li>缓存空值或默认值。对缓存和数据库都查不到的数据，在缓存中设置一个默认值或空值，这样后续就有可以返回的内容了。</li>
+<li>通过布隆过滤器快速判断数据是否存在，避免通过查询数据库来判断数据是否存在。在将数据写入数据库前，使用布隆过滤器对数据做标记，然后接收到请求后，确认不在缓存，就可以通过查询布隆过滤器来判断是否在数据库，如果不在，就可以不要访问数据库了。这样可以保证即便存在大量请求访问不存在的数据，也只会查缓存和过滤器，对数据库不会产生影响。布隆过滤器的实现原理是：布隆过滤器由一个初始值为0的位图数组和N个哈希函数组成，对数据进行标记时，会先使用N个哈希函数分别对数据进行哈希运算，得到N个哈希值，然后将这些哈希值对位图数组的长度取模，然后将每个哈希值对应在数组上的位置置1。不过既然是哈希相关，肯定会存在哈希冲突，所以通过布隆过滤器判断数据是否存在，如果不存在数据库中也一定不存在；但是存在可能数据库中并不存在。</li>
+</ol>
+<h2 id="Key的过期策略"><a href="#Key的过期策略" class="headerlink" title="Key的过期策略"></a>Key的过期策略</h2><p>​        可以通过 expire key seconds 来指定key的过期时间，返回1表示设置成功。主要是如何清除过期的数据。</p>
+<p>​        定时策略是给每个key加一个计时器，这样当到达过期时间就会自动删除，这种方式对内存是友好的，可以及时清理掉过期的key，但是每个带有过期时间的key都进行计时，肯定会消耗一定的cpu。</p>
+<p>​        惰性策略是在每次访问一个key的时候才去确认这个key是否过期，过期了就删除。但是如果一直没有访问到过期的key，这些key就会一直存在内存中。</p>
+<p>​        也可以使用淘汰机制来处理。</p>
+<h2 id="redis为什么这么快"><a href="#redis为什么这么快" class="headerlink" title="redis为什么这么快"></a>redis为什么这么快</h2><ol>
+<li><p>基于内存。</p>
+</li>
+<li><p>高效的数据结构。</p>
+</li>
+<li><p>合适的线程模型。</p>
+<p>​        首先使用IO多路复用模型。在生产环境中通常会有多个客户端连接redis，然后各自发送命令到redis，最后服务器处理完后返回结果。IO多路复用模型会同时监听多个套接字，并将这些请求推送到一个消息队列中，然后逐一执行，最终返回结果给客户端。</p>
+<p>​        其次由于redis是单线程的，所以能够避免上下文的切换带来的开销。说redis是单线程是因为IO多路复用程序在接收到用户请求会将其推送到一个消息队列中等待服务器逐一处理，redis是基于这个消息队列工作的，而这个消息队列是单线程的工作方式，所以是单线程的。</p>
+</li>
+</ol>
+<h2 id="redis的主从复制原理"><a href="#redis的主从复制原理" class="headerlink" title="redis的主从复制原理"></a>redis的主从复制原理</h2><p>​        redis的主从节点的实现和MySQL很像，都是主节点负责写，从节点负责读根同步。同步的实现</p>
 <h2 id="写操作下数据库和redis的先后顺序问题"><a href="#写操作下数据库和redis的先后顺序问题" class="headerlink" title="写操作下数据库和redis的先后顺序问题"></a>写操作下数据库和redis的先后顺序问题</h2><p>​        首先对于数据库和redis，有四种解法：先更新缓存再更新数据库、先更新数据库再更新缓存、先删除缓存再更新数据库和先更新数据库再删除缓存。</p>
 <p>​        先更新缓存再更新数据库一般是不会选择的，因为两个数据源之间的没有事务的，如果数据库更新失败要回滚的话，缓存不好处理。</p>
 <p>​        先更新数据库再更新缓存，在多线程的情况下，A比B更早的更新了数据库，但是由于网络延迟的问题，导致B比A更早更新了缓存，就会导致脏数据。</p>
@@ -479,7 +547,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows%E4%B8%8B%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">2.0.1.</span> <span class="nav-text">windows下安装：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="nav-number">2.0.2.</span> <span class="nav-text">linux下安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F%EF%BC%88%E5%87%BA%E7%8E%B0%E7%9A%84%E6%8A%A5%E9%94%99%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">测试是否安装成功（出现的报错）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven%E9%A1%B9%E7%9B%AE-Java%E8%BF%9E%E6%8E%A5redis"><span class="nav-number">2.2.</span> <span class="nav-text">maven项目 Java连接redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">redis数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9CString%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.</span> <span class="nav-text">操作String类型数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%93%88%E5%B8%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.3.</span> <span class="nav-text">操作哈希类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%88%97%E8%A1%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.4.</span> <span class="nav-text">操作列表类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.5.</span> <span class="nav-text">操作集合类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.6.</span> <span class="nav-text">操作有序集合类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%85%A8%E5%B1%80%EF%BC%8C%E5%AF%B9%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E9%83%BD%E6%9C%89%E6%95%88"><span class="nav-number">3.7.</span> <span class="nav-text">操作全局，对所有数据都有效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E7%9A%845%E7%A7%8D%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">redis的5种基本数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.2.</span> <span class="nav-text">redis使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF%E6%8C%81%E4%B9%85%E5%8C%96%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.3.</span> <span class="nav-text">AOF持久化的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E6%93%8D%E4%BD%9C%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8Credis%E7%9A%84%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">写操作下数据库和redis的先后顺序问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%80%9F%E9%89%B4"><span class="nav-number">6.</span> <span class="nav-text">借鉴</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows%E4%B8%8B%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">2.0.1.</span> <span class="nav-text">windows下安装：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="nav-number">2.0.2.</span> <span class="nav-text">linux下安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F%EF%BC%88%E5%87%BA%E7%8E%B0%E7%9A%84%E6%8A%A5%E9%94%99%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">测试是否安装成功（出现的报错）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven%E9%A1%B9%E7%9B%AE-Java%E8%BF%9E%E6%8E%A5redis"><span class="nav-number">2.2.</span> <span class="nav-text">maven项目 Java连接redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">redis数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9CString%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.</span> <span class="nav-text">操作String类型数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%93%88%E5%B8%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.3.</span> <span class="nav-text">操作哈希类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%88%97%E8%A1%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.4.</span> <span class="nav-text">操作列表类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.5.</span> <span class="nav-text">操作集合类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.6.</span> <span class="nav-text">操作有序集合类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%85%A8%E5%B1%80%EF%BC%8C%E5%AF%B9%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E9%83%BD%E6%9C%89%E6%95%88"><span class="nav-number">3.7.</span> <span class="nav-text">操作全局，对所有数据都有效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E7%9A%845%E7%A7%8D%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">redis的5种基本数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.2.</span> <span class="nav-text">redis使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-number">4.3.</span> <span class="nav-text">持久化方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RDB%E5%BF%AB%E7%85%A7"><span class="nav-number">4.3.1.</span> <span class="nav-text">RDB快照</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">4.3.2.</span> <span class="nav-text">AOF持久化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6%EF%BC%88%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">淘汰机制（内存回收策略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF"><span class="nav-number">4.5.</span> <span class="nav-text">缓存雪崩、穿透、击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">4.5.1.</span> <span class="nav-text">缓存雪崩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-number">4.5.2.</span> <span class="nav-text">缓存击穿</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">4.6.</span> <span class="nav-text">缓存穿透</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key%E7%9A%84%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5"><span class="nav-number">5.</span> <span class="nav-text">Key的过期策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%BF%AB"><span class="nav-number">6.</span> <span class="nav-text">redis为什么这么快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">redis的主从复制原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E6%93%8D%E4%BD%9C%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8Credis%E7%9A%84%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">写操作下数据库和redis的先后顺序问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%80%9F%E9%89%B4"><span class="nav-number">9.</span> <span class="nav-text">借鉴</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
