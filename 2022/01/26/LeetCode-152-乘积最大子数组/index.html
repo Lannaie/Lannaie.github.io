@@ -254,17 +254,12 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-product-subarray/">https://leetcode-cn.com/problems/maximum-product-subarray/</a></p>
 <span id="more"></span>
-
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>题目本身实现动态规划是大致思路，主要看怎么实现 O(n) 时间复杂度的动态规划。</p>
 <h3 id="嵌套循环"><a href="#嵌套循环" class="headerlink" title="嵌套循环"></a>嵌套循环</h3><p>以每个元素为连续子数组的第一个元素，遍历相乘取最大值。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( nums.length == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> maxpro = nums[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> curpro = nums[i];</span><br><span class="line">            maxpro = Math.max(maxpro, curpro);</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; nums.length; ++j )</span><br><span class="line">            &#123;</span><br><span class="line">                curpro *= nums[j];</span><br><span class="line">                maxpro = Math.max(maxpro, curpro);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxpro;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="一次循环"><a href="#一次循环" class="headerlink" title="一次循环"></a>一次循环</h3><p>相乘的连续子数组与一般的连续子数组的区别在于：一般连续子数组取的每个小部分都是最大值；但是相乘的连续子数组可能小部分是最小值，也可能是最大值。所以我们需要同时获取以当前元素为连续子数组的最后一个元素的最大积和最小积。</p>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( nums.length == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span> curmax = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> curmin = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> maxpro = curmax;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> tmpmax = curmax, tmpmin = curmin;</span><br><span class="line">            curmax = Math.max(Math.max(nums[i], tmpmax * nums[i]), tmpmin * nums[i]);</span><br><span class="line">            curmin = Math.min(Math.min(nums[i], tmpmax * nums[i]), tmpmin * nums[i]);</span><br><span class="line">            maxpro = Math.max(maxpro, curmax);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxpro;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -374,7 +369,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -387,7 +382,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

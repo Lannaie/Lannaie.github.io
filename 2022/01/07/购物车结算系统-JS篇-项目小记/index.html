@@ -262,7 +262,6 @@
 <li><strong>document.getElementsByClassName()：返回对拥有指定 class 的对象集合。</strong></li>
 </ol>
 <span id="more"></span>
-
 <h3 id="value"><a href="#value" class="headerlink" title="value"></a>value</h3><p>设置或返回密码域的默认值。</p>
 <p>用法如：<code>document.getElementById(&quot;username&quot;).value</code>，返回结果为<strong>字符串</strong>。</p>
 <h3 id="location-href"><a href="#location-href" class="headerlink" title="location.href"></a>location.href</h3><blockquote>
@@ -276,12 +275,9 @@
 <li>window.location.protocol 返回使用的 web 协议（http: 或 https:）</li>
 <li>window.location.assign 加载新文档</li>
 </ul>
-<p>本项目将它与 &lt;form&gt; 表单的 <code>onsubmit</code> 方法连用，用于判断密码是否正确，如果正确跳转到指定的链接。</p>
+<p>本项目将它与 \<form\> 表单的 <code>onsubmit</code> 方法连用，用于判断密码是否正确，如果正确跳转到指定的链接。</p>
 <p>如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">checkPassword</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(<span class="string">&quot;username&quot;</span>).value == <span class="string">&quot;&quot;</span>)</span><br><span class="line">      &#123;</span><br><span class="line">          alert(<span class="string">&quot;用户名为空。&quot;</span>)</span><br><span class="line">      &#125;<span class="keyword">else</span> </span><br><span class="line">&#123;</span><br><span class="line">	location.href=<span class="string">&#x27;basic_info.jsp&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="alert"><a href="#alert" class="headerlink" title="alert"></a>alert</h3><blockquote>
 <p>借鉴：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_popup.asp">https://www.w3school.com.cn/js/js_popup.asp</a></p>
 </blockquote>
@@ -292,14 +288,10 @@
 <p>确认框。如果用户单击“确定”，该框返回 true。如果用户单击“取消”，该框返回 false。</p>
 <p>如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> r = confirm(<span class="string">&quot;请按按钮&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (r == <span class="literal">true</span>) &#123;</span><br><span class="line">    x = <span class="string">&quot;您按了确认！&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    x = <span class="string">&quot;您按了取消！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>prompt(“sometext”,”defaultText”)</strong></p>
 <p>提示框。如果用户单击“确定”，该框返回输入值。如果用户单击“取消”，该框返回 NULL。</p>
 <p>如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = prompt(<span class="string">&quot;请输入您的姓名&quot;</span>, <span class="string">&quot;比尔盖茨&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (person != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML = <span class="string">&quot;你好 &quot;</span> + person + <span class="string">&quot;！今天过的怎么样？&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="for，if"><a href="#for，if" class="headerlink" title="for，if"></a>for，if</h3><p>和 java 一样。</p>
 <p>不同的是，0 和 1 可以作为 false 和 true 使用。</p>
 
@@ -411,7 +403,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -424,7 +416,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

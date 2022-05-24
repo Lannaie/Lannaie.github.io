@@ -249,9 +249,6 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>4G内存，40亿整数，全排序该怎么做</p>
 <span id="more"></span>
-
-
-
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="知识点-bitMap"><a href="#知识点-bitMap" class="headerlink" title="知识点 - bitMap"></a>知识点 - bitMap</h3><p>​        bitMap，即位图，使用每个bit来表示某种状态。适用于处理海量的整型数据，本质上是哈希表的一种应用体现。</p>
 <p>​        首先不考虑具体的实现问题，仅从理论上看：</p>
 <ol>
@@ -266,7 +263,6 @@
 <li>最后是确定元素的位置，可以使用 <code>index</code> 和 <code>position</code> 来实现，首先取元素对应的索引：<code>ind = value / 8</code> ；接着取元素在该索引下标对应的实际位置：<code>pos = value % 8</code> 。</li>
 </ol>
 <h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BitMap</span> </span>&#123;    </span><br><span class="line">    <span class="comment">//数据    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] bits;     </span><br><span class="line">    <span class="comment">//最大值    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> max_value;    </span><br><span class="line">    <span class="comment">//容量    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity;     </span><br><span class="line">    <span class="comment">/**     </span></span><br><span class="line"><span class="comment">    * 初始化     </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> capacity     </span></span><br><span class="line"><span class="comment">    */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BitMap</span><span class="params">(<span class="keyword">int</span> max_value)</span></span>&#123;        </span><br><span class="line">        <span class="keyword">this</span>.max_value = max_value;        </span><br><span class="line">        <span class="comment">//1bit存储8个数据，存储最大值为 max_value 的数组需要 max_value/8+1 个 byte，除以8就是右移3位</span></span><br><span class="line">        <span class="keyword">this</span>.capacity = (max_value &gt;&gt; <span class="number">3</span>) + <span class="number">1</span>;        </span><br><span class="line">        bits = <span class="keyword">new</span> <span class="keyword">byte</span>[capacity];    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 添加元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;    </span><br><span class="line">        <span class="comment">//数据保存在整个数组的哪个下标中    </span></span><br><span class="line">        <span class="keyword">int</span> index = num / <span class="number">8</span>;    </span><br><span class="line">        <span class="comment">//数据在这个下标元素的哪个位置    </span></span><br><span class="line">        <span class="keyword">int</span> position = num % <span class="number">8</span>;     </span><br><span class="line">        bits[index] |= (<span class="number">1</span>&lt;&lt;num);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断数字是否存在</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(num &gt; max_value)&#123;    </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//数据保存在整个数组的哪个下标中  </span></span><br><span class="line">        <span class="keyword">int</span> index = num / <span class="number">8</span>;  </span><br><span class="line">        <span class="comment">//数据在这个下标元素的哪个位置  </span></span><br><span class="line">        <span class="keyword">int</span> position = num % <span class="number">8</span>;  </span><br><span class="line">        <span class="keyword">return</span> (bits[index] &amp; (<span class="number">1</span>&lt;&lt;num));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -299,7 +295,10 @@
     <a href="/2022/04/08/Resource-punkt-not-found/" rel="prev" title="Resource punkt not found.">
       <i class="fa fa-chevron-left"></i> Resource punkt not found.
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/24/spring%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/" rel="next" title="spring框架学习">
+      spring框架学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -374,7 +373,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -387,7 +386,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

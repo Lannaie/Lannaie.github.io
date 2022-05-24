@@ -195,6 +195,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/15/Java%E4%B8%8EMySQL%E8%AF%BB%E5%8F%96%E5%92%8C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bonnie">
+      <meta itemprop="description" content="每天都要做个人啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="往南">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/15/Java%E4%B8%8EMySQL%E8%AF%BB%E5%8F%96%E5%92%8C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">Java与MySQL读取和获取图片</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-15 19:50:10" itemprop="dateCreated datePublished" datetime="2022-01-15T19:50:10+08:00">2022-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-28 00:04:46" itemprop="dateModified" datetime="2022-01-28T00:04:46+08:00">2022-01-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">项目小记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="数据库的代码"><a href="#数据库的代码" class="headerlink" title="数据库的代码"></a>数据库的代码</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/15/Java%E4%B8%8EMySQL%E8%AF%BB%E5%8F%96%E5%92%8C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/14/com-mysql-jdbc-MysqlDataTruncation-Data-truncation-Data-too-long-for-column-picture-at-row-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -457,7 +538,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-26 00:55:21" itemprop="dateModified" datetime="2022-04-26T00:55:21+08:00">2022-04-26</time>
+                <time title="修改时间：2022-05-03 01:01:03" itemprop="dateModified" datetime="2022-05-03T01:01:03+08:00">2022-05-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -645,19 +726,13 @@
       
           <h3 id="JDBC连接数据库"><a href="#JDBC连接数据库" class="headerlink" title="JDBC连接数据库"></a>JDBC连接数据库</h3><p>参考以下代码实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String driver = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>;</span><br><span class="line">String url = <span class="string">&quot;jdbc:mysql://192.168.186.100:3306/goods_settlement&quot;</span>;</span><br><span class="line">String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">String password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line">Class.forName(driver);</span><br><span class="line">System.out.println(<span class="string">&quot;连接数据库 -----------------&quot;</span>);</span><br><span class="line">Connection conn = DriverManager.getConnection(url, username, password);</span><br><span class="line"><span class="keyword">return</span> conn;</span><br></pre></td></tr></table></figure>
-
 <p>需要导入 <code>mysql-connector-java-xxx.jar</code> 包，我从 <code>pom.xml</code> 导入：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="Java执行SQL语句"><a href="#Java执行SQL语句" class="headerlink" title="Java执行SQL语句"></a>Java执行SQL语句</h3><h4 id="有三种接口"><a href="#有三种接口" class="headerlink" title="有三种接口"></a>有三种接口</h4><p>Statement、PreparedStatement、CallableStatement 。常见的是前两种，下面说明前两种。</p>
 <p>其中Statement适用于普通不带参的语句，如</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Statement s = conn.createStatement();</span><br><span class="line">String sql = <span class="string">&quot;select * from User where username = &quot;</span>abc<span class="string">&quot;&quot;</span>;</span><br><span class="line">s.executeQuery(sql);</span><br></pre></td></tr></table></figure>
-
 <p>而PreparedStatement支持可变参数的语句，如  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String sql = <span class="string">&quot;select * from User where username = ?&quot;</span>;</span><br><span class="line">PreparedStatement ps = conn.preparedStatement(sql);</span><br><span class="line">ps.setString(<span class="number">1</span>, <span class="string">&quot;abc&quot;</span>);</span><br><span class="line">ps.executeQuery();</span><br></pre></td></tr></table></figure>
-
 <p><strong>SQL的执行需要编译和解析</strong></p>
 <p><strong>Statement每次的执行都需要编译SQL</strong></p>
 <p><strong>PreparedStatement会预编译，会被缓冲，在缓存区中可以发现预编译的命令，虽然会被再次解析，但不会被再次编译，能够有效提高系统性能</strong></p>
@@ -934,87 +1009,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/06/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-CSS%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bonnie">
-      <meta itemprop="description" content="每天都要做个人啊">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往南">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/06/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-CSS%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" class="post-title-link" itemprop="url">购物车结算系统-CSS篇-项目小记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-06 23:48:36" itemprop="dateCreated datePublished" datetime="2022-01-06T23:48:36+08:00">2022-01-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-07 23:45:24" itemprop="dateModified" datetime="2022-01-07T23:45:24+08:00">2022-01-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">项目小记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>常用的选择器如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/06/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97%E7%B3%BB%E7%BB%9F-CSS%E7%AF%87-%E9%A1%B9%E7%9B%AE%E5%B0%8F%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1086,7 +1080,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1099,7 +1093,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

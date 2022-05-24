@@ -248,15 +248,13 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water/">https://leetcode-cn.com/problems/container-with-most-water/</a></p>
 <span id="more"></span>
-
-
-
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>双指针是立刻能想到的方向，只是可能无法运用。</p>
-<p>可以这样思考：最终需要的结果 <code>容纳最多的水</code> 的计算公式是：<br>$$<br>容纳的水量 &#x3D; min(height[left], height[right]) * (right - left)<br>$$<br>即容纳的水量是由两个端点中的较小值和两个端点的距离决定的，所以要么扩大扩大两个端点的距离，要么增大较小值。</p>
+<p>可以这样思考：最终需要的结果 <code>容纳最多的水</code> 的计算公式是：</p>
+<script type="math/tex; mode=display">
+容纳的水量 = min(height[left], height[right]) * (right - left)</script><p>即容纳的水量是由两个端点中的较小值和两个端点的距离决定的，所以要么扩大扩大两个端点的距离，要么增大较小值。</p>
 <p>这里可以使用 <code>left = 0, right = height.length - 1</code> 两个指针来指定初始的两个端点，因为在距离稳定减少的情况下，如果我们移动数字较大的那个指针，那么前者「两个指针指向的数字中较小值」不会增加，后者「指针之间的距离」会减小，那么这个乘积会减小。因此，我们移动数字较大的那个指针是不合理的。因此，我们移动 数字较小的那个指针。</p>
 <p>具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = height.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> maxwater = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>( left &lt; right )</span><br><span class="line">        &#123;</span><br><span class="line">            maxwater = Math.max(Math.min(height[left], height[right]) * (right - left), maxwater);</span><br><span class="line">            <span class="keyword">if</span>( height[left] &lt; height[right] )</span><br><span class="line">            &#123;</span><br><span class="line">                ++left;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                --right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxwater;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -366,7 +364,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -379,7 +377,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
